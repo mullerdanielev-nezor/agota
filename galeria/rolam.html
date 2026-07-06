@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rólam variációk – Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--ink:#1C1A1E;--plum:#33202A;--mokka:#8A6F63;--rosegold:#C9A08A;--puder:#F0D3D0;--ho:#FBF6F4;--cream:#F3E9E6}
+  body{font-family:'Nunito Sans',sans-serif;background:#EAE0DC;color:var(--ink);padding:3.5rem 1.5rem 5rem}
+  .page-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+  .kicker{font-size:.7rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem}
+  .page-head h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem)}
+  .page-head p{margin:1rem auto 0;color:var(--mokka);font-weight:300;max-width:560px;line-height:1.7}
+  .back{display:inline-block;margin-bottom:2.5rem;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--plum);text-decoration:none;border-bottom:1px solid rgba(51,32,42,.3);padding-bottom:2px}
+  .stack{max-width:1080px;margin:0 auto;display:grid;gap:2.5rem}
+  .demo{border-radius:3px;overflow:hidden;box-shadow:0 14px 44px rgba(28,26,30,.10);background:#fff}
+  .demo-label{padding:1rem 1.6rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mokka);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+  .demo-label b{color:var(--ink);font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;letter-spacing:.01em;text-transform:none}
+  /* kép placeholder */
+  .ph{position:relative;background:linear-gradient(155deg,var(--puder),var(--rosegold) 52%,var(--plum));overflow:hidden}
+  .ph::after{content:'FOTÓ HELYE';position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);font-size:.55rem;font-weight:700;letter-spacing:.22em;color:rgba(255,255,255,.7)}
+  .mono{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;background:rgba(251,246,244,.16);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;color:#fff;font-size:2.4rem;backdrop-filter:blur(2px)}
+  .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--rosegold)}
+  h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+  h2 em{font-style:italic;color:var(--rosegold)}
+  .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;color:var(--plum)}
+  .lead{font-weight:300;line-height:1.85;color:var(--mokka)}
+
+  /* A1 split */
+  .a1{display:grid;grid-template-columns:0.85fr 1fr}
+  .a1 .ph{min-height:420px;border-radius:0}
+  .a1 .txt{padding:3rem 3.2rem;display:flex;flex-direction:column;justify-content:center}
+  .a1 h2{font-size:2.3rem;margin-bottom:1.2rem}
+  .a1 .lead{font-size:.96rem;margin-bottom:1.6rem;max-width:420px}
+  .a1 .row{display:flex;gap:2.4rem;margin-top:.4rem;border-top:1px solid rgba(51,32,42,.12);padding-top:1.4rem}
+  .a1 .row b{font-family:'Fraunces',serif;font-weight:400;font-size:1.7rem;color:var(--plum);display:block;line-height:1}
+  .a1 .row span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
+
+  /* A2 sötét idézet */
+  .a2{background:radial-gradient(120% 100% at 50% 0,#45303a,var(--plum) 55%,var(--ink));color:var(--ho);text-align:center;padding:3.6rem 2rem 3.2rem}
+  .a2 .mono{position:static;transform:none;margin:0 auto 1.6rem;background:rgba(201,160,138,.18)}
+  .a2 h2{font-size:clamp(1.6rem,3.2vw,2.5rem);max-width:760px;margin:0 auto 1.6rem;color:var(--ho)}
+  .a2 h2 em{color:var(--puder)}
+  .a2 .name{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rosegold)}
+  .a2 .role{font-size:.72rem;color:rgba(251,246,244,.5);margin-top:.4rem}
+
+  /* A3 háttér + kártya */
+  .a3{position:relative;min-height:440px;display:flex;align-items:center}
+  .a3 .ph{position:absolute;inset:0}
+  .a3 .ph::after{bottom:1rem}
+  .a3 .card{position:relative;z-index:2;margin-left:8%;max-width:420px;background:rgba(251,246,244,.94);backdrop-filter:blur(4px);padding:2.6rem;box-shadow:0 20px 60px rgba(28,26,30,.25)}
+  .a3 h2{font-size:2rem;margin-bottom:1rem}
+  .a3 .lead{font-size:.92rem;margin-bottom:1.4rem}
+
+  /* A4 kétoszlopos + lista */
+  .a4{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .a4 .l{padding:3rem 3.2rem;background:var(--cream)}
+  .a4 h2{font-size:2.1rem;margin-bottom:1.2rem}
+  .a4 .lead{font-size:.94rem}
+  .a4 .r{padding:3rem 3.2rem;background:#fff}
+  .a4 .r h3{font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--plum);font-size:1.2rem;margin-bottom:1.2rem}
+  .a4 ul{list-style:none;display:grid;gap:1rem}
+  .a4 li{display:flex;gap:.9rem;font-size:.9rem;color:var(--mokka);line-height:1.5}
+  .a4 li::before{content:'✦';color:var(--rosegold);flex-shrink:0}
+
+  /* A5 editorial évszám */
+  .a5{position:relative;padding:3.2rem 3.2rem;display:grid;grid-template-columns:0.7fr 1fr;gap:2.6rem;align-items:center;overflow:hidden}
+  .a5 .big{position:absolute;top:-2rem;right:1rem;font-family:'Fraunces',serif;font-weight:300;font-size:12rem;color:rgba(201,160,138,.12);line-height:1;pointer-events:none}
+  .a5 .ph{min-height:360px;border-radius:180px 180px 4px 4px}
+  .a5 .txt{position:relative;z-index:2}
+  .a5 h2{font-size:2.1rem;margin-bottom:1rem}
+  .a5 .lead{font-size:.94rem;margin-bottom:1.6rem}
+  .a5 .tl{display:grid;gap:.8rem;border-left:1px solid rgba(201,160,138,.4);padding-left:1.2rem}
+  .a5 .tl div{position:relative}
+  .a5 .tl div::before{content:'';position:absolute;left:-1.55rem;top:.35rem;width:7px;height:7px;border-radius:50%;background:var(--rosegold)}
+  .a5 .tl b{font-family:'Fraunces',serif;color:var(--plum);font-weight:500;margin-right:.5rem}
+  .a5 .tl span{font-size:.85rem;color:var(--mokka)}
+
+  @media(max-width:820px){
+    .a1,.a4,.a5{grid-template-columns:1fr}
+    .a1 .ph,.a5 .ph{min-height:280px}
+    .a3 .card{margin:0 5%;max-width:none}
+    .a5 .big{font-size:7rem}
+  }
+</style>
+</head>
+<body>
+  <div style="max-width:1080px;margin:0 auto"><a class="back" href="index.html">← Vissza a galériához</a></div>
+  <header class="page-head">
+    <div class="kicker">05 · Rólam</div>
+    <h1>Öt bemutatkozás</h1>
+    <p>A „Rólam" szekció öt hangulatban — a klasszikus portré-splittől a nagy idézetig és az editorial idővonalig. A képhelyek készen állnak a saját fotóidra.</p>
+  </header>
+
+  <div class="stack">
+
+    <!-- A1 -->
+    <div class="demo">
+      <div class="demo-label"><b>1 — Portré + szöveg</b><span>klasszikus split</span></div>
+      <div class="a1">
+        <div class="ph"><div class="mono">Á</div></div>
+        <div class="txt">
+          <div class="eyebrow">Rólam</div>
+          <h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2>
+          <p class="lead">Több mint egy évtizede foglalkozom kozmetikával Nyíregyházán. Hiszek abban, hogy minden bőr más — ezért nálam nincs sablon, csak rád szabott, türelmes odafigyelés.</p>
+          <div class="sign">Ágota</div>
+          <div class="row"><div><b>12+</b><span>év</span></div><div><b>850+</b><span>vendég</span></div><div><b>100%</b><span>rád szabva</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div class="demo">
+      <div class="demo-label"><b>2 — Nagy idézet</b><span>sötét · érzelmes</span></div>
+      <div class="a2">
+        <div class="mono">Á</div>
+        <h2>„A szépség számomra <em>nem luxus</em>, hanem az önmagunkra fordított figyelem legőszintébb formája."</h2>
+        <div class="name">Ágota</div>
+        <div class="role">alapító · vezető kozmetikus</div>
+      </div>
+    </div>
+
+    <!-- A3 -->
+    <div class="demo">
+      <div class="demo-label"><b>3 — Háttérkép + lebegő kártya</b><span>immerzív</span></div>
+      <div class="a3">
+        <div class="ph"></div>
+        <div class="card">
+          <div class="eyebrow">Rólam</div>
+          <h2>Egy hely, ahol<br><em>megállhat az idő</em></h2>
+          <p class="lead">A stúdióm nem csak egy kezelőszoba — egy nyugodt sziget a mindennapokban. Ide azért térnek vissza a vendégeim, mert érzik, hogy törődöm velük.</p>
+          <div class="sign">Ágota</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A4 -->
+    <div class="demo">
+      <div class="demo-label"><b>4 — Bemutatkozás + értékek</b><span>kétoszlopos</span></div>
+      <div class="a4">
+        <div class="l">
+          <div class="eyebrow">Rólam</div>
+          <h2>Szakértelem,<br><em>emberi közelség</em></h2>
+          <p class="lead">Folyamatosan képzem magam, hogy a legújabb technológiákat és hatóanyagokat hozhassam el neked — de számomra a bizalom és a nyugalom mindennél fontosabb.</p>
+        </div>
+        <div class="r">
+          <h3>Amiben hiszek</h3>
+          <ul>
+            <li>Személyre szabott kezelési terv, sosem sablon</li>
+            <li>Csak prémium, bizonyítottan hatékony hatóanyagok</li>
+            <li>Őszinte tanácsadás, felesleges kezelések nélkül</li>
+            <li>Nyugodt, meghitt légkör minden alkalommal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- A5 -->
+    <div class="demo">
+      <div class="demo-label"><b>5 — Editorial + idővonal</b><span>történet-alapú</span></div>
+      <div class="a5">
+        <div class="big">2012</div>
+        <div class="ph"><div class="mono">Á</div></div>
+        <div class="txt">
+          <div class="eyebrow">A történetem</div>
+          <h2>Egy álomtól<br><em>a te bőrödig</em></h2>
+          <p class="lead">Minden egy kis stúdióval és egy nagy elhatározással kezdődött. Azóta több százan bíztak rám — és ez a legnagyobb elismerés.</p>
+          <div class="tl">
+            <div><b>2012</b><span>Megnyílik az első kis stúdió Nyíregyházán</span></div>
+            <div><b>2018</b><span>Bővülő szolgáltatások, prémium márkák</span></div>
+            <div><b>2024</b><span>850+ elégedett vendég, 4,9★ értékelés</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

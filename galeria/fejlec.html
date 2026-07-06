@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fejléc variációk – Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--cream:#F7F4EF;--rose:#C4998A;--deep:#6B3D3D;--charcoal:#2A1F1F;--gold:#B8956A;--gold-l:#D4B896;--white:#FEFCFA}
+  body{font-family:'Jost',sans-serif;background:#EFEBE5;color:#2A1F1F;padding:3.5rem 1.5rem 5rem}
+  .page-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+  .kicker{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+  .page-head h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem)}
+  .page-head p{margin:1rem auto 0;color:#6B5D5D;font-weight:300;max-width:560px;line-height:1.7}
+  .back{display:inline-block;margin-bottom:2.5rem;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--deep);text-decoration:none;border-bottom:1px solid rgba(107,61,61,.3);padding-bottom:2px}
+  .stack{max-width:1080px;margin:0 auto;display:grid;gap:2.5rem}
+  .demo{border-radius:2px;overflow:hidden;box-shadow:0 12px 40px rgba(42,31,31,.08)}
+  .demo-label{background:#fff;padding:1rem 1.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#8a7c72;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+  .demo-label b{color:#2A1F1F;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;letter-spacing:.02em;text-transform:none}
+  .stage{min-height:150px;display:flex;flex-direction:column}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:.14em;text-decoration:none}
+  .logo span{color:var(--gold)}
+  ul.links{list-style:none;display:flex;gap:2.2rem}
+  ul.links a{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:.3s}
+  .cta{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.55rem 1.4rem;text-decoration:none;transition:.3s;display:inline-block}
+
+  /* A – klasszikus, sötét, split */
+  .hdrA{background:var(--charcoal);padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center}
+  .hdrA .logo{color:var(--white);font-size:1.3rem}
+  .hdrA ul.links a{color:rgba(254,252,250,.55)}
+  .hdrA ul.links a:hover{color:var(--gold-l)}
+  .hdrA .cta{color:var(--gold);border:1px solid rgba(184,149,106,.4)}
+  .hdrA .cta:hover{background:var(--gold);color:var(--charcoal)}
+  .fillA{flex:1;background:var(--charcoal);opacity:.0}
+
+  /* B – középre igazított logó, szimmetrikus menü, világos */
+  .hdrB{background:var(--cream);padding:1.6rem 2.5rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;border-bottom:1px solid rgba(107,61,61,.1)}
+  .hdrB .left{display:flex;gap:2rem;justify-self:start}
+  .hdrB .right{justify-self:end}
+  .hdrB .logo{color:var(--charcoal);font-size:1.55rem;text-align:center;letter-spacing:.18em}
+  .hdrB ul.links a{color:var(--deep)}
+  .hdrB ul.links a:hover{color:var(--gold)}
+  .hdrB .cta{color:var(--white);background:var(--rose)}
+  .hdrB .cta:hover{background:var(--deep)}
+
+  /* C – felső infósor + fő fejléc */
+  .hdrC-top{background:var(--charcoal);color:rgba(254,252,250,.6);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.55rem 2.5rem;display:flex;justify-content:space-between}
+  .hdrC-top span{display:flex;gap:1.6rem}
+  .hdrC-top a{color:var(--gold-l);text-decoration:none}
+  .hdrC-main{background:var(--white);padding:1.4rem 2.5rem;display:flex;justify-content:space-between;align-items:center}
+  .hdrC-main .logo{color:var(--charcoal);font-size:1.35rem}
+  .hdrC-main ul.links a{color:var(--deep)}
+  .hdrC-main ul.links a:hover{color:var(--gold)}
+  .hdrC-main .cta{background:var(--charcoal);color:var(--gold-l)}
+  .hdrC-main .cta:hover{background:var(--deep);color:var(--white)}
+
+  /* D – minimál, logó + hamburger, keretezett */
+  .hdrD{background:var(--deep);padding:1.6rem;display:flex;justify-content:center}
+  .hdrD-inner{width:100%;border:1px solid rgba(212,184,150,.35);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+  .hdrD .logo{color:var(--white);font-size:1.3rem;letter-spacing:.22em}
+  .hdrD .right{display:flex;align-items:center;gap:1.8rem}
+  .hdrD .mini{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-l)}
+  .burger{display:flex;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:26px;height:1.5px;background:var(--gold-l);display:block}
+
+  @media(max-width:760px){ul.links{display:none}.hdrB{grid-template-columns:1fr auto}.hdrB .left{display:none}}
+</style>
+</head>
+<body>
+  <div style="max-width:1080px;margin:0 auto"><a class="back" href="index.html">← Vissza a galériához</a></div>
+  <header class="page-head">
+    <div class="kicker">03 · Fejléc</div>
+    <h1>Négy fejléc karakter</h1>
+    <p>Ugyanaz a logó és menüpontok, négy különböző hangulatban — a sötét-elegánstól a keretezett minimálig.</p>
+  </header>
+
+  <div class="stack">
+
+    <div class="demo">
+      <div class="demo-label"><b>A — Sötét & elegáns (split)</b><span>klasszikus prémium</span></div>
+      <div class="stage" style="background:var(--charcoal)">
+        <nav class="hdrA">
+          <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+          <ul class="links"><li><a href="#">Kezelések</a></li><li><a href="#">Rólunk</a></li><li><a href="#">Galéria</a></li><li><a href="#">Kapcsolat</a></li></ul>
+          <a href="#" class="cta">Időpontfoglalás</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label"><b>B — Középre igazított logó</b><span>szimmetrikus · világos</span></div>
+      <div class="stage">
+        <nav class="hdrB">
+          <ul class="links left"><li><a href="#">Kezelések</a></li><li><a href="#">Rólunk</a></li></ul>
+          <a href="#" class="logo">ÁGOTA</a>
+          <div class="right"><a href="#" class="cta">Időpontfoglalás</a></div>
+        </nav>
+        <div style="background:var(--cream);height:80px"></div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label"><b>C — Felső infósor + fejléc</b><span>elérhetőség kiemelve</span></div>
+      <div class="stage">
+        <div class="hdrC-top"><span><a href="#">✆ +36 30 123 4567</a><a href="#">Nyíregyháza, Kossuth tér 4.</a></span><span><a href="#">H–P 9–18</a></span></div>
+        <nav class="hdrC-main">
+          <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+          <ul class="links"><li><a href="#">Kezelések</a></li><li><a href="#">Árak</a></li><li><a href="#">Galéria</a></li><li><a href="#">Kapcsolat</a></li></ul>
+          <a href="#" class="cta">Foglalás</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label"><b>D — Keretezett minimál</b><span>logó + diszkrét menü</span></div>
+      <div class="stage">
+        <nav class="hdrD">
+          <div class="hdrD-inner">
+            <a href="#" class="logo">Á G O T A</a>
+            <div class="right"><span class="mini">Kozmetikai Stúdió</span>
+              <div class="burger"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </nav>
+        <div style="background:var(--deep);height:50px"></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

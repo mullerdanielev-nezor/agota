@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero 1 – Split · Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--cream:#F7F4EF;--blush:#E8D5C8;--rose:#C4998A;--deep:#6B3D3D;--charcoal:#2A1F1F;--gold:#B8956A;--gold-l:#D4B896;--white:#FEFCFA}
+  body{font-family:'Jost',sans-serif;background:var(--cream);overflow-x:hidden}
+  .tag{position:fixed;top:0;left:0;z-index:50;background:var(--gold);color:var(--charcoal);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .8rem;text-decoration:none}
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;position:relative;overflow:hidden}
+  .left{background:var(--charcoal);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5.5rem;position:relative;overflow:hidden}
+  .left::before{content:'';position:absolute;top:-20%;left:-15%;width:60%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(196,153,138,.16),transparent 70%)}
+  .eyebrow{font-size:.7rem;font-weight:500;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:2.4rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up .8s ease .3s forwards}
+  .eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:1.08;color:var(--white);margin-bottom:1.8rem;opacity:0;animation:up .9s ease .5s forwards}
+  h1 em{font-style:italic;color:var(--gold-l)}
+  .sub{font-size:.95rem;font-weight:300;line-height:1.9;color:rgba(254,252,250,.6);max-width:360px;margin-bottom:3rem;opacity:0;animation:up .9s ease .7s forwards}
+  .ctas{display:flex;align-items:center;gap:2rem;opacity:0;animation:up .9s ease .9s forwards}
+  .btn{background:var(--rose);color:var(--white);font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:1rem 2.5rem;text-decoration:none;position:relative;overflow:hidden}
+  .btn::after{content:'';position:absolute;inset:0;background:var(--deep);transform:translateX(-101%);transition:transform .4s ease}
+  .btn:hover::after{transform:translateX(0)}
+  .btn span{position:relative;z-index:1}
+  .link{font-size:.8rem;letter-spacing:.1em;color:rgba(254,252,250,.5);text-decoration:none;display:flex;align-items:center;gap:.6rem;transition:color .3s}
+  .link:hover{color:var(--gold-l)}
+  .link svg{width:14px;transition:transform .3s}.link:hover svg{transform:translateX(4px)}
+  .stats{margin-top:3.5rem;display:flex;gap:2.5rem;border-top:1px solid rgba(254,252,250,.08);padding-top:2.2rem;opacity:0;animation:up .9s ease 1.1s forwards}
+  .stat b{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-l);display:block;line-height:1}
+  .stat span{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(254,252,250,.35)}
+  .right{position:relative;overflow:hidden;background:var(--blush)}
+  .right .bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,213,200,.85),rgba(196,153,138,.45) 60%,rgba(107,61,61,.25))}
+  .ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(107,61,61,.2)}
+  .r1{width:440px;height:440px;animation:spin 24s linear infinite}
+  .r2{width:310px;height:310px;border-color:rgba(107,61,61,.12)}
+  .r3{width:190px;height:190px;border-color:rgba(107,61,61,.08)}
+  .mono{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:0;animation:fade 1.2s ease 1s forwards}
+  .mono .disc{width:92px;height:92px;border-radius:50%;background:var(--deep);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-l);font-size:2.2rem}
+  .mono .cap{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--deep);font-size:1.1rem}
+  .badge{position:absolute;background:var(--white);padding:1rem 1.4rem;box-shadow:0 8px 32px rgba(42,31,31,.12);opacity:0}
+  .b1{top:16%;right:8%;animation:fl .8s ease 1.3s forwards}
+  .b2{bottom:18%;left:8%;animation:fl .8s ease 1.5s forwards}
+  .badge b{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--deep);font-size:1.1rem;display:block;line-height:1;margin-bottom:.3rem}
+  .badge span{font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose)}
+  nav{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2rem 3rem;z-index:10;opacity:0;animation:fade .6s ease .1s forwards}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;letter-spacing:.15em;color:var(--white);text-decoration:none}.logo span{color:var(--gold)}
+  nav ul{list-style:none;display:flex;gap:2.5rem}
+  nav a.nl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(254,252,250,.5);text-decoration:none;transition:.3s}nav a.nl:hover{color:var(--gold-l)}
+  .book{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,149,106,.3);padding:.55rem 1.4rem;text-decoration:none;transition:.3s}.book:hover{background:var(--gold);color:var(--charcoal)}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fade{to{opacity:1}}@keyframes fl{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;grid-template-rows:auto 340px}.left{padding:7rem 2rem 3rem}nav ul{display:none}.right{min-height:340px}.r1{width:260px;height:260px}.r2{width:180px;height:180px}.r3{width:100px;height:100px}}
+</style>
+</head>
+<body>
+<a class="tag" href="../index.html">← Galéria</a>
+<section class="hero">
+  <nav>
+    <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+    <ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólunk</a></li><li><a class="nl" href="#">Galéria</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul>
+    <a href="#" class="book">Időpontfoglalás</a>
+  </nav>
+  <div class="left">
+    <div class="eyebrow">Nyíregyháza prémium kozmetikája</div>
+    <h1>A bőrápolás<br><em>egy nemes</em><br>rituálé</h1>
+    <p class="sub">Személyre szabott kezelések, prémium hatóanyagok és évtizedes szakértelem — mert a bőröd megérdemli a legjobbat.</p>
+    <div class="ctas"><a href="#" class="btn"><span>Kezelések megtekintése</span></a><a href="#" class="link">Bemutatkozás <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
+    <div class="stats"><div class="stat"><b>12+</b><span>év tapasztalat</span></div><div class="stat"><b>850+</b><span>elégedett vendég</span></div><div class="stat"><b>4,9★</b><span>Google értékelés</span></div></div>
+  </div>
+  <div class="right">
+    <div class="bg"></div>
+    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+    <div class="mono"><div class="disc">Á</div><div class="cap">Ahol a szépség otthon van</div></div>
+    <div class="badge b1"><b>Arckezelés</b><span>prémium hatóanyagok</span></div>
+    <div class="badge b2"><b>Szempilla lifting</b><span>tartós ragyogás</span></div>
+  </div>
+</section>
+</body>
+</html>

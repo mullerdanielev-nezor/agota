@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Háttér &amp; CTA ötletek – Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--ink:#1C1A1E;--plum:#33202A;--mokka:#8A6F63;--rosegold:#C9A08A;--puder:#F0D3D0;--ho:#FBF6F4;--cream:#F3E9E6}
+  body{font-family:'Nunito Sans',sans-serif;background:#EAE0DC;color:var(--ink);padding:3.5rem 1.5rem 5rem}
+  .page-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+  .kicker{font-size:.7rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem}
+  .page-head h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem)}
+  .page-head p{margin:1rem auto 0;color:var(--mokka);font-weight:300;max-width:580px;line-height:1.7}
+  .back{display:inline-block;margin-bottom:2.5rem;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--plum);text-decoration:none;border-bottom:1px solid rgba(51,32,42,.3);padding-bottom:2px}
+  .group-title{max-width:1080px;margin:3.5rem auto 1.4rem;font-family:'Fraunces',serif;font-weight:300;font-size:1.7rem;display:flex;align-items:center;gap:1rem}
+  .group-title span{font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rosegold);font-family:'Nunito Sans'}
+  .group-title::after{content:'';flex:1;height:1px;background:rgba(51,32,42,.15)}
+
+  /* háttér demók */
+  .bg-stack{max-width:1080px;margin:0 auto;display:grid;gap:1.6rem}
+  .bg-demo{border-radius:4px;overflow:hidden;box-shadow:0 12px 40px rgba(28,26,30,.10);position:relative}
+  .bg-canvas{position:relative;height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--ho);overflow:hidden;background:var(--plum)}
+  .bg-canvas .mini-e{position:relative;z-index:3;font-size:.6rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.7rem}
+  .bg-canvas .mini-t{position:relative;z-index:3;font-family:'Fraunces',serif;font-weight:300;font-size:2.1rem;line-height:1.1}
+  .bg-canvas .mini-t em{font-style:italic;color:var(--puder)}
+  .bg-tag{position:absolute;top:.8rem;left:.9rem;z-index:5;background:rgba(28,26,30,.5);backdrop-filter:blur(4px);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.35rem .7rem;border-radius:40px}
+  .bg-desc{background:#fff;padding:.9rem 1.3rem;font-size:.8rem;color:var(--mokka);line-height:1.5}
+  .bg-desc b{color:var(--ink);font-weight:700}
+
+  /* 1 – szemcse */
+  .b-grain{background:radial-gradient(125% 95% at 50% -5%,#45303a,var(--plum) 45%,var(--ink))}
+  .b-grain::after{content:'';position:absolute;inset:0;z-index:2;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  /* 2 – aurora blobs */
+  .b-aurora{background:var(--ink)}
+  .b-aurora i{position:absolute;border-radius:50%;filter:blur(48px);opacity:.55;z-index:1}
+  .b-aurora i:nth-child(1){width:280px;height:280px;background:var(--rosegold);top:-60px;left:-40px;animation:drift 12s ease-in-out infinite}
+  .b-aurora i:nth-child(2){width:240px;height:240px;background:#7d4a55;bottom:-70px;right:-30px;animation:drift 15s ease-in-out infinite reverse}
+  .b-aurora i:nth-child(3){width:200px;height:200px;background:var(--puder);top:40%;left:55%;opacity:.3;animation:drift 18s ease-in-out infinite}
+  /* 3 – körök */
+  .b-rings{background:radial-gradient(125% 95% at 50% -5%,#45303a,var(--plum) 45%,var(--ink))}
+  .b-rings i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px solid rgba(201,160,138,.16);border-radius:50%;z-index:1}
+  .b-rings i:nth-child(1){width:280px;height:280px;animation:spin 26s linear infinite}
+  .b-rings i:nth-child(2){width:440px;height:440px;border-color:rgba(201,160,138,.1)}
+  .b-rings i:nth-child(3){width:620px;height:620px;border-color:rgba(201,160,138,.06)}
+  /* 4 – vonalháló */
+  .b-lines{background:var(--plum)}
+  .b-lines::before{content:'';position:absolute;inset:0;z-index:1;opacity:.5;
+    background-image:linear-gradient(rgba(201,160,138,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(201,160,138,.09) 1px,transparent 1px);
+    background-size:38px 38px;mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 75%)}
+  /* 5 – reflektor */
+  .b-spot{background:var(--ink)}
+  .b-spot::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:520px;height:520px;border-radius:50%;z-index:1;
+    background:radial-gradient(circle,rgba(240,211,208,.28),rgba(201,160,138,.12) 40%,transparent 70%);animation:pulse 6s ease-in-out infinite}
+  /* 6 – vízjel monogram */
+  .b-mark{background:radial-gradient(120% 100% at 30% 0,#3d2831,var(--plum) 55%,var(--ink))}
+  .b-mark::before{content:'á';position:absolute;right:-2rem;bottom:-6rem;z-index:1;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:24rem;line-height:1;color:rgba(201,160,138,.09)}
+  /* 7 – csillám sweep */
+  .b-shimmer{background:linear-gradient(115deg,var(--ink),var(--plum) 50%,#4a2f39)}
+  .b-shimmer::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,transparent 30%,rgba(240,211,208,.18) 48%,transparent 60%);transform:translateX(-100%);animation:sweep 5s ease-in-out infinite}
+  /* 8 – lebegő pontok */
+  .b-dots i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--rosegold);opacity:.5;z-index:1;animation:float 7s ease-in-out infinite}
+  .b-dots i:nth-child(1){left:15%;top:30%}
+  .b-dots i:nth-child(2){left:80%;top:25%;width:4px;animation-delay:1s}
+  .b-dots i:nth-child(3){left:25%;top:70%;width:8px;background:var(--puder);animation-delay:2s}
+  .b-dots i:nth-child(4){left:65%;top:65%;animation-delay:.5s}
+  .b-dots i:nth-child(5){left:45%;top:20%;width:4px;background:var(--puder);animation-delay:1.5s}
+  .b-dots i:nth-child(6){left:88%;top:75%;width:5px;animation-delay:3s}
+
+  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+  @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,20px)}}
+  @keyframes pulse{0%,100%{opacity:.75;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.12)}}
+  @keyframes sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+  /* ===== CTA gombok ===== */
+  .cta-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem}
+  .cta-card{background:var(--plum);border-radius:4px;padding:2.4rem 1.6rem 1.4rem;text-align:center;box-shadow:0 12px 40px rgba(28,26,30,.12);display:flex;flex-direction:column;align-items:center;gap:1.4rem;min-height:190px;justify-content:center}
+  .cta-card.light{background:var(--ho)}
+  .cta-name{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold)}
+  .cta-card.light .cta-name{color:var(--mokka)}
+
+  .b{font-family:'Nunito Sans',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:1rem 2.4rem;cursor:pointer;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;position:relative;overflow:hidden}
+
+  /* 1 fill-up */
+  .c1{background:var(--rosegold);color:var(--ink)}
+  .c1::after{content:'';position:absolute;inset:0;background:var(--puder);transform:translateY(101%);transition:transform .4s ease}
+  .c1:hover::after{transform:translateY(0)}.c1 span{position:relative;z-index:1}
+  /* 2 fény sweep */
+  .c2{background:var(--rosegold);color:var(--ink)}
+  .c2::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .6s ease}
+  .c2:hover::before{left:120%}
+  /* 3 keret-rajz */
+  .c3{background:transparent;color:var(--ho);border:1px solid rgba(201,160,138,.5)}
+  .c3::before,.c3::after{content:'';position:absolute;background:var(--rosegold);transition:.35s ease}
+  .c3::before{left:0;top:0;width:100%;height:1px;transform:scaleX(0);transform-origin:left}
+  .c3::after{right:0;bottom:0;width:100%;height:1px;transform:scaleX(0);transform-origin:right}
+  .c3:hover{color:var(--puder)}.c3:hover::before,.c3:hover::after{transform:scaleX(1)}
+  /* 4 nyíl előbukkanó */
+  .c4{background:var(--ink);color:var(--puder);border:1px solid rgba(201,160,138,.4)}
+  .c4 .arr{width:0;overflow:hidden;transition:.35s ease;opacity:0}
+  .c4:hover{background:var(--rosegold);color:var(--ink);border-color:var(--rosegold)}
+  .c4:hover .arr{width:16px;opacity:1}
+  /* 5 ragyogás */
+  .c5{background:var(--rosegold);color:var(--ink);transition:box-shadow .4s ease,transform .3s ease}
+  .c5:hover{box-shadow:0 0 0 1px var(--puder),0 8px 30px rgba(201,160,138,.6);transform:translateY(-2px)}
+  /* 6 aláhúzás növekvő (ghost text) */
+  .c6{background:none;color:var(--ho);padding:.6rem 0;letter-spacing:.2em}
+  .c6 .u{position:relative}
+  .c6 .u::after{content:'';position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--rosegold);transform:scaleX(.001);transform-origin:left;transition:transform .4s ease}
+  .c6:hover .u::after{transform:scaleX(1)}
+  .c6:hover{color:var(--puder)}
+  /* 7 ikon körös */
+  .c7{background:none;color:var(--ho);padding:.4rem;letter-spacing:.16em}
+  .c7 .circ{width:44px;height:44px;border-radius:50%;background:var(--rosegold);color:var(--ink);display:flex;align-items:center;justify-content:center;transition:.4s ease;flex-shrink:0}
+  .c7:hover .circ{transform:scale(1.12) rotate(8deg);background:var(--puder)}
+  /* 8 kétszínű csúszó */
+  .c8{background:var(--plum);color:var(--ho);border:1px solid var(--rosegold)}
+  .c8::after{content:'';position:absolute;inset:0;background:var(--rosegold);transform:translateX(-101%);transition:transform .4s cubic-bezier(.4,0,.2,1)}
+  .c8:hover::after{transform:translateX(0)}
+  .c8:hover{color:var(--ink)}.c8 span{position:relative;z-index:1}
+
+  .rec{display:inline-block;margin-left:.5rem;font-size:.5rem;font-weight:700;letter-spacing:.1em;background:var(--rosegold);color:var(--ink);padding:.15rem .45rem;border-radius:40px;vertical-align:middle}
+  @media(max-width:640px){.bg-canvas .mini-t{font-size:1.6rem}}
+</style>
+</head>
+<body>
+  <div style="max-width:1080px;margin:0 auto"><a class="back" href="index.html">← Vissza a galériához</a></div>
+  <header class="page-head">
+    <div class="kicker">08 · Háttér &amp; CTA</div>
+    <h1>Feldobás — háttér és gombok</h1>
+    <p>Nyolc háttérkezelés és nyolc CTA gomb-stílus, mind a Púder &amp; Tinta világban. Vidd rá az egeret a gombokra — mind él. A javasoltakat <span class="rec">ajánlott</span> jelöli.</p>
+  </header>
+
+  <div class="group-title"><span>A</span> Háttér-designok</div>
+  <div class="bg-stack">
+
+    <div class="bg-demo"><div class="bg-canvas b-grain"><span class="bg-tag">1 · Filmszemcse <b style="color:#fff">◆</b></span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Filmszemcse (grain):</b> finom, analóg textúra a gradiensen — prémium, „nyomtatott magazin" érzet. Nagyon diszkrét, mégis dob rajta. <b style="color:var(--rosegold)">Ajánlott a jelenlegi heróhoz.</b></div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-aurora"><i></i><i></i><i></i><span class="bg-tag">2 · Aurora</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Aurora / lágy foltok:</b> lassan úszó, elmosott színfoltok. Modern, mozgalmas, mégis nyugodt. Jól áll sötét szekciókhoz.</div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-rings"><i></i><i></i><i></i><span class="bg-tag">3 · Selyemkörök</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Koncentrikus körök:</b> a jelenlegi megoldás — forgó, finom gyűrűk. Elegáns, kozmetikához illő „ragyogás" motívum.</div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-lines"><span class="bg-tag">4 · Vonalháló</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Finom rács/vonalháló:</b> építészeti, letisztult textúra maszkkal elhalványítva a szélek felé. Visszafogott, mégis karakteres.</div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-spot"><span class="bg-tag">5 · Reflektor</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Reflektor-fény:</b> lágyan lélegző fényfolt felülről. A szöveget kiemeli, mint egy színpadi spotlámpa. <b style="color:var(--rosegold)">Szép a hero címére.</b></div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-mark"><span class="bg-tag">6 · Vízjel monogram</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Óriás monogram-vízjel:</b> egy hatalmas, halvány „á" a háttérben. Márkás, magazinos, egyedi. Jól működik a Rólam vagy Kapcsolat résznél.</div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-shimmer"><span class="bg-tag">7 · Csillám</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Csillám-sweep:</b> időnként átfutó fényvillanás — mint a fény a selymen. Finom „luxus" mozdulat, ne legyen belőle sok.</div></div>
+
+    <div class="bg-demo"><div class="bg-canvas b-dots"><i></i><i></i><i></i><i></i><i></i><i></i><span class="bg-tag">8 · Lebegő szirmok</span><div class="mini-e">Nyíregyháza kozmetikája</div><div class="mini-t">A szépség <em>otthonra talál</em></div></div>
+      <div class="bg-desc"><b>Lebegő pontok/szirmok:</b> apró, lassan úszó pöttyök. Játékos, könnyed hangulat — jól áll a Referenciák vagy Foglalás szekcióhoz.</div></div>
+
+  </div>
+
+  <div class="group-title"><span>B</span> CTA gombok — vidd rá az egeret</div>
+  <div class="cta-grid">
+    <div class="cta-card"><div class="cta-name">1 · Feltöltődő <span class="rec">jelenlegi</span></div><a href="#" class="b c1"><span>Időpontfoglalás</span></a></div>
+    <div class="cta-card"><div class="cta-name">2 · Fény-sweep <span class="rec">ajánlott</span></div><a href="#" class="b c2">Időpontfoglalás</a></div>
+    <div class="cta-card"><div class="cta-name">3 · Keret-rajz</div><a href="#" class="b c3">Időpontfoglalás</a></div>
+    <div class="cta-card"><div class="cta-name">4 · Nyíl-előbukkanó <span class="rec">ajánlott</span></div><a href="#" class="b c4">Foglalok<span class="arr">→</span></a></div>
+    <div class="cta-card"><div class="cta-name">5 · Ragyogás</div><a href="#" class="b c5">Időpontfoglalás</a></div>
+    <div class="cta-card light"><div class="cta-name">6 · Aláhúzás (ghost)</div><a href="#" class="b c6" style="color:var(--plum)"><span class="u">Bemutatkozás →</span></a></div>
+    <div class="cta-card light"><div class="cta-name">7 · Ikon-körös</div><a href="#" class="b c7" style="color:var(--plum)"><span class="circ">→</span> Kezelések</a></div>
+    <div class="cta-card"><div class="cta-name">8 · Kétszínű csúszó</div><a href="#" class="b c8"><span>Időpontfoglalás</span></a></div>
+  </div>
+
+</body>
+</html>

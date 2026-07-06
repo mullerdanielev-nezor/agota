@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ágota Kozmetika – Dizájn galéria</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--cream:#F7F4EF;--blush:#E8D5C8;--rose:#C4998A;--deep:#6B3D3D;--charcoal:#2A1F1F;--gold:#B8956A;--gold-l:#D4B896;--white:#FEFCFA}
+  body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--charcoal)}
+  .hero-band{background:var(--charcoal);color:var(--white);padding:5rem 2rem 4.5rem;text-align:center;position:relative;overflow:hidden}
+  .hero-band::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(196,153,138,.16),transparent 62%)}
+  .hb-inner{position:relative;z-index:2}
+  .kick{font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+  .hero-band h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.05}
+  .hero-band h1 em{font-style:italic;color:var(--gold-l)}
+  .hero-band p{margin:1.4rem auto 0;max-width:560px;color:rgba(254,252,250,.6);font-weight:300;line-height:1.8}
+  .wrap{max-width:1120px;margin:-2.5rem auto 5rem;padding:0 1.5rem;position:relative;z-index:5}
+  .section-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.6rem;margin:3.5rem 0 1.4rem;display:flex;align-items:center;gap:1rem}
+  .section-title span{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-family:'Jost'}
+  .section-title::after{content:'';flex:1;height:1px;background:rgba(107,61,61,.15)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.4rem}
+  .card{background:var(--white);border-radius:2px;text-decoration:none;color:inherit;overflow:hidden;box-shadow:0 10px 34px rgba(42,31,31,.08);transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(42,31,31,.16)}
+  .thumb{height:150px;position:relative;overflow:hidden}
+  .thumb .mini{position:absolute;inset:0;padding:1rem;display:flex;flex-direction:column;justify-content:center}
+  .thumb .mini .e{font-size:.5rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-l);margin-bottom:.5rem}
+  .thumb .mini .t{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;line-height:1.05;color:var(--white)}
+  .thumb .mini .t em{font-style:italic;color:var(--gold-l)}
+  .thumb .navdots{position:absolute;top:.8rem;left:.9rem;display:flex;gap:.6rem}
+  .thumb .navdots i{font-size:.42rem;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase}
+  .c-body{padding:1.1rem 1.3rem 1.3rem}
+  .c-body h3{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.25rem;margin-bottom:.25rem}
+  .c-body p{font-size:.75rem;color:#8a7c72;line-height:1.5}
+  .c-body .go{margin-top:.7rem;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:.4rem}
+  .swatchrow{display:flex;height:100%}
+  .swatchrow div{flex:1}
+  .foot{text-align:center;color:#a89a8d;font-size:.72rem;letter-spacing:.06em;padding:2rem;border-top:1px solid rgba(107,61,61,.1)}
+  .foot b{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--deep)}
+</style>
+</head>
+<body>
+  <div class="hero-band">
+    <div class="hb-inner">
+      <div class="kick">Dizájn galéria · belső bemutató</div>
+      <h1>Ágota Kozmetika<br><em>arculati kísérletek</em></h1>
+      <p>Külön-külön böngészhető variációk: színvilág, tipográfia, fejléc, menü és teljes hero szekciók. Nyugodtan hasonlítsd össze — a kedvenceket összefésüljük egy végleges oldallá.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <a class="card" href="vegleges.html" style="grid-column:1/-1;display:grid;grid-template-columns:220px 1fr;margin-bottom:1rem;border:1px solid rgba(184,149,106,.35)">
+      <div class="thumb" style="height:auto;min-height:150px;background:radial-gradient(125% 95% at 50% -5%,#45303a,#33202A 45%,#1C1A1E)"><div class="mini"><div class="e" style="color:#C9A08A">★ Végleges összeállítás</div><div class="t">A szépség<br><em style="color:#F0D3D0">otthonra talál</em></div></div></div>
+      <div class="c-body" style="display:flex;flex-direction:column;justify-content:center"><h3>A kiválasztott kezdőoldal</h3><p>Púder &amp; Tinta szín · Fraunces + Nunito Sans betű · sötét split fejléc állandó sávval · aláhúzós menü · centrált hero — egy képernyőbe férő méretben.</p><div class="go">Megnyitom →</div></div>
+    </a>
+
+    <div class="section-title"><span>01</span> Színvilág &amp; Tipográfia</div>
+    <div class="grid">
+      <a class="card" href="szinek.html">
+        <div class="thumb"><div class="swatchrow">
+          <div style="background:#2A1F1F"></div><div style="background:#6B3D3D"></div><div style="background:#C4998A"></div><div style="background:#B8956A"></div><div style="background:#E8D5C8"></div><div style="background:#F7F4EF"></div>
+        </div></div>
+        <div class="c-body"><h3>Színpaletták</h3><p>5 hangulat — rosé nude, zsálya, mályva, eszpresszó, púder — mindegyik alkalmazott előnézettel.</p><div class="go">Megnyitom →</div></div>
+      </a>
+      <a class="card" href="betutipus.html">
+        <div class="thumb" style="background:var(--cream)"><div class="mini"><div class="e" style="color:var(--gold)">Aa · 6 páros</div><div class="t" style="color:var(--charcoal)">A bőrápolás <em>egy nemes rituálé</em></div></div></div>
+        <div class="c-body"><h3>Betűtípusok</h3><p>6 cím + törzsbetű páros, mind ugyanazzal a szöveggel — a klasszikustól a modernig.</p><div class="go">Megnyitom →</div></div>
+      </a>
+      <a class="card" href="hatterek.html">
+        <div class="thumb" style="background:radial-gradient(125% 95% at 50% -5%,#45303a,#33202A 45%,#1C1A1E)"><div class="mini"><div class="e" style="color:#C9A08A">08 · háttér + gombok</div><div class="t">Feldobás<br><em style="color:#F0D3D0">&amp; CTA gombok</em></div></div></div>
+        <div class="c-body"><h3>Háttér &amp; CTA</h3><p>8 háttérkezelés (szemcse, aurora, reflektor, vízjel…) és 8 CTA gomb-stílus, kipróbálható hover-effektekkel.</p><div class="go">Megnyitom →</div></div>
+      </a>
+    </div>
+
+    <div class="section-title"><span>02</span> Fejléc &amp; Menü</div>
+    <div class="grid">
+      <a class="card" href="fejlec.html">
+        <div class="thumb" style="background:var(--charcoal)"><div class="navdots"><i>Á G O T A</i></div><div class="mini"><div class="e">4 variáció</div><div class="t">Fejléc<br><em>karakterek</em></div></div></div>
+        <div class="c-body"><h3>Fejléc variációk</h3><p>Sötét-elegáns, középre igazított, infósoros és keretezett minimál fejlécek.</p><div class="go">Megnyitom →</div></div>
+      </a>
+      <a class="card" href="menu.html">
+        <div class="thumb" style="background:var(--deep)"><div class="mini"><div class="e" style="color:var(--gold-l)">4 mechanika · interaktív</div><div class="t">Menü<br><em>logikák</em></div></div></div>
+        <div class="c-body"><h3>Menü variációk</h3><p>Aláhúzás, teljes képernyős overlay, oldalfiók és lenyíló mega-panel — mind kipróbálható.</p><div class="go">Megnyitom →</div></div>
+      </a>
+    </div>
+
+    <div class="section-title"><span>03</span> Hero szekciók <span style="margin-left:auto;color:#a89a8d">teljes képernyős</span></div>
+    <div class="grid">
+      <a class="card" href="hero/hero-1.html" target="_blank">
+        <div class="thumb" style="background:linear-gradient(105deg,#2A1F1F 55%,#C4998A 55%)"><div class="mini"><div class="e">01 · Split</div><div class="t">A bőrápolás<br><em>egy rituálé</em></div></div></div>
+        <div class="c-body"><h3>Hero — Split</h3><p>Kétosztatú: sötét szövegoldal + dekoratív vizuál. A jelenlegi továbbfejlesztve.</p><div class="go">Új lapon ↗</div></div>
+      </a>
+      <a class="card" href="hero/hero-2.html" target="_blank">
+        <div class="thumb" style="background:radial-gradient(120% 90% at 50% 0,#3a2828,#2A1F1F)"><div class="mini" style="text-align:center;align-items:center"><div class="e">02 · Centrált</div><div class="t">A szépség<br><em>otthonra talál</em></div></div></div>
+        <div class="c-body"><h3>Hero — Centrált</h3><p>Középre komponált, koncentrikus körökkel, alsó statisztikákkal. Letisztult, prémium.</p><div class="go">Új lapon ↗</div></div>
+      </a>
+      <a class="card" href="hero/hero-3.html" target="_blank">
+        <div class="thumb" style="background:var(--cream)"><div class="mini"><div class="e" style="color:var(--gold)">03 · Aszimmetrikus</div><div class="t" style="color:var(--charcoal)">A bőröd<br><em style="color:var(--rose)">ünnepe</em></div></div></div>
+        <div class="c-body"><h3>Hero — Aszimmetrikus</h3><p>Világos, editorial elrendezés ívelt képkártyával és lebegő címkékkel.</p><div class="go">Új lapon ↗</div></div>
+      </a>
+      <a class="card" href="hero/hero-4.html" target="_blank">
+        <div class="thumb" style="background:linear-gradient(115deg,#241914,#6B3D3D 78%,#9c6a5c)"><div class="mini"><div class="e">04 · Magazin</div><div class="t">A bőrápolás<br><em>művészete</em></div></div></div>
+        <div class="c-body"><h3>Hero — Magazin</h3><p>Teljes felületű háttér, keretezés és alsó, üveghatású infósáv. Nagy, bátor tipográfia.</p><div class="go">Új lapon ↗</div></div>
+      </a>
+    </div>
+
+    <div class="section-title"><span>04</span> Aloldali szekciók <span style="margin-left:auto;color:#a89a8d">5-5-5 verzió</span></div>
+    <div class="grid">
+      <a class="card" href="rolam.html">
+        <div class="thumb" style="background:linear-gradient(105deg,#F3E9E6 55%,#C9A08A 55%)"><div class="mini"><div class="e" style="color:#8A6F63">05 · 5 verzió</div><div class="t" style="color:#33202A">Rólam<br><em style="color:#C9A08A">bemutatkozás</em></div></div></div>
+        <div class="c-body"><h3>Rólam</h3><p>Öt bemutatkozás: portré-split, nagy idézet, háttérkép + kártya, értéklista, editorial idővonal.</p><div class="go">Megnyitom →</div></div>
+      </a>
+      <a class="card" href="szolgaltatasok.html">
+        <div class="thumb" style="background:var(--charcoal)"><div class="mini"><div class="e" style="color:#C9A08A">06 · 5 verzió</div><div class="t">Szolgáltatások<br><em style="color:#F0D3D0">kezelések</em></div></div></div>
+        <div class="c-body"><h3>Szolgáltatások</h3><p>Öt elrendezés: ikonos kártyák, elegáns árlista, képes kártyák, zigzag, kategóriás rács.</p><div class="go">Megnyitom →</div></div>
+      </a>
+      <a class="card" href="referenciak.html">
+        <div class="thumb" style="background:linear-gradient(150deg,#F0D3D0,#C9A08A 55%,#33202A)"><div class="mini"><div class="e" style="color:#fff">07 · 5 verzió · képes</div><div class="t">Referenciák<br><em style="color:#F0D3D0">vélemények</em></div></div></div>
+        <div class="c-body"><h3>Referenciák</h3><p>Öt képes elrendezés: before/after galéria, véleménykártyák, kiemelt idézet, hover-rács, Instagram-grid.</p><div class="go">Megnyitom →</div></div>
+      </a>
+    </div>
+
+  </div>
+  <div class="foot">Készült <b>Ágotának</b> · belső dizájn-bemutató · a kedvenc elemeket egy végleges oldallá fésüljük össze</div>
+</body>
+</html>

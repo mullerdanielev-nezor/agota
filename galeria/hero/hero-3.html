@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero 3 – Aszimmetrikus · Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--cream:#F7F4EF;--blush:#E8D5C8;--rose:#C4998A;--deep:#6B3D3D;--charcoal:#2A1F1F;--gold:#B8956A;--gold-l:#D4B896;--white:#FEFCFA}
+  body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden}
+  .tag{position:fixed;top:0;left:0;z-index:50;background:var(--gold);color:var(--charcoal);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .8rem;text-decoration:none}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 4rem;position:relative;z-index:10}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:.18em;color:var(--charcoal);text-decoration:none}.logo span{color:var(--gold)}
+  nav ul{list-style:none;display:flex;gap:2.4rem}
+  nav a.nl{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--deep);text-decoration:none;transition:.3s}nav a.nl:hover{color:var(--gold)}
+  .book{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--white);background:var(--rose);padding:.6rem 1.5rem;text-decoration:none;transition:.3s}.book:hover{background:var(--deep)}
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:2rem;padding:3rem 4rem 4rem;align-items:center;min-height:calc(100vh - 88px);position:relative}
+  .big{position:absolute;top:-2rem;right:2rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15rem;color:rgba(196,153,138,.1);pointer-events:none;line-height:1;z-index:0}
+  .copy{position:relative;z-index:2}
+  .eyebrow{font-size:.7rem;font-weight:500;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;opacity:0;animation:up .8s ease .3s forwards}
+  .eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:300;line-height:1.04;margin-bottom:1.8rem;opacity:0;animation:up .9s ease .5s forwards}
+  h1 em{font-style:italic;color:var(--rose)}
+  .sub{font-size:.98rem;font-weight:300;line-height:1.9;color:var(--deep);max-width:420px;margin-bottom:2.6rem;opacity:0;animation:up .9s ease .7s forwards}
+  .ctas{display:flex;align-items:center;gap:2rem;margin-bottom:3rem;opacity:0;animation:up .9s ease .9s forwards}
+  .btn{background:var(--charcoal);color:var(--white);font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:1rem 2.4rem;text-decoration:none;position:relative;overflow:hidden}
+  .btn::after{content:'';position:absolute;inset:0;background:var(--rose);transform:translateX(-101%);transition:transform .4s ease}.btn:hover::after{transform:translateX(0)}.btn span{position:relative;z-index:1}
+  .link{font-size:.8rem;letter-spacing:.08em;color:var(--deep);text-decoration:none;display:flex;align-items:center;gap:.6rem;transition:.3s}.link:hover{color:var(--gold);gap:.9rem}
+  .stats{display:flex;gap:2.5rem;border-top:1px solid rgba(107,61,61,.15);padding-top:1.8rem;max-width:460px;opacity:0;animation:up .9s ease 1.1s forwards}
+  .stat b{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--deep);display:block;line-height:1}
+  .stat span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+  .visual{position:relative;height:520px;opacity:0;animation:fade 1.1s ease .8s forwards}
+  .card{position:absolute;border-radius:200px 200px 4px 4px;overflow:hidden;inset:0 3rem 0 0;background:linear-gradient(160deg,var(--blush),var(--rose) 55%,var(--deep));box-shadow:0 30px 80px rgba(107,61,61,.25)}
+  .card i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:rgba(254,252,250,.15);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--white);font-size:2.6rem;backdrop-filter:blur(2px)}
+  .float{position:absolute;background:var(--white);padding:1rem 1.4rem;box-shadow:0 14px 40px rgba(42,31,31,.16);z-index:3}
+  .f1{top:8%;right:-1rem;animation:fl .8s ease 1.3s forwards;opacity:0}
+  .f2{bottom:10%;left:-1rem;animation:fl .8s ease 1.5s forwards;opacity:0}
+  .float b{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--deep);font-size:1.05rem;display:block;line-height:1;margin-bottom:.25rem}
+  .float span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rose)}
+  .vlabel{position:absolute;top:50%;right:-.5rem;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--deep);opacity:.45}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fade{to{opacity:1}}@keyframes fl{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:940px){.hero{grid-template-columns:1fr;gap:3rem}nav{padding:1.5rem 2rem}nav ul{display:none}.hero{padding:2rem 2rem 4rem}.visual{height:400px}.big{display:none}}
+</style>
+</head>
+<body>
+<a class="tag" href="../index.html">← Galéria</a>
+<nav>
+  <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+  <ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólunk</a></li><li><a class="nl" href="#">Galéria</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul>
+  <a href="#" class="book">Időpontfoglalás</a>
+</nav>
+<section class="hero">
+  <div class="big">á</div>
+  <div class="copy">
+    <div class="eyebrow">Nyíregyháza prémium kozmetikája</div>
+    <h1>A bőröd<br><em>ünnepe</em></h1>
+    <p class="sub">Nyugodt, elegáns környezet, ahol minden kezelés rólad szól. Prémium hatóanyagok, precíz kezek, látható eredmény.</p>
+    <div class="ctas"><a href="#" class="btn"><span>Kezelések</span></a><a href="#" class="link">Ismerd meg Ágotát →</a></div>
+    <div class="stats"><div class="stat"><b>12+</b><span>év tapasztalat</span></div><div class="stat"><b>850+</b><span>vendég</span></div><div class="stat"><b>100%</b><span>rád szabva</span></div></div>
+  </div>
+  <div class="visual">
+    <div class="card"><i>Á</i></div>
+    <div class="vlabel">Nyíregyháza · 2012 óta</div>
+    <div class="float f1"><b>Arckezelés</b><span>prémium hatóanyagok</span></div>
+    <div class="float f2"><b>4,9 ★</b><span>280+ vélemény</span></div>
+  </div>
+</section>
+</body>
+</html>

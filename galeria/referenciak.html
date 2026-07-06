@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referenciák variációk – Ágota Kozmetika</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--ink:#1C1A1E;--plum:#33202A;--mokka:#8A6F63;--rosegold:#C9A08A;--puder:#F0D3D0;--ho:#FBF6F4;--cream:#F3E9E6}
+  body{font-family:'Nunito Sans',sans-serif;background:#EAE0DC;color:var(--ink);padding:3.5rem 1.5rem 5rem}
+  .page-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+  .kicker{font-size:.7rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem}
+  .page-head h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem)}
+  .page-head p{margin:1rem auto 0;color:var(--mokka);font-weight:300;max-width:560px;line-height:1.7}
+  .back{display:inline-block;margin-bottom:2.5rem;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--plum);text-decoration:none;border-bottom:1px solid rgba(51,32,42,.3);padding-bottom:2px}
+  .stack{max-width:1080px;margin:0 auto;display:grid;gap:2.5rem}
+  .demo{border-radius:3px;overflow:hidden;box-shadow:0 14px 44px rgba(28,26,30,.10);background:#fff}
+  .demo-label{padding:1rem 1.6rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mokka);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+  .demo-label b{color:var(--ink);font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;letter-spacing:.01em;text-transform:none}
+  .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.9rem;display:flex;align-items:center;gap:.8rem}
+  .eyebrow.c{justify-content:center}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--rosegold)}
+  h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.1}
+  h2 em{font-style:italic;color:var(--rosegold)}
+  .stars{color:var(--rosegold);letter-spacing:.12em;font-size:.85rem}
+  /* kép placeholderek – változatos tónusok */
+  .ph{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--puder),var(--rosegold) 55%,var(--plum))}
+  .ph.v2{background:linear-gradient(150deg,var(--rosegold),var(--mokka) 60%,var(--ink))}
+  .ph.v3{background:linear-gradient(150deg,#e7c7bd,var(--rosegold) 55%,var(--plum))}
+  .ph.v4{background:linear-gradient(150deg,var(--mokka),var(--plum) 65%,var(--ink))}
+  .ph.v5{background:linear-gradient(150deg,var(--puder),#d9a58f 60%,var(--mokka))}
+  .ba{position:absolute;top:.7rem;left:.7rem;font-size:.55rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(28,26,30,.55);color:#fff;padding:.28rem .55rem;border-radius:40px}
+  .avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;background:linear-gradient(150deg,var(--puder),var(--rosegold));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;color:#fff;font-size:1.1rem}
+
+  /* R1 – before/after masonry */
+  .r1{padding:3rem 3rem 3.2rem;background:var(--ho)}
+  .r1 .head{text-align:center;margin-bottom:2.2rem}.r1 h2{font-size:2.1rem}
+  .r1 .grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:130px;gap:.8rem}
+  .r1 .grid .ph{border-radius:3px}
+  .r1 .t2{grid-row:span 2}.r1 .c2{grid-column:span 2}
+
+  /* R2 – vélemény kártyák portréval */
+  .r2{padding:3rem 3rem 3.2rem;background:var(--cream)}
+  .r2 .head{text-align:center;margin-bottom:2.2rem}.r2 h2{font-size:2.1rem}
+  .r2 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+  .r2 .card{background:#fff;padding:1.8rem;border-radius:3px;box-shadow:0 8px 26px rgba(28,26,30,.06)}
+  .r2 .stars{margin-bottom:.9rem}
+  .r2 .q{font-size:.9rem;line-height:1.7;color:var(--ink);margin-bottom:1.3rem}
+  .r2 .who{display:flex;align-items:center;gap:.8rem}
+  .r2 .who b{font-family:'Fraunces',serif;font-weight:400;font-size:1rem;display:block}
+  .r2 .who span{font-size:.72rem;color:var(--mokka)}
+
+  /* R3 – kiemelt idézet + képsáv */
+  .r3{background:radial-gradient(120% 100% at 0 0,#3d2831,var(--plum) 60%,var(--ink));color:var(--ho);display:grid;grid-template-columns:1.1fr .9fr}
+  .r3 .l{padding:3rem 3rem}
+  .r3 .eyebrow{color:var(--rosegold)}
+  .r3 .bigq{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;color:var(--ho);margin:.5rem 0 1.6rem}
+  .r3 .bigq em{font-style:italic;color:var(--puder)}
+  .r3 .who{display:flex;align-items:center;gap:.9rem}
+  .r3 .who b{font-family:'Fraunces',serif;font-weight:400;color:var(--puder)}
+  .r3 .who span{font-size:.72rem;color:rgba(251,246,244,.5);display:block}
+  .r3 .strip{display:grid;grid-template-rows:1fr 1fr;gap:.6rem;padding:1rem}
+  .r3 .strip .ph{border-radius:3px}
+
+  /* R4 – rács hover overlay */
+  .r4{padding:3rem 3rem 3.2rem;background:#fff}
+  .r4 .head{text-align:center;margin-bottom:2.2rem}.r4 h2{font-size:2.1rem}
+  .r4 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+  .r4 .tile{position:relative;height:190px;border-radius:3px;overflow:hidden;cursor:pointer}
+  .r4 .tile .ph{position:absolute;inset:0;transition:transform .5s ease}
+  .r4 .tile:hover .ph{transform:scale(1.06)}
+  .r4 .tile .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;background:linear-gradient(to top,rgba(28,26,30,.8),transparent 60%);opacity:0;transition:opacity .4s ease}
+  .r4 .tile:hover .ov{opacity:1}
+  .r4 .tile .ov b{font-family:'Fraunces',serif;font-weight:400;color:#fff;font-size:1rem}
+  .r4 .tile .ov .stars{font-size:.72rem}
+
+  /* R5 – instagram grid + kiemelt vélemény */
+  .r5{padding:3rem 3rem 3.2rem;background:var(--ho);display:grid;grid-template-columns:1fr .8fr;gap:2rem;align-items:center}
+  .r5 .ig{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .r5 .ig .ph{aspect-ratio:1;border-radius:3px}
+  .r5 .quote{padding-left:1rem}
+  .r5 .eyebrow{margin-bottom:1rem}
+  .r5 .quote .stars{font-size:1rem;margin-bottom:.8rem}
+  .r5 .quote p{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:1.35rem;line-height:1.4;color:var(--plum);margin-bottom:1.2rem}
+  .r5 .quote .who{display:flex;align-items:center;gap:.8rem}
+  .r5 .quote .who b{font-family:'Fraunces',serif;font-weight:400}
+  .r5 .quote .who span{font-size:.72rem;color:var(--mokka);display:block}
+  .r5 .handle{display:inline-block;margin-top:1.2rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--rosegold)}
+
+  @media(max-width:820px){
+    .r1 .grid,.r4 .grid{grid-template-columns:repeat(2,1fr)}
+    .r2 .grid{grid-template-columns:1fr}
+    .r3,.r5{grid-template-columns:1fr}
+    .r3 .strip{grid-template-rows:none;grid-template-columns:1fr 1fr;min-height:180px}
+  }
+</style>
+</head>
+<body>
+  <div style="max-width:1080px;margin:0 auto"><a class="back" href="index.html">← Vissza a galériához</a></div>
+  <header class="page-head">
+    <div class="kicker">07 · Referenciák</div>
+    <h1>Öt referencia-elrendezés</h1>
+    <p>Mind képes felépítésű — before/after galéria, véleménykártyák, kiemelt idézet és Instagram-rács. A képhelyekre a saját munkáid és vendégeid fotói kerülnek.</p>
+  </header>
+
+  <div class="stack">
+
+    <!-- R1 -->
+    <div class="demo">
+      <div class="demo-label"><b>1 — Before / After galéria</b><span>masonry rács</span></div>
+      <div class="r1">
+        <div class="head"><div class="eyebrow c">Referenciák</div><h2>Az <em>eredmények</em> beszélnek</h2></div>
+        <div class="grid">
+          <div class="ph t2"><span class="ba">Előtte</span></div>
+          <div class="ph v2"><span class="ba">Utána</span></div>
+          <div class="ph v3 c2"></div>
+          <div class="ph v4"></div>
+          <div class="ph v5"><span class="ba">Előtte</span></div>
+          <div class="ph v2"><span class="ba">Utána</span></div>
+          <div class="ph v3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R2 -->
+    <div class="demo">
+      <div class="demo-label"><b>2 — Véleménykártyák portréval</b><span>bizalomépítő</span></div>
+      <div class="r2">
+        <div class="head"><div class="eyebrow c">Vendégeim mondták</div><h2>4,9 ★ · <em>280+ vélemény</em></h2></div>
+        <div class="grid">
+          <div class="card"><div class="stars">★★★★★</div><p class="q">„Évek óta Ágotához járok, sosem csalódtam. A bőröm még sosem volt ilyen szép, és mindig nyugodtan jövök el."</p><div class="who"><div class="avatar">K</div><div><b>Katalin</b><span>visszatérő vendég</span></div></div></div>
+          <div class="card"><div class="stars">★★★★★</div><p class="q">„Profi, kedves és őszinte. Elmondta, mire van szükségem, és mire nincs. Ez ma ritkaság."</p><div class="who"><div class="avatar">E</div><div><b>Eszter</b><span>anti-aging kezelés</span></div></div></div>
+          <div class="card"><div class="stars">★★★★★</div><p class="q">„A stúdió maga a nyugalom. Minden alkalom egy kis feltöltődés, nem csak egy kezelés."</p><div class="who"><div class="avatar">R</div><div><b>Réka</b><span>arckezelés</span></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R3 -->
+    <div class="demo">
+      <div class="demo-label"><b>3 — Kiemelt idézet + képsáv</b><span>sötét · érzelmes</span></div>
+      <div class="r3">
+        <div class="l">
+          <div class="eyebrow">Kiemelt vélemény</div>
+          <div class="bigq">„Nem csak a bőröm lett szebb — <em>magabiztosabb lettem.</em> Ágota keze alatt tényleg érzem, hogy törődnek velem."</div>
+          <div class="who"><div class="avatar">D</div><div><b>Dóra</b><span>2 éve visszatérő vendég</span></div></div>
+        </div>
+        <div class="strip"><div class="ph"></div><div class="ph v4"></div></div>
+      </div>
+    </div>
+
+    <!-- R4 -->
+    <div class="demo">
+      <div class="demo-label"><b>4 — Rács hover névvel</b><span>◈ vidd rá az egeret</span></div>
+      <div class="r4">
+        <div class="head"><div class="eyebrow c">Munkáim</div><h2>Pillanatképek a <em>stúdióból</em></h2></div>
+        <div class="grid">
+          <div class="tile"><div class="ph"></div><div class="ov"><b>Anti-aging</b><span class="stars">★★★★★</span></div></div>
+          <div class="tile"><div class="ph v2"></div><div class="ov"><b>Sminktetoválás</b><span class="stars">★★★★★</span></div></div>
+          <div class="tile"><div class="ph v3"></div><div class="ov"><b>Szempilla lifting</b><span class="stars">★★★★★</span></div></div>
+          <div class="tile"><div class="ph v5"></div><div class="ov"><b>Arckezelés</b><span class="stars">★★★★★</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- R5 -->
+    <div class="demo">
+      <div class="demo-label"><b>5 — Instagram-rács + vélemény</b><span>közösségi</span></div>
+      <div class="r5">
+        <div class="ig"><div class="ph"></div><div class="ph v2"></div><div class="ph v3"></div><div class="ph v4"></div><div class="ph v5"></div><div class="ph"></div><div class="ph v3"></div><div class="ph v2"></div><div class="ph v4"></div></div>
+        <div class="quote">
+          <div class="eyebrow">@agota.studio</div>
+          <div class="stars">★★★★★</div>
+          <p>„A kedvenc helyem a városban. Minden fotó, amit látsz, egy elégedett vendég."</p>
+          <div class="who"><div class="avatar">N</div><div><b>Nóra</b><span>Instagram követő</span></div></div>
+          <a href="#" class="handle">Kövess be Instagramon →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

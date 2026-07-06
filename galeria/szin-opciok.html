@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Szín-opciók (élénk pink, fehér alap) – Ágota Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito Sans',sans-serif;background:#F6EEF2;color:#3A1030;padding:3.5rem 1.5rem 5rem}
+  .page-head{max-width:900px;margin:0 auto 3rem;text-align:center}
+  .kicker{font-size:.7rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:#E0568F;margin-bottom:1rem}
+  .page-head h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.2rem,5vw,3.4rem)}
+  .page-head p{margin:1rem auto 0;color:#A65C82;font-weight:300;max-width:600px;line-height:1.7}
+  .back{display:inline-block;margin-bottom:2.5rem;font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#8a2c58;text-decoration:none;border-bottom:1px solid rgba(138,44,88,.3);padding-bottom:2px}
+  .stack{max-width:1080px;margin:0 auto;display:grid;gap:2.6rem}
+
+  .pcard{border-radius:5px;overflow:hidden;box-shadow:0 14px 44px rgba(138,44,88,.13);background:#fff;border:1px solid #f1dbe6}
+  .phead{padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-bottom:1px solid #f5e6ee}
+  .pname{font-family:'Fraunces',serif;font-weight:400;font-size:1.5rem;color:var(--ink)}
+  .pname b{color:var(--rosegold)}
+  .pmood{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B07C97}
+  .swatches{display:flex;height:44px}
+  .swatches .sw{flex:1}
+
+  .pv{display:grid;grid-template-columns:1.15fr 1fr}
+  /* HERO – fehér alap, sötét szöveg, pink akcentus */
+  .pv-hero{background:radial-gradient(120% 120% at 88% -10%,var(--puder),var(--ho) 58%);color:var(--ink);padding:1.5rem 1.8rem 1.8rem;min-height:250px;display:flex;flex-direction:column;border-right:1px solid #f5e6ee}
+  .pv-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6rem}
+  .pv-logo{font-family:'Fraunces',serif;font-size:.95rem;letter-spacing:.12em;color:var(--ink)}
+  .pv-logo span{color:var(--rosegold)}
+  .pv-links{display:flex;gap:.9rem;font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mokka)}
+  .pv-e{font-size:.55rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.7rem}
+  .pv-hero h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.9rem;line-height:1.05;margin-bottom:.7rem;color:var(--ink)}
+  .pv-hero h3 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .pv-hero p{font-size:.72rem;font-weight:400;line-height:1.6;color:var(--mokka);margin-bottom:1.1rem;max-width:260px}
+  .pv-btns{display:flex;gap:.7rem;margin-top:auto}
+  .pv-btn{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.6rem 1.1rem;background:var(--rosegold);color:#fff}
+  .pv-btn.ghost{background:transparent;color:var(--rosegold);border:1px solid var(--rosegold)}
+
+  /* második szekció – lágy pink tint */
+  .pv-light{background:var(--cream);color:var(--ink);padding:1.5rem 1.6rem;display:flex;flex-direction:column;justify-content:center}
+  .pv-light .pv-e{color:var(--rosegold)}
+  .pv-light h4{font-family:'Fraunces',serif;font-weight:300;font-size:1.35rem;line-height:1.1;margin-bottom:.9rem;color:var(--ink)}
+  .pv-light h4 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .pv-mini{background:#fff;border-radius:3px;padding:.9rem 1rem;box-shadow:0 6px 18px rgba(138,44,88,.06)}
+  .pv-row{display:flex;align-items:baseline;gap:.5rem;font-size:.72rem;padding:.35rem 0}
+  .pv-row+.pv-row{border-top:1px dashed color-mix(in srgb,var(--mokka) 35%,transparent)}
+  .pv-row .nm{font-family:'Fraunces',serif;color:var(--ink)}
+  .pv-row .dots{flex:1;border-bottom:1px dotted color-mix(in srgb,var(--mokka) 45%,transparent)}
+  .pv-row .pr{color:var(--rosegold);font-weight:700;white-space:nowrap}
+
+  .code{background:#FCEFF4;border-top:1px solid #f2dbe6;padding:1rem 1.4rem;font-family:ui-monospace,'Cascadia Code',Menlo,monospace;font-size:.68rem;color:#9a6180;overflow-x:auto;white-space:pre;line-height:1.55}
+  .code b{color:#8a2c58}
+  @media(max-width:720px){.pv{grid-template-columns:1fr}.pv-links{display:none}.pv-hero{border-right:none;border-bottom:1px solid #f5e6ee}}
+</style>
+</head>
+<body>
+  <div style="max-width:1080px;margin:0 auto"><a class="back" href="index.html">← Vissza a galériához</a></div>
+  <header class="page-head">
+    <div class="kicker">09 · Szín-opciók · élénk pink · fehér alap</div>
+    <h1>Élénk színek, fehér alapon</h1>
+    <p>Világos, fehér háttér, sötét szöveg — a vibráló pink/mályva csak akcentusként robban be a gombokon, kiemeléseken és árakon. Tiszta, modern, light-mode érzet. Alul a kész CSS-változók.</p>
+  </header>
+
+  <div class="stack">
+
+    <!-- 1 Fukszia -->
+    <article class="pcard" style="--ink:#3A1030;--plum:#7A1E56;--mokka:#B0688E;--rosegold:#E0568F;--puder:#FBD9E8;--ho:#FFFFFF;--cream:#FCEAF2">
+      <div class="phead"><div class="pname">Fukszia <b>pop</b></div><div class="pmood">merész · tiszta · modern</div></div>
+      <div class="swatches"><div class="sw" style="background:#3A1030"></div><div class="sw" style="background:#7A1E56"></div><div class="sw" style="background:#B0688E"></div><div class="sw" style="background:#E0568F"></div><div class="sw" style="background:#FBD9E8"></div><div class="sw" style="background:#FCEAF2"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#3A1030; --plum:#7A1E56; --mokka:#B0688E; --rosegold:#E0568F; --puder:#FBD9E8; --cream:#FCEAF2; --ho:#FFFFFF; }</div>
+    </article>
+
+    <!-- 2 Málna -->
+    <article class="pcard" style="--ink:#3A0E1C;--plum:#7A1A34;--mokka:#BC6579;--rosegold:#E03E63;--puder:#FBD5DD;--ho:#FFFFFF;--cream:#FCE9ED">
+      <div class="phead"><div class="pname">Málna <b>piros</b></div><div class="pmood">meleg · vidám · gyümölcsös</div></div>
+      <div class="swatches"><div class="sw" style="background:#3A0E1C"></div><div class="sw" style="background:#7A1A34"></div><div class="sw" style="background:#BC6579"></div><div class="sw" style="background:#E03E63"></div><div class="sw" style="background:#FBD5DD"></div><div class="sw" style="background:#FCE9ED"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#3A0E1C; --plum:#7A1A34; --mokka:#BC6579; --rosegold:#E03E63; --puder:#FBD5DD; --cream:#FCE9ED; --ho:#FFFFFF; }</div>
+    </article>
+
+    <!-- 3 Orchidea -->
+    <article class="pcard" style="--ink:#2A1440;--plum:#5A2E86;--mokka:#9B72B8;--rosegold:#B85AD6;--puder:#EED8F7;--ho:#FFFFFF;--cream:#F5EAFA">
+      <div class="phead"><div class="pname">Orchidea <b>lila</b></div><div class="pmood">elegáns · titokzatos · nőies</div></div>
+      <div class="swatches"><div class="sw" style="background:#2A1440"></div><div class="sw" style="background:#5A2E86"></div><div class="sw" style="background:#9B72B8"></div><div class="sw" style="background:#B85AD6"></div><div class="sw" style="background:#EED8F7"></div><div class="sw" style="background:#F5EAFA"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#2A1440; --plum:#5A2E86; --mokka:#9B72B8; --rosegold:#B85AD6; --puder:#EED8F7; --cream:#F5EAFA; --ho:#FFFFFF; }</div>
+    </article>
+
+    <!-- 4 Hot pink -->
+    <article class="pcard" style="--ink:#3A122C;--plum:#7A2058;--mokka:#BC6A94;--rosegold:#EC5FA0;--puder:#FBD8E9;--ho:#FFFFFF;--cream:#FCE9F2">
+      <div class="phead"><div class="pname">Hot <b>pink</b></div><div class="pmood">játékos · lányos · energikus</div></div>
+      <div class="swatches"><div class="sw" style="background:#3A122C"></div><div class="sw" style="background:#7A2058"></div><div class="sw" style="background:#BC6A94"></div><div class="sw" style="background:#EC5FA0"></div><div class="sw" style="background:#FBD8E9"></div><div class="sw" style="background:#FCE9F2"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#3A122C; --plum:#7A2058; --mokka:#BC6A94; --rosegold:#EC5FA0; --puder:#FBD8E9; --cream:#FCE9F2; --ho:#FFFFFF; }</div>
+    </article>
+
+    <!-- 5 Berry magenta -->
+    <article class="pcard" style="--ink:#33101F;--plum:#6E1B44;--mokka:#B25A80;--rosegold:#C93B7B;--puder:#F7CFE0;--ho:#FFFFFF;--cream:#FBE7F0">
+      <div class="phead"><div class="pname">Berry <b>magenta</b></div><div class="pmood">telt · drámai · magabiztos</div></div>
+      <div class="swatches"><div class="sw" style="background:#33101F"></div><div class="sw" style="background:#6E1B44"></div><div class="sw" style="background:#B25A80"></div><div class="sw" style="background:#C93B7B"></div><div class="sw" style="background:#F7CFE0"></div><div class="sw" style="background:#FBE7F0"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#33101F; --plum:#6E1B44; --mokka:#B25A80; --rosegold:#C93B7B; --puder:#F7CFE0; --cream:#FBE7F0; --ho:#FFFFFF; }</div>
+    </article>
+
+    <!-- 6 Korall -->
+    <article class="pcard" style="--ink:#3A1218;--plum:#7A2430;--mokka:#C56A72;--rosegold:#F0637A;--puder:#FBD6DA;--ho:#FFFFFF;--cream:#FDEAEC">
+      <div class="phead"><div class="pname">Korall <b>rózsa</b></div><div class="pmood">meleg · friss · barackos</div></div>
+      <div class="swatches"><div class="sw" style="background:#3A1218"></div><div class="sw" style="background:#7A2430"></div><div class="sw" style="background:#C56A72"></div><div class="sw" style="background:#F0637A"></div><div class="sw" style="background:#FBD6DA"></div><div class="sw" style="background:#FDEAEC"></div><div class="sw" style="background:#FFFFFF"></div></div>
+      <div class="pv">
+        <div class="pv-hero"><div class="pv-nav"><span class="pv-logo">ÁGOTA<span>·</span>STUDIO</span><span class="pv-links">Kezelések · Rólam · Kapcsolat</span></div><div class="pv-e">Nyíregyháza kozmetikája</div><h3>A szépség <em>otthonra talál</em></h3><p>Személyre szabott kezelések, prémium hatóanyagok.</p><div class="pv-btns"><span class="pv-btn">Foglalás</span><span class="pv-btn ghost">Kezelések</span></div></div>
+        <div class="pv-light"><div class="pv-e">Szolgáltatások</div><h4>Kezelések <em>egy helyen</em></h4><div class="pv-mini"><div class="pv-row"><span class="nm">Arckezelés</span><span class="dots"></span><span class="pr">12 000 Ft</span></div><div class="pv-row"><span class="nm">Anti-aging</span><span class="dots"></span><span class="pr">18 000 Ft</span></div></div></div>
+      </div>
+      <div class="code"><b>:root</b>{ --ink:#3A1218; --plum:#7A2430; --mokka:#C56A72; --rosegold:#F0637A; --puder:#FBD6DA; --cream:#FDEAEC; --ho:#FFFFFF; }</div>
+    </article>
+
+  </div>
+</body>
+</html>
