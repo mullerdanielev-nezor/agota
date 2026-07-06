@@ -29,7 +29,7 @@ nav ul{list-style:none;display:flex;gap:2.4rem;align-items:center}
 .mobile-menu.open{opacity:1;pointer-events:auto}
 .mobile-menu a{font-family:'Fraunces',serif;font-style:normal;font-weight:500;font-size:1.7rem;color:var(--ink);text-decoration:none}
 .mobile-menu a:hover{color:var(--rosegold)}
-.mobile-menu .mclose{position:absolute;top:1.2rem;right:1.6rem;font-size:2rem;color:var(--rosegold);background:none;border:none;cursor:pointer}
+.mobile-menu .mclose{position:absolute;top:1.05rem;right:1.4rem;width:28px;height:28px;display:flex;align-items:center;justify-content:center;padding:0;font-size:1.6rem;line-height:1;color:var(--rosegold);background:none;border:none;cursor:pointer}
 
 /* ===================== közös szekció-fejek / gombok ===================== */
 .section{padding:6rem 3rem}
