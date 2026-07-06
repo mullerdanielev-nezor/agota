@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Időpontfoglalás – Loft of Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  body{background:radial-gradient(120% 100% at 50% -10%,var(--puder) 0%,var(--ho) 55%);min-height:100dvh;display:flex;flex-direction:column}
+  .back{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mokka);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:color .3s}
+  .back:hover{color:var(--rosegold)}
+
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:1.2rem 1.5rem 2rem}
+  .wrap{width:100%;max-width:560px}
+  .head{text-align:center;margin-bottom:2rem}
+  .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.9rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:24px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.15;margin-bottom:.7rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .head p{color:var(--mokka);font-size:.92rem;line-height:1.7}
+
+  .card{background:rgba(255,255,255,.9);backdrop-filter:blur(6px);border:1px solid rgba(224,62,99,.14);border-radius:20px;padding:2.2rem;box-shadow:0 30px 70px rgba(122,26,52,.12)}
+  .form-grid{display:block}
+  .divider{height:2px;background:linear-gradient(90deg,transparent,rgba(224,62,99,.55) 15%,rgba(224,62,99,.55) 85%,transparent);margin:1.6rem 0}
+  .divider.vert{display:none}
+
+  /* ===== lépés-fejek ===== */
+  .step-label{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .step-label b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.62rem}
+
+  /* ===== kezelés kártyák ===== */
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.8rem}
+  .svc-card{position:relative;border:1px solid rgba(224,62,99,.22);border-radius:12px;padding:.85rem .95rem;cursor:pointer;transition:.25s;background:#fff}
+  .svc-card:hover{border-color:var(--rosegold);transform:translateY(-2px)}
+  .svc-card.sel{border-color:var(--rosegold);background:linear-gradient(155deg,#fff,var(--cream));box-shadow:0 8px 20px rgba(224,62,99,.16)}
+  .svc-card input{position:absolute;opacity:0;pointer-events:none}
+  .svc-card .t{font-family:'Fraunces',serif;font-size:.98rem;color:var(--ink);line-height:1.25}
+  .svc-card .dur{font-size:.66rem;color:var(--mokka);margin-top:.25rem;display:block}
+  .svc-card .chk{position:absolute;top:.7rem;right:.7rem;width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(224,62,99,.35);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;transition:.2s}
+  .svc-card.sel .chk{background:var(--rosegold);border-color:var(--rosegold)}
+
+  /* ===== naptár ===== */
+  .cal{margin-bottom:1.8rem}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);text-transform:capitalize}
+  .cal-nav{display:flex;gap:.4rem}
+  .cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+  .cal-nav button:hover{background:var(--rosegold);color:#fff}
+  .cal-nav button:disabled{opacity:.3;cursor:default;pointer-events:none}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+  .dow span{text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mokka)}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:.82rem;color:var(--ink);cursor:pointer;transition:.18s;border:1px solid transparent}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.22);cursor:default}
+  .day:not(.off):not(.pad):hover{background:var(--cream);border-color:rgba(224,62,99,.25)}
+  .day.today{border-color:var(--rosegold);font-weight:700}
+  .day.sel{background:var(--rosegold);color:#fff;font-weight:700}
+
+  /* ===== időpont chipek ===== */
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1.8rem}
+  .slot{text-align:center;padding:.6rem .3rem;border:1px solid rgba(224,62,99,.24);border-radius:9px;font-size:.82rem;cursor:pointer;transition:.18s;background:#fff;color:var(--ink)}
+  .slot:hover{border-color:var(--rosegold)}
+  .slot.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
+  .slot.taken{opacity:.32;text-decoration:line-through;cursor:default;pointer-events:none}
+
+  /* ===== adatok ===== */
+  .row{display:grid;gap:.5rem;margin-bottom:1.1rem}
+  .row.two{grid-template-columns:1fr 1fr;gap:1rem}
+  .row label{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
+  input,textarea{font-family:'Nunito Sans',sans-serif;font-size:.94rem;background:#fff;border:1px solid rgba(224,62,99,.24);color:var(--ink);padding:.8rem .95rem;border-radius:8px;width:100%;transition:border-color .25s,box-shadow .25s}
+  input:focus,textarea:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 4px rgba(224,62,99,.1)}
+  textarea{resize:vertical;min-height:70px}
+
+  .summary{display:none;background:var(--cream);border-radius:10px;padding:.85rem 1rem;margin-bottom:1.4rem;font-size:.84rem;color:var(--plum);align-items:center;gap:.6rem}
+  .summary.show{display:flex}
+  .summary b{color:var(--ink)}
+
+  .btn{width:100%;background:var(--rosegold);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:1.05rem;border:none;border-radius:9px;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif;transition:opacity .25s}
+  .btn::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .4s ease}
+  .btn:hover::after{transform:translateY(0)}
+  .btn span{position:relative;z-index:1}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn:disabled:hover::after{transform:translateY(101%)}
+  .note{font-size:.7rem;color:var(--mokka);margin-top:1rem;text-align:center;line-height:1.6}
+
+  .success{display:none;text-align:center;padding:1rem .5rem}
+  .success.show{display:block}
+  .success .chk2{width:68px;height:68px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 1.4rem}
+  .success h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.6rem;margin-bottom:.7rem}
+  .success p{color:var(--mokka);line-height:1.8}
+  .success b{color:var(--plum)}
+  .success .back{margin-top:1.8rem;justify-content:center}
+
+  @media(min-width:900px){
+    .wrap{max-width:900px}
+    .head{margin-bottom:1.4rem}
+    .card{padding:2.2rem 2.6rem}
+    .form-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:2.2rem;align-items:start}
+    .divider.vert{display:block;height:auto;align-self:stretch;width:2px;margin:0;background:linear-gradient(180deg,transparent,rgba(224,62,99,.55) 15%,rgba(224,62,99,.55) 85%,transparent)}
+    .svc-grid{margin-bottom:1.3rem}
+    .slots{margin-bottom:1.1rem}
+  }
+
+  @media(max-width:480px){
+    header{padding:1.1rem 1.4rem}
+    .card{padding:1.6rem 1.2rem;border-radius:16px}
+    .row.two{grid-template-columns:1fr}
+    .slots{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav>
+    <ul>
+      <li><a class="nl" href="szolgaltatasok.html">Kezelések</a></li>
+      <li><a class="nl" href="rolam.html">Rólam</a></li>
+      <li><a class="nl" href="referenciak.html">Referenciák</a></li>
+      <li><a class="nl" href="kapcsolat.html">Kapcsolat</a></li>
+    </ul>
+  </nav>
+  <a href="foglalas.html" class="book">Időpontfoglalás</a>
+  <button class="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <button class="mclose">×</button>
+  <a href="szolgaltatasok.html">Kezelések</a>
+  <a href="rolam.html">Rólam</a>
+  <a href="referenciak.html">Referenciák</a>
+  <a href="kapcsolat.html">Kapcsolat</a>
+  <a href="foglalas.html">Foglalás</a>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Időpontfoglalás</div>
+      <h1>Válaszd ki az <em>időpontodat</em></h1>
+      <p>Kezelés, nap és óra — pár kattintás, és mi visszaigazoljuk telefonon.</p>
+    </div>
+
+    <div class="card">
+      <form id="bookForm" class="form-grid" onsubmit="return submitBooking(event)">
+
+        <div class="col-left">
+          <div class="step-label"><b>1</b> Kezelés</div>
+          <div class="svc-grid" id="svcGrid">
+            <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs" required><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="Rádiófrekvenciás kezelés"><span class="chk">✓</span><span class="t">Rádiófrekvencia</span><span class="dur">bőrfeszesítés</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="HIEMT – izomépítés"><span class="chk">✓</span><span class="t">HIEMT</span><span class="dur">izomépítés</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="Kavitációs zsírbontás"><span class="chk">✓</span><span class="t">Kavitáció</span><span class="dur">zsírbontás</span></label>
+            <label class="svc-card" style="grid-column:1/-1"><input type="radio" name="svc" value="Konzultáció / egyéb"><span class="chk">✓</span><span class="t">Konzultáció / egyéb</span></label>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="step-label"><b>2</b> Dátum</div>
+          <div class="cal">
+            <div class="cal-head">
+              <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+              <div class="month" id="calMonth"></div>
+              <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+            </div>
+            <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+            <div class="days" id="calDays"></div>
+          </div>
+        </div>
+
+        <div class="divider vert"></div>
+
+        <div class="col-right">
+          <div class="step-label"><b>3</b> Időpont</div>
+          <div class="slots" id="slots">
+            <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div><div class="slot">12:00</div>
+            <div class="slot">13:00</div><div class="slot">14:00</div><div class="slot">15:00</div><div class="slot">16:00</div>
+            <div class="slot">17:00</div>
+          </div>
+
+          <div class="summary" id="summary">✦ <span id="summaryText"></span></div>
+
+          <div class="divider"></div>
+
+          <div class="step-label"><b>4</b> Elérhetőség</div>
+          <div class="row two">
+            <div class="row" style="margin:0"><label for="f-name">Neved</label><input type="text" id="f-name" placeholder="Teljes név" required></div>
+            <div class="row" style="margin:0"><label for="f-phone">Telefon</label><input type="tel" id="f-phone" placeholder="+36 30 …" required></div>
+          </div>
+          <div class="row"><label for="f-note">Megjegyzés (opcionális)</label><textarea id="f-note" placeholder="Bármi, amit jó, ha tudok…"></textarea></div>
+
+          <button type="submit" class="btn" id="submitBtn" disabled><span>Foglalás elküldése</span></button>
+          <div class="note">A gomb megnyomásával elfogadod az adatkezelési tájékoztatót.</div>
+        </div>
+      </form>
+
+      <div class="success" id="bookSuccess">
+        <div class="chk2">✓</div>
+        <h2>Köszönöm, <span id="okName">Kedves Vendég</span>!</h2>
+        <p>A foglalásod rögzítettük:<br><b id="okDetails">—</b><br><br>24 órán belül visszaigazolom telefonon. Hamarosan találkozunk!</p>
+        <a href="agota-oldal.html" class="back">← Vissza a főoldalra</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+      <p>Nyíregyháza prémium kozmetikai stúdiója. Személyre szabott arc- és testkezelések, ahol a szépség otthon van.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram" title="Instagram">IG</a>
+        <a href="#" aria-label="Facebook" title="Facebook">FB</a>
+        <a href="tel:+36305039156" aria-label="Telefon" title="Telefon">☎</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Oldalak</h4>
+      <a href="rolam.html">Rólam</a>
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="referenciak.html">Referenciák</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+    </div>
+    <div class="foot-col">
+      <h4>Kezelések</h4>
+      <a href="hullammasszazs.html">Hullámmasszázs</a>
+      <a href="radiofrekvencia.html">Rádiófrekvenciás kezelés</a>
+      <a href="hiemt.html">HIEMT izomépítés</a>
+      <a href="kavitacio.html">Kavitációs zsírbontás</a>
+    </div>
+    <div class="foot-col">
+      <h4>Elérhetőség</h4>
+      <p>4551 Nyíregyháza, Meggyes u. 11.</p>
+      <a href="tel:+36305039156">+36 30 503 9156</a>
+      <a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a>
+      <p>H–P · 9:00–18:00</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
+    <span>Nyíregyháza prémium kozmetikája · 2012 óta</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+  var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
+  var today = new Date(); today.setHours(0,0,0,0);
+  var viewYear = today.getFullYear(), viewMonth = today.getMonth();
+  var selectedDate = null, selectedSlot = null, selectedSvc = null;
+
+  function renderCal(){
+    document.getElementById('calMonth').textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
+    var first = new Date(viewYear, viewMonth, 1);
+    var startCol = (first.getDay() + 6) % 7; // hétfő=0
+    var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    var wrap = document.getElementById('calDays');
+    wrap.innerHTML = '';
+    for(var i=0;i<startCol;i++){
+      var pad = document.createElement('div'); pad.className = 'day pad'; wrap.appendChild(pad);
+    }
+    for(var d=1; d<=daysInMonth; d++){
+      var cell = document.createElement('div');
+      var thisDate = new Date(viewYear, viewMonth, d);
+      cell.className = 'day';
+      cell.textContent = d;
+      if(thisDate < today){ cell.classList.add('off'); }
+      else{
+        cell.addEventListener('click', (function(dt, el){
+          return function(){
+            document.querySelectorAll('.day.sel').forEach(function(x){x.classList.remove('sel')});
+            el.classList.add('sel');
+            selectedDate = dt;
+            updateSummary();
+          };
+        })(thisDate, cell));
+      }
+      if(thisDate.getTime() === today.getTime()) cell.classList.add('today');
+      if(selectedDate && thisDate.getTime() === selectedDate.getTime()) cell.classList.add('sel');
+      wrap.appendChild(cell);
+    }
+    document.getElementById('calPrev').disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
+  }
+
+  document.getElementById('calPrev').addEventListener('click', function(){
+    viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+    renderCal();
+  });
+  document.getElementById('calNext').addEventListener('click', function(){
+    viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+    renderCal();
+  });
+
+  document.querySelectorAll('.svc-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('sel')});
+      card.classList.add('sel');
+      selectedSvc = card.querySelector('input').value;
+      updateSummary();
+    });
+  });
+
+  document.querySelectorAll('.slot').forEach(function(slot){
+    slot.addEventListener('click', function(){
+      document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+      slot.classList.add('sel');
+      selectedSlot = slot.textContent;
+      updateSummary();
+    });
+  });
+
+  function updateSummary(){
+    var box = document.getElementById('summary');
+    var txt = document.getElementById('summaryText');
+    var parts = [];
+    if(selectedSvc) parts.push(selectedSvc);
+    if(selectedDate) parts.push(selectedDate.toLocaleDateString('hu-HU'));
+    if(selectedSlot) parts.push(selectedSlot);
+    if(parts.length){ box.classList.add('show'); txt.textContent = parts.join(' · '); }
+    else{ box.classList.remove('show'); }
+    document.getElementById('submitBtn').disabled = !(selectedSvc && selectedDate && selectedSlot);
+  }
+
+  function submitBooking(e){
+    e.preventDefault();
+    var name = document.getElementById('f-name').value.trim();
+    document.getElementById('okName').textContent = name || 'Kedves Vendég';
+    document.getElementById('okDetails').textContent = selectedSvc + ' · ' + selectedDate.toLocaleDateString('hu-HU') + ' · ' + selectedSlot;
+    document.getElementById('bookForm').style.display = 'none';
+    document.getElementById('bookSuccess').classList.add('show');
+    return false;
+  }
+
+  renderCal();
+</script>
+
+</body>
+</html>

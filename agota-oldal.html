@@ -3,36 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ágota Studio – Nyíregyháza prémium kozmetikája</title>
+<title>Loft of Beauty – Nyíregyháza prémium kozmetikája</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --ink:#3A0E1C;--plum:#7A1A34;--mokka:#A85C72;--rosegold:#E03E63;--puder:#FBD5DD;--ho:#FFFFFF;--cream:#FCE9ED;
-  }
-  html{scroll-behavior:smooth}
-  body{font-family:'Nunito Sans',sans-serif;background:var(--ho);color:var(--ink);overflow-x:hidden}
-  section[id]{scroll-margin-top:74px}
-
-  /* ===================== FEJLÉC – állandó sticky sáv ===================== */
-  header{
-    position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
-    padding:1.05rem 3rem;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(224,62,99,.14);
-  }
-  .logo{font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;letter-spacing:.14em;color:var(--ink);text-decoration:none}
-  .logo span{color:var(--rosegold)}
-  nav ul{list-style:none;display:flex;gap:2.6rem;align-items:center}
-  .nl{position:relative;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mokka);text-decoration:none;padding-bottom:5px;transition:color .3s}
-  .nl::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--rosegold);transition:width .38s cubic-bezier(.4,0,.2,1)}
-  .nl:hover{color:var(--ink)}.nl:hover::after{width:100%}
-  .book{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);border:1px solid rgba(224,62,99,.45);padding:.6rem 1.5rem;text-decoration:none;transition:.3s}
-  .book:hover{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
-  .burger span{width:24px;height:1.6px;background:var(--rosegold);display:block}
-
   /* ===================== HERO – egy képernyő, fehér alap ===================== */
   .hero{position:relative;height:calc(100dvh - 62px);min-height:540px;display:flex;flex-direction:column;overflow:hidden;
     background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
@@ -50,11 +26,6 @@
   h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
   .sub{font-size:1rem;font-weight:400;line-height:1.8;color:var(--mokka);max-width:470px;margin:0 auto 2.4rem;opacity:0;animation:up .9s ease .7s forwards}
   .ctas{display:flex;gap:1.3rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:up .9s ease .9s forwards}
-  .btn{background:var(--rosegold);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:1.05rem 2.6rem;text-decoration:none;position:relative;overflow:hidden}
-  .btn::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .4s ease}
-  .btn:hover::after{transform:translateY(0)}.btn span{position:relative;z-index:1}
-  .ghost{font-size:.74rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border:1px solid rgba(224,62,99,.4);padding:1.05rem 2.6rem;text-decoration:none;transition:.3s}
-  .ghost:hover{border-color:var(--rosegold);color:var(--rosegold)}
   .stats{position:relative;z-index:5;display:flex;gap:3.4rem;justify-content:center;padding:0 1.5rem 2.4rem;opacity:0;animation:fade 1s ease 1.3s forwards}
   .stat{text-align:center}
   .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:1.9rem;color:var(--plum);display:block;line-height:1}
@@ -62,41 +33,23 @@
   .stat+.stat{position:relative}
   .stat+.stat::before{content:'';position:absolute;left:-1.7rem;top:50%;transform:translateY(-50%);width:1px;height:34px;background:rgba(224,62,99,.25)}
 
-  /* ===================== közös szekció-fejek ===================== */
-  .section{padding:6rem 3rem}
-  .sec-head{text-align:center;max-width:640px;margin:0 auto 3.2rem}
-  .sec-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem}
-  .sec-head h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2rem,4vw,2.9rem);line-height:1.12}
-  .sec-head h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
-  .sec-head p{margin-top:1rem;color:var(--mokka);font-weight:400;line-height:1.75}
-
-  .ph{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--puder),var(--rosegold) 55%,var(--plum))}
-  .ph::after{content:'FOTÓ HELYE';position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);font-size:.52rem;font-weight:700;letter-spacing:.22em;color:rgba(255,255,255,.75)}
-  .ph.v2{background:linear-gradient(155deg,var(--rosegold),var(--plum) 65%,var(--ink))}
-  .ph.v3{background:linear-gradient(155deg,#F7C0D2,var(--rosegold) 55%,var(--plum))}
-  .ph.v4{background:linear-gradient(155deg,var(--mokka),var(--plum) 65%,var(--ink))}
-  .ph.v5{background:linear-gradient(155deg,var(--puder),#EC7C9A 60%,var(--mokka))}
-  .ph.noafter::after{display:none}
-  .mono{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;color:#fff;font-size:2.4rem;backdrop-filter:blur(2px)}
-
   /* ===================== RÓLAM (fehér, portré split) ===================== */
   #rolam{background:var(--ho);color:var(--ink)}
   .about{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:.85fr 1fr;gap:3.5rem;align-items:center}
   .about .ph{min-height:460px;border-radius:220px 220px 6px 6px}
-  .about-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
-  .about-eyebrow::before{content:'';width:26px;height:1px;background:var(--rosegold)}
   .about h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.5rem;line-height:1.1;margin-bottom:1.3rem}
   .about h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
   .about p{font-weight:400;line-height:1.9;color:var(--mokka);max-width:440px;margin-bottom:1.6rem}
   .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.7rem;color:var(--plum);margin-bottom:1.8rem}
-  .about-stats{display:flex;gap:2.6rem;border-top:1px solid rgba(224,62,99,.15);padding-top:1.5rem}
+  .about-stats{display:flex;gap:2.6rem;border-top:1px solid rgba(224,62,99,.15);padding-top:1.5rem;margin-bottom:1.8rem}
   .about-stats b{font-family:'Fraunces',serif;font-weight:400;font-size:1.8rem;color:var(--plum);display:block;line-height:1}
   .about-stats span{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
+  .more-link{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);border-bottom:1px solid var(--rosegold);padding-bottom:3px;text-decoration:none;transition:.3s}
+  .more-link:hover{color:var(--rosegold)}
 
   /* ===================== SZOLGÁLTATÁSOK (világos, videóval) ===================== */
   #szolgaltatasok{background:var(--cream);color:var(--ink)}
   .svc{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:3.4rem;align-items:start}
-  /* telefon-mockup */
   .phone{position:relative;width:100%;max-width:280px;margin:0 auto;background:#241016;border-radius:42px;padding:12px;box-shadow:0 34px 74px rgba(58,14,28,.30),inset 0 0 0 1px rgba(255,255,255,.05);border:1px solid rgba(224,62,99,.22)}
   .phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:78px;height:20px;background:#241016;border-radius:0 0 13px 13px;z-index:3}
   .phone::after{content:'';position:absolute;right:-2px;top:118px;width:3px;height:48px;background:linear-gradient(var(--rosegold),var(--plum));border-radius:3px;opacity:.7}
@@ -109,63 +62,25 @@
   .svc-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.35rem;color:var(--ink);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem}
   .svc-item h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--rosegold);flex-shrink:0}
   .svc-item p{font-size:.9rem;line-height:1.7;color:var(--mokka)}
-  .sec-cta{text-align:center;margin-top:3rem}
-  /* minimalista, lágy megjelenés görgetésre */
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+  .svc-item .more{display:inline-block;margin-top:.7rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);text-decoration:none}
+  .svc-item .more:hover{color:var(--plum)}
   .svc-list .svc-item:nth-child(2){transition-delay:.08s}
   .svc-list .svc-item:nth-child(3){transition-delay:.16s}
   .svc-list .svc-item:nth-child(4){transition-delay:.24s}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
   /* ===================== REFERENCIÁK (fehér, kártyák + IG) ===================== */
   #referenciak{background:var(--ho);color:var(--ink)}
-  .revs{max-width:1080px;margin:0 auto 3.4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-  .rev{background:#fff;padding:2rem;border-radius:6px;box-shadow:0 12px 34px rgba(224,62,99,.10);border:1px solid rgba(224,62,99,.08)}
-  .stars{color:var(--rosegold);letter-spacing:.14em;font-size:.9rem;margin-bottom:1rem}
-  .rev .q{font-size:.92rem;line-height:1.75;color:var(--ink);margin-bottom:1.4rem}
-  .rev .who{display:flex;align-items:center;gap:.8rem}
-  .avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;background:linear-gradient(150deg,var(--puder),var(--rosegold));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;color:#fff;font-size:1.1rem}
-  .rev .who b{font-family:'Fraunces',serif;font-weight:400;font-size:1rem;display:block;color:var(--ink)}
-  .rev .who span{font-size:.72rem;color:var(--mokka)}
-  .ig-wrap{max-width:1080px;margin:0 auto;text-align:center}
+  .ig-wrap{max-width:1080px;margin:0 auto;text-align:center;margin-top:3.4rem}
   .ig-handle{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1.2rem;display:inline-block;text-decoration:none}
   .ig{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem}
   .ig .ph{aspect-ratio:1;border-radius:6px}
   .ig .ph::after{font-size:.42rem;bottom:.4rem}
-
-  /* ===================== FOGLALÓ RENDSZER (világos, űrlap) ===================== */
-  #foglalas{background:var(--cream);color:var(--ink)}
-  .booking{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
-  .booking .intro .about-eyebrow{color:var(--rosegold)}
-  .booking .intro h3{font-family:'Fraunces',serif;font-weight:300;font-size:1.9rem;line-height:1.15;margin:.6rem 0 .4rem}
-  .booking .intro h3 em{font-style:normal;font-weight:500;color:var(--rosegold)}
-  .book-benefits{list-style:none;display:grid;gap:1rem;margin-top:1.6rem}
-  .book-benefits li{display:flex;gap:.8rem;color:var(--ink);font-size:.92rem;line-height:1.5}
-  .book-benefits li::before{content:'✦';color:var(--rosegold);flex-shrink:0}
-  .form-card{background:#fff;border:1px solid rgba(224,62,99,.16);border-radius:8px;padding:2.2rem;box-shadow:0 16px 44px rgba(224,62,99,.08)}
-  .form-row{display:grid;gap:.45rem;margin-bottom:1.1rem}
-  .form-row.two{grid-template-columns:1fr 1fr;gap:1rem}
-  .form-row label{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold)}
-  .form-card input,.form-card select,.form-card textarea{font-family:'Nunito Sans',sans-serif;font-size:.92rem;background:#fff;border:1px solid rgba(224,62,99,.28);color:var(--ink);padding:.75rem .9rem;border-radius:5px;width:100%}
-  .form-card input:focus,.form-card select:focus,.form-card textarea:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.12)}
-  .form-card select option{color:#111}
-  .form-card textarea{resize:vertical;min-height:70px}
-  .form-card .btn{width:100%;text-align:center;border:none;cursor:pointer;margin-top:.4rem;font-family:'Nunito Sans',sans-serif}
-  .form-note{font-size:.72rem;color:var(--mokka);margin-top:.9rem;text-align:center}
-  .book-success{display:none;text-align:center;padding:1.5rem .5rem}
-  .book-success.show{display:block}
-  .book-success .chk{width:60px;height:60px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 1.2rem}
-  .book-success h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.5rem;margin-bottom:.6rem;color:var(--ink)}
-  .book-success p{color:var(--mokka);line-height:1.7}
-  .book-success b{color:var(--plum)}
 
   /* ===================== ELHELYEZKEDÉS (fehér, térkép) ===================== */
   #elhelyezkedes{background:var(--ho);color:var(--ink)}
   .loc{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2.6rem;align-items:center}
   .map-frame{border-radius:8px;overflow:hidden;box-shadow:0 16px 44px rgba(224,62,99,.12);border:1px solid rgba(224,62,99,.12);min-height:360px;background:var(--cream)}
   .map-frame iframe{width:100%;height:100%;min-height:360px;border:0;display:block;filter:grayscale(.1) contrast(1)}
-  .loc-info .about-eyebrow{color:var(--rosegold)}
   .loc-info h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.3rem;line-height:1.12;margin-bottom:.4rem}
   .loc-info h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
   .loc-list{list-style:none;display:grid;gap:1.2rem;margin-top:1.8rem}
@@ -174,80 +89,42 @@
   .loc-list .k{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.2rem}
   .loc-list .v{font-family:'Fraunces',serif;font-size:1.08rem;color:var(--ink);line-height:1.4}
   .loc-list a{color:inherit;text-decoration:none}
-  .map-link{display:inline-block;margin-top:1.8rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);border-bottom:1px solid var(--rosegold);padding-bottom:3px;text-decoration:none;transition:.3s}
-  .map-link:hover{color:var(--rosegold)}
-
-  /* ===================== LÁBLÉC (mély málna lezárás) ===================== */
-  footer.site{background:var(--plum);color:rgba(255,255,255,.62);padding:4.5rem 3rem 2rem}
-  .foot-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:2.4rem}
-  .foot-brand .logo{font-size:1.5rem;color:#fff}
-  .foot-brand .logo span{color:var(--puder)}
-  .foot-brand p{margin-top:1rem;font-size:.85rem;line-height:1.75;max-width:270px;font-weight:300;color:rgba(255,255,255,.55)}
-  .socials{display:flex;gap:.7rem;margin-top:1.4rem}
-  .socials a{width:38px;height:38px;border:1px solid rgba(255,255,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:.3s;font-size:.7rem;font-weight:700;letter-spacing:.05em}
-  .socials a:hover{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
-  .foot-col h4{font-family:'Fraunces',serif;font-style:normal;font-weight:500;color:var(--puder);font-size:1.08rem;margin-bottom:1rem}
-  .foot-col a,.foot-col p{display:block;font-size:.85rem;color:rgba(255,255,255,.58);text-decoration:none;padding:.32rem 0;transition:.25s;font-weight:300}
-  .foot-col a:hover{color:var(--puder)}
-  .foot-bottom{max-width:1080px;margin:3rem auto 0;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.16);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.72rem;color:rgba(255,255,255,.4)}
-  .foot-bottom b{font-family:'Fraunces',serif;font-weight:400;color:var(--puder)}
-
-  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes fade{to{opacity:1}}
-  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 
   @media(max-width:820px){
-    header{padding:1rem 1.4rem}
-    nav ul,.book{display:none}
-    .burger{display:flex}
     .rings{display:none}
     .hero{height:calc(100dvh - 56px)}
     .stats{gap:1.6rem}.stat+.stat::before{left:-.8rem;height:26px}
-    .section{padding:4rem 1.5rem}
     .about{grid-template-columns:1fr;gap:2.4rem}.about .ph{min-height:300px}
     .svc{grid-template-columns:1fr;gap:2rem}.phone{max-width:250px}
-    .revs{grid-template-columns:1fr}
     .ig{grid-template-columns:repeat(3,1fr)}
-    .booking{grid-template-columns:1fr;gap:2.4rem}
     .loc{grid-template-columns:1fr;gap:2rem}
-    .foot-grid{grid-template-columns:1fr 1fr;gap:2rem}
-    .foot-brand{grid-column:1/-1}
-    footer.site{padding:3.5rem 1.5rem 2rem}
-    .form-row.two{grid-template-columns:1fr}
   }
-
-  /* mobil menü panel */
-  .mobile-menu{position:fixed;inset:0;background:rgba(255,255,255,.98);z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;opacity:0;pointer-events:none;transition:opacity .35s ease}
-  .mobile-menu.open{opacity:1;pointer-events:auto}
-  .mobile-menu a{font-family:'Fraunces',serif;font-style:normal;font-weight:500;font-size:1.7rem;color:var(--ink);text-decoration:none}
-  .mobile-menu a:hover{color:var(--rosegold)}
-  .mobile-menu .mclose{position:absolute;top:1.2rem;right:1.6rem;font-size:2rem;color:var(--rosegold);background:none;border:none;cursor:pointer}
 </style>
 </head>
 <body>
 
 <!-- ===== FEJLÉC – állandó sáv ===== -->
 <header>
-  <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+  <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
   <nav>
     <ul>
-      <li><a class="nl" href="#szolgaltatasok">Kezelések</a></li>
-      <li><a class="nl" href="#rolam">Rólam</a></li>
-      <li><a class="nl" href="#referenciak">Referenciák</a></li>
-      <li><a class="nl" href="#elhelyezkedes">Elérhetőség</a></li>
+      <li><a class="nl" href="szolgaltatasok.html">Kezelések</a></li>
+      <li><a class="nl" href="rolam.html">Rólam</a></li>
+      <li><a class="nl" href="referenciak.html">Referenciák</a></li>
+      <li><a class="nl" href="kapcsolat.html">Kapcsolat</a></li>
     </ul>
   </nav>
-  <a href="#foglalas" class="book">Időpontfoglalás</a>
-  <button class="burger" aria-label="Menü" onclick="document.getElementById('mm').classList.add('open')"><span></span><span></span><span></span></button>
+  <a href="foglalas.html" class="book">Időpontfoglalás</a>
+  <button class="burger" aria-label="Menü"><span></span><span></span><span></span></button>
 </header>
 
 <div class="mobile-menu" id="mm">
-  <button class="mclose" onclick="document.getElementById('mm').classList.remove('open')">×</button>
-  <a href="#szolgaltatasok" onclick="document.getElementById('mm').classList.remove('open')">Kezelések</a>
-  <a href="#rolam" onclick="document.getElementById('mm').classList.remove('open')">Rólam</a>
-  <a href="#referenciak" onclick="document.getElementById('mm').classList.remove('open')">Referenciák</a>
-  <a href="#elhelyezkedes" onclick="document.getElementById('mm').classList.remove('open')">Elérhetőség</a>
-  <a href="#foglalas" onclick="document.getElementById('mm').classList.remove('open')">Foglalás</a>
+  <button class="mclose">×</button>
+  <a href="szolgaltatasok.html">Kezelések</a>
+  <a href="rolam.html">Rólam</a>
+  <a href="referenciak.html">Referenciák</a>
+  <a href="kapcsolat.html">Kapcsolat</a>
+  <a href="foglalas.html">Foglalás</a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -258,8 +135,8 @@
     <h1>A szépség<br><em>otthonra talál</em></h1>
     <p class="sub">Személyre szabott arc- és testkezelések prémium hatóanyagokkal, egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
     <div class="ctas">
-      <a href="#szolgaltatasok" class="btn"><span>Kezelések megtekintése</span></a>
-      <a href="#foglalas" class="ghost">Időpontfoglalás</a>
+      <a href="szolgaltatasok.html" class="btn"><span>Kezelések megtekintése</span></a>
+      <a href="foglalas.html" class="ghost">Időpontfoglalás</a>
     </div>
   </div>
   <div class="stats">
@@ -272,7 +149,7 @@
 <!-- ===== RÓLAM ===== -->
 <section class="section" id="rolam">
   <div class="about">
-    <div class="ph"><div class="mono">Á</div></div>
+    <div class="ph noafter" style="background:none"><img src="images/rolam.webp" alt="Loft of Beauty kezelőszoba" style="width:100%;height:100%;object-fit:cover;object-position:center 35%"></div>
     <div>
       <div class="about-eyebrow">Rólam</div>
       <h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2>
@@ -283,6 +160,7 @@
         <div><b>850+</b><span>vendég</span></div>
         <div><b>100%</b><span>rád szabva</span></div>
       </div>
+      <a class="more-link" href="rolam.html">Ismerj meg jobban →</a>
     </div>
   </div>
 </section>
@@ -305,22 +183,26 @@
       <div class="svc-item reveal">
         <h3><span class="dot"></span>Hullámmasszázs</h3>
         <p>Gépi nyirokmasszázs: felgyorsítja az anyagcserét és a nyirokkeringést, méregtelenít, támogatja a fogyást, megszünteti a végtagok vizesedését és zsibbadását, enyhíti a migrént — vagy egyszerűen csak egy kellemes pihenés.</p>
+        <a class="more" href="hullammasszazs.html">Részletek →</a>
       </div>
       <div class="svc-item reveal">
         <h3><span class="dot"></span>Rádiófrekvenciás kezelés</h3>
         <p>A testbőr feszesítésére, a kavitációs zsírbontás ideális kiegészítője: a már megbontott zsírsejteket tovább bontja, és serkenti a bőr természetes kollagéntermelését.</p>
+        <a class="more" href="radiofrekvencia.html">Részletek →</a>
       </div>
       <div class="svc-item reveal">
         <h3><span class="dot"></span>HIEMT — izomépítés</h3>
         <p>30 perc alatt 30&nbsp;000 erős izomösszehúzódás: izomtömeg-növelés, alakformálás, zsírszövet-csökkentés (szálkásítás) és anyagcsere-gyorsítás — hason, lábon, popsin és karon is. Fél óra, ami egy intenzív edzéssel felér.</p>
+        <a class="more" href="hiemt.html">Részletek →</a>
       </div>
       <div class="svc-item reveal">
         <h3><span class="dot"></span>Kavitációs zsírbontás</h3>
         <p>A kavitációs ultrahang megbontja a bőr alatti zsírsejtek szerkezetét, így azok elszakadnak egymástól, majd természetes úton távoznak a szervezetből.</p>
+        <a class="more" href="kavitacio.html">Részletek →</a>
       </div>
     </div>
   </div>
-  <div class="sec-cta reveal"><a href="#foglalas" class="btn"><span>Időpontot foglalok</span></a></div>
+  <div class="sec-cta reveal"><a href="foglalas.html" class="btn"><span>Időpontot foglalok</span></a></div>
 </section>
 
 <!-- ===== REFERENCIÁK ===== -->
@@ -330,72 +212,21 @@
     <h2>4,9 ★ · <em>280+ vélemény</em></h2>
     <p>A legszebb visszajelzés, ha valaki visszatér — és ajánl másoknak is.</p>
   </div>
-  <div class="revs">
-    <div class="rev"><div class="stars">★★★★★</div><p class="q">„Évek óta Ágotához járok, sosem csalódtam. A bőröm még sosem volt ilyen szép, és mindig nyugodtan jövök el."</p><div class="who"><div class="avatar">K</div><div><b>Katalin</b><span>visszatérő vendég</span></div></div></div>
-    <div class="rev"><div class="stars">★★★★★</div><p class="q">„Profi, kedves és őszinte. Elmondta, mire van szükségem, és mire nincs. Ez ma ritkaság."</p><div class="who"><div class="avatar">E</div><div><b>Eszter</b><span>rádiófrekvenciás kezelés</span></div></div></div>
-    <div class="rev"><div class="stars">★★★★★</div><p class="q">„A stúdió maga a nyugalom. Minden alkalom egy kis feltöltődés, nem csak egy kezelés."</p><div class="who"><div class="avatar">R</div><div><b>Réka</b><span>hullámmasszázs</span></div></div></div>
+  <div class="rev-grid">
+    <div class="rev-chip"><div class="rev-avatar">Zs</div><div><b>Zsófia Nagy</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google · 7 hónapja</div></div></div>
+    <div class="rev-chip"><div class="rev-avatar">M</div><div><b>Mária Szenes</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google · 7 hónapja</div></div></div>
+    <div class="rev-chip"><div class="rev-avatar">N</div><div><b>Noémi Márta - Kállai</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google · 7 hónapja</div></div></div>
+    <div class="rev-chip"><div class="rev-avatar">F</div><div><b>Flóra Petró</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google · 7 hónapja</div></div></div>
   </div>
   <div class="ig-wrap">
-    <a href="#" class="ig-handle">@agota.studio — kövess be Instagramon</a>
-    <div class="ig"><div class="ph"></div><div class="ph v2"></div><div class="ph v3"></div><div class="ph v4"></div><div class="ph v5"></div><div class="ph"></div></div>
-  </div>
-</section>
-
-<!-- ===== FOGLALÓ RENDSZER ===== -->
-<section class="section" id="foglalas">
-  <div class="sec-head">
-    <div class="sec-eyebrow">Időpontfoglalás</div>
-    <h2>Foglalj időpontot <em>néhány kattintással</em></h2>
-    <p>Válaszd ki a kezelést és az időpontot — a foglalást e-mailben és telefonon is visszaigazolom.</p>
-  </div>
-  <div class="booking">
-    <div class="intro">
-      <div class="about-eyebrow">Miért itt?</div>
-      <h3>A te időd<br><em>a te tempódban</em></h3>
-      <ul class="book-benefits">
-        <li>Rugalmas időpontok hétfőtől péntekig, 9 és 18 óra között</li>
-        <li>Ingyenes, kötelezettség nélküli bőrkonzultáció az első alkalommal</li>
-        <li>Ha közbejön valami, díjmentesen módosíthatod a foglalást</li>
-        <li>Visszaigazolás 24 órán belül, személyesen tőlem</li>
-      </ul>
-    </div>
-
-    <div class="form-card">
-      <form id="bookForm" onsubmit="return submitBooking(event)">
-        <div class="form-row">
-          <label for="f-service">Kezelés</label>
-          <select id="f-service" required>
-            <option value="" disabled selected>Válassz kezelést…</option>
-            <option>Hullámmasszázs (gépi nyirokmasszázs)</option>
-            <option>Rádiófrekvenciás kezelés</option>
-            <option>HIEMT – izomépítés</option>
-            <option>Kavitációs zsírbontás</option>
-            <option>Konzultáció / egyéb</option>
-          </select>
-        </div>
-        <div class="form-row two">
-          <div class="form-row" style="margin:0"><label for="f-date">Dátum</label><input type="date" id="f-date" required></div>
-          <div class="form-row" style="margin:0"><label for="f-time">Időpont</label>
-            <select id="f-time" required>
-              <option value="" disabled selected>Óra…</option>
-              <option>09:00</option><option>10:00</option><option>11:00</option><option>12:00</option>
-              <option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row two">
-          <div class="form-row" style="margin:0"><label for="f-name">Neved</label><input type="text" id="f-name" placeholder="Teljes név" required></div>
-          <div class="form-row" style="margin:0"><label for="f-phone">Telefon</label><input type="tel" id="f-phone" placeholder="+36 30 …" required></div>
-        </div>
-        <div class="form-row"><label for="f-note">Megjegyzés (opcionális)</label><textarea id="f-note" placeholder="Bármi, amit jó, ha tudok…"></textarea></div>
-        <button type="submit" class="btn"><span>Foglalás elküldése</span></button>
-        <div class="form-note">A gomb megnyomásával elfogadod az adatkezelési tájékoztatót.</div>
-      </form>
-      <div class="book-success" id="bookSuccess">
-        <div class="chk">✓</div>
-        <h3>Köszönöm, <span id="okName">Ágota</span>!</h3>
-        <p>A foglalásod rögzítettük:<br><b id="okDetails">—</b><br><br>24 órán belül visszaigazolom telefonon. Hamarosan találkozunk!</p>
-      </div>
+    <a href="referenciak.html" class="ig-handle">Összes vélemény és galéria →</a>
+    <div class="ig">
+      <div class="ph noafter" style="background:none"><img src="images/galeria1.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="ph v2 noafter" style="background:none"><img src="images/galeria2.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="ph v3 noafter" style="background:none"><img src="images/galeria3.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="ph v4 noafter" style="background:none"><img src="images/galeria4.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="ph v5 noafter" style="background:none"><img src="images/galeria5.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="ph noafter" style="background:none"><img src="images/utana-has.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
     </div>
   </div>
 </section>
@@ -404,19 +235,19 @@
 <section class="section" id="elhelyezkedes">
   <div class="loc">
     <div class="map-frame">
-      <iframe title="Ágota Studio térkép" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        src="https://maps.google.com/maps?q=Ny%C3%ADregyh%C3%A1za%20Kossuth%20t%C3%A9r&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+      <iframe title="Loft of Beauty térkép" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Ny%C3%ADregyh%C3%A1za%2C%20Meggyes%20utca%2011&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
     </div>
     <div class="loc-info">
       <div class="about-eyebrow">Elhelyezkedés</div>
-      <h2>A város szívében,<br><em>könnyen megközelíthetően</em></h2>
+      <h2>Nyíregyházán,<br><em>könnyen megközelíthetően</em></h2>
       <ul class="loc-list">
-        <li><div class="ic">⌖</div><div><div class="k">Cím</div><div class="v">Nyíregyháza, Kossuth tér 4.</div></div></li>
-        <li><div class="ic">☎</div><div><div class="k">Telefon</div><div class="v"><a href="tel:+36301234567">+36 30 123 4567</a></div></div></li>
-        <li><div class="ic">✉</div><div><div class="k">E-mail</div><div class="v"><a href="mailto:hello@agotastudio.hu">hello@agotastudio.hu</a></div></div></li>
+        <li><div class="ic">⌖</div><div><div class="k">Cím</div><div class="v">4551 Nyíregyháza, Meggyes u. 11.</div></div></li>
+        <li><div class="ic">☎</div><div><div class="k">Telefon</div><div class="v"><a href="tel:+36305039156">+36 30 503 9156</a></div></div></li>
+        <li><div class="ic">✉</div><div><div class="k">E-mail</div><div class="v"><a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a></div></div></li>
         <li><div class="ic">◷</div><div><div class="k">Nyitvatartás</div><div class="v">Hétfő–Péntek · 9:00–18:00<br>Hétvégén előzetes egyeztetéssel</div></div></li>
       </ul>
-      <a class="map-link" href="https://maps.google.com/maps?q=Ny%C3%ADregyh%C3%A1za+Kossuth+t%C3%A9r" target="_blank" rel="noopener">Útvonalterv a Google Térképen →</a>
+      <a class="more-link" href="kapcsolat.html">Teljes kapcsolat oldal →</a>
     </div>
   </div>
 </section>
@@ -425,67 +256,42 @@
 <footer class="site">
   <div class="foot-grid">
     <div class="foot-brand">
-      <a href="#" class="logo">ÁGOTA<span>·</span>STUDIO</a>
+      <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
       <p>Nyíregyháza prémium kozmetikai stúdiója. Személyre szabott arc- és testkezelések, ahol a szépség otthon van.</p>
       <div class="socials">
         <a href="#" aria-label="Instagram" title="Instagram">IG</a>
         <a href="#" aria-label="Facebook" title="Facebook">FB</a>
-        <a href="tel:+36301234567" aria-label="Telefon" title="Telefon">☎</a>
+        <a href="tel:+36305039156" aria-label="Telefon" title="Telefon">☎</a>
       </div>
     </div>
     <div class="foot-col">
       <h4>Oldalak</h4>
-      <a href="#rolam">Rólam</a>
-      <a href="#szolgaltatasok">Szolgáltatások</a>
-      <a href="#referenciak">Referenciák</a>
-      <a href="#elhelyezkedes">Elérhetőség</a>
+      <a href="rolam.html">Rólam</a>
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="referenciak.html">Referenciák</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
     </div>
     <div class="foot-col">
       <h4>Kezelések</h4>
-      <a href="#szolgaltatasok">Hullámmasszázs</a>
-      <a href="#szolgaltatasok">Rádiófrekvenciás kezelés</a>
-      <a href="#szolgaltatasok">HIEMT izomépítés</a>
-      <a href="#szolgaltatasok">Kavitációs zsírbontás</a>
+      <a href="hullammasszazs.html">Hullámmasszázs</a>
+      <a href="radiofrekvencia.html">Rádiófrekvenciás kezelés</a>
+      <a href="hiemt.html">HIEMT izomépítés</a>
+      <a href="kavitacio.html">Kavitációs zsírbontás</a>
     </div>
     <div class="foot-col">
       <h4>Elérhetőség</h4>
-      <p>Nyíregyháza, Kossuth tér 4.</p>
-      <a href="tel:+36301234567">+36 30 123 4567</a>
-      <a href="mailto:hello@agotastudio.hu">hello@agotastudio.hu</a>
+      <p>4551 Nyíregyháza, Meggyes u. 11.</p>
+      <a href="tel:+36305039156">+36 30 503 9156</a>
+      <a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a>
       <p>H–P · 9:00–18:00</p>
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 <b>Ágota Studio</b> · minden jog fenntartva</span>
+    <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
     <span>Nyíregyháza prémium kozmetikája · 2012 óta</span>
   </div>
 </footer>
 
-<script>
-  function submitBooking(e){
-    e.preventDefault();
-    var svc = document.getElementById('f-service').value;
-    var date = document.getElementById('f-date').value;
-    var time = document.getElementById('f-time').value;
-    var name = document.getElementById('f-name').value.trim();
-    document.getElementById('okName').textContent = name || 'Kedves Vendég';
-    var svcName = svc.split(' – ')[0];
-    document.getElementById('okDetails').textContent = svcName + ' · ' + date + ' · ' + time;
-    document.getElementById('bookForm').style.display = 'none';
-    document.getElementById('bookSuccess').classList.add('show');
-    return false;
-  }
-
-  // Minimalista, lágy megjelenés görgetésre
-  (function(){
-    var els = document.querySelectorAll('.reveal');
-    if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return; }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    els.forEach(function(e){ io.observe(e); });
-  })();
-</script>
-
+<script src="assets/site.js"></script>
 </body>
 </html>

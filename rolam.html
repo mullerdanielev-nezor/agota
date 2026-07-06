@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rólam – Loft of Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  #rolam-story{background:var(--ho)}
+  .about{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:.85fr 1fr;gap:3.5rem;align-items:center}
+  .about .ph{min-height:460px;border-radius:220px 220px 6px 6px}
+  .about h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.3rem;line-height:1.15;margin-bottom:1.2rem}
+  .about h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .about p{font-weight:400;line-height:1.9;color:var(--mokka);max-width:460px;margin-bottom:1.2rem}
+  .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.7rem;color:var(--plum);margin-top:.6rem}
+
+  #values{background:var(--cream)}
+  .values{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+  .value{background:#fff;border-radius:12px;padding:2rem 1.8rem;border:1px solid rgba(224,62,99,.1);box-shadow:0 10px 30px rgba(224,62,99,.06);text-align:center}
+  .value .ic{width:56px;height:56px;border-radius:50%;background:var(--cream);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.1rem}
+  .value h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;margin-bottom:.6rem}
+  .value p{font-size:.88rem;line-height:1.7;color:var(--mokka)}
+
+  #studio{background:var(--ho)}
+  .studio-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:.9rem;height:520px}
+  .studio-grid .ph{border-radius:10px}
+  .studio-grid a:nth-child(1){grid-row:1/3}
+
+  #timeline{background:var(--cream)}
+  .tl{max-width:760px;margin:0 auto;display:grid;gap:1.6rem}
+  .tl-item{display:grid;grid-template-columns:90px 1fr;gap:1.4rem;align-items:start}
+  .tl-item b{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--rosegold)}
+  .tl-item div p{color:var(--mokka);line-height:1.7;font-size:.92rem;margin-top:.3rem}
+  .tl-item div h4{font-family:'Fraunces',serif;font-weight:400;font-size:1.1rem}
+
+  @media(max-width:820px){
+    .about{grid-template-columns:1fr;gap:2.4rem}.about .ph{min-height:300px}
+    .values{grid-template-columns:1fr}
+    .studio-grid{grid-template-columns:1fr 1fr;height:auto}
+    .studio-grid a{aspect-ratio:1}
+    .studio-grid a:nth-child(1){grid-row:auto;grid-column:1/-1;aspect-ratio:16/9}
+    .tl-item{grid-template-columns:60px 1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav>
+    <ul>
+      <li><a class="nl" href="szolgaltatasok.html">Kezelések</a></li>
+      <li><a class="nl active" href="rolam.html">Rólam</a></li>
+      <li><a class="nl" href="referenciak.html">Referenciák</a></li>
+      <li><a class="nl" href="kapcsolat.html">Kapcsolat</a></li>
+    </ul>
+  </nav>
+  <a href="foglalas.html" class="book">Időpontfoglalás</a>
+  <button class="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <button class="mclose">×</button>
+  <a href="szolgaltatasok.html">Kezelések</a>
+  <a href="rolam.html">Rólam</a>
+  <a href="referenciak.html">Referenciák</a>
+  <a href="kapcsolat.html">Kapcsolat</a>
+  <a href="foglalas.html">Foglalás</a>
+</div>
+
+<div class="page-head">
+  <div class="crumb"><a href="agota-oldal.html">Főoldal</a> / Rólam</div>
+  <h1>Rólam</h1>
+  <p>Hajdó Ágota vagyok, a Loft of Beauty tulajdonosa és kozmetikusa.</p>
+</div>
+
+<section class="section" id="rolam-story">
+  <div class="about">
+    <div class="ph noafter reveal" style="background:none"><img src="images/rolam.webp" alt="Loft of Beauty kezelőszoba" style="width:100%;height:100%;object-fit:cover;object-position:center 35%"></div>
+    <div class="reveal">
+      <div class="about-eyebrow">A történetem</div>
+      <h2>Nem hiszek a <em>sablonokban</em></h2>
+      <p>Több mint egy évtizede foglalkozom kozmetikával Nyíregyházán. Az évek alatt megtanultam, hogy minden bőr, minden test más — ezért nálam nincs két egyforma kezelés.</p>
+      <p>A Loft of Beauty stúdiót azért hoztam létre, hogy legyen egy hely, ahol tényleg van idő rád: meghallgatlak, elmondom őszintén mire van szükséged (és mire nincs), aztán együtt kidolgozzuk a hozzád illő kezelési tervet.</p>
+      <p>Célom nem a gyors, egyszeri „csoda", hanem a tartós, látható eredmény — türelemmel, szakértelemmel és rengeteg odafigyeléssel.</p>
+      <div class="sign">Hajdó Ágota</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="values">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Miben hiszek</div>
+    <h2>Ami <em>vezet</em> a munkámban</h2>
+  </div>
+  <div class="values">
+    <div class="value reveal">
+      <div class="ic">✦</div>
+      <h3>Személyre szabottság</h3>
+      <p>Minden kezelés a te bőrödhöz, tested igényeihez igazodik — nincs két egyforma alkalom.</p>
+    </div>
+    <div class="value reveal">
+      <div class="ic">◐</div>
+      <h3>Őszinteség</h3>
+      <p>Csak azt javaslom, amire tényleg szükséged van. Ha valami nem indokolt, azt is elmondom.</p>
+    </div>
+    <div class="value reveal">
+      <div class="ic">❋</div>
+      <h3>Nyugalom</h3>
+      <p>A stúdió egy kis sziget a város zajából — ide nem sietni, hanem megérkezni jössz.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="studio">
+  <div class="sec-head">
+    <div class="sec-eyebrow">A stúdió</div>
+    <h2>Egy nyugodt <em>kis zug</em> Nyíregyházán</h2>
+    <p>Kényelmes kezelőágyak, modern gépi technológia, és egy hangulat, amiben azonnal ellazulsz.</p>
+  </div>
+  <div class="studio-grid">
+    <a class="ph noafter reveal" style="background:none;display:block;overflow:hidden"><img src="images/rolam.webp" alt="Kezelőszoba" style="width:100%;height:100%;object-fit:cover"></a>
+    <a class="ph noafter reveal v2" style="background:none;display:block;overflow:hidden"><img src="images/galeria1.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></a>
+    <a class="ph noafter reveal v3" style="background:none;display:block;overflow:hidden"><img src="images/galeria2.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></a>
+    <a class="ph noafter reveal v4" style="background:none;display:block;overflow:hidden"><img src="images/galeria3.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></a>
+    <a class="ph noafter reveal v5" style="background:none;display:block;overflow:hidden"><img src="images/galeria4.jpg" alt="Kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></a>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Az utam</div>
+    <h2>12+ év <em>röviden</em></h2>
+  </div>
+  <div class="tl">
+    <div class="tl-item reveal"><b>2012</b><div><h4>Az első lépések</h4><p>Kozmetikusi pályám indulása, az alapok — bőrápolás, arckezelések, ügyfélkapcsolatok.</p></div></div>
+    <div class="tl-item reveal"><b>2017</b><div><h4>Alakformálás felé fordulás</h4><p>Gépi testkezelésekre specializálódom: hullámmasszázs, majd rádiófrekvencia és kavitáció.</p></div></div>
+    <div class="tl-item reveal"><b>2022</b><div><h4>HIEMT bevezetése</h4><p>A legújabb izomépítő technológiát is beemelem a kínálatba — a stúdió teljessé válik.</p></div></div>
+    <div class="tl-item reveal"><b>Ma</b><div><h4>Loft of Beauty</h4><p>850+ elégedett vendég, 4,9★ értékelés — és minden nap ugyanaz az odafigyelés, mint az első alkalommal.</p></div></div>
+  </div>
+  <div class="sec-cta reveal"><a href="foglalas.html" class="btn"><span>Foglalj időpontot</span></a></div>
+</section>
+
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+      <p>Nyíregyháza prémium kozmetikai stúdiója. Személyre szabott arc- és testkezelések, ahol a szépség otthon van.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram" title="Instagram">IG</a>
+        <a href="#" aria-label="Facebook" title="Facebook">FB</a>
+        <a href="tel:+36305039156" aria-label="Telefon" title="Telefon">☎</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Oldalak</h4>
+      <a href="rolam.html">Rólam</a>
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="referenciak.html">Referenciák</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+    </div>
+    <div class="foot-col">
+      <h4>Kezelések</h4>
+      <a href="hullammasszazs.html">Hullámmasszázs</a>
+      <a href="radiofrekvencia.html">Rádiófrekvenciás kezelés</a>
+      <a href="hiemt.html">HIEMT izomépítés</a>
+      <a href="kavitacio.html">Kavitációs zsírbontás</a>
+    </div>
+    <div class="foot-col">
+      <h4>Elérhetőség</h4>
+      <p>4551 Nyíregyháza, Meggyes u. 11.</p>
+      <a href="tel:+36305039156">+36 30 503 9156</a>
+      <a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a>
+      <p>H–P · 9:00–18:00</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
+    <span>Nyíregyháza prémium kozmetikája · 2012 óta</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

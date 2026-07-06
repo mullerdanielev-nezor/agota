@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kezelések – Loft of Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  #svc-grid-section{background:var(--ho)}
+  .svc-cards{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem}
+  .svc-card-big{background:#fff;border:1px solid rgba(224,62,99,.1);border-radius:14px;overflow:hidden;box-shadow:0 12px 34px rgba(224,62,99,.08);transition:transform .35s ease,box-shadow .35s ease;text-decoration:none;color:var(--ink);display:flex;flex-direction:column}
+  .svc-card-big:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(224,62,99,.16)}
+  .svc-card-big .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:var(--cream)}
+  .svc-card-big .thumb img{display:block}
+  .svc-card-big .body{padding:1.6rem 1.8rem 1.9rem}
+  .svc-card-big h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem}
+  .svc-card-big h3 .dot{width:9px;height:9px;border-radius:50%;background:var(--rosegold);flex-shrink:0}
+  .svc-card-big p{font-size:.9rem;line-height:1.7;color:var(--mokka);margin-bottom:1rem}
+  .svc-card-big .more{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rosegold)}
+
+  #video-band{background:var(--cream)}
+  .vband{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:3rem;align-items:center}
+  .phone{position:relative;width:100%;max-width:280px;margin:0 auto;background:#241016;border-radius:42px;padding:12px;box-shadow:0 34px 74px rgba(58,14,28,.30),inset 0 0 0 1px rgba(255,255,255,.05);border:1px solid rgba(224,62,99,.22)}
+  .phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:78px;height:20px;background:#241016;border-radius:0 0 13px 13px;z-index:3}
+  .phone .screen{position:relative;aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000}
+  .phone video{width:100%;height:100%;object-fit:cover;display:block}
+  .vband h2{font-family:'Fraunces',serif;font-weight:300;font-size:2rem;line-height:1.15;margin-bottom:.9rem}
+  .vband h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .vband p{color:var(--mokka);line-height:1.8;max-width:440px}
+
+  @media(max-width:820px){
+    .svc-cards{grid-template-columns:1fr}
+    .vband{grid-template-columns:1fr;gap:2rem;text-align:center}
+    .phone{max-width:230px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav>
+    <ul>
+      <li><a class="nl active" href="szolgaltatasok.html">Kezelések</a></li>
+      <li><a class="nl" href="rolam.html">Rólam</a></li>
+      <li><a class="nl" href="referenciak.html">Referenciák</a></li>
+      <li><a class="nl" href="kapcsolat.html">Kapcsolat</a></li>
+    </ul>
+  </nav>
+  <a href="foglalas.html" class="book">Időpontfoglalás</a>
+  <button class="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <button class="mclose">×</button>
+  <a href="szolgaltatasok.html">Kezelések</a>
+  <a href="rolam.html">Rólam</a>
+  <a href="referenciak.html">Referenciák</a>
+  <a href="kapcsolat.html">Kapcsolat</a>
+  <a href="foglalas.html">Foglalás</a>
+</div>
+
+<div class="page-head">
+  <div class="crumb"><a href="agota-oldal.html">Főoldal</a> / Kezelések</div>
+  <h1>Alakformáló <em>kezelések</em></h1>
+  <p>Négy gépi technológia, egyénileg összeállított kezelési tervben — a formásabb, feszesebb testért.</p>
+</div>
+
+<section class="section" id="svc-grid-section">
+  <div class="svc-cards">
+    <a class="svc-card-big reveal" href="hullammasszazs.html">
+      <div class="thumb"><img src="images/galeria3.jpg" alt="Hullámmasszázs kezelés" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="body">
+        <h3><span class="dot"></span>Hullámmasszázs</h3>
+        <p>Gépi nyirokmasszázs: méregtelenít, támogatja a fogyást, megszünteti a végtagok vizesedését — vagy egyszerűen csak egy kellemes pihenés.</p>
+        <span class="more">Részletek →</span>
+      </div>
+    </a>
+    <a class="svc-card-big reveal" href="radiofrekvencia.html">
+      <div class="thumb"><img src="images/utana-has.jpg" alt="Rádiófrekvenciás kezelés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="body">
+        <h3><span class="dot"></span>Rádiófrekvenciás kezelés</h3>
+        <p>Testbőr feszesítés, a kavitációs zsírbontás ideális kiegészítője — serkenti a bőr természetes kollagéntermelését.</p>
+        <span class="more">Részletek →</span>
+      </div>
+    </a>
+    <a class="svc-card-big reveal" href="hiemt.html">
+      <div class="thumb"><img src="images/utana-csipo.jpg" alt="HIEMT izomépítés eredménye" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="body">
+        <h3><span class="dot"></span>HIEMT — izomépítés</h3>
+        <p>30 perc alatt 30 000 erős izomösszehúzódás: izomtömeg-növelés, alakformálás, zsírszövet-csökkentés — hason, lábon, popsin és karon is.</p>
+        <span class="more">Részletek →</span>
+      </div>
+    </a>
+    <a class="svc-card-big reveal" href="kavitacio.html">
+      <div class="thumb"><img src="images/galeria2.jpg" alt="Kavitációs kezelés" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="body">
+        <h3><span class="dot"></span>Kavitációs zsírbontás</h3>
+        <p>A kavitációs ultrahang megbontja a bőr alatti zsírsejtek szerkezetét, melyek természetes úton távoznak a szervezetből.</p>
+        <span class="more">Részletek →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="video-band">
+  <div class="vband">
+    <div class="phone reveal">
+      <div class="screen">
+        <video src="images/v24044gl0000d7ajjg7og65s0pmb35c0.MP4" muted autoplay loop playsinline controls preload="metadata"></video>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-eyebrow" style="justify-content:center">A kezelések mozgásban</div>
+      <h2>Nézd meg, <em>hogyan zajlik</em> egy kezelés</h2>
+      <p>A gépi technológiák teljesen fájdalommentesek — a legtöbb vendégünk kifejezetten pihentetőnek, ellazítónak érzi a kezelést.</p>
+    </div>
+  </div>
+  <div class="sec-cta reveal"><a href="foglalas.html" class="btn"><span>Időpontot foglalok</span></a></div>
+</section>
+
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="agota-oldal.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+      <p>Nyíregyháza prémium kozmetikai stúdiója. Személyre szabott arc- és testkezelések, ahol a szépség otthon van.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram" title="Instagram">IG</a>
+        <a href="#" aria-label="Facebook" title="Facebook">FB</a>
+        <a href="tel:+36305039156" aria-label="Telefon" title="Telefon">☎</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Oldalak</h4>
+      <a href="rolam.html">Rólam</a>
+      <a href="szolgaltatasok.html">Szolgáltatások</a>
+      <a href="referenciak.html">Referenciák</a>
+      <a href="kapcsolat.html">Kapcsolat</a>
+    </div>
+    <div class="foot-col">
+      <h4>Kezelések</h4>
+      <a href="hullammasszazs.html">Hullámmasszázs</a>
+      <a href="radiofrekvencia.html">Rádiófrekvenciás kezelés</a>
+      <a href="hiemt.html">HIEMT izomépítés</a>
+      <a href="kavitacio.html">Kavitációs zsírbontás</a>
+    </div>
+    <div class="foot-col">
+      <h4>Elérhetőség</h4>
+      <p>4551 Nyíregyháza, Meggyes u. 11.</p>
+      <a href="tel:+36305039156">+36 30 503 9156</a>
+      <a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a>
+      <p>H–P · 9:00–18:00</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
+    <span>Nyíregyháza prémium kozmetikája · 2012 óta</span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
