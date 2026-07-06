@@ -112,7 +112,7 @@ footer.site{background:var(--plum);color:rgba(255,255,255,.62);padding:4.5rem 3r
   nav ul,.book{display:none}
   .burger{display:flex}
   .section{padding:4rem 1.5rem}
-  .page-head{padding:2.6rem 1.5rem 2rem}
+  .page-head{padding:3.4rem 1.5rem 2.2rem}
   .cta-end{padding:0 1.5rem 3rem}
   .foot-grid{grid-template-columns:1fr 1fr;gap:2rem}
   .foot-brand{grid-column:1/-1}
