@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nezor × Loft of Beauty – Hirdetési Stratégia</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#241c18; --navy2:#3a2e26; --slate:#6b6157; --light:#faf7f2; --border:#e8ded0;
+    --green:#0f9d76; --green-light:#d6f2e8;
+    --orange:#d98324; --orange-light:#fdf0dc;
+    --red:#dc4b3e; --red-light:#fbe3e0;
+    --blue:#3d6ea8; --blue-light:#e0eaf5;
+    --purple:#8a6d4b; --purple-light:#f2e9dc;
+    --teal:#2b8a9e; --teal-light:#dcf0f3;
+    --gold:#c9a468;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#f4efe7; color:var(--navy); line-height:1.6; }
+
+  .topbar { background:var(--navy); padding:0 32px; display:flex; align-items:center; position:sticky; top:0; z-index:100; box-shadow:0 2px 20px rgba(0,0,0,0.3); }
+  .brand { color:white; font-weight:800; font-size:1.1rem; padding:18px 24px 18px 0; border-right:1px solid rgba(255,255,255,0.1); margin-right:24px; }
+  .brand span { color:var(--gold); }
+  .topbar .client { color:rgba(255,255,255,.55); font-size:.86rem; font-weight:600; letter-spacing:.3px; }
+
+  .page { max-width:1040px; margin:0 auto; padding:40px 24px 80px; }
+
+  .hero { border-radius:20px; padding:48px; margin-bottom:32px; color:white; position:relative; overflow:hidden;
+          background:linear-gradient(135deg,#3a2e26 0%,#8a6d4b 100%); }
+  .hero::before { content:''; position:absolute; right:-60px; top:-60px; width:300px; height:300px; border-radius:50%; background:rgba(255,255,255,0.05); }
+  .hero-label { font-size:0.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; opacity:0.7; margin-bottom:10px; }
+  .hero h1 { font-size:2.2rem; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; line-height:1.2; }
+  .hero-sub { font-size:1rem; opacity:0.85; margin-bottom:24px; }
+  .hero-pills { display:flex; gap:10px; flex-wrap:wrap; }
+  .hero-pill { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:5px 14px; font-size:0.82rem; font-weight:500; }
+
+  .card { background:white; border-radius:16px; padding:28px 32px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04); border:1px solid var(--border); }
+  .card-title { display:flex; align-items:center; gap:12px; font-size:1.15rem; font-weight:700; margin-bottom:18px; }
+  .icon { width:38px; height:38px; border-radius:10px; display:grid; place-items:center; font-size:1.05rem; flex-shrink:0; }
+
+  .alert { display:flex; gap:12px; border-radius:12px; padding:16px 18px; margin:16px 0; font-size:0.88rem; align-items:flex-start; }
+  .alert-icon { font-size:1.1rem; line-height:1.3; }
+  .alert.warn { background:var(--orange-light); border:1px solid #f0d09a; }
+  .alert.danger { background:var(--red-light); border:1px solid #f3b8b1; }
+  .alert.success { background:var(--green-light); border:1px solid #9dd9c5; }
+  .alert.info { background:var(--blue-light); border:1px solid #b6cde6; }
+
+  .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .kpi { background:var(--light); border:1px solid var(--border); border-radius:14px; padding:20px 16px; text-align:center; }
+  .kpi-val { font-size:1.65rem; font-weight:800; color:var(--navy); line-height:1.1; }
+  .kpi-label { font-size:0.74rem; color:var(--slate); margin-top:6px; font-weight:500; }
+  @media(max-width:760px){ .kpi-row{grid-template-columns:1fr 1fr;} }
+
+  .table-wrap { overflow-x:auto; }
+  table.strategy-table { width:100%; border-collapse:collapse; font-size:0.86rem; }
+  table.strategy-table th { background:var(--navy); color:white; text-align:left; padding:12px 14px; font-weight:600; }
+  table.strategy-table td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.strategy-table tr:nth-child(even) td { background:var(--light); }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media(max-width:720px){ .two-col{grid-template-columns:1fr;} }
+
+  .aud-card { border:1px solid var(--border); border-radius:14px; padding:20px; }
+  .audience-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media(max-width:820px){ .audience-grid{grid-template-columns:1fr;} }
+  .aud-icon { font-size:1.6rem; margin-bottom:8px; }
+  .aud-title { font-weight:700; margin-bottom:10px; font-size:0.98rem; }
+  .aud-row { font-size:0.82rem; color:var(--slate); margin-bottom:5px; }
+  .aud-row strong { color:var(--navy); }
+
+  .budget-visual { display:flex; border-radius:10px; overflow:hidden; margin-bottom:16px; height:38px; }
+  .bv-seg { color:white; font-size:0.75rem; font-weight:700; display:grid; place-items:center; }
+
+  .channel { border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:18px; }
+  .channel-head { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+  .ch-icon { width:42px; height:42px; border-radius:11px; display:grid; place-items:center; font-size:1.1rem; }
+  .ch-title { font-weight:700; font-size:1rem; }
+  .ch-sub { font-size:0.78rem; color:var(--slate); }
+  .ch-budget { margin-left:auto; text-align:right; }
+  .ch-budget-val { font-weight:800; font-size:1.1rem; }
+  .ch-budget-label { font-size:0.7rem; color:var(--slate); }
+  .ch-list { list-style:none; }
+  .ch-list li { font-size:0.85rem; padding:5px 0 5px 20px; position:relative; color:var(--slate); }
+  .ch-list li::before { content:'•'; position:absolute; left:4px; color:var(--purple); font-weight:800; }
+  .ch-list li strong { color:var(--navy); }
+
+  .hb { border-radius:10px; padding:13px 16px; font-size:0.82rem; margin-top:14px; }
+  .hb-blue { background:var(--blue-light); }
+  .hb-green { background:var(--green-light); }
+  .hb-orange { background:var(--orange-light); }
+
+  .tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tag { border-radius:20px; padding:4px 12px; font-size:0.75rem; font-weight:600; }
+  .tag-purple { background:var(--purple-light); color:#6e5533; }
+
+  .phase { display:grid; grid-template-columns:74px 1fr; gap:18px; border:1px solid var(--border); border-radius:14px; padding:20px 22px; margin-bottom:14px; align-items:start; }
+  .phase-no { background:var(--light); border:1px solid var(--border); border-radius:10px; padding:10px 4px; text-align:center; }
+  .phase-no .p1 { font-size:0.66rem; letter-spacing:1px; color:var(--slate); font-weight:700; }
+  .phase-no .p2 { font-size:1.5rem; font-weight:800; line-height:1.1; }
+  .phase-t { font-weight:700; margin-bottom:4px; }
+  .phase-d { font-size:0.86rem; color:var(--slate); }
+  @media(max-width:560px){ .phase{grid-template-columns:1fr;} }
+
+  /* pricing */
+  .price-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:640px){ .price-grid{grid-template-columns:1fr;} }
+  .price-box { background:white; border:1px solid var(--border); border-radius:14px; padding:26px 24px; position:relative; text-align:center; }
+  .price-box.reco { border-color:var(--gold); box-shadow:0 8px 24px -14px rgba(138,109,75,.55); }
+  .rib { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--gold); color:white; font-size:0.64rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:4px 12px; border-radius:20px; white-space:nowrap; }
+  .price-name { font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#6e5533; margin-bottom:8px; }
+  .price-val { font-size:2rem; font-weight:800; line-height:1; color:#3a2e26; }
+  .price-note { font-size:0.78rem; color:var(--slate); margin-top:6px; }
+  .incl { list-style:none; text-align:left; margin-top:16px; padding-top:14px; border-top:1px solid var(--border); }
+  .incl li { font-size:0.8rem; color:var(--slate); padding:4px 0 4px 20px; position:relative; }
+  .incl li::before { content:'✓'; position:absolute; left:0; color:var(--green); font-weight:800; }
+
+  .tl { border-left:2px solid var(--border); padding-left:22px; margin-left:8px; }
+  .tl-item { position:relative; padding-bottom:18px; }
+  .tl-item:last-child { padding-bottom:0; }
+  .tl-item::before { content:''; position:absolute; left:-29px; top:5px; width:12px; height:12px; border-radius:50%; background:white; border:2.5px solid var(--purple); }
+  .tl-when { font-weight:700; font-size:0.9rem; color:#6e5533; }
+  .tl-what { font-size:0.86rem; color:var(--slate); }
+
+  ol.steps { padding-left:20px; }
+  ol.steps li { font-size:0.88rem; margin-bottom:9px; padding-left:6px; }
+  ol.steps li strong { color:var(--navy); }
+
+  .src { font-size:0.74rem; color:var(--slate); margin-top:12px; line-height:1.5; }
+  footer { max-width:1040px; margin:0 auto; padding:0 24px 50px; font-size:0.76rem; color:var(--slate); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+
+  .domain { font-weight:800; color:var(--gold); }
+
+  @media print {
+    .topbar { display:none; }
+    .card,.phase,.price-box,.channel { break-inside:avoid; }
+    body { background:white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">NEZOR<span>.</span></div>
+  <div class="client">Loft of Beauty · Hirdetési Stratégia</div>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-label">Nezor Ügynökségi Ajánlat</div>
+    <h1>Weboldal &amp; Hirdetési Stratégia</h1>
+    <div class="hero-sub">Loft of Beauty · Nyíregyháza – az élesítéstől az első foglalásokig</div>
+    <div class="hero-pills">
+      <span class="hero-pill">🌐 1. lépés: loftofbeauty.hu</span>
+      <span class="hero-pill">💰 Próbahónap: 19 900 Ft</span>
+      <span class="hero-pill">🎯 Cél: Időpontfoglalás</span>
+      <span class="hero-pill">📍 Nyíregyháza + 25 km</span>
+    </div>
+  </div>
+
+  <!-- ===== STEP 1: WEBSITE ===== -->
+  <div class="card" style="border-color:var(--gold);border-width:2px;">
+    <div class="card-title"><span class="icon" style="background:#f2e9dc;">🌐</span>Első lépés: Elindítjuk az oldalt – <span class="domain">loftofbeauty.hu</span></div>
+    <p style="font-size:0.92rem;color:var(--slate);margin-bottom:16px;">
+      A weboldal elkészült, és készen áll az élesítésre. <strong>Mielőtt bármilyen hirdetés indulna, ezt tesszük élesbe egy saját, professzionális domain néven:</strong> <span class="domain">loftofbeauty.hu</span>. Ez a hirdetés célállomása – ide érkezik minden érdeklődő, innen történik a foglalás.
+    </p>
+    <div class="alert warn">
+      <div class="alert-icon">⚠️</div>
+      <div><strong>Miért ez az első lépés, és miért nem indulhat előtte hirdetés?</strong> Egy hirdetés annyit ér, amennyit a célállomása. Saját domain nélkül a márka nem hiteles, a Meta mérőkódja (Pixel) nem telepíthető, így <strong>nem látnánk, ki foglalt a hirdetés hatására</strong> – vagyis vakon költenénk. Ezért az oldal élesítése nem opció, hanem a kampány technikai előfeltétele.</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <strong style="font-size:0.85rem;display:block;margin-bottom:8px;">Amit az élesítés tartalmaz:</strong>
+        <ul class="ch-list">
+          <li><strong>loftofbeauty.hu</strong> domain regisztráció + tárhely</li>
+          <li>Az elkészült oldal élesítése, SSL (biztonságos kapcsolat)</li>
+          <li><strong>Meta Pixel</strong> telepítése – enélkül nincs mérés</li>
+          <li>A foglalási űrlap éles tesztelése, e-mail értesítés beállítása</li>
+          <li>Mobilos sebesség- és megjelenés-ellenőrzés</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:0.85rem;display:block;margin-bottom:8px;">Ezzel párhuzamosan (szintén hirdetés előtt):</strong>
+        <ul class="ch-list">
+          <li><strong>Meta Business fiók</strong> + hirdetési fiók beállítása</li>
+          <li>A Facebook-oldal és Instagram-fiók összekötése a hirdetési fiókkal</li>
+          <li>Az induló ajánlat véglegesítése</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hb hb-green">✅ <strong>Ebben a szakaszban egy forint hirdetési keret sem folyik el.</strong> Csak akkor kapcsoljuk be a hirdetéseket, amikor az oldal él, a mérés működik, és van hová érkezniük a vendégeknek.</div>
+  </div>
+
+  <!-- ===== PRICING ===== -->
+  <div class="card" style="background:linear-gradient(135deg,#faf6ef,#f2e9dc);border-color:#dfcaa5;">
+    <div class="card-title"><span class="icon" style="background:#e6d5b8;">💳</span>Nezor Kezelési Díj</div>
+    <div class="price-grid">
+      <div class="price-box reco">
+        <div class="rib">Kockázatmentes belépő</div>
+        <div class="price-name">🟢 Próbahónap</div>
+        <div class="price-val">19 900 Ft</div>
+        <div class="price-note">az első hónap – <strong>a weboldallal együtt</strong></div>
+        <ul class="incl">
+          <li>loftofbeauty.hu domain + tárhely + élesítés</li>
+          <li>A teljes weboldal (már elkészült)</li>
+          <li>Facebook-oldal + Instagram-fiók létrehozása</li>
+          <li>Meta Pixel telepítése és mérés beállítása</li>
+          <li>Az első hirdetések és kreatívok elkészítése</li>
+        </ul>
+      </div>
+      <div class="price-box">
+        <div class="price-name">📈 Havi díj (2. hónaptól)</div>
+        <div class="price-val">79 900 Ft</div>
+        <div class="price-note">teljes körű kampánykezelés</div>
+        <ul class="incl">
+          <li>Folyamatos kampánykezelés és optimalizálás</li>
+          <li>Új hirdetési kreatívok készítése havonta</li>
+          <li>Célközönségek és célzás folyamatos finomhangolása</li>
+          <li>Havi riport, közérthető nyelven</li>
+          <li>Weboldal karbantartás, tárhely, domain</li>
+          <li>Folyamatos szakmai konzultáció</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert success" style="margin-bottom:0;">
+      <div class="alert-icon">✅</div>
+      <div style="font-size:0.82rem;">A <strong>19 900 Ft-os próbahónap egyszeri, kedvezményes belépő ajánlat</strong>, amely a teljes weboldalt is tartalmazza – ezért kockázatmentes az indulás. A fenti összegek a <strong>Nezor kezelési díjai</strong>. A <strong>hirdetési keret</strong> (a Metának fizetett összeg) ezen <strong>felül</strong> értendő, és közvetlenül a platform vonja le.</div>
+    </div>
+  </div>
+
+  <!-- ===== AD BUDGET ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:#fdf0dc;">💰</span>Javasolt Hirdetési Keret</div>
+    <div class="price-box" style="text-align:left;border-color:#dfcaa5;background:#fdfaf5;">
+      <div class="price-name">Első hónap · Facebook + Instagram</div>
+      <div class="price-val">60 000 Ft</div>
+      <div class="price-note">a Metának fizetett hirdetési keret – havonta</div>
+    </div>
+    <div class="alert info" style="margin-bottom:0;">
+      <div class="alert-icon">ℹ️</div>
+      <div>Ez az összeg <strong>közvetlenül a Metához megy</strong>, ebből jelennek meg a hirdetéseid – <strong>nem a Nezor bevétele</strong>. A kezelési díj ezen felül értendő. A keretet Te szabod meg, bármikor módosítható vagy leállítható.</div>
+    </div>
+  </div>
+
+  <!-- ===== SUMMARY / KPI ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--green-light);">📊</span>Stratégiai Összefoglaló &amp; Célszámok</div>
+    <p style="font-size:0.9rem;color:var(--slate);margin-bottom:20px;">A Loft of Beauty erős szolgáltatói alapokkal rendelkezik: 2012 óta működő stúdió, 4 jól elkülönülő gépi kezelés, kész weboldal működő foglalási űrlappal, valódi kezelésvideók és előtte-utána anyag. A gyenge pont nem a szolgáltatás, hanem a <strong>láthatóság</strong>: nincs saját domain, és mindössze 7 Google-vélemény van. A stratégia fókusza ezért: <strong>először az alapok, utána a hirdetés skálázása.</strong></p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val">7 → 40+</div><div class="kpi-label">Google-vélemények (6 hó)</div></div>
+      <div class="kpi"><div class="kpi-val">15–30</div><div class="kpi-label">Érdeklődő / hó (indulás)</div></div>
+      <div class="kpi"><div class="kpi-val">2–4 e Ft</div><div class="kpi-label">Cél: egy érdeklődő ára</div></div>
+      <div class="kpi"><div class="kpi-val">30–40%</div><div class="kpi-label">Érdeklődő → megjelent vendég</div></div>
+    </div>
+    <div class="alert info" style="margin-top:16px;">
+      <div class="alert-icon">📌</div>
+      <div style="font-size:0.82rem;"><strong>Honnan jönnek ezek a számok?</strong> Magyar helyi szolgáltatói (kozmetika, szépségipar) kampányok tipikus sávjai alapján. Nyíregyháza méretű városban, szűk földrajzi célzással a lead-ár általában 2–4 ezer Ft között mozog egy bevezető ajánlatnál. <strong>Ezek becslések, nem garanciák</strong> – a valós számok az első 2–4 hét adatai után tisztulnak ki. Az első hónap részben „tanulóidőszak", amikor a rendszer megtanulja, kinek éri meg mutatni a hirdetést.</div>
+    </div>
+  </div>
+
+  <!-- ===== AUDIENCE ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--purple-light);">🎯</span>Célközönség – 3 Vendégszegmens</div>
+    <div class="audience-grid">
+      <div class="aud-card" style="background:#fdf7f0;border-color:#e8d5b8;">
+        <div class="aud-icon">💃</div>
+        <div class="aud-title">Elsődleges: Alakformálást keresők</div>
+        <div class="aud-row"><strong>Kik:</strong> 30–50 éves nők, szülés utáni vagy testkontúr-célok</div>
+        <div class="aud-row"><strong>Keresnek:</strong> kavitáció, HIEMT, rádiófrekvencia</div>
+        <div class="aud-row"><strong>Hol:</strong> Instagram, Facebook, Google keresés</div>
+        <div class="aud-row"><strong>Döntés:</strong> eredmény, bizalom, diszkréció</div>
+      </div>
+      <div class="aud-card" style="background:#f4f8fb;border-color:#c9dcec;">
+        <div class="aud-icon">🌿</div>
+        <div class="aud-title">Másodlagos: Wellness &amp; regeneráció</div>
+        <div class="aud-row"><strong>Kik:</strong> 28–58 éves nők, ülőmunka, fáradt lábak</div>
+        <div class="aud-row"><strong>Keresnek:</strong> hullámmasszázs, nyirokkeringés, pihenés</div>
+        <div class="aud-row"><strong>Hol:</strong> Facebook, helyi csoportok</div>
+        <div class="aud-row"><strong>Döntés:</strong> ár, közelség, kellemes élmény</div>
+      </div>
+      <div class="aud-card" style="background:#f6f3f9;border-color:#d8cde6;">
+        <div class="aud-icon">💍</div>
+        <div class="aud-title">Harmadlagos: Esemény előtt állók</div>
+        <div class="aud-row"><strong>Kik:</strong> menyasszonyok, nyaralás/ünnep előtt</div>
+        <div class="aud-row"><strong>Keresnek:</strong> gyors, látványos eredmény</div>
+        <div class="aud-row"><strong>Szezon:</strong> tavasz–nyár, esküvőszezon, ünnepek</div>
+        <div class="aud-row"><strong>Döntés:</strong> határidő, csomagajánlat</div>
+      </div>
+    </div>
+    <div class="hb hb-orange">📍 <strong>Földrajzi célzás:</strong> Nyíregyháza + kb. 25 km-es körzet – ez a reális bejárási távolság egy sorozatkezeléshez. Ennél szélesebb célzás pénzkidobás, mert a kavitáció és a HIEMT jellemzően több alkalmas kúra.</div>
+  </div>
+
+  <!-- ===== CHANNELS ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--blue-light);">📡</span>Csatornastratégiák Részletesen</div>
+
+    <div class="channel" style="border-color:#dfcaa5;background:#fdfaf5;">
+      <div class="channel-head">
+        <div class="ch-icon" style="background:#f2e9dc;">🟣</div>
+        <div><div class="ch-title">Meta – Facebook + Instagram</div><div class="ch-sub">Az oldal élesítése után indul | Legfontosabb csatorna</div></div>
+        <div class="ch-budget"><div class="ch-budget-val">60 000 Ft</div><div class="ch-budget-label">havi keret</div></div>
+      </div>
+      <div class="two-col">
+        <div><strong style="font-size:0.85rem;display:block;margin-bottom:6px;">Kampánystruktúra:</strong>
+          <ul class="ch-list">
+            <li><strong>Megismertetés:</strong> hideg, helyi nők – érdeklődés + demográfia szerint</li>
+            <li><strong>Érdeklődés:</strong> IG/FB interakciózók, oldallátogatók</li>
+            <li><strong>Foglalás:</strong> foglalási oldalt megnyitók, űrlapot félbehagyók</li>
+          </ul>
+        </div>
+        <div><strong style="font-size:0.85rem;display:block;margin-bottom:6px;">Kreatív típusok (Nezor készíti):</strong>
+          <ul class="ch-list">
+            <li>🗣️ Vendégvélemény-kártyák a valódi Google-értékelésekből</li>
+            <li>🖼️ Stúdióhangulat: a „szépség otthonra talál" érzés</li>
+            <li>🎁 Statikus: a bevezető ajánlat, tiszta gombbal</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tag-row">
+        <span class="tag tag-purple">Alakformálás</span>
+        <span class="tag tag-purple">Wellness</span>
+        <span class="tag tag-purple">Egészséges életmód</span>
+        <span class="tag tag-purple">Szépségápolás</span>
+        <span class="tag tag-purple">Menyasszonyok</span>
+      </div>
+      <div class="hb hb-orange">⚠️ <strong>Meta szabályzat – kritikus:</strong> a Meta szigorúan korlátozza a fogyás- és testsúly-fókuszú hirdetéseket, valamint a klasszikus előtte-utána testfotókat. Ezek elutasításhoz, ismétlődés esetén <strong>fiókkorlátozáshoz</strong> vezethetnek. Ezért a hirdetésben a magabiztosság, a közérzet és a kezelés élménye felől kommunikálunk. Az erős előtte-utána képek maradnak a <strong>weboldalon</strong>, ahol nincs ilyen korlátozás.</div>
+    </div>
+
+    <div class="channel" style="border-color:#dfcaa5;background:#fdfaf5;">
+      <div class="channel-head">
+        <div class="ch-icon" style="background:#f2e9dc;">⭐</div>
+        <div><div class="ch-title">Google-vélemények gyűjtése</div><div class="ch-sub">Az első naptól | Ingyenes, mégis a legnagyobb hozam</div></div>
+        <div class="ch-budget"><div class="ch-budget-val">0 Ft</div><div class="ch-budget-label">nem kerül pénzbe</div></div>
+      </div>
+      <ul class="ch-list">
+        <li><strong>Jelenleg 5,0★, de csak 7 vélemény.</strong> A tökéletes átlag remek – a darabszám a szűk keresztmetszet</li>
+        <li><strong>Amit kérünk:</strong> kezelés után, amikor a vendég elégedetten távozik, érdemes megkérni, hogy hagyjon egy rövid véleményt a Google-ön</li>
+        <li>Ez néhány másodperc a vendégnek, viszont a <strong>legerősebb bizalmi tényező</strong> az egész marketingben</li>
+        <li>Reális cél: <strong>6 hónap alatt 40+ vélemény</strong></li>
+      </ul>
+      <div class="hb hb-green">💡 <strong>Ez a legjobb megtérülésű lépés az egész tervben.</strong> Aki meglátja a hirdetést, kettő kattintással ellenőrzi a Google-t – ott kell erősnek lenni. 7 véleményből 40 vélemény olyan bizalmi ugrás, ami minden hirdetés eredményét megemeli, és egy forintba sem kerül hirdetési keretből.</div>
+    </div>
+
+    <div class="channel" style="border-color:#b6cde6;background:#f6f9fc;">
+      <div class="channel-head">
+        <div class="ch-icon" style="background:var(--blue-light);">🔵</div>
+        <div><div class="ch-title">Google Search</div><div class="ch-sub">3. hónaptól, opcionális bővítés | Magas szándék</div></div>
+        <div class="ch-budget"><div class="ch-budget-val">később</div><div class="ch-budget-label">keretbővítéskor</div></div>
+      </div>
+      <ul class="ch-list">
+        <li>Kulcsszavak: <strong>„kavitáció Nyíregyháza", „HIEMT Nyíregyháza", „alakformálás Nyíregyháza"</strong></li>
+        <li>Márkakampány: a „Loft of Beauty" név védelme</li>
+        <li>Aki ezt beírja, <strong>már döntött</strong> – csak azt keresi, kihez menjen</li>
+      </ul>
+      <div class="hb hb-blue">💡 Akkor kapcsoljuk be, ha a Meta már stabilan hozza a foglalásokat. Két csatornát egyszerre indítani 60 ezer forintos keretből szétaprózódás lenne.</div>
+    </div>
+  </div>
+
+  <!-- ===== REPORTING ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:var(--green-light);">📈</span>Mérés &amp; Havi Riport</div>
+    <p style="font-size:0.9rem;color:var(--slate);margin-bottom:14px;">A hirdetés csak akkor ér valamit, ha látjuk a számait. Minden hónapban egyszerű, közérthető riportot kapsz:</p>
+    <div class="two-col">
+      <ul class="ch-list">
+        <li>Mennyit költöttünk hirdetésre</li>
+        <li>Hány érdeklődő és foglalási szándék érkezett</li>
+        <li>Mennyibe került egy érdeklődő</li>
+      </ul>
+      <ul class="ch-list">
+        <li>Melyik kreatív és melyik kezelés teljesített a legjobban</li>
+        <li>Mi változik a következő hónapban</li>
+        <li>Hány új Google-vélemény érkezett</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== WHAT WE NEED ===== -->
+  <div class="card">
+    <div class="card-title"><span class="icon" style="background:#f2e9dc;">🔑</span>Amit az Induláshoz Kérünk</div>
+    <ol class="steps">
+      <li><strong>Zöld jelzés a domainre:</strong> megvásárolhatjuk-e a <span class="domain">loftofbeauty.hu</span> nevet a Loft of Beauty részére.</li>
+      <li><strong>Hozzáférés a Facebook-oldalhoz és Instagram-fiókhoz</strong> – hirdetői jogosultsággal, hogy a hirdetéseket a saját nevetekben tudjuk futtatni.</li>
+      <li><strong>Vélemények gyűjtése a vendégektől</strong> – kezelés után egy rövid Google-értékelés kérése. Ez nem a mi feladatunk, viszont enélkül minden hirdetés gyengébben teljesít.</li>
+      <li><strong>A hirdetési keret jóváhagyása</strong> (javaslat: 60 000 Ft) és a számlázási adatok a Meta-fiókhoz.</li>
+      <li><strong>Az induló ajánlat és árazásának véglegesítése</strong> – ebben adunk javaslatot.</li>
+    </ol>
+  </div>
+
+  <!-- ===== NEXT STEP ===== -->
+  <div class="card" style="background:linear-gradient(135deg,#3a2e26,#8a6d4b);color:white;border:none;">
+    <div class="card-title" style="color:white;"><span class="icon" style="background:rgba(255,255,255,.15);">🤝</span>Következő lépés</div>
+    <p style="font-size:0.95rem;opacity:.9;margin-bottom:10px;">Ha a terv rendben van, elindítjuk az első lépést: <strong>élesítjük a loftofbeauty.hu oldalt</strong> és beállítjuk a mérést. Amint ez kész, jöhet a hirdetés – az első foglalások jellemzően a kampány élesítését követő napokban érkeznek.</p>
+    <p style="font-size:0.85rem;opacity:.7;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);margin-top:14px;"><strong>NEZOR Webfejlesztés</strong> · weboldal és online marketing</p>
+  </div>
+
+</div>
+
+<footer>
+  <div>Loft of Beauty – Weboldal &amp; Hirdetési Stratégia</div>
+  <div>Készítette: NEZOR Webfejlesztés</div>
+</footer>
+
+</body>
+</html>
