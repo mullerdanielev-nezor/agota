@@ -40,4 +40,54 @@ document.addEventListener('DOMContentLoaded', function(){
     box.addEventListener('touchmove', function(e){ if(dragging) setPos(e.touches[0].clientX); }, {passive:true});
     box.addEventListener('touchend', function(){ dragging = false; });
   });
+
+  // ===== Süti-sáv + Google Térkép zárolás elfogadásig =====
+  var COOKIE_KEY = 'lob_cookie_consent'; // 'accepted' | 'declined'
+
+  function loadMaps(){
+    document.querySelectorAll('.gdpr-map').forEach(function(box){
+      var iframe = box.querySelector('iframe[data-src]');
+      if(iframe && !iframe.src){
+        iframe.src = iframe.getAttribute('data-src');
+        box.classList.add('loaded');
+      }
+    });
+  }
+
+  var consent = null;
+  try { consent = localStorage.getItem(COOKIE_KEY); } catch(e){}
+
+  if(consent === 'accepted'){
+    loadMaps();
+  } else if(consent !== 'declined'){
+    var bar = document.createElement('div');
+    bar.id = 'cookieBar';
+    bar.innerHTML =
+      '<p>A weboldal a Google Térkép megjelenítéséhez és a betűtípusok betöltéséhez a Google szolgáltatásait használja, amik sütiket helyezhetnek el. Bővebben az <a href="adatvedelem.html">Adatkezelési tájékoztatóban</a>.</p>' +
+      '<div class="cookie-actions">' +
+      '<button type="button" class="cookie-decline">Elutasítom</button>' +
+      '<button type="button" class="cookie-accept">Elfogadom</button>' +
+      '</div>';
+    document.body.appendChild(bar);
+
+    bar.querySelector('.cookie-accept').addEventListener('click', function(){
+      try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch(e){}
+      loadMaps();
+      bar.remove();
+    });
+    bar.querySelector('.cookie-decline').addEventListener('click', function(){
+      try { localStorage.setItem(COOKIE_KEY, 'declined'); } catch(e){}
+      bar.remove();
+    });
+  }
+
+  // Manuális "Térkép megjelenítése" gomb (elutasítás után is elérhető marad)
+  document.querySelectorAll('.gdpr-map-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch(e){}
+      loadMaps();
+      var existingBar = document.getElementById('cookieBar');
+      if(existingBar) existingBar.remove();
+    });
+  });
 });

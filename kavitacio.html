@@ -41,6 +41,12 @@
   .info-grid b{display:block;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--plum);margin-bottom:.3rem}
   .info-grid span{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mokka)}
 
+  #faq{background:var(--cream)}
+  .faq-list{max-width:820px;margin:0 auto;display:grid;gap:1rem}
+  .faq-item{background:#fff;border-radius:10px;padding:1.3rem 1.5rem;border:1px solid rgba(224,62,99,.1);box-shadow:0 8px 22px rgba(224,62,99,.06)}
+  .faq-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--ink);margin-bottom:.5rem}
+  .faq-item p{font-size:.9rem;line-height:1.7;color:var(--mokka)}
+
   .other-svc{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
   .other-svc a{display:block;background:#fff;border:1px solid rgba(224,62,99,.1);border-radius:10px;padding:1.3rem 1.4rem;text-decoration:none;color:var(--ink);transition:.25s}
   .other-svc a:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(224,62,99,.12)}
@@ -120,6 +126,31 @@
   </div>
 </section>
 
+<section class="section" id="faq">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Gyakori kérdések</div>
+    <h2>Amit a <em>kavitációról</em> tudni érdemes</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <h3>Fáj a kavitációs kezelés?</h3>
+      <p>Nem, fájdalommentes, és nincs szükség utána lábadozásra — azonnal folytathatod a napi teendőidet.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Hány alkalom szükséges eredményhez?</h3>
+      <p>Jellemzően 6–10 alkalmas kúrát ajánlunk, kezelésenként 40 perccel, a célzott zsírsejt-bontás eléréséhez.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Kombinálható más testkezeléssel?</h3>
+      <p>Igen, a kavitáció rádiófrekvenciás kezeléssel kombinálva még hatékonyabb, mert az feszesíti a bőrt a zsírbontás után.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Kinek nem ajánlott a kezelés?</h3>
+      <p>Bizonyos esetekben (pl. terhesség, súlyos máj- vagy vesebetegség) a kavitáció nem javasolt — foglaláskor érdemes rákérdezni, hogy megfelelő-e.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="sec-head">
     <div class="sec-eyebrow">Nézd meg ezt is</div>
@@ -169,9 +200,62 @@
   <div class="foot-bottom">
     <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
     <span>Nyíregyháza prémium testkezelés-stúdiója · 2025 óta</span>
+    <span><a href="impresszum.html" style="color:inherit">Impresszum</a> · <a href="adatvedelem.html" style="color:inherit">Adatvédelem</a></span>
   </div>
 </footer>
 
 <script src="assets/site.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Kavitációs zsírbontás",
+  "name": "Kavitációs zsírbontás",
+  "description": "Kavitációs ultrahang, amely megbontja a bőr alatti zsírsejtek szerkezetét, fájdalommentesen, lábadozás nélkül.",
+  "provider": {
+    "@type": "BeautySalon",
+    "name": "Loft of Beauty",
+    "url": "https://loftofbeauty.hu/index.html",
+    "telephone": "+36305039156",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Meggyes u. 11.",
+      "addressLocality": "Nyíregyháza",
+      "postalCode": "4551",
+      "addressCountry": "HU"
+    }
+  },
+  "areaServed": "Nyíregyháza",
+  "url": "https://loftofbeauty.hu/kavitacio.html"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Fáj a kavitációs kezelés?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nem, fájdalommentes, és nincs szükség utána lábadozásra — azonnal folytathatod a napi teendőidet." }
+    },
+    {
+      "@type": "Question",
+      "name": "Hány alkalom szükséges eredményhez?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Jellemzően 6–10 alkalmas kúrát ajánlunk, kezelésenként 40 perccel, a célzott zsírsejt-bontás eléréséhez." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kombinálható más testkezeléssel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Igen, a kavitáció rádiófrekvenciás kezeléssel kombinálva még hatékonyabb, mert az feszesíti a bőrt a zsírbontás után." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kinek nem ajánlott a kezelés?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Bizonyos esetekben (pl. terhesség, súlyos máj- vagy vesebetegség) a kavitáció nem javasolt — foglaláskor érdemes rákérdezni, hogy megfelelő-e." }
+    }
+  ]
+}
+</script>
 </body>
 </html>

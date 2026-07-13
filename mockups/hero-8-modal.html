@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 8 — Tiszta hero + modál | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:6rem 1.5rem 3rem;text-align:center;background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.6rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.8rem,6vw,5.4rem);line-height:1.02;color:var(--ink);margin-bottom:1.4rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1.05rem;line-height:1.85;color:var(--mokka);max-width:520px;margin:0 auto 2.6rem}
+  .stats{display:flex;gap:2.6rem;justify-content:center;margin-bottom:2.6rem}
+  .stat b{font-family:'Fraunces',serif;font-size:1.8rem;color:var(--plum);display:block}
+  .stat span{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mokka)}
+
+  .cta-card{display:inline-flex;align-items:center;gap:1.1rem;background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(122,26,52,.14);border:1px solid rgba(224,62,99,.14);padding:1.2rem 1.6rem;cursor:pointer;transition:.25s}
+  .cta-card:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(122,26,52,.2)}
+  .cta-card .ic{width:52px;height:52px;border-radius:50%;background:var(--cream);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+  .cta-card .txt{text-align:left}
+  .cta-card b{font-family:'Fraunces',serif;font-weight:400;font-size:1.15rem;color:var(--ink);display:block}
+  .cta-card span{font-size:.8rem;color:var(--mokka)}
+
+  .modal-bg{position:fixed;inset:0;background:rgba(58,14,28,.45);backdrop-filter:blur(2px);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem}
+  .modal-bg.open{display:flex}
+  .modal{background:#fff;border-radius:20px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 40px 90px rgba(0,0,0,.3);position:relative}
+  .modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:var(--cream);border:none;font-size:1.1rem;cursor:pointer;color:var(--ink)}
+  .modal-inner{padding:2.2rem}
+  .modal h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.5rem;margin-bottom:1.4rem;text-align:center}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .step-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.7rem}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.4rem}
+  .svc-card{border:1px solid rgba(224,62,99,.22);border-radius:10px;padding:.75rem .9rem;cursor:pointer;text-align:center;font-family:'Fraunces',serif;font-size:.9rem}
+  .svc-card.sel{border-color:var(--rosegold);background:var(--cream)}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-nav button{width:26px;height:26px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:5px}
+  .dow span{text-align:center;font-size:.56rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:.8rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2)}
+  .day.sel{background:var(--rosegold);color:#fff}
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1rem}
+  .slot{text-align:center;padding:.55rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.8rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .row{margin-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .row input{padding:.75rem .9rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.88rem}
+  .cta-btn{margin-top:1.4rem;width:100%;background:var(--rosegold);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:1rem;border:none;border-radius:10px;cursor:pointer}
+  @media(max-width:760px){ .form-grid{grid-template-columns:1fr} .modal-inner{padding:1.4rem} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 8 — TISZTA HERO + FOGLALÁSI MODÁL (demó)</div>
+<header style="margin-top:34px"><a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a><nav><ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólam</a></li><li><a class="nl" href="#">Referenciák</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul></nav><a href="#" class="book">Időpontfoglalás</a></header>
+
+<section class="hero">
+  <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+  <h1>A szépség<br><em>otthonra talál</em></h1>
+  <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+  <div class="stats">
+    <div class="stat"><b>200+</b><span>elégedett vendég</span></div>
+    <div class="stat"><b>5,0 ★</b><span>Google értékelés</span></div>
+  </div>
+  <div class="cta-card" id="openModal">
+    <div class="ic">✦</div>
+    <div class="txt"><b>Foglalj most</b><span>3 lépésben, kb. 1 perc alatt</span></div>
+  </div>
+</section>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="closeModal">×</button>
+    <div class="modal-inner">
+      <h2>Foglalj <em style="font-style:normal;color:var(--rosegold)">időpontot</em></h2>
+      <div class="form-grid">
+        <div>
+          <div class="step-label">Kezelés</div>
+          <div class="svc-grid">
+            <div class="svc-card" data-v="Hullámmasszázs">Hullámmasszázs</div>
+            <div class="svc-card" data-v="Rádiófrekvencia">Rádiófrekvencia</div>
+            <div class="svc-card" data-v="HIEMT">HIEMT</div>
+            <div class="svc-card" data-v="Kavitáció">Kavitáció</div>
+          </div>
+          <div class="step-label">Dátum</div>
+          <div class="cal-head">
+            <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+            <div class="month" id="calMonth" style="font-family:'Fraunces',serif"></div>
+            <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+          </div>
+          <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+          <div class="days" id="calDays"></div>
+        </div>
+        <div>
+          <div class="step-label">Időpont</div>
+          <div class="slots" id="slots">
+            <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div><div class="slot">12:00</div>
+            <div class="slot">13:00</div><div class="slot">14:00</div><div class="slot">15:00</div><div class="slot">16:00</div>
+          </div>
+          <div class="row">
+            <input type="text" placeholder="Teljes neved" id="fname">
+            <input type="tel" placeholder="Telefonszám" id="fphone">
+          </div>
+          <button type="button" class="cta-btn" id="submitBtn">Foglalás elküldése</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="booking-mock.js"></script>
+<script>
+  document.getElementById('openModal').addEventListener('click', function(){ document.getElementById('modalBg').classList.add('open'); });
+  document.getElementById('closeModal').addEventListener('click', function(){ document.getElementById('modalBg').classList.remove('open'); });
+  document.getElementById('modalBg').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+  document.querySelectorAll('.svc-card').forEach(function(c){
+    c.addEventListener('click', function(){ document.querySelectorAll('.svc-card').forEach(function(x){x.classList.remove('sel')}); c.classList.add('sel'); });
+  });
+  document.getElementById('submitBtn').addEventListener('click', function(){ alert('Demó: foglalás elküldve'); });
+</script>
+</body>
+</html>

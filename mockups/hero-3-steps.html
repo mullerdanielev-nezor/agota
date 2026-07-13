@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 3 — Lépésenkénti kártya | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+
+  .hero{position:relative;overflow:hidden;padding:6rem 1.5rem 3.5rem;text-align:center;
+    background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.4rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.05;color:var(--ink);margin-bottom:1.1rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:460px;margin:0 auto 2.4rem}
+
+  .card{max-width:460px;margin:0 auto;background:#fff;border:1px solid rgba(224,62,99,.14);border-radius:20px;box-shadow:0 26px 60px rgba(122,26,52,.14);padding:1.6rem;text-align:left}
+  .acc-step{border-bottom:1px solid rgba(224,62,99,.1)}
+  .acc-step:last-child{border-bottom:none}
+  .acc-head{display:flex;align-items:center;gap:.7rem;padding:1rem 0;cursor:default}
+  .acc-head b{width:24px;height:24px;border-radius:50%;background:rgba(224,62,99,.15);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
+  .acc-step.done .acc-head b{background:var(--rosegold);color:#fff}
+  .acc-title{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rosegold)}
+  .acc-value{font-family:'Fraunces',serif;font-size:.95rem;color:var(--ink);margin-left:auto}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .acc-step.active .acc-body{max-height:520px;padding-bottom:1.1rem}
+
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  .svc-card{border:1px solid rgba(224,62,99,.22);border-radius:10px;padding:.7rem .8rem;cursor:pointer;transition:.2s;background:#fff}
+  .svc-card:hover{border-color:var(--rosegold)}
+  .svc-card.sel{border-color:var(--rosegold);background:var(--cream)}
+  .svc-card .t{font-family:'Fraunces',serif;font-size:.9rem;color:var(--ink)}
+
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.92rem;text-transform:capitalize}
+  .cal-nav button{width:26px;height:26px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.78rem}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+  .dow span{text-align:center;font-size:.54rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.76rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2);cursor:default}
+  .day.sel{background:var(--rosegold);color:#fff}
+
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}
+  .slot{text-align:center;padding:.5rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:7px;font-size:.78rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .slot.taken{opacity:.3;text-decoration:line-through;pointer-events:none}
+
+  .row{margin-bottom:.6rem}
+  .row input{width:100%;font-size:.88rem;padding:.7rem .8rem;border:1px solid rgba(224,62,99,.24);border-radius:8px}
+  .cta-btn{width:100%;background:var(--rosegold);color:#fff;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.9rem;border:none;border-radius:9px;cursor:pointer;margin-top:.4rem}
+  .cta-btn:disabled{opacity:.4;cursor:not-allowed}
+  .summary{display:none}
+  .success{display:none;text-align:center;padding:1rem}
+  .success.show{display:block}
+
+  .next-preview{padding:2.5rem 1.5rem;text-align:center;color:var(--mokka);font-size:.8rem;border-top:1px dashed rgba(224,62,99,.2)}
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 3 — LÉPÉSENKÉNTI KÁRTYA (demó, nem küld valós foglalást)</div>
+
+<header style="margin-top:34px">
+  <a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav><ul>
+    <li><a class="nl" href="#">Kezelések</a></li>
+    <li><a class="nl" href="#">Rólam</a></li>
+    <li><a class="nl" href="#">Referenciák</a></li>
+    <li><a class="nl" href="#">Kapcsolat</a></li>
+  </ul></nav>
+  <a href="#" class="book">Időpontfoglalás</a>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+  <h1>A szépség<br><em>otthonra talál</em></h1>
+  <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+
+  <div class="card">
+    <form id="heroBookForm">
+      <div class="acc-step active" id="accStep1">
+        <div class="acc-head"><b>1</b><span class="acc-title">Kezelés</span></div>
+        <div class="acc-body">
+          <div class="svc-grid">
+            <div class="svc-card" data-svc="Hullámmasszázs"><span class="t">Hullámmasszázs</span></div>
+            <div class="svc-card" data-svc="Rádiófrekvencia"><span class="t">Rádiófrekvencia</span></div>
+            <div class="svc-card" data-svc="HIEMT"><span class="t">HIEMT</span></div>
+            <div class="svc-card" data-svc="Kavitáció"><span class="t">Kavitáció</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-step" id="accStep2">
+        <div class="acc-head"><b>2</b><span class="acc-title">Dátum</span></div>
+        <div class="acc-body">
+          <div class="cal-head">
+            <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+            <div class="month" id="calMonth"></div>
+            <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+          </div>
+          <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+          <div class="days" id="calDays"></div>
+        </div>
+      </div>
+
+      <div class="acc-step" id="step3">
+        <div class="acc-head"><b>3</b><span class="acc-title">Időpont</span></div>
+        <div class="acc-body">
+          <div class="slots" id="slots">
+            <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+            <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+            <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-step" id="step4">
+        <div class="acc-head"><b>4</b><span class="acc-title">Elérhetőség</span></div>
+        <div class="acc-body">
+          <div class="row"><input type="text" id="f-name" placeholder="Teljes neved" required></div>
+          <div class="row"><input type="tel" id="f-phone" placeholder="Telefonszám" required></div>
+          <button type="submit" class="cta-btn" id="submitBtn" disabled>Foglalás elküldése</button>
+        </div>
+      </div>
+    </form>
+    <div class="summary" id="summary"><span id="summaryText"></span></div>
+    <div class="success" id="bookSuccess">
+      <h3 style="font-family:'Fraunces',serif;">Köszönöm, <span id="okName"></span>!</h3>
+      <p id="okDetails"></p>
+    </div>
+  </div>
+</section>
+
+<div class="next-preview">— itt folytatódik a "Rólam" szekció, változatlanul —</div>
+
+<script src="booking-mock.js"></script>
+<script>
+  // Accordion nyitás vezérlés ehhez a specifikus elrendezéshez
+  document.querySelectorAll('.svc-card').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.getElementById('accStep1').classList.add('done');
+      document.getElementById('accStep2').classList.add('active');
+    });
+  });
+  var obs = new MutationObserver(function(){
+    document.querySelectorAll('.day:not(.off):not(.pad)').forEach(function(d){
+      d.addEventListener('click', function(){
+        document.getElementById('accStep2').classList.add('done');
+        document.getElementById('step3').classList.add('active');
+      });
+    });
+  });
+  obs.observe(document.getElementById('calDays'), {childList:true});
+  document.querySelectorAll('.slot').forEach(function(s){
+    s.addEventListener('click', function(){
+      if(s.classList.contains('taken')) return;
+      document.getElementById('step3').classList.add('done');
+      document.getElementById('step4').classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

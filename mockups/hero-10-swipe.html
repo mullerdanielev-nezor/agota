@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 10 — Kártya-pakli | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;align-items:center;overflow:hidden;padding:6rem 1.5rem 3rem;background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .hero-wrap{max-width:1180px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 400px;gap:3.2rem;align-items:center}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.6rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.5rem,4.6vw,4.2rem);line-height:1.04;color:var(--ink);margin-bottom:1.3rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1.05rem;line-height:1.85;color:var(--mokka);max-width:440px}
+
+  .deck-wrap{position:relative;height:460px}
+  .card{position:absolute;inset:0;background:#fff;border-radius:20px;box-shadow:0 26px 60px rgba(122,26,52,.16);border:1px solid rgba(224,62,99,.14);padding:1.8rem;display:none;flex-direction:column}
+  .card.active{display:flex}
+  .card .step-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem}
+  .card h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;margin-bottom:1rem;color:var(--ink)}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+  .svc-card{border:1px solid rgba(224,62,99,.22);border-radius:11px;padding:1rem;cursor:pointer;text-align:center;font-family:'Fraunces',serif}
+  .svc-card.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+  .cal-head .month{font-family:'Fraunces',serif}
+  .cal-nav button{width:28px;height:28px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+  .dow span{text-align:center;font-size:.58rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:.84rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2)}
+  .day.sel{background:var(--rosegold);color:#fff}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .slot{text-align:center;padding:.7rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:9px;font-size:.86rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .row{margin-top:1rem}
+  .row input{width:100%;padding:.8rem .9rem;border:1px solid rgba(224,62,99,.24);border-radius:9px;font-size:.9rem;margin-bottom:.7rem}
+  .card-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .dots{display:flex;gap:.4rem}
+  .dots span{width:6px;height:6px;border-radius:50%;background:rgba(224,62,99,.25)}
+  .dots span.on{background:var(--rosegold)}
+  .next-btn{background:var(--rosegold);color:#fff;border:none;border-radius:9px;padding:.8rem 1.6rem;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .back-btn{background:none;border:none;color:var(--mokka);font-size:.78rem;cursor:pointer}
+  @media(max-width:960px){ .hero-wrap{grid-template-columns:1fr} .deck-wrap{max-width:420px;margin:0 auto;width:100%} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 10 — KÁRTYA-PAKLI, LAPOZÁSSAL (demó)</div>
+<header style="margin-top:34px"><a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a><nav><ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólam</a></li><li><a class="nl" href="#">Referenciák</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul></nav><a href="#" class="book">Időpontfoglalás</a></header>
+
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+      <h1>A szépség<br><em>otthonra talál</em></h1>
+      <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+    </div>
+    <div class="deck-wrap">
+      <div class="card active" id="card1">
+        <div class="step-label">1. lépés</div>
+        <h3>Melyik kezelésre gondoltál?</h3>
+        <div class="svc-grid">
+          <div class="svc-card" data-v="Hullámmasszázs">Hullámmasszázs</div>
+          <div class="svc-card" data-v="Rádiófrekvencia">Rádiófrekvencia</div>
+          <div class="svc-card" data-v="HIEMT">HIEMT</div>
+          <div class="svc-card" data-v="Kavitáció">Kavitáció</div>
+        </div>
+        <div class="card-footer">
+          <div class="dots"><span class="on"></span><span></span><span></span></div>
+          <button type="button" class="next-btn" id="next1" disabled>Tovább →</button>
+        </div>
+      </div>
+      <div class="card" id="card2">
+        <div class="step-label">2. lépés</div>
+        <h3>Válassz napot és időpontot</h3>
+        <div class="cal-head">
+          <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+          <div class="month" id="calMonth"></div>
+          <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+        </div>
+        <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+        <div class="days" id="calDays"></div>
+        <div class="card-footer">
+          <button type="button" class="back-btn" id="back2">← Vissza</button>
+          <div class="dots"><span></span><span class="on"></span><span></span></div>
+          <button type="button" class="next-btn" id="next2" disabled>Tovább →</button>
+        </div>
+      </div>
+      <div class="card" id="card3">
+        <div class="step-label">3. lépés</div>
+        <h3>Elérhetőséged</h3>
+        <div class="slots" id="slots" style="margin-bottom:1rem">
+          <div class="slot">09:00</div><div class="slot">11:00</div><div class="slot">14:00</div>
+        </div>
+        <div class="row">
+          <input type="text" placeholder="Teljes neved" id="fname">
+          <input type="tel" placeholder="Telefonszám" id="fphone">
+        </div>
+        <div class="card-footer">
+          <button type="button" class="back-btn" id="back3">← Vissza</button>
+          <div class="dots"><span></span><span></span><span class="on"></span></div>
+          <button type="button" class="next-btn" id="submitBtn">Foglalás elküldése</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="booking-mock.js"></script>
+<script>
+  function show(id){ document.querySelectorAll('.card').forEach(function(c){c.classList.remove('active')}); document.getElementById(id).classList.add('active'); }
+  document.querySelectorAll('#card1 .svc-card').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.querySelectorAll('#card1 .svc-card').forEach(function(x){x.classList.remove('sel')});
+      c.classList.add('sel');
+      document.getElementById('next1').disabled = false;
+    });
+  });
+  document.getElementById('next1').addEventListener('click', function(){ show('card2'); });
+  document.getElementById('back2').addEventListener('click', function(){ show('card1'); });
+  document.getElementById('back3').addEventListener('click', function(){ show('card2'); });
+  document.querySelectorAll('#calDays').forEach(function(){});
+  var obs = new MutationObserver(function(){
+    document.querySelectorAll('#calDays .day:not(.off):not(.pad)').forEach(function(d){
+      d.addEventListener('click', function(){ document.getElementById('next2').disabled = false; });
+    });
+  });
+  obs.observe(document.getElementById('calDays'), {childList:true});
+  document.getElementById('next2').addEventListener('click', function(){ show('card3'); });
+  document.getElementById('submitBtn').addEventListener('click', function(){ alert('Demó: foglalás elküldve'); });
+</script>
+</body>
+</html>

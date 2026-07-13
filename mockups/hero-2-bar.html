@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 2 — Foglalási sáv | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:6rem 1.5rem 3rem;text-align:center;
+    background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.4rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.03;color:var(--ink);margin-bottom:1.2rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:480px;margin:0 auto 2.2rem}
+
+  .bookbar{position:relative;z-index:5;max-width:900px;width:100%;margin:0 auto;background:#fff;border:1px solid rgba(224,62,99,.14);border-radius:16px;box-shadow:0 24px 60px rgba(122,26,52,.14);padding:1rem;display:flex;gap:.6rem;align-items:stretch;flex-wrap:wrap}
+  .bf{flex:1;min-width:150px;text-align:left;position:relative}
+  .bf label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.3rem}
+  .bf select, .bf .fake-input{width:100%;font-size:.86rem;padding:.65rem .7rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;font-family:inherit}
+  .bookbar .go{flex:0 0 auto;align-self:flex-end;background:var(--rosegold);color:#fff;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.6rem;border:none;border-radius:8px;cursor:pointer}
+  .bookbar .go:disabled{opacity:.4;cursor:not-allowed}
+
+  .popover{position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid rgba(224,62,99,.16);border-radius:12px;box-shadow:0 20px 50px rgba(122,26,52,.18);padding:1rem;width:280px;z-index:20;display:none;text-align:left}
+  .popover.open{display:block}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.9rem;text-transform:capitalize}
+  .cal-nav button{width:24px;height:24px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.75rem}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+  .dow span{text-align:center;font-size:.5rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.7rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2);cursor:default}
+  .day.sel{background:var(--rosegold);color:#fff}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem}
+  .slot{text-align:center;padding:.4rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:6px;font-size:.72rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .slot.taken{opacity:.3;text-decoration:line-through;pointer-events:none}
+  .svc-opt{padding:.5rem .6rem;border-radius:6px;cursor:pointer;font-size:.84rem}
+  .svc-opt:hover{background:var(--cream)}
+  .svc-opt.sel{background:var(--rosegold);color:#fff}
+
+  .modal-bg{position:fixed;inset:0;background:rgba(58,14,28,.4);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
+  .modal-bg.open{display:flex}
+  .modal{background:#fff;border-radius:16px;padding:1.8rem;max-width:380px;width:100%}
+  .modal h3{font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:1rem}
+  .modal .row{margin-bottom:.7rem}
+  .modal input{width:100%;padding:.7rem .8rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.9rem}
+  .modal .cta-btn{width:100%;background:var(--rosegold);color:#fff;padding:.85rem;border:none;border-radius:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;cursor:pointer;margin-top:.4rem}
+  .success{display:none;text-align:center}
+  .success.show{display:block}
+
+  .next-preview{padding:2.5rem 1.5rem;text-align:center;color:var(--mokka);font-size:.8rem;border-top:1px dashed rgba(224,62,99,.2)}
+  @media(max-width:820px){ .bookbar{flex-direction:column} .bookbar .go{align-self:stretch} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 2 — VÍZSZINTES FOGLALÁSI SÁV (demó, nem küld valós foglalást)</div>
+
+<header style="margin-top:34px">
+  <a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav><ul>
+    <li><a class="nl" href="#">Kezelések</a></li>
+    <li><a class="nl" href="#">Rólam</a></li>
+    <li><a class="nl" href="#">Referenciák</a></li>
+    <li><a class="nl" href="#">Kapcsolat</a></li>
+  </ul></nav>
+  <a href="#" class="book">Időpontfoglalás</a>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+  <h1>A szépség<br><em>otthonra talál</em></h1>
+  <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+
+  <div class="bookbar">
+    <div class="bf">
+      <label>Kezelés</label>
+      <div class="fake-input" id="svcTrigger">Válassz kezelést</div>
+      <div class="popover" id="svcPop">
+        <div class="svc-opt" data-svc="Hullámmasszázs">Hullámmasszázs</div>
+        <div class="svc-opt" data-svc="Rádiófrekvencia">Rádiófrekvencia</div>
+        <div class="svc-opt" data-svc="HIEMT">HIEMT</div>
+        <div class="svc-opt" data-svc="Kavitáció">Kavitáció</div>
+      </div>
+    </div>
+    <div class="bf">
+      <label>Dátum</label>
+      <div class="fake-input" id="dateTrigger">Válassz napot</div>
+      <div class="popover" id="datePop">
+        <div class="cal-head">
+          <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+          <div class="month" id="calMonth"></div>
+          <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+        </div>
+        <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+        <div class="days" id="calDays"></div>
+      </div>
+    </div>
+    <div class="bf">
+      <label>Időpont</label>
+      <div class="fake-input" id="slotTrigger">Válassz órát</div>
+      <div class="popover" id="slotPop">
+        <div class="slots" id="slots">
+          <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+          <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+          <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="go" id="openModalBtn" disabled>Foglalás</button>
+  </div>
+</section>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <form id="heroBookForm">
+      <h3>Már csak pár adat</h3>
+      <div class="row"><input type="text" id="f-name" placeholder="Teljes neved" required></div>
+      <div class="row"><input type="tel" id="f-phone" placeholder="Telefonszám" required></div>
+      <button type="submit" class="cta-btn" id="submitBtn">Foglalás elküldése</button>
+    </form>
+    <div class="success" id="bookSuccess">
+      <h3>Köszönöm, <span id="okName"></span>!</h3>
+      <p id="okDetails"></p>
+    </div>
+  </div>
+</div>
+
+<div class="next-preview">— itt folytatódik a "Rólam" szekció, változatlanul —</div>
+
+<script src="booking-mock.js"></script>
+<script>
+  // Popover nyitás/zárás logika ehhez a specifikus elrendezéshez
+  function togglePop(triggerId, popId){
+    document.getElementById(triggerId).addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.popover').forEach(function(p){ if(p.id !== popId) p.classList.remove('open'); });
+      document.getElementById(popId).classList.toggle('open');
+    });
+  }
+  togglePop('svcTrigger','svcPop');
+  togglePop('dateTrigger','datePop');
+  togglePop('slotTrigger','slotPop');
+  document.addEventListener('click', function(){ document.querySelectorAll('.popover').forEach(function(p){ p.classList.remove('open'); }); });
+  document.querySelectorAll('.popover').forEach(function(p){ p.addEventListener('click', function(e){ e.stopPropagation(); }); });
+
+  document.querySelectorAll('.svc-opt').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      document.querySelectorAll('.svc-opt').forEach(function(o){o.classList.remove('sel')});
+      opt.classList.add('sel');
+      document.getElementById('svcTrigger').textContent = opt.dataset.svc;
+      document.getElementById('svcPop').classList.remove('open');
+    });
+  });
+  document.querySelectorAll('.day').forEach(function(){}); // renderCal binds its own click via booking-mock.js
+
+  var obs = new MutationObserver(function(){
+    document.querySelectorAll('.day:not(.off):not(.pad)').forEach(function(d){
+      d.addEventListener('click', function(){
+        document.getElementById('dateTrigger').textContent = d.textContent + '.';
+        document.getElementById('datePop').classList.remove('open');
+      }, {once:false});
+    });
+  });
+  obs.observe(document.getElementById('calDays'), {childList:true});
+
+  document.querySelectorAll('.slot').forEach(function(s){
+    s.addEventListener('click', function(){
+      if(s.classList.contains('taken')) return;
+      document.getElementById('slotTrigger').textContent = s.textContent;
+      document.getElementById('slotPop').classList.remove('open');
+      document.getElementById('openModalBtn').disabled = false;
+    });
+  });
+
+  document.getElementById('openModalBtn').addEventListener('click', function(){
+    document.getElementById('modalBg').classList.add('open');
+  });
+  document.getElementById('modalBg').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('open');
+  });
+</script>
+</body>
+</html>

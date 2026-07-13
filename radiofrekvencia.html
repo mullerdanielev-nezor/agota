@@ -49,6 +49,12 @@
   .info-grid b{display:block;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--plum);margin-bottom:.3rem}
   .info-grid span{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mokka)}
 
+  #faq{background:var(--cream)}
+  .faq-list{max-width:820px;margin:0 auto;display:grid;gap:1rem}
+  .faq-item{background:#fff;border-radius:10px;padding:1.3rem 1.5rem;border:1px solid rgba(224,62,99,.1);box-shadow:0 8px 22px rgba(224,62,99,.06)}
+  .faq-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--ink);margin-bottom:.5rem}
+  .faq-item p{font-size:.9rem;line-height:1.7;color:var(--mokka)}
+
   .other-svc{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
   .other-svc a{display:block;background:#fff;border:1px solid rgba(224,62,99,.1);border-radius:10px;padding:1.3rem 1.4rem;text-decoration:none;color:var(--ink);transition:.25s}
   .other-svc a:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(224,62,99,.12)}
@@ -134,6 +140,31 @@
   </div>
 </section>
 
+<section class="section" id="faq">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Gyakori kérdések</div>
+    <h2>Amit a <em>rádiófrekvenciáról</em> tudni érdemes</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <h3>Fáj a rádiófrekvenciás kezelés?</h3>
+      <p>Nem, fájdalommentes — kezelés közben enyhe melegérzést tapasztalhatsz, ami kényelmes és nem kellemetlen.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Hány alkalom szükséges eredményhez?</h3>
+      <p>Jellemzően 6–10 alkalmas kúrát ajánlunk, kezelésenként 30–40 perccel, a bőrfeszesítő és kollagén-serkentő hatás eléréséhez.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Kombinálható más testkezeléssel?</h3>
+      <p>Igen, a rádiófrekvencia a kavitációs zsírbontás ideális kiegészítője — a megbontott zsírsejteket tovább bontja, miközben feszesíti a bőrt.</p>
+    </div>
+    <div class="faq-item reveal">
+      <h3>Kinek nem ajánlott a kezelés?</h3>
+      <p>Bizonyos esetekben (pl. terhesség, szívritmus-szabályozó, akut betegség) a rádiófrekvenciás kezelés nem javasolt — foglaláskor érdemes rákérdezni, hogy megfelelő-e.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="sec-head">
     <div class="sec-eyebrow">Nézd meg ezt is</div>
@@ -183,9 +214,62 @@
   <div class="foot-bottom">
     <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
     <span>Nyíregyháza prémium testkezelés-stúdiója · 2025 óta</span>
+    <span><a href="impresszum.html" style="color:inherit">Impresszum</a> · <a href="adatvedelem.html" style="color:inherit">Adatvédelem</a></span>
   </div>
 </footer>
 
 <script src="assets/site.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Rádiófrekvenciás kezelés",
+  "name": "Rádiófrekvenciás kezelés",
+  "description": "Testbőr feszesítés és kollagén-serkentés rádiófrekvenciás technológiával, fájdalommentesen.",
+  "provider": {
+    "@type": "BeautySalon",
+    "name": "Loft of Beauty",
+    "url": "https://loftofbeauty.hu/index.html",
+    "telephone": "+36305039156",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Meggyes u. 11.",
+      "addressLocality": "Nyíregyháza",
+      "postalCode": "4551",
+      "addressCountry": "HU"
+    }
+  },
+  "areaServed": "Nyíregyháza",
+  "url": "https://loftofbeauty.hu/radiofrekvencia.html"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Fáj a rádiófrekvenciás kezelés?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Nem, fájdalommentes — kezelés közben enyhe melegérzést tapasztalhatsz, ami kényelmes és nem kellemetlen." }
+    },
+    {
+      "@type": "Question",
+      "name": "Hány alkalom szükséges eredményhez?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Jellemzően 6–10 alkalmas kúrát ajánlunk, kezelésenként 30–40 perccel, a bőrfeszesítő és kollagén-serkentő hatás eléréséhez." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kombinálható más testkezeléssel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Igen, a rádiófrekvencia a kavitációs zsírbontás ideális kiegészítője — a megbontott zsírsejteket tovább bontja, miközben feszesíti a bőrt." }
+    },
+    {
+      "@type": "Question",
+      "name": "Kinek nem ajánlott a kezelés?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Bizonyos esetekben (pl. terhesség, szívritmus-szabályozó, akut betegség) a rádiófrekvenciás kezelés nem javasolt — foglaláskor érdemes rákérdezni, hogy megfelelő-e." }
+    }
+  ]
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 9 — Minden egyszerre látszik | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+  .hero{position:relative;overflow:hidden;padding:6rem 1.5rem 3.5rem;text-align:center;background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.4rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.4rem,5vw,4rem);line-height:1.05;color:var(--ink);margin-bottom:1rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:480px;margin:0 auto 2.2rem}
+
+  .panel{max-width:980px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 26px 60px rgba(122,26,52,.14);padding:1.8rem;text-align:left}
+  .svc-tabs{display:flex;gap:.5rem;margin-bottom:1.6rem;flex-wrap:wrap;justify-content:center}
+  .svc-tabs .t{border:1px solid rgba(224,62,99,.24);border-radius:20px;padding:.55rem 1.2rem;font-size:.82rem;cursor:pointer;font-family:'Fraunces',serif}
+  .svc-tabs .t.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .step-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.7rem}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.94rem}
+  .cal-nav button{width:26px;height:26px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:5px}
+  .dow span{text-align:center;font-size:.56rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:.8rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2)}
+  .day.sel{background:var(--rosegold);color:#fff}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-bottom:1.3rem}
+  .slot{text-align:center;padding:.65rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.84rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .contact-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem}
+  .contact-row input{padding:.7rem .85rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.86rem}
+  .cta-btn{width:100%;margin-top:1rem;background:var(--rosegold);color:#fff;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.9rem;border:none;border-radius:9px;cursor:pointer}
+  @media(max-width:820px){ .split{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 9 — MINDEN EGYSZERRE LÁTSZIK, NINCS TAB (demó)</div>
+<header style="margin-top:34px"><a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a><nav><ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólam</a></li><li><a class="nl" href="#">Referenciák</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul></nav><a href="#" class="book">Időpontfoglalás</a></header>
+
+<section class="hero">
+  <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+  <h1>A szépség<br><em>otthonra talál</em></h1>
+  <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+
+  <div class="panel">
+    <div class="svc-tabs" id="svcTabs">
+      <div class="t sel" data-v="Hullámmasszázs">Hullámmasszázs</div>
+      <div class="t" data-v="Rádiófrekvencia">Rádiófrekvencia</div>
+      <div class="t" data-v="HIEMT">HIEMT</div>
+      <div class="t" data-v="Kavitáció">Kavitáció</div>
+    </div>
+    <div class="split">
+      <div>
+        <div class="step-label">Dátum</div>
+        <div class="cal-head">
+          <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+          <div class="month" id="calMonth"></div>
+          <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+        </div>
+        <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+        <div class="days" id="calDays"></div>
+      </div>
+      <div>
+        <div class="step-label">Időpont</div>
+        <div class="slots" id="slots">
+          <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+          <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+          <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+        </div>
+        <div class="contact-row">
+          <input type="text" placeholder="Teljes neved" id="fname">
+          <input type="tel" placeholder="Telefonszám" id="fphone">
+        </div>
+        <button type="button" class="cta-btn" id="submitBtn">Foglalás elküldése</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="booking-mock.js"></script>
+<script>
+  document.querySelectorAll('#svcTabs .t').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('#svcTabs .t').forEach(function(x){x.classList.remove('sel')});
+      t.classList.add('sel');
+    });
+  });
+  document.getElementById('submitBtn').addEventListener('click', function(){ alert('Demó: foglalás elküldve'); });
+</script>
+</body>
+</html>

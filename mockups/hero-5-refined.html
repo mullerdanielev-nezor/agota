@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 5 (kidolgozva) — Tabos widget | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;align-items:center;overflow:hidden;padding:6.5rem 1.5rem 3rem;
+    background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .hero::before{content:'';position:absolute;top:-24%;left:18%;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(224,62,99,.10),transparent 62%);pointer-events:none}
+  .hero-wrap{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 400px;gap:3.6rem;align-items:center;position:relative;z-index:5}
+
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.6rem;display:inline-flex;align-items:center;gap:1rem;opacity:0;animation:up .8s ease .1s forwards}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.5rem,4.6vw,4.2rem);line-height:1.04;color:var(--ink);letter-spacing:-.005em;margin-bottom:1.3rem;opacity:0;animation:up .9s ease .22s forwards}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.85;color:var(--mokka);max-width:440px;margin-bottom:2.2rem;opacity:0;animation:up .9s ease .34s forwards}
+  .stats{display:flex;gap:2.6rem;opacity:0;animation:up .9s ease .46s forwards}
+  .stat{position:relative}
+  .stat+.stat{padding-left:2.6rem}
+  .stat+.stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:32px;background:rgba(224,62,99,.25)}
+  .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:1.8rem;color:var(--plum);display:block;line-height:1}
+  .stat span{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mokka)}
+
+  @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ============ WIDGET ============ */
+  .widget-wrap{opacity:0;animation:up .9s ease .3s forwards}
+  .widget-kicker{text-align:center;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
+  .widget-kicker::before,.widget-kicker::after{content:'';width:20px;height:1px;background:rgba(224,62,99,.4)}
+
+  .widget{background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-radius:20px;box-shadow:0 30px 70px rgba(122,26,52,.16);border:1px solid rgba(224,62,99,.14);overflow:hidden}
+
+  .tabs{display:flex;position:relative;background:var(--cream)}
+  .tabs button{flex:1;padding:.95rem .4rem .8rem;border:none;background:transparent;color:var(--mokka);font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;font-family:'Nunito Sans',sans-serif;position:relative;transition:color .25s;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+  .tabs button .tnum{width:18px;height:18px;border-radius:50%;background:rgba(224,62,99,.16);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.6rem;transition:.25s}
+  .tabs button.active{color:var(--ink)}
+  .tabs button.active .tnum{background:var(--rosegold);color:#fff}
+  .tabs button.done .tnum{background:var(--rosegold);color:#fff}
+  .tabs button.done .tnum::before{content:'✓';font-size:.55rem}
+  .tabs button.done .tnum span{display:none}
+  .tab-indicator{position:absolute;bottom:0;left:0;width:33.333%;height:2px;background:var(--rosegold);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+
+  .tab-body{padding:1.5rem 1.5rem 1.1rem;min-height:248px}
+  .panel{display:none}
+  .panel.active{display:block;animation:fadeSlide .3s ease}
+  .panel-title{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);margin-bottom:1rem}
+
+  .svc-list-mini{display:grid;gap:.55rem}
+  .svc-card{position:relative;border:1px solid rgba(224,62,99,.2);border-radius:11px;padding:.75rem .95rem;cursor:pointer;transition:.22s;background:#fff;display:flex;align-items:center;justify-content:space-between}
+  .svc-card:hover{border-color:var(--rosegold);transform:translateX(2px)}
+  .svc-card.sel{border-color:var(--rosegold);background:linear-gradient(155deg,#fff,var(--cream));box-shadow:0 6px 18px rgba(224,62,99,.14)}
+  .svc-card .t{font-family:'Fraunces',serif;font-size:.92rem;color:var(--ink)}
+  .svc-card .chk{width:17px;height:17px;border-radius:50%;border:1.5px solid rgba(224,62,99,.35);display:flex;align-items:center;justify-content:center;font-size:.56rem;color:#fff;transition:.2s;flex-shrink:0}
+  .svc-card.sel .chk{background:var(--rosegold);border-color:var(--rosegold)}
+  .svc-card.sel .chk::before{content:'✓'}
+
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.92rem;text-transform:capitalize;color:var(--ink)}
+  .cal-nav button{width:26px;height:26px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.76rem;transition:.2s}
+  .cal-nav button:hover{background:var(--rosegold);color:#fff}
+  .cal-nav button:disabled{opacity:.3;pointer-events:none}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:5px}
+  .dow span{text-align:center;font-size:.52rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:.76rem;cursor:pointer;color:var(--ink);border:1px solid transparent;transition:.16s}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2);cursor:default}
+  .day:not(.off):not(.pad):hover{background:#fff;border-color:rgba(224,62,99,.25)}
+  .day.today{border-color:var(--rosegold);font-weight:700}
+  .day.sel{background:var(--rosegold);color:#fff;font-weight:700}
+
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin-bottom:1.1rem}
+  .slot{text-align:center;padding:.55rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-size:.78rem;cursor:pointer;color:var(--ink);transition:.16s;background:#fff}
+  .slot:hover{border-color:var(--rosegold)}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold);font-weight:700}
+  .slot.taken{opacity:.3;text-decoration:line-through;pointer-events:none}
+
+  .row{margin-bottom:.65rem}
+  .row label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.3rem;display:block}
+  .row input{width:100%;font-family:'Nunito Sans',sans-serif;font-size:.88rem;padding:.7rem .85rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;transition:.2s;background:#fff}
+  .row input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.1)}
+
+  .footer-row{padding:0 1.5rem 1.5rem}
+  .cta-btn{width:100%;background:var(--rosegold);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.95rem;border:none;border-radius:10px;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif}
+  .cta-btn::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .4s ease}
+  .cta-btn:hover::after{transform:translateY(0)}
+  .cta-btn span{position:relative;z-index:1}
+  .cta-btn:disabled{opacity:.4;cursor:not-allowed}
+  .cta-btn:disabled:hover::after{transform:translateY(101%)}
+
+  .summary-bar{display:none;align-items:center;gap:.5rem;background:var(--cream);font-size:.76rem;color:var(--plum);padding:.65rem 1.5rem;font-family:'Nunito Sans',sans-serif}
+  .summary-bar.show{display:flex}
+  .summary-bar b{color:var(--ink)}
+
+  .success{display:none;text-align:center;padding:2rem 1.6rem}
+  .success.show{display:block;animation:fadeSlide .35s ease}
+  .success .chk2{width:56px;height:56px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.1rem}
+  .success h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.25rem;margin-bottom:.6rem;color:var(--ink)}
+  .success p{color:var(--mokka);line-height:1.7;font-size:.86rem}
+  .success b{color:var(--plum)}
+
+  .next-preview{padding:2.5rem 1.5rem;text-align:center;color:var(--mokka);font-size:.8rem;border-top:1px dashed rgba(224,62,99,.2)}
+
+  @media(max-width:960px){
+    .hero-wrap{grid-template-columns:1fr;text-align:center}
+    .eyebrow,.sub{margin-left:auto;margin-right:auto}
+    .stats{justify-content:center}
+    .widget-wrap{max-width:420px;margin:0 auto;width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 5 (KIDOLGOZVA) — TABOS WIDGET (demó, nem küld valós foglalást)</div>
+
+<header style="margin-top:34px">
+  <a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav><ul>
+    <li><a class="nl" href="#">Kezelések</a></li>
+    <li><a class="nl" href="#">Rólam</a></li>
+    <li><a class="nl" href="#">Referenciák</a></li>
+    <li><a class="nl" href="#">Kapcsolat</a></li>
+  </ul></nav>
+  <a href="#" class="book">Időpontfoglalás</a>
+</header>
+
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+      <h1>A szépség<br><em>otthonra talál</em></h1>
+      <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+      <div class="stats">
+        <div class="stat"><b>200+</b><span>elégedett vendég</span></div>
+        <div class="stat"><b>5,0&nbsp;★</b><span>Google értékelés</span></div>
+      </div>
+    </div>
+
+    <div class="widget-wrap">
+      <div class="widget-kicker">Foglalj most</div>
+      <div class="widget">
+        <div class="tabs">
+          <button type="button" class="active" id="tabBtn1" data-p="1"><span class="tnum"><span>1</span></span>Kezelés</button>
+          <button type="button" id="tabBtn2" data-p="2"><span class="tnum"><span>2</span></span>Dátum</button>
+          <button type="button" id="tabBtn3" data-p="3"><span class="tnum"><span>3</span></span>Idő</button>
+          <div class="tab-indicator" id="tabIndicator"></div>
+        </div>
+        <div class="tab-body">
+          <form id="heroBookForm">
+            <div class="panel active" id="panel1">
+              <div class="panel-title">Válassz kezelést</div>
+              <div class="svc-list-mini">
+                <div class="svc-card" data-svc="Hullámmasszázs"><span class="t">Hullámmasszázs</span><span class="chk"></span></div>
+                <div class="svc-card" data-svc="Rádiófrekvencia"><span class="t">Rádiófrekvencia</span><span class="chk"></span></div>
+                <div class="svc-card" data-svc="HIEMT"><span class="t">HIEMT</span><span class="chk"></span></div>
+                <div class="svc-card" data-svc="Kavitáció"><span class="t">Kavitáció</span><span class="chk"></span></div>
+              </div>
+            </div>
+            <div class="panel" id="panel2">
+              <div class="panel-title">Válassz napot</div>
+              <div class="cal-head">
+                <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+                <div class="month" id="calMonth"></div>
+                <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+              </div>
+              <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+              <div class="days" id="calDays"></div>
+            </div>
+            <div class="panel" id="panel3">
+              <div class="panel-title">Válassz időpontot</div>
+              <div class="slots" id="slots">
+                <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+                <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+                <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+              </div>
+              <div class="row"><label for="f-name">Neved</label><input type="text" id="f-name" placeholder="Teljes név" required></div>
+              <div class="row"><label for="f-phone">Telefon</label><input type="tel" id="f-phone" placeholder="+36 30 …" required></div>
+            </div>
+          </form>
+        </div>
+        <div class="summary-bar" id="summary">✦&nbsp;<b><span id="summaryText"></span></b></div>
+        <div class="footer-row">
+          <button type="submit" form="heroBookForm" class="cta-btn" id="submitBtn" disabled><span>Foglalás elküldése</span></button>
+        </div>
+        <div class="success" id="bookSuccess">
+          <div class="chk2">✓</div>
+          <h3>Köszönöm, <span id="okName"></span>!</h3>
+          <p>A foglalásod rögzítettük:<br><b id="okDetails"></b><br><br>24 órán belül visszaigazoljuk telefonon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="next-preview">— itt folytatódik a "Rólam" szekció, változatlanul —</div>
+
+<script src="booking-mock.js"></script>
+<script>
+  function showTab(n){
+    for(var i=1;i<=3;i++){
+      document.getElementById('panel'+i).classList.toggle('active', i===n);
+      var b = document.getElementById('tabBtn'+i);
+      b.classList.toggle('active', i===n);
+      b.classList.toggle('done', i<n);
+    }
+    document.getElementById('tabIndicator').style.transform = 'translateX(' + ((n-1)*100) + '%)';
+  }
+  document.querySelectorAll('.tabs button').forEach(function(btn){
+    btn.addEventListener('click', function(){ showTab(parseInt(btn.dataset.p)); });
+  });
+  document.querySelectorAll('.svc-card').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.querySelectorAll('.svc-card').forEach(function(x){x.classList.remove('sel')});
+      c.classList.add('sel');
+      showTab(2);
+    });
+  });
+  var obs = new MutationObserver(function(){
+    document.querySelectorAll('.day:not(.off):not(.pad)').forEach(function(d){
+      d.addEventListener('click', function(){ showTab(3); });
+    });
+  });
+  obs.observe(document.getElementById('calDays'), {childList:true});
+</script>
+</body>
+</html>

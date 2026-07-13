@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 7 — Pill-carousel | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+  .hero{position:relative;overflow:hidden;padding:6rem 1.5rem 3.5rem;text-align:center;background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.4rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before,.eyebrow::after{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.03;color:var(--ink);margin-bottom:1.1rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:480px;margin:0 auto 2.6rem}
+
+  .book-panel{max-width:640px;margin:0 auto;background:#fff;border-radius:20px;box-shadow:0 26px 60px rgba(122,26,52,.14);padding:1.8rem;text-align:left}
+  .row-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.6rem}
+  .carousel{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.3rem;margin-bottom:1.4rem;scrollbar-width:thin}
+  .pill{flex:0 0 auto;border:1px solid rgba(224,62,99,.24);border-radius:12px;padding:.8rem 1.1rem;cursor:pointer;transition:.2s;background:#fff;text-align:center;min-width:100px}
+  .pill:hover{border-color:var(--rosegold)}
+  .pill.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff}
+  .pill .t{font-family:'Fraunces',serif;font-size:.92rem}
+  .pill .d{font-size:.68rem;opacity:.75;margin-top:.2rem}
+  .pill.day .t{font-size:1.3rem}
+  .row-two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.4rem}
+  .row-two input{font-size:.88rem;padding:.75rem .9rem;border:1px solid rgba(224,62,99,.24);border-radius:8px;font-family:'Nunito Sans',sans-serif}
+  .cta-btn{width:100%;margin-top:1.2rem;background:var(--rosegold);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:1rem;border:none;border-radius:10px;cursor:pointer}
+  .cta-btn:disabled{opacity:.4;cursor:not-allowed}
+  .summary{text-align:center;font-size:.8rem;color:var(--plum);margin-top:.8rem;min-height:1.2em}
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 7 — VÍZSZINTES PILL-KARUSSZEL (demó)</div>
+<header style="margin-top:34px"><a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a><nav><ul><li><a class="nl" href="#">Kezelések</a></li><li><a class="nl" href="#">Rólam</a></li><li><a class="nl" href="#">Referenciák</a></li><li><a class="nl" href="#">Kapcsolat</a></li></ul></nav><a href="#" class="book">Időpontfoglalás</a></header>
+
+<section class="hero">
+  <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+  <h1>A szépség<br><em>otthonra talál</em></h1>
+  <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+
+  <div class="book-panel">
+    <div class="row-label">Kezelés</div>
+    <div class="carousel" id="svcRow">
+      <div class="pill" data-v="Hullámmasszázs"><div class="t">Hullámmasszázs</div></div>
+      <div class="pill" data-v="Rádiófrekvencia"><div class="t">Rádiófrekvencia</div></div>
+      <div class="pill" data-v="HIEMT"><div class="t">HIEMT</div></div>
+      <div class="pill" data-v="Kavitáció"><div class="t">Kavitáció</div></div>
+    </div>
+
+    <div class="row-label">Nap</div>
+    <div class="carousel" id="dayRow"></div>
+
+    <div class="row-label">Időpont</div>
+    <div class="carousel" id="timeRow">
+      <div class="pill" data-v="09:00"><div class="t">09:00</div></div>
+      <div class="pill" data-v="10:00"><div class="t">10:00</div></div>
+      <div class="pill" data-v="11:00"><div class="t">11:00</div></div>
+      <div class="pill" data-v="13:00"><div class="t">13:00</div></div>
+      <div class="pill" data-v="14:00"><div class="t">14:00</div></div>
+      <div class="pill" data-v="16:00"><div class="t">16:00</div></div>
+    </div>
+
+    <div class="row-two">
+      <input type="text" placeholder="Teljes neved" id="fname">
+      <input type="tel" placeholder="Telefonszám" id="fphone">
+    </div>
+    <div class="summary" id="summary"></div>
+    <button type="button" class="cta-btn" id="submitBtn" disabled>Foglalás elküldése</button>
+  </div>
+</section>
+
+<script>
+  var HU_MONTHS = ['jan','feb','márc','ápr','máj','jún','júl','aug','szept','okt','nov','dec'];
+  var HU_DOW = ['H','K','Sz','Cs','P','Sz','V'];
+  var dayRow = document.getElementById('dayRow');
+  var today = new Date();
+  var state = { svc:null, day:null, time:null };
+  for(var i=0;i<14;i++){
+    var d = new Date(today); d.setDate(today.getDate()+i);
+    var pill = document.createElement('div');
+    pill.className = 'pill day';
+    pill.dataset.v = d.toLocaleDateString('hu-HU');
+    pill.innerHTML = '<div class="t">'+d.getDate()+'</div><div class="d">'+HU_MONTHS[d.getMonth()]+' · '+HU_DOW[(d.getDay()+6)%7]+'</div>';
+    dayRow.appendChild(pill);
+  }
+  function bindRow(id, key){
+    document.getElementById(id).querySelectorAll('.pill').forEach(function(p){
+      p.addEventListener('click', function(){
+        document.getElementById(id).querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel')});
+        p.classList.add('sel');
+        state[key] = p.dataset.v;
+        updateSummary();
+      });
+    });
+  }
+  bindRow('svcRow','svc'); bindRow('dayRow','day'); bindRow('timeRow','time');
+  function updateSummary(){
+    var parts = [state.svc,state.day,state.time].filter(Boolean);
+    document.getElementById('summary').textContent = parts.length ? '✦ ' + parts.join(' · ') : '';
+    document.getElementById('submitBtn').disabled = !(state.svc && state.day && state.time);
+  }
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    alert('Demó: a foglalás elküldve (' + [state.svc,state.day,state.time].join(' · ') + ')');
+  });
+</script>
+</body>
+</html>

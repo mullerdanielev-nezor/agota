@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 5 — Tabos widget | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;align-items:center;overflow:hidden;padding:6rem 1.5rem 3rem;
+    background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .hero-wrap{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 360px;gap:3rem;align-items:center;position:relative;z-index:5}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.6rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.05;color:var(--ink);margin-bottom:1.3rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:440px;margin-bottom:2rem}
+  .stats{display:flex;gap:2.4rem;margin-top:2.4rem}
+  .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:1.7rem;color:var(--plum);display:block;line-height:1}
+  .stat span{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mokka)}
+
+  .widget{background:#fff;border-radius:18px;box-shadow:0 26px 60px rgba(122,26,52,.16);border:1px solid rgba(224,62,99,.12);overflow:hidden}
+  .tabs{display:flex}
+  .tabs button{flex:1;padding:.9rem .4rem;border:none;background:var(--cream);color:var(--mokka);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;position:relative}
+  .tabs button.active{background:#fff;color:var(--rosegold)}
+  .tabs button.done::after{content:'✓';position:absolute;top:3px;right:6px;font-size:.6rem;color:var(--rosegold)}
+  .tab-body{padding:1.3rem}
+  .panel{display:none;min-height:220px}
+  .panel.active{display:block}
+
+  .svc-list-mini{display:grid;gap:.5rem}
+  .svc-card{border:1px solid rgba(224,62,99,.22);border-radius:9px;padding:.65rem .8rem;cursor:pointer;transition:.2s;background:#fff;display:flex;align-items:center;justify-content:space-between}
+  .svc-card:hover{border-color:var(--rosegold)}
+  .svc-card.sel{border-color:var(--rosegold);background:var(--cream)}
+  .svc-card .t{font-family:'Fraunces',serif;font-size:.88rem;color:var(--ink)}
+
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.88rem;text-transform:capitalize}
+  .cal-nav button{width:24px;height:24px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.72rem}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+  .dow span{text-align:center;font-size:.5rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.7rem;cursor:pointer}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2);cursor:default}
+  .day.sel{background:var(--rosegold);color:#fff}
+
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}
+  .slot{text-align:center;padding:.5rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:7px;font-size:.76rem;cursor:pointer}
+  .slot.sel{background:var(--rosegold);color:#fff;border-color:var(--rosegold)}
+  .slot.taken{opacity:.3;text-decoration:line-through;pointer-events:none}
+
+  .row{margin-bottom:.6rem}
+  .row input{width:100%;font-size:.86rem;padding:.65rem .75rem;border:1px solid rgba(224,62,99,.24);border-radius:8px}
+  .footer-row{padding:0 1.3rem 1.3rem}
+  .cta-btn{width:100%;background:var(--rosegold);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.85rem;border:none;border-radius:9px;cursor:pointer}
+  .cta-btn:disabled{opacity:.4;cursor:not-allowed}
+  .summary-bar{display:none;background:var(--cream);font-size:.74rem;color:var(--plum);padding:.6rem 1.3rem}
+  .summary-bar.show{display:block}
+  .success{display:none;text-align:center;padding:1.3rem}
+  .success.show{display:block}
+
+  .next-preview{padding:2.5rem 1.5rem;text-align:center;color:var(--mokka);font-size:.8rem;border-top:1px dashed rgba(224,62,99,.2)}
+  @media(max-width:960px){ .hero-wrap{grid-template-columns:1fr} .widget{max-width:400px;margin:0 auto} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 5 — TABOS WIDGET (demó, nem küld valós foglalást)</div>
+
+<header style="margin-top:34px">
+  <a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav><ul>
+    <li><a class="nl" href="#">Kezelések</a></li>
+    <li><a class="nl" href="#">Rólam</a></li>
+    <li><a class="nl" href="#">Referenciák</a></li>
+    <li><a class="nl" href="#">Kapcsolat</a></li>
+  </ul></nav>
+  <a href="#" class="book">Időpontfoglalás</a>
+</header>
+
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+      <h1>A szépség<br><em>otthonra talál</em></h1>
+      <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+      <div class="stats">
+        <div class="stat"><b>200+</b><span>elégedett vendég</span></div>
+        <div class="stat"><b>5,0&nbsp;★</b><span>Google értékelés</span></div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="tabs">
+        <button type="button" class="active" id="tabBtn1" data-p="1">Kezelés</button>
+        <button type="button" id="tabBtn2" data-p="2">Dátum</button>
+        <button type="button" id="tabBtn3" data-p="3">Idő</button>
+      </div>
+      <div class="tab-body">
+        <form id="heroBookForm">
+          <div class="panel active" id="panel1">
+            <div class="svc-list-mini">
+              <div class="svc-card" data-svc="Hullámmasszázs"><span class="t">Hullámmasszázs</span></div>
+              <div class="svc-card" data-svc="Rádiófrekvencia"><span class="t">Rádiófrekvencia</span></div>
+              <div class="svc-card" data-svc="HIEMT"><span class="t">HIEMT</span></div>
+              <div class="svc-card" data-svc="Kavitáció"><span class="t">Kavitáció</span></div>
+            </div>
+          </div>
+          <div class="panel" id="panel2">
+            <div class="cal-head">
+              <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+              <div class="month" id="calMonth"></div>
+              <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+            </div>
+            <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+            <div class="days" id="calDays"></div>
+          </div>
+          <div class="panel" id="panel3">
+            <div class="slots" id="slots">
+              <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+              <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+              <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+            </div>
+            <div class="row" style="margin-top:.8rem"><input type="text" id="f-name" placeholder="Teljes neved" required></div>
+            <div class="row"><input type="tel" id="f-phone" placeholder="Telefonszám" required></div>
+          </div>
+        </form>
+      </div>
+      <div class="summary-bar" id="summary"><span id="summaryText"></span></div>
+      <div class="footer-row">
+        <button type="submit" form="heroBookForm" class="cta-btn" id="submitBtn" disabled>Foglalás elküldése</button>
+      </div>
+      <div class="success" id="bookSuccess">
+        <h3 style="font-family:'Fraunces',serif;">Köszönöm, <span id="okName"></span>!</h3>
+        <p id="okDetails"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="next-preview">— itt folytatódik a "Rólam" szekció, változatlanul —</div>
+
+<script src="booking-mock.js"></script>
+<script>
+  function showTab(n){
+    for(var i=1;i<=3;i++){
+      document.getElementById('panel'+i).classList.toggle('active', i===n);
+      var b = document.getElementById('tabBtn'+i);
+      b.classList.toggle('active', i===n);
+      b.classList.toggle('done', i<n);
+    }
+  }
+  document.querySelectorAll('.tabs button').forEach(function(btn){
+    btn.addEventListener('click', function(){ showTab(parseInt(btn.dataset.p)); });
+  });
+  document.querySelectorAll('.svc-card').forEach(function(c){
+    c.addEventListener('click', function(){ showTab(2); });
+  });
+  var obs = new MutationObserver(function(){
+    document.querySelectorAll('.day:not(.off):not(.pad)').forEach(function(d){
+      d.addEventListener('click', function(){ showTab(3); });
+    });
+  });
+  obs.observe(document.getElementById('calDays'), {childList:true});
+</script>
+</body>
+</html>

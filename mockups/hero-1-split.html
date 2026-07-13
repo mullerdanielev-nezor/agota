@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terv 1 — Osztott hero | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{position:fixed;top:0;left:0;right:0;z-index:999;background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem}
+
+  .hero{position:relative;min-height:calc(100svh - 62px);display:flex;align-items:center;overflow:hidden;padding:6rem 1.5rem 3rem;
+    background:radial-gradient(130% 110% at 50% -15%,var(--puder) 0%,var(--ho) 60%)}
+  .hero-wrap{max-width:1180px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 460px;gap:3.5rem;align-items:center;position:relative;z-index:5}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.6rem;display:inline-flex;align-items:center;gap:1rem}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--rosegold)}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.05;color:var(--ink);margin-bottom:1.3rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .sub{font-size:1rem;line-height:1.8;color:var(--mokka);max-width:440px;margin-bottom:2rem}
+  .stats{display:flex;gap:2.4rem;margin-top:2.4rem}
+  .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:1.7rem;color:var(--plum);display:block;line-height:1}
+  .stat span{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mokka)}
+
+  .book-card{background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border:1px solid rgba(224,62,99,.14);border-radius:20px;padding:1.8rem;box-shadow:0 30px 70px rgba(122,26,52,.16)}
+  .book-card h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.2rem;margin-bottom:1.1rem;text-align:center}
+  .step-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.6rem}
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.1rem}
+  .svc-card{position:relative;border:1px solid rgba(224,62,99,.22);border-radius:10px;padding:.6rem .7rem;cursor:pointer;transition:.2s;background:#fff}
+  .svc-card:hover{border-color:var(--rosegold)}
+  .svc-card.sel{border-color:var(--rosegold);background:var(--cream)}
+  .svc-card .t{font-family:'Fraunces',serif;font-size:.86rem;color:var(--ink)}
+  .divider{height:1px;background:rgba(224,62,99,.18);margin:1rem 0}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:.92rem;text-transform:capitalize}
+  .cal-nav button{width:24px;height:24px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.75rem}
+  .cal-nav button:disabled{opacity:.3}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+  .dow span{text-align:center;font-size:.52rem;font-weight:700;color:var(--mokka);text-transform:uppercase}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+  .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.72rem;cursor:pointer;color:var(--ink)}
+  .day.pad{visibility:hidden}
+  .day.off{color:rgba(58,14,28,.2);cursor:default}
+  .day:not(.off):not(.pad):hover{background:var(--cream)}
+  .day.today{border:1px solid var(--rosegold)}
+  .day.sel{background:var(--rosegold);color:#fff;font-weight:700}
+  .step3, .step4{display:none}
+  .step3.active, .step4.active{display:block}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin:.8rem 0}
+  .slot{text-align:center;padding:.4rem .2rem;border:1px solid rgba(224,62,99,.24);border-radius:7px;font-size:.74rem;cursor:pointer;background:#fff}
+  .slot.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff}
+  .slot.taken{opacity:.3;text-decoration:line-through;pointer-events:none}
+  .row{margin-bottom:.6rem}
+  .row input{width:100%;font-size:.86rem;padding:.6rem .7rem;border:1px solid rgba(224,62,99,.24);border-radius:7px}
+  .summary{display:none;background:var(--cream);border-radius:8px;padding:.6rem .8rem;margin:.8rem 0;font-size:.78rem;color:var(--plum)}
+  .summary.show{display:block}
+  .cta-btn{width:100%;background:var(--rosegold);color:#fff;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.9rem;border:none;border-radius:9px;cursor:pointer}
+  .cta-btn:disabled{opacity:.4;cursor:not-allowed}
+  .success{display:none;text-align:center;padding:1rem}
+  .success.show{display:block}
+  .success h3{font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:.5rem}
+
+  .next-preview{padding:2.5rem 1.5rem;text-align:center;color:var(--mokka);font-size:.8rem;border-top:1px dashed rgba(224,62,99,.2)}
+  @media(max-width:960px){ .hero-wrap{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="demo-tag">TERV 1 — OSZTOTT HERO (demó, nem küld valós foglalást)</div>
+
+<header style="margin-top:34px">
+  <a href="#" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav><ul>
+    <li><a class="nl" href="#">Kezelések</a></li>
+    <li><a class="nl" href="#">Rólam</a></li>
+    <li><a class="nl" href="#">Referenciák</a></li>
+    <li><a class="nl" href="#">Kapcsolat</a></li>
+  </ul></nav>
+  <a href="#" class="book">Időpontfoglalás</a>
+</header>
+
+<section class="hero">
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">Nyíregyháza prémium testkezelés-stúdiója</div>
+      <h1>A szépség<br><em>otthonra talál</em></h1>
+      <p class="sub">Személyre szabott, gépi testkezelések egy nyugalmat árasztó stúdióban — csak neked, csak rád szabva.</p>
+      <a href="#" class="btn"><span>Kezelések megtekintése</span></a>
+      <div class="stats">
+        <div class="stat"><b>200+</b><span>elégedett vendég</span></div>
+        <div class="stat"><b>5,0&nbsp;★</b><span>Google értékelés</span></div>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <h2>Foglalj időpontot</h2>
+      <form id="heroBookForm">
+        <div class="step-label">1 · Kezelés</div>
+        <div class="svc-grid">
+          <div class="svc-card" data-svc="Hullámmasszázs"><span class="t">Hullámmasszázs</span></div>
+          <div class="svc-card" data-svc="Rádiófrekvencia"><span class="t">Rádiófrekvencia</span></div>
+          <div class="svc-card" data-svc="HIEMT"><span class="t">HIEMT</span></div>
+          <div class="svc-card" data-svc="Kavitáció"><span class="t">Kavitáció</span></div>
+        </div>
+
+        <div class="divider"></div>
+        <div id="step2" class="step2">
+          <div class="step-label">2 · Dátum</div>
+          <div class="cal-head">
+            <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+            <div class="month" id="calMonth"></div>
+            <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+          </div>
+          <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+          <div class="days" id="calDays"></div>
+        </div>
+
+        <div id="step3" class="step3">
+          <div class="divider"></div>
+          <div class="step-label">3 · Időpont (<span id="dateLabel"></span>)</div>
+          <div class="slots" id="slots">
+            <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div>
+            <div class="slot">12:00</div><div class="slot">13:00</div><div class="slot">14:00</div>
+            <div class="slot">15:00</div><div class="slot">16:00</div><div class="slot">17:00</div>
+          </div>
+        </div>
+
+        <div id="step4" class="step4">
+          <div class="divider"></div>
+          <div class="step-label">4 · Elérhetőség</div>
+          <div class="row"><input type="text" id="f-name" placeholder="Teljes neved" required></div>
+          <div class="row"><input type="tel" id="f-phone" placeholder="Telefonszám" required></div>
+        </div>
+
+        <div class="summary" id="summary">✦ <span id="summaryText"></span></div>
+        <button type="submit" class="cta-btn" id="submitBtn" disabled>Foglalás elküldése</button>
+      </form>
+      <div class="success" id="bookSuccess">
+        <h3>Köszönöm, <span id="okName"></span>!</h3>
+        <p id="okDetails"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="next-preview">— itt folytatódik a "Rólam" szekció, változatlanul —</div>
+
+<script src="booking-mock.js"></script>
+</body>
+</html>
