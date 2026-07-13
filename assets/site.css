@@ -107,28 +107,13 @@ footer.site{background:var(--plum);color:rgba(255,255,255,.62);padding:4.5rem 3r
 @keyframes fade{to{opacity:1}}
 @keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-/* ===== GDPR: térkép-zárolás elfogadásig ===== */
-.gdpr-map{position:relative}
-.gdpr-map iframe{opacity:0;transition:opacity .3s ease}
-.gdpr-map.loaded iframe{opacity:1}
-.gdpr-map-placeholder{position:absolute;inset:0;background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem;gap:.8rem;z-index:2}
-.gdpr-map.loaded .gdpr-map-placeholder{display:none}
-.gdpr-map-placeholder p{font-size:.82rem;color:var(--mokka);max-width:280px;line-height:1.6;margin:0}
-.gdpr-map-btn{background:var(--rosegold);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.7rem 1.4rem;border:none;border-radius:8px;cursor:pointer}
-.gdpr-map-btn:hover{background:var(--plum)}
-.gdpr-map-placeholder a{font-size:.72rem;color:var(--rosegold);text-decoration:underline}
-
-/* ===== Süti-sáv ===== */
-#cookieBar{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--ink);color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:wrap;font-size:.82rem;box-shadow:0 -10px 30px rgba(0,0,0,.15)}
-#cookieBar p{margin:0;max-width:640px;line-height:1.6;color:rgba(255,255,255,.85)}
-#cookieBar a{color:var(--puder);text-decoration:underline}
-#cookieBar .cookie-actions{display:flex;gap:.7rem;flex-shrink:0}
-#cookieBar button{font-family:'Nunito Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.65rem 1.3rem;border-radius:8px;cursor:pointer;border:1px solid transparent}
-#cookieBar .cookie-accept{background:var(--rosegold);color:#fff}
-#cookieBar .cookie-accept:hover{background:var(--plum)}
-#cookieBar .cookie-decline{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
-#cookieBar .cookie-decline:hover{border-color:#fff}
-@media(max-width:600px){#cookieBar{flex-direction:column;text-align:center}}
+/* ===== Statikus térkép-kártya (nincs beágyazás, nincs süti) ===== */
+.map-static{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:2rem;background:var(--cream);height:100%}
+.map-static .ic{width:56px;height:56px;border-radius:50%;background:#fff;color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 22px rgba(224,62,99,.12)}
+.map-static b{font-family:'Fraunces',serif;font-weight:400;font-size:1.15rem;color:var(--ink)}
+.map-static p{font-size:.86rem;color:var(--mokka);margin:0;max-width:260px;line-height:1.6}
+.map-static a.map-static-btn{background:var(--rosegold);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;transition:.25s}
+.map-static a.map-static-btn:hover{background:var(--plum)}
 
 @media(max-width:820px){
   header{padding:1rem 1.4rem}
