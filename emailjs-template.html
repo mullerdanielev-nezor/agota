@@ -1,0 +1,105 @@
+<!--
+  EZ NEM A WEBOLDAL RÉSZE — csak egy referencia-fájl.
+  Az EmailJS sablon-szerkesztőjében (Email Templates → a sablonod → Code nézet)
+  másold be ezt a teljes HTML-t a Content mezőbe.
+  A {{...}} részeket az EmailJS automatikusan kitölti a foglalás adataival.
+-->
+<div style="margin:0;padding:0;background-color:#FCE9ED;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FCE9ED;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background-color:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(122,26,52,0.10);">
+
+          <!-- Fejléc -->
+          <tr>
+            <td style="background-color:#3A0E1C;padding:28px 32px;text-align:center;">
+              <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;letter-spacing:2px;color:#FFFFFF;">
+                LOFT <span style="color:#E03E63;">·</span> OF BEAUTY
+              </span>
+            </td>
+          </tr>
+
+          <!-- Cím -->
+          <tr>
+            <td style="padding:32px 32px 8px;text-align:center;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#E03E63;margin-bottom:10px;">
+                Új foglalás érkezett
+              </div>
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#3A0E1C;">
+                {{name}}
+              </div>
+            </td>
+          </tr>
+
+          <!-- Részletek kártya -->
+          <tr>
+            <td style="padding:20px 32px 8px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FCE9ED;border-radius:12px;">
+                <tr>
+                  <td style="padding:20px 24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;width:120px;">Kezelés</td>
+                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">{{svc}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Dátum</td>
+                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">{{date}}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Időpont</td>
+                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">{{time}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Elérhetőség -->
+          <tr>
+            <td style="padding:20px 32px 8px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;width:120px;">Vendég neve</td>
+                  <td style="padding:8px 0;font-size:15px;color:#3A0E1C;">{{name}}</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Telefon</td>
+                  <td style="padding:8px 0;font-size:15px;">
+                    <a href="tel:{{phone}}" style="color:#E03E63;text-decoration:none;font-weight:600;">{{phone}}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;vertical-align:top;">Megjegyzés</td>
+                  <td style="padding:8px 0;font-size:15px;color:#3A0E1C;">{{note}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding:24px 32px 32px;text-align:center;">
+              <a href="tel:{{phone}}" style="display:inline-block;background-color:#E03E63;color:#FFFFFF;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:8px;">
+                Vendég felhívása
+              </a>
+            </td>
+          </tr>
+
+          <!-- Lábléc -->
+          <tr>
+            <td style="background-color:#FCE9ED;padding:20px 32px;text-align:center;">
+              <div style="font-size:11px;color:#A85C72;line-height:1.6;">
+                Loft of Beauty · Nyíregyháza, Meggyes u. 11.<br>
+                Ez az email automatikusan érkezett a weboldal foglalási rendszeréből.
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

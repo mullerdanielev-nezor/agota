@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Időpontfoglalás – Loft of Beauty</title>
+<meta name="description" content="Foglalj időpontot online a Loft of Beauty testkezelés-stúdiójában Nyíregyházán. Válassz kezelést, dátumot és órát – pár kattintás az egész.">
+<link rel="canonical" href="https://loftofbeauty.hu/foglalas.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:site_name" content="Loft of Beauty">
+<meta property="og:title" content="Időpontfoglalás – Loft of Beauty">
+<meta property="og:description" content="Foglalj időpontot online a Loft of Beauty testkezelés-stúdiójában Nyíregyházán.">
+<meta property="og:image" content="https://loftofbeauty.hu/images/rolam.webp">
+<meta property="og:url" content="https://loftofbeauty.hu/foglalas.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Időpontfoglalás – Loft of Beauty">
+<meta name="twitter:description" content="Foglalj időpontot online a Loft of Beauty testkezelés-stúdiójában Nyíregyházán.">
+<meta name="twitter:image" content="https://loftofbeauty.hu/images/rolam.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -212,6 +225,10 @@
         <p>A foglalásod rögzítettük:<br><b id="okDetails">—</b><br><br>24 órán belül visszaigazolom telefonon. Hamarosan találkozunk!</p>
         <a href="index.html" class="back">← Vissza a főoldalra</a>
       </div>
+
+      <div class="note" id="configWarning" style="display:none;color:#a33;font-weight:700;margin-top:1rem;text-align:center">
+        ⚠ A foglalási rendszer még nincs bekötve (hiányzó Firebase-konfiguráció) — lásd assets/firebase-config.js.
+      </div>
     </div>
   </div>
 </main>
@@ -220,10 +237,10 @@
   <div class="foot-grid">
     <div class="foot-brand">
       <a href="index.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
-      <p>Nyíregyháza prémium kozmetikai stúdiója. Személyre szabott arc- és testkezelések, ahol a szépség otthon van.</p>
+      <p>Nyíregyháza prémium testkezelés-stúdiója. Személyre szabott, gépi testkezelések, ahol a szépség otthon van.</p>
       <div class="socials">
-        <a href="#" aria-label="Instagram" title="Instagram">IG</a>
-        <a href="#" aria-label="Facebook" title="Facebook">FB</a>
+        <a href="https://www.facebook.com/p/Loft-of-Beauty-61574930071792/" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener">FB</a>
+        <a href="https://www.tiktok.com/@hajdoagotaloftofbeauty" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener">TT</a>
         <a href="tel:+36305039156" aria-label="Telefon" title="Telefon">☎</a>
       </div>
     </div>
@@ -251,16 +268,44 @@
   </div>
   <div class="foot-bottom">
     <span>© 2026 <b>Loft of Beauty</b> · minden jog fenntartva</span>
-    <span>Nyíregyháza prémium kozmetikája · 2012 óta</span>
+    <span>Nyíregyháza prémium testkezelés-stúdiója · 2025 óta</span>
   </div>
 </footer>
 
 <script src="assets/site.js"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc, runTransaction, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+  import {
+    FIREBASE_CONFIG, FIREBASE_CONFIGURED,
+    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_CONFIGURED
+  } from "./assets/firebase-config.js";
+
   var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
   var today = new Date(); today.setHours(0,0,0,0);
   var viewYear = today.getFullYear(), viewMonth = today.getMonth();
   var selectedDate = null, selectedSlot = null, selectedSvc = null;
+  var ALL_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+
+  var db = null;
+  if (FIREBASE_CONFIGURED) {
+    var app = initializeApp(FIREBASE_CONFIG);
+    db = getFirestore(app);
+  } else {
+    document.getElementById('configWarning').style.display = 'block';
+    console.warn('Firebase nincs konfigurálva – lásd assets/firebase-config.js');
+  }
+
+  if (EMAILJS_CONFIGURED && window.emailjs) {
+    window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+  function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+  function slotId(d, time){ return dateKey(d) + '_' + time; }
 
   function renderCal(){
     document.getElementById('calMonth').textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
@@ -284,7 +329,9 @@
             document.querySelectorAll('.day.sel').forEach(function(x){x.classList.remove('sel')});
             el.classList.add('sel');
             selectedDate = dt;
+            selectedSlot = null;
             updateSummary();
+            loadSlotsForDate(dt);
           };
         })(thisDate, cell));
       }
@@ -313,14 +360,37 @@
     });
   });
 
-  document.querySelectorAll('.slot').forEach(function(slot){
-    slot.addEventListener('click', function(){
+  function bindSlotClick(slotEl){
+    slotEl.addEventListener('click', function(){
+      if(slotEl.classList.contains('taken')) return;
       document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
-      slot.classList.add('sel');
-      selectedSlot = slot.textContent;
+      slotEl.classList.add('sel');
+      selectedSlot = slotEl.textContent;
       updateSummary();
     });
-  });
+  }
+  document.querySelectorAll('.slot').forEach(bindSlotClick);
+
+  // Az adott napon már foglalt időpontokat lekérdezi a "slots" gyűjteményből
+  // (ez nem tartalmaz személyes adatot, bárki lekérdezheti — lásd firestore.rules).
+  async function loadSlotsForDate(d){
+    var slotEls = document.querySelectorAll('#slots .slot');
+    slotEls.forEach(function(el){ el.classList.remove('taken'); });
+    if(!db) return;
+    try{
+      var checks = ALL_SLOTS.map(function(t){ return getDoc(doc(db, 'slots', slotId(d, t))); });
+      var results = await Promise.all(checks);
+      results.forEach(function(snap, i){
+        if(snap.exists()){
+          slotEls.forEach(function(el){
+            if(el.textContent === ALL_SLOTS[i]) el.classList.add('taken');
+          });
+        }
+      });
+    }catch(err){
+      console.error('Nem sikerült lekérdezni a foglalt időpontokat:', err);
+    }
+  }
 
   function updateSummary(){
     var box = document.getElementById('summary');
@@ -331,18 +401,72 @@
     if(selectedSlot) parts.push(selectedSlot);
     if(parts.length){ box.classList.add('show'); txt.textContent = parts.join(' · '); }
     else{ box.classList.remove('show'); }
-    document.getElementById('submitBtn').disabled = !(selectedSvc && selectedDate && selectedSlot);
+    document.getElementById('submitBtn').disabled = !(selectedSvc && selectedDate && selectedSlot && db);
   }
 
-  function submitBooking(e){
+  async function submitBooking(e){
     e.preventDefault();
+    if(!db){
+      alert('A foglalási rendszer még nincs bekötve. Kérlek hívj minket telefonon!');
+      return false;
+    }
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+
     var name = document.getElementById('f-name').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var note = document.getElementById('f-note').value.trim();
+    var id = slotId(selectedDate, selectedSlot);
+    var dKey = dateKey(selectedDate);
+
+    try{
+      await runTransaction(db, async function(transaction){
+        var slotRef = doc(db, 'slots', id);
+        var slotSnap = await transaction.get(slotRef);
+        if(slotSnap.exists()){
+          throw new Error('TAKEN');
+        }
+        var bookingRef = doc(db, 'bookings', id);
+        transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
+        transaction.set(bookingRef, {
+          svc: selectedSvc, date: dKey, time: selectedSlot,
+          name: name, phone: phone, note: note,
+          createdAt: serverTimestamp()
+        });
+      });
+    }catch(err){
+      submitBtn.disabled = false;
+      if(err.message === 'TAKEN'){
+        alert('Sajnos ezt az időpontot közben valaki más lefoglalta. Válassz egy másikat!');
+        loadSlotsForDate(selectedDate);
+        selectedSlot = null;
+        document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+        updateSummary();
+      }else{
+        console.error(err);
+        alert('Hiba történt a foglalás közben. Kérlek próbáld újra, vagy hívj minket telefonon.');
+      }
+      return false;
+    }
+
+    if(EMAILJS_CONFIGURED && window.emailjs){
+      try{
+        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          svc: selectedSvc, date: selectedDate.toLocaleDateString('hu-HU'), time: selectedSlot,
+          name: name, phone: phone, note: note || '—'
+        });
+      }catch(err){
+        console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
+      }
+    }
+
     document.getElementById('okName').textContent = name || 'Kedves Vendég';
     document.getElementById('okDetails').textContent = selectedSvc + ' · ' + selectedDate.toLocaleDateString('hu-HU') + ' · ' + selectedSlot;
     document.getElementById('bookForm').style.display = 'none';
     document.getElementById('bookSuccess').classList.add('show');
     return false;
   }
+  window.submitBooking = submitBooking;
 
   renderCal();
 </script>

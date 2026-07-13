@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Ezt a szöveget másold be a Firebase konzolban:
+// Firestore Database → Rules fül → illeszd be → Publish.
+//
+// LOGIKA — két gyűjtemény, hogy a személyes adatok sose legyenek
+// nyilvánosan olvashatók, miközben a foglalási naptár mégis mutatni
+// tudja bárkinek, mely időpontok foglaltak:
+//
+// 1) "slots" — csak egy foglaltság-jelző, ID = "YYYY-MM-DD_HH:mm".
+//    NINCS benne személyes adat, ezért bárki olvashatja (ebből épül fel
+//    a naptáron a "taken" (áthúzott) időpont).
+//    Írni (create) bárki írhat bele, DE csak akkor, ha az adott ID
+//    még nem létezik — ez zárja ki a dupla foglalást.
+//
+// 2) "bookings" — a teljes foglalás (név, telefon, megjegyzés).
+//    Ezt csak bejelentkezett admin olvashatja (admin.html dashboard).
+//    Látogató ide is írhat (create), de csak ugyanazzal az ID-val,
+//    mint a hozzá tartozó "slots" bejegyzés, és csak akkor, ha még
+//    nem létezik ilyen ID — dupla védelem az ütközés ellen.
+//
+// A weboldal kódja egy Firestore tranzakcióban írja mindkettőt
+// egyszerre, így a kettő mindig szinkronban marad.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /slots/{slotId} {
+      allow get, list: if true;
+      allow create: if !exists(/databases/$(database)/documents/slots/$(slotId))
+                    && request.resource.data.keys().hasOnly(['taken', 'createdAt'])
+                    && request.resource.data.taken == true;
+      allow update, delete: if false;
+    }
+
+    match /bookings/{bookingId} {
+      allow get, list: if request.auth != null;
+      allow create: if !exists(/databases/$(database)/documents/bookings/$(bookingId))
+                    && request.resource.data.keys().hasAll(['svc', 'date', 'time', 'name', 'phone', 'note', 'createdAt'])
+                    && request.resource.data.name is string && request.resource.data.name.size() > 0
+                    && request.resource.data.phone is string && request.resource.data.phone.size() > 0;
+      allow update, delete: if false;
+    }
+  }
+}

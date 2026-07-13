@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Foglalások – Loft of Beauty</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  body{background:radial-gradient(120% 100% at 50% -10%,var(--puder) 0%,var(--ho) 55%);min-height:100svh;display:flex;flex-direction:column}
+  main{flex:1;padding:2rem 1.5rem 3rem}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:1.6rem}
+  h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+
+  .login-card{max-width:380px;margin:4rem auto;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);border:1px solid rgba(224,62,99,.14);border-radius:20px;padding:2.2rem;box-shadow:0 30px 70px rgba(122,26,52,.12)}
+  .login-card h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;margin-bottom:1.2rem;text-align:center}
+  .row{display:grid;gap:.5rem;margin-bottom:1.1rem}
+  .row label{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
+  input{font-family:'Nunito Sans',sans-serif;font-size:.94rem;background:#fff;border:1px solid rgba(224,62,99,.24);color:var(--ink);padding:.8rem .95rem;border-radius:8px;width:100%}
+  input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 4px rgba(224,62,99,.1)}
+  .btn{width:100%;background:var(--rosegold);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:1rem;border:none;border-radius:9px;cursor:pointer;font-family:'Nunito Sans',sans-serif}
+  .btn:hover{background:var(--plum)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .err{color:#a33;font-size:.82rem;margin-top:.8rem;text-align:center;display:none}
+
+  .dash-grid{display:grid;grid-template-columns:340px 1fr;gap:1.8rem;align-items:start}
+  @media(max-width:900px){ .dash-grid{grid-template-columns:1fr} }
+
+  .cal-card{background:#fff;border-radius:14px;border:1px solid rgba(224,62,99,.1);box-shadow:0 10px 30px rgba(224,62,99,.06);padding:1.4rem}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+  .cal-head .month{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink);text-transform:capitalize}
+  .cal-nav{display:flex;gap:.4rem}
+  .cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+  .cal-nav button:hover{background:var(--rosegold);color:#fff}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+  .dow span{text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mokka)}
+  .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cday{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:9px;font-size:.82rem;color:var(--ink);cursor:pointer;border:1px solid transparent;position:relative;gap:2px}
+  .cday.pad{visibility:hidden}
+  .cday:not(.pad):hover{background:var(--cream);border-color:rgba(224,62,99,.25)}
+  .cday.today{border-color:rgba(224,62,99,.4);font-weight:700}
+  .cday.sel{background:var(--rosegold);color:#fff;font-weight:700}
+  .cday .dot{width:5px;height:5px;border-radius:50%;background:var(--rosegold)}
+  .cday.sel .dot{background:#fff}
+  .cday .n{font-size:.7rem;font-weight:700;color:var(--rosegold)}
+  .cday.sel .n{color:#fff}
+  .cal-clear{display:block;width:100%;margin-top:1rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);background:none;border:1px solid rgba(224,62,99,.25);border-radius:8px;padding:.6rem;cursor:pointer}
+  .cal-clear:hover{background:var(--cream)}
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;flex-wrap:wrap;gap:1rem}
+  .logout{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mokka);background:none;border:1px solid rgba(224,62,99,.3);border-radius:8px;padding:.6rem 1.1rem;cursor:pointer}
+  .logout:hover{color:var(--rosegold);border-color:var(--rosegold)}
+  .refresh{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rosegold);background:none;border:1px solid rgba(224,62,99,.3);border-radius:8px;padding:.6rem 1.1rem;cursor:pointer}
+
+  .tablewrap{background:#fff;border-radius:14px;overflow-x:auto;border:1px solid rgba(224,62,99,.1);box-shadow:0 10px 30px rgba(224,62,99,.06)}
+  table{width:100%;border-collapse:collapse;min-width:720px}
+  th,td{text-align:left;padding:.9rem 1.1rem;font-size:.86rem;border-bottom:1px solid rgba(224,62,99,.08)}
+  th{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);background:var(--cream)}
+  tr:last-child td{border-bottom:none}
+  td.name{font-family:'Fraunces',serif;font-size:1rem}
+  .empty{padding:3rem 1rem;text-align:center;color:var(--mokka)}
+  .count{font-size:.8rem;color:var(--mokka);margin-bottom:1rem}
+
+  #configWarning{display:none;color:#a33;font-weight:700;text-align:center;margin:3rem auto;max-width:560px}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
+  <nav>
+    <ul>
+      <li><a class="nl" href="szolgaltatasok.html">Kezelések</a></li>
+      <li><a class="nl" href="rolam.html">Rólam</a></li>
+      <li><a class="nl" href="referenciak.html">Referenciák</a></li>
+      <li><a class="nl" href="kapcsolat.html">Kapcsolat</a></li>
+    </ul>
+  </nav>
+  <a href="foglalas.html" class="book">Időpontfoglalás</a>
+  <button class="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mm">
+  <button class="mclose">×</button>
+  <a href="szolgaltatasok.html">Kezelések</a>
+  <a href="rolam.html">Rólam</a>
+  <a href="referenciak.html">Referenciák</a>
+  <a href="kapcsolat.html">Kapcsolat</a>
+  <a href="foglalas.html">Foglalás</a>
+</div>
+
+<main>
+  <div class="wrap">
+    <div id="configWarning">⚠ A foglalási rendszer még nincs bekötve (hiányzó Firebase-konfiguráció) — lásd assets/firebase-config.js.</div>
+
+    <div id="loginView" class="login-card" style="display:none">
+      <h2>Admin bejelentkezés</h2>
+      <form id="loginForm">
+        <div class="row"><label for="l-email">Email</label><input type="email" id="l-email" required></div>
+        <div class="row"><label for="l-pass">Jelszó</label><input type="password" id="l-pass" required></div>
+        <button type="submit" class="btn"><span>Belépés</span></button>
+        <div class="err" id="loginErr">Hibás email vagy jelszó.</div>
+      </form>
+    </div>
+
+    <div id="dashView" style="display:none">
+      <h1>Foglalások <em>áttekintése</em></h1>
+      <div class="toolbar">
+        <button class="refresh" id="refreshBtn">↻ Frissítés</button>
+        <button class="logout" id="logoutBtn">Kijelentkezés</button>
+      </div>
+
+      <div class="dash-grid">
+        <div class="cal-card">
+          <div class="cal-head">
+            <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+            <div class="month" id="calMonth"></div>
+            <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+          </div>
+          <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+          <div class="cal-days" id="calDays"></div>
+          <button type="button" class="cal-clear" id="calClear">Összes foglalás mutatása</button>
+        </div>
+
+        <div>
+          <div class="count" id="countText"></div>
+          <div class="tablewrap">
+            <table id="bookTable">
+              <thead>
+                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th></tr>
+              </thead>
+              <tbody id="bookRows"></tbody>
+            </table>
+            <div class="empty" id="emptyMsg" style="display:none">Még nincs egyetlen foglalás sem.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="assets/site.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+  import {
+    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+  import {
+    getFirestore, collection, getDocs, query, orderBy
+  } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+  import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
+
+  if(!FIREBASE_CONFIGURED){
+    document.getElementById('configWarning').style.display = 'block';
+  } else {
+    var app = initializeApp(FIREBASE_CONFIG);
+    var auth = getAuth(app);
+    var db = getFirestore(app);
+
+    onAuthStateChanged(auth, function(user){
+      if(user){
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('dashView').style.display = 'block';
+        loadBookings();
+      }else{
+        document.getElementById('loginView').style.display = 'block';
+        document.getElementById('dashView').style.display = 'none';
+      }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      document.getElementById('loginErr').style.display = 'none';
+      var email = document.getElementById('l-email').value.trim();
+      var pass = document.getElementById('l-pass').value;
+      try{
+        await signInWithEmailAndPassword(auth, email, pass);
+      }catch(err){
+        document.getElementById('loginErr').style.display = 'block';
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function(){
+      signOut(auth);
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadBookings);
+
+    var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
+    var today = new Date(); today.setHours(0,0,0,0);
+    var viewYear = today.getFullYear(), viewMonth = today.getMonth();
+    var allBookings = [];
+    var bookingsByDate = {};
+    var selectedDayKey = null;
+
+    function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+    function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+
+    function renderCal(){
+      document.getElementById('calMonth').textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
+      var first = new Date(viewYear, viewMonth, 1);
+      var startCol = (first.getDay() + 6) % 7;
+      var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      var wrap = document.getElementById('calDays');
+      wrap.innerHTML = '';
+      for(var i=0;i<startCol;i++){
+        var pad = document.createElement('div'); pad.className = 'cday pad'; wrap.appendChild(pad);
+      }
+      for(var d=1; d<=daysInMonth; d++){
+        var thisDate = new Date(viewYear, viewMonth, d);
+        var key = dateKey(thisDate);
+        var cell = document.createElement('div');
+        cell.className = 'cday';
+        if(thisDate.getTime() === today.getTime()) cell.classList.add('today');
+        if(selectedDayKey === key) cell.classList.add('sel');
+        var n = document.createElement('span'); n.className = 'n'; n.textContent = d;
+        cell.appendChild(n);
+        if(bookingsByDate[key] && bookingsByDate[key].length){
+          var dot = document.createElement('span'); dot.className = 'dot'; cell.appendChild(dot);
+        }
+        cell.addEventListener('click', (function(k){
+          return function(){
+            selectedDayKey = (selectedDayKey === k) ? null : k;
+            renderCal();
+            renderTable();
+          };
+        })(key));
+        wrap.appendChild(cell);
+      }
+    }
+
+    document.getElementById('calPrev').addEventListener('click', function(){
+      viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+      renderCal();
+    });
+    document.getElementById('calNext').addEventListener('click', function(){
+      viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+      renderCal();
+    });
+    document.getElementById('calClear').addEventListener('click', function(){
+      selectedDayKey = null;
+      renderCal();
+      renderTable();
+    });
+
+    function renderTable(){
+      var tbody = document.getElementById('bookRows');
+      var empty = document.getElementById('emptyMsg');
+      var count = document.getElementById('countText');
+      tbody.innerHTML = '';
+
+      var rows = selectedDayKey
+        ? (bookingsByDate[selectedDayKey] || [])
+        : allBookings.slice();
+
+      rows.sort(function(a,b){
+        if(a.date !== b.date) return a.date < b.date ? -1 : 1;
+        return a.time < b.time ? -1 : 1;
+      });
+
+      if(rows.length === 0){
+        empty.textContent = selectedDayKey ? 'Ezen a napon nincs foglalás.' : 'Még nincs egyetlen foglalás sem.';
+        empty.style.display = 'block';
+        count.textContent = '';
+        return;
+      }
+      empty.style.display = 'none';
+      count.textContent = selectedDayKey
+        ? (rows.length + ' foglalás ezen a napon (' + selectedDayKey + ')')
+        : (rows.length + ' foglalás összesen');
+
+      rows.forEach(function(b){
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + escapeHtml(b.date || '') + '</td>' +
+          '<td>' + escapeHtml(b.time || '') + '</td>' +
+          '<td>' + escapeHtml(b.svc || '') + '</td>' +
+          '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
+          '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
+          '<td>' + escapeHtml(b.note || '—') + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function loadBookings(){
+      var empty = document.getElementById('emptyMsg');
+      try{
+        var q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+        var snap = await getDocs(q);
+        allBookings = [];
+        bookingsByDate = {};
+        snap.forEach(function(d){
+          var b = d.data();
+          allBookings.push(b);
+          if(!bookingsByDate[b.date]) bookingsByDate[b.date] = [];
+          bookingsByDate[b.date].push(b);
+        });
+        renderCal();
+        renderTable();
+      }catch(err){
+        console.error(err);
+        empty.textContent = 'Hiba történt a foglalások betöltésekor.';
+        empty.style.display = 'block';
+      }
+    }
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+      });
+    }
+  }
+</script>
+
+</body>
+</html>
