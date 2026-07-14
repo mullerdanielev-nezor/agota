@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://loftofbeauty.hu/index.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-kezeles.webp</video:thumbnail_loc>
+      <video:title>A kezelések mozgásban – Loft of Beauty</video:title>
+      <video:description>Betekintés a Loft of Beauty gépi testkezeléseibe: hullámmasszázs, rádiófrekvencia, HIEMT és kavitáció mozgásban.</video:description>
+      <video:content_loc>https://loftofbeauty.hu/images/v24044gl0000d7ajjg7og65s0pmb35c0.mp4</video:content_loc>
+      <video:duration>19</video:duration>
+      <video:publication_date>2026-07-13</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://loftofbeauty.hu/szolgaltatasok.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-kezeles.webp</video:thumbnail_loc>
+      <video:title>A kezelések mozgásban – Loft of Beauty</video:title>
+      <video:description>Betekintés a Loft of Beauty gépi testkezeléseibe: hullámmasszázs, rádiófrekvencia, HIEMT és kavitáció mozgásban.</video:description>
+      <video:content_loc>https://loftofbeauty.hu/images/v24044gl0000d7ajjg7og65s0pmb35c0.mp4</video:content_loc>
+      <video:duration>19</video:duration>
+      <video:publication_date>2026-07-13</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-szortelenites.webp</video:thumbnail_loc>
+      <video:title>Végleges szőrtelenítés – Loft of Beauty</video:title>
+      <video:description>Diódalézeres, végleges szőrtelenítés a Loft of Beauty stúdióban — fájdalommentes, bármely testtájon alkalmazható kezelés.</video:description>
+      <video:content_loc>https://loftofbeauty.hu/images/vegleges-szortelenites.mp4</video:content_loc>
+      <video:duration>53</video:duration>
+      <video:publication_date>2026-07-13</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://loftofbeauty.hu/vegleges-szortelenites.html</loc>
+    <video:video>
+      <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-szortelenites.webp</video:thumbnail_loc>
+      <video:title>Végleges szőrtelenítés – Loft of Beauty</video:title>
+      <video:description>Diódalézeres, végleges szőrtelenítés a Loft of Beauty stúdióban — fájdalommentes, bármely testtájon alkalmazható kezelés.</video:description>
+      <video:content_loc>https://loftofbeauty.hu/images/vegleges-szortelenites.mp4</video:content_loc>
+      <video:duration>53</video:duration>
+      <video:publication_date>2026-07-13</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+</urlset>
