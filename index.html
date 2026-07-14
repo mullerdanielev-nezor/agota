@@ -42,15 +42,15 @@
 
   .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.4em;color:var(--rosegold);text-transform:uppercase;margin-bottom:1.8rem;display:inline-flex;align-items:center;gap:1rem;opacity:0;animation:up .8s ease .1s forwards}
   .eyebrow::before{content:'';width:30px;height:1px;background:var(--rosegold)}
-  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.8rem,5.4vw,5rem);line-height:1.02;color:var(--ink);letter-spacing:-.005em;margin-bottom:1.5rem;opacity:0;animation:up .9s ease .22s forwards}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(3.1rem,6.2vw,5.8rem);line-height:1.01;color:var(--ink);letter-spacing:-.005em;margin-bottom:1.6rem;opacity:0;animation:up .9s ease .22s forwards}
   h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
-  .sub{font-size:1.08rem;font-weight:400;line-height:1.85;color:var(--mokka);max-width:490px;margin-bottom:2.4rem;opacity:0;animation:up .9s ease .34s forwards}
-  .ctas{opacity:0;animation:up .9s ease .46s forwards;margin-bottom:2.2rem}
-  .stats{display:flex;gap:2.6rem;opacity:0;animation:up .9s ease .58s forwards}
-  .stat+.stat{position:relative;padding-left:2.6rem}
-  .stat+.stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:32px;background:rgba(224,62,99,.25)}
-  .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:1.8rem;color:var(--plum);display:block;line-height:1}
-  .stat span{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mokka)}
+  .sub{font-size:1.2rem;font-weight:400;line-height:1.85;color:var(--mokka);max-width:540px;margin-bottom:2.6rem;opacity:0;animation:up .9s ease .34s forwards}
+  .ctas{opacity:0;animation:up .9s ease .46s forwards;margin-bottom:2.4rem}
+  .stats{display:flex;gap:2.8rem;opacity:0;animation:up .9s ease .58s forwards}
+  .stat+.stat{position:relative;padding-left:2.8rem}
+  .stat+.stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:36px;background:rgba(224,62,99,.25)}
+  .stat b{font-family:'Fraunces',serif;font-weight:400;font-size:2.2rem;color:var(--plum);display:block;line-height:1}
+  .stat span{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mokka)}
 
   /* ---- foglalási chat-widget ---- */
   .chat-wrap{opacity:0;animation:up .9s ease .3s forwards}
@@ -103,8 +103,8 @@
 
   /* ===================== RÓLAM (fehér, portré split) ===================== */
   #rolam{background:var(--ho);color:var(--ink)}
-  .about{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:.85fr 1fr;gap:3.5rem;align-items:center}
-  .about .ph{min-height:460px;border-radius:220px 220px 6px 6px}
+  .about{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:3.5rem;align-items:center}
+  .about .ph{min-height:600px;border-radius:220px 220px 6px 6px}
   .about h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.5rem;line-height:1.1;margin-bottom:1.3rem}
   .about h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
   .about p{font-weight:400;line-height:1.9;color:var(--mokka);max-width:440px;margin-bottom:1.6rem}
@@ -118,7 +118,7 @@
   /* ===================== SZOLGÁLTATÁSOK (világos, videóval) ===================== */
   #szolgaltatasok{background:var(--cream);color:var(--ink)}
   .svc{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:3.4rem;align-items:start}
-  .phone{position:relative;width:100%;max-width:280px;margin:0 auto;background:#241016;border-radius:42px;padding:12px;box-shadow:0 34px 74px rgba(58,14,28,.30),inset 0 0 0 1px rgba(255,255,255,.05);border:1px solid rgba(224,62,99,.22)}
+  .phone{position:sticky;top:2rem;width:100%;max-width:280px;margin:0 auto;background:#241016;border-radius:42px;padding:12px;box-shadow:0 34px 74px rgba(58,14,28,.30),inset 0 0 0 1px rgba(255,255,255,.05);border:1px solid rgba(224,62,99,.22)}
   .phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:78px;height:20px;background:#241016;border-radius:0 0 13px 13px;z-index:3}
   .phone::after{content:'';position:absolute;right:-2px;top:118px;width:3px;height:48px;background:linear-gradient(var(--rosegold),var(--plum));border-radius:3px;opacity:.7}
   .phone .screen{position:relative;aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000}
@@ -137,9 +137,9 @@
   .svc-list .svc-item:nth-child(4){transition-delay:.24s}
 
   /* ===================== EREDMÉNYEK (előtte-utána csúszka) ===================== */
-  #eredmenyek{background:var(--ho);color:var(--ink)}
-  .ba-grid{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:2.2rem}
-  .ba{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;box-shadow:0 16px 44px rgba(224,62,99,.14);cursor:ew-resize;user-select:none;-webkit-user-select:none;background:var(--cream)}
+  #eredmenyek{background:radial-gradient(120% 100% at 50% 0%,var(--puder) 0%,var(--ho) 60%);color:var(--ink)}
+  .ba-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:2.8rem}
+  .ba{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(224,62,99,.18);cursor:ew-resize;user-select:none;-webkit-user-select:none;background:var(--cream)}
   .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
   .ba .after-wrap{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 50% 0 0)}
   .ba .tag{position:absolute;top:1rem;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(58,14,28,.55);padding:.4rem .85rem;border-radius:20px;z-index:3;pointer-events:none}
@@ -148,7 +148,12 @@
   .ba .handle{position:absolute;top:0;bottom:0;left:50%;width:0;z-index:4;pointer-events:none}
   .ba .handle::before{content:'';position:absolute;top:0;bottom:0;left:0;width:2px;background:#fff;transform:translateX(-1px);box-shadow:0 0 10px rgba(0,0,0,.25)}
   .ba .handle::after{content:'⟺';position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:#fff;color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 8px 20px rgba(58,14,28,.28)}
-  .ba .label{position:absolute;bottom:1rem;left:1rem;right:1rem;font-family:'Fraunces',serif;font-size:1rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.4);z-index:3;pointer-events:none}
+  .ba .label{position:absolute;bottom:0;left:0;right:0;padding:2.6rem 1.2rem 1rem;background:linear-gradient(to top,rgba(58,14,28,.82) 0%,rgba(58,14,28,.4) 55%,transparent 100%);font-family:'Fraunces',serif;font-size:1.05rem;color:#fff;z-index:3;pointer-events:none}
+
+  /* ===== Szekció-elválasztó dísz ===== */
+  .section-divider{display:flex;align-items:center;justify-content:center;gap:1.2rem;padding:2.2rem 1.5rem;background:var(--ho)}
+  .section-divider::before,.section-divider::after{content:'';flex:1;max-width:220px;height:1px;background:linear-gradient(90deg,transparent,rgba(224,62,99,.35),transparent)}
+  .section-divider .dot{width:7px;height:7px;border-radius:50%;background:var(--rosegold);flex-shrink:0}
 
   /* ===================== REFERENCIÁK (fehér, kártyák + IG) ===================== */
   #referenciak{background:var(--ho);color:var(--ink)}
@@ -262,6 +267,7 @@
   </div>
 </section>
 
+<div class="section-divider"><span class="dot"></span></div>
 
 <!-- ===== RÓLAM ===== -->
 <section class="section" id="rolam">
@@ -280,6 +286,8 @@
     </div>
   </div>
 </section>
+
+<div class="section-divider"><span class="dot"></span></div>
 
 <!-- ===== SZOLGÁLTATÁSOK (videóval) ===== -->
 <section class="section" id="szolgaltatasok">
@@ -321,6 +329,8 @@
   <div class="sec-cta reveal"><a href="foglalas.html" class="btn"><span>Időpontot foglalok</span></a></div>
 </section>
 
+<div class="section-divider"><span class="dot"></span></div>
+
 <!-- ===== EREDMÉNYEK (előtte-utána) ===== -->
 <section class="section" id="eredmenyek">
   <div class="sec-head">
@@ -348,6 +358,8 @@
   </div>
 </section>
 
+<div class="section-divider"><span class="dot"></span></div>
+
 <!-- ===== REFERENCIÁK ===== -->
 <section class="section" id="referenciak">
   <div class="sec-head">
@@ -374,6 +386,8 @@
   </div>
 </section>
 
+<div class="section-divider"><span class="dot"></span></div>
+
 <!-- ===== ELHELYEZKEDÉS ===== -->
 <section class="section" id="elhelyezkedes">
   <div class="loc">
@@ -392,10 +406,12 @@
         <li><div class="ic">⌖</div><div><div class="k">Cím</div><div class="v">4551 Nyíregyháza, Meggyes u. 11.</div></div></li>
         <li><div class="ic">☎</div><div><div class="k">Telefon</div><div class="v"><a href="tel:+36305039156">+36 30 503 9156</a></div></div></li>
         <li><div class="ic">✉</div><div><div class="k">E-mail</div><div class="v"><a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a></div></div></li>
-        <li><div class="ic">◷</div><div><div class="k">Nyitvatartás</div><div class="v">Hétfő–Péntek · 9:00–18:00<br>Hétvégén előzetes egyeztetéssel</div></div></li>
+        <li><div class="ic">◷</div><div><div class="k">Nyitvatartás</div><div class="v">Előre egyeztetett időpontban</div></div></li>
       </ul>
-      <a class="more-link" href="kapcsolat.html">Teljes kapcsolat oldal →</a>
     </div>
+  </div>
+  <div style="text-align:center;margin-top:2.6rem">
+    <a class="more-link" href="kapcsolat.html">Teljes kapcsolat oldal →</a>
   </div>
 </section>
 
@@ -430,7 +446,7 @@
       <p>4551 Nyíregyháza, Meggyes u. 11.</p>
       <a href="tel:+36305039156">+36 30 503 9156</a>
       <a href="mailto:info@loftofbeauty.hu">info@loftofbeauty.hu</a>
-      <p>H–P · 9:00–18:00</p>
+      <p>Előre egyeztetett időpontban</p>
     </div>
   </div>
   <div class="foot-bottom">
@@ -530,7 +546,13 @@
   async function askDate(){
     botMsg('Szuper választás! Melyik napra jönnél?', function(){
       var opts = buildDayOptions();
-      chips(opts.map(function(o){ return { label:o.label, date:o.date }; }), function(item){
+      var items = opts.map(function(o){ return { label:o.label, date:o.date }; });
+      items.push({ label:'Más', other:true });
+      chips(items, function(item){
+        if(item.other){
+          window.location.href = 'foglalas.html';
+          return;
+        }
         state.date = item.date; state.dateLabel = item.label;
         askTime();
       });
@@ -690,14 +712,6 @@
     "latitude": 47.9509991,
     "longitude": 21.7824938
   },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "09:00",
-      "closes": "18:00"
-    }
-  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Testkezelések",
