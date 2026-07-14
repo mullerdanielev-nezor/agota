@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rólam-kép — eltolt keret variációk | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  body{background:var(--ho)}
+  .demo-tag{background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.6rem}
+  .variant{padding:4rem 1.5rem;border-bottom:2px dashed rgba(224,62,99,.2)}
+  .variant-label{max-width:1160px;margin:0 auto 1.8rem;font-family:'Fraunces',serif;font-size:1.1rem;color:var(--rosegold);display:flex;align-items:center;gap:.8rem}
+  .variant-label b{background:var(--rosegold);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito Sans',sans-serif;font-size:.8rem;flex-shrink:0}
+  .about{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:4rem;align-items:center}
+  .about h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.4rem;line-height:1.1;margin-bottom:1.2rem;color:var(--ink)}
+  .about h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .about p{font-weight:400;line-height:1.85;color:var(--mokka);max-width:440px;margin-bottom:1.4rem}
+  .about-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1rem;display:flex;align-items:center;gap:.8rem}
+  .about-eyebrow::before{content:'';width:26px;height:1px;background:var(--rosegold)}
+  .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;color:var(--plum)}
+  .ph-base{background-image:url('../images/rolam.webp');background-size:cover;background-position:center 30%;min-height:460px;position:relative;z-index:1}
+  .frame-wrap{position:relative}
+  @media(max-width:900px){.about{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo-tag">"ELTOLT KERET" IRÁNY — TOVÁBBI VÁLTOZATOK</div>
+
+<!-- A. Eredeti: vékony vonalkeret bal-fent -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>A</b>Eredeti — vékony vonalkeret bal-fent</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;border:2px solid var(--rosegold);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- B. Keret jobb-lent -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>B</b>Keret jobb-lent, ellenkező irányba tolva</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;bottom:-24px;right:-24px;left:24px;top:24px;border:2px solid var(--rosegold);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- C. Tömör puder színblokk vonal helyett -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>C</b>Tömör, halvány puder színblokk (nem vonal)</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-28px;left:-28px;right:28px;bottom:28px;background:var(--puder);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- D. Dupla keret, két szín -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>D</b>Dupla keret — rosegold + plum, két rétegben</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-36px;left:-36px;right:36px;bottom:36px;border:2px solid var(--plum);border-radius:20px;z-index:0;opacity:.5"></div>
+      <div style="position:absolute;top:-18px;left:-18px;right:18px;bottom:18px;border:2px solid var(--rosegold);border-radius:18px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- E. Szaggatott vonalú keret -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>E</b>Szaggatott (dashed) vonalú keret</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;border:2px dashed var(--rosegold);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- F. Vastag "galéria" keret -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>F</b>Vastag, "galéria-paszpartu" jellegű keret</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-30px;left:-30px;right:30px;bottom:30px;border:8px solid var(--rosegold);border-radius:6px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:4px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- G. Sarok-dísz csak (nem teljes keret) -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>G</b>Csak sarok-díszítés (nem teljes keret körbe)</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-20px;left:-20px;width:120px;height:120px;border-top:3px solid var(--rosegold);border-left:3px solid var(--rosegold);border-radius:16px 0 0 0;z-index:0"></div>
+      <div style="position:absolute;bottom:-20px;right:-20px;width:120px;height:120px;border-bottom:3px solid var(--rosegold);border-right:3px solid var(--rosegold);border-radius:0 0 16px 0;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- H. Kerek kép, szögletes keret mögötte (formakontraszt) -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>H</b>Kerek kép + szögletes keret mögötte (formakontraszt)</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;border:2px solid var(--rosegold);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:50%;aspect-ratio:1;min-height:0;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- I. Gradiens szegélyű keret -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>I</b>Gradiens (rosegold → plum) szegélyű keret</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-22px;left:-22px;right:22px;bottom:22px;border-radius:16px;padding:2px;background:linear-gradient(135deg,var(--rosegold),var(--plum));z-index:0">
+        <div style="width:100%;height:100%;background:var(--ho);border-radius:14px"></div>
+      </div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- J. Keret + kis monogram-pötty a sarokban -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>J</b>Keret + kis "L" monogram-jelvény a sarokban</div>
+  <div class="about">
+    <div class="frame-wrap">
+      <div style="position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;border:2px solid var(--rosegold);border-radius:16px;z-index:0"></div>
+      <div class="ph-base" style="border-radius:16px;box-shadow:0 30px 60px rgba(224,62,99,.18)"></div>
+      <div style="position:absolute;bottom:-22px;right:-22px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--rosegold),var(--plum));color:#fce9ed;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;font-size:1.6rem;z-index:2;box-shadow:0 10px 24px rgba(122,26,52,.3)">L</div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+</body>
+</html>

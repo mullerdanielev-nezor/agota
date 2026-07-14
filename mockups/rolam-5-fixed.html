@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rólam v5 — javított, 5 új variáció | Loft of Beauty mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .demo-tag{background:#3A0E1C;color:#fff;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.6rem;position:sticky;top:0;z-index:99}
+  .variant{padding:5rem 1.5rem;border-bottom:3px dashed rgba(224,62,99,.2)}
+  .variant-label{max-width:1200px;margin:0 auto 2rem;font-family:'Fraunces',serif;font-size:1.1rem;color:var(--rosegold);display:flex;align-items:center;gap:.9rem}
+  .variant-label b{background:var(--rosegold);color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Nunito Sans',sans-serif;font-size:.8rem;flex-shrink:0}
+  .about{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:4.5rem;align-items:center}
+  .about-img-wrap{position:relative;width:460px;height:540px;max-width:100%}
+  .ph{position:absolute;width:400px;height:480px;max-width:86%;border-radius:20px;box-shadow:0 40px 80px rgba(58,14,28,.28);background-image:url('../images/rolam.webp');background-size:cover;background-position:center 40%;z-index:2}
+  .about-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold);margin-bottom:1.1rem;display:flex;align-items:center;gap:.8rem}
+  .about-eyebrow::before{content:'';width:26px;height:1px;background:var(--rosegold)}
+  .about h2{font-family:'Fraunces',serif;font-weight:300;font-size:2.5rem;line-height:1.1;margin-bottom:1.3rem}
+  .about h2 em{font-style:normal;font-weight:500;color:var(--rosegold)}
+  .about p{font-weight:400;line-height:1.9;color:var(--mokka);max-width:440px;margin-bottom:1.4rem}
+  .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.6rem;color:var(--plum)}
+  @media(max-width:900px){.about{grid-template-columns:1fr}.about-img-wrap{margin:0 auto}}
+</style>
+</head>
+<body>
+<div class="demo-tag">JAVÍTVA — nincs kilógó sarok, 5 új, letisztult változat</div>
+
+<!-- A. Vékony "paszpartu" keret körben, egyenletesen -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>A</b>Vékony, egyenletes "paszpartu" keret — nincs kilógás sehol</div>
+  <div class="about">
+    <div class="about-img-wrap">
+      <div style="position:absolute;top:14px;left:14px;width:400px;height:480px;max-width:86%;background:linear-gradient(155deg,var(--rosegold),var(--plum));border-radius:22px;z-index:1"></div>
+      <div class="ph" style="top:0;left:28px"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- B. Csak felül-jobbra kandikál ki, kontrolláltan -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>B</b>Csak felül-jobbra kandikál ki a panel (max. 28px, sosem lóg alá)</div>
+  <div class="about">
+    <div class="about-img-wrap">
+      <div style="position:absolute;top:0;right:0;width:400px;height:480px;max-width:86%;background:linear-gradient(155deg,var(--rosegold),var(--plum));border-radius:20px;z-index:1"></div>
+      <div class="ph" style="bottom:0;left:0"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- C. Nincs nagy panel, csak apró kör-akcentus + jelvény -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>C</b>Nincs nagy panel — csak apró kör-dísz és egy jelvény</div>
+  <div class="about">
+    <div class="about-img-wrap">
+      <div style="position:absolute;top:-16px;right:20px;width:70px;height:70px;border-radius:50%;background:var(--puder);z-index:1"></div>
+      <div class="ph" style="top:20px;left:14px"></div>
+      <div style="position:absolute;bottom:-20px;right:-10px;width:110px;height:110px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 20px 44px rgba(224,62,99,.28);z-index:3">
+        <b style="font-family:'Fraunces',serif;font-weight:400;font-size:1.5rem;color:var(--plum);line-height:1">200+</b>
+        <span style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);margin-top:.2rem">vendég</span>
+      </div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- D. Vékony vonalkeret (nem tömör), kontrollált eltolással -->
+<section class="variant" style="background:var(--cream)">
+  <div class="variant-label"><b>D</b>Vékony vonalkeret (üres, nem tömör szín) — semmi nem "lóg ki" vizuálisan zavaróan</div>
+  <div class="about">
+    <div class="about-img-wrap">
+      <div style="position:absolute;top:0;left:0;width:400px;height:480px;max-width:86%;border:2px solid var(--rosegold);border-radius:20px;z-index:1"></div>
+      <div class="ph" style="bottom:0;right:0"></div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+<!-- E. Panel a fotó MÖGÖTT teljesen elrejtve, csak lekerekített sarka villan ki finoman -->
+<section class="variant" style="background:var(--ho)">
+  <div class="variant-label"><b>E</b>Panel majdnem teljesen a fotó mögött, csak 10px-es finom szegély látszik körben</div>
+  <div class="about">
+    <div class="about-img-wrap">
+      <div style="position:absolute;top:10px;left:10px;width:400px;height:480px;max-width:86%;background:var(--ink);border-radius:22px;z-index:1"></div>
+      <div class="ph" style="top:0;left:0"></div>
+      <div style="position:absolute;bottom:16px;right:-16px;background:var(--rosegold);color:#fff;padding:.9rem 1.3rem;border-radius:12px;box-shadow:0 20px 44px rgba(58,14,28,.3);z-index:3;text-align:center">
+        <b style="font-family:'Fraunces',serif;font-weight:400;font-size:1.4rem;display:block;line-height:1">5,0★</b>
+        <span style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Google</span>
+      </div>
+    </div>
+    <div><div class="about-eyebrow">Rólam</div><h2>Ágota vagyok, és<br><em>a bőröd története</em> érdekel</h2><p>Egy éve foglalkozom testkezelésekkel Nyíregyházán.</p><div class="sign">Ágota</div></div>
+  </div>
+</section>
+
+</body>
+</html>
