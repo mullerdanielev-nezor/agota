@@ -50,17 +50,17 @@ a{text-decoration:none;color:inherit}
 .topbar-cta{background:var(--rosegold);color:#fff;padding:.6rem 1.3rem;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(224,62,99,.55)}
 
 /* ===== HERO ===== */
-.hero{position:relative;padding:56px 0 0}
-.hero-badge{display:inline-flex;align-items:center;gap:9px;background:var(--cream);border:1px solid var(--line);padding:10px 20px;border-radius:999px;font-size:.85rem;color:var(--mokka);margin-bottom:28px}
+.hero{position:relative;padding:28px 0 0}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;background:var(--cream);border:1px solid var(--line);padding:7px 16px;border-radius:999px;font-size:.78rem;color:var(--mokka);margin-bottom:16px}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--rosegold);flex:none}
 .hero-top{max-width:980px}
-.hero h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.07;letter-spacing:-.01em}
-.hero p.sub{margin-top:24px;font-size:clamp(1.05rem,2vw,1.25rem);color:var(--mokka);max-width:680px}
-.hero-ctas{margin-top:34px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.hero h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.9rem,4.6vw,3.1rem);line-height:1.08;letter-spacing:-.01em}
+.hero p.sub{margin-top:14px;font-size:clamp(.95rem,1.6vw,1.08rem);color:var(--mokka);max-width:680px}
+.hero-ctas{margin-top:20px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
 .btn-primary{background:var(--rosegold);color:#fff;padding:1rem 1.8rem;border-radius:999px;font-size:.98rem;font-weight:700;box-shadow:0 14px 30px -10px rgba(224,62,99,.5);transition:transform .2s ease,box-shadow .2s ease;border:none;cursor:pointer;display:inline-block}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px -8px rgba(224,62,99,.55)}
 .btn-ghost{color:var(--ink);font-weight:700;font-size:.9rem;border-bottom:1px solid var(--ink);padding-bottom:3px}
-.trust-row{display:flex;gap:40px;margin-top:42px;flex-wrap:wrap;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.trust-row{display:flex;gap:40px;margin-top:22px;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid var(--line)}
 .trust-item{font-size:.85rem;color:var(--mokka)}
 .trust-item b{display:block;font-family:'Fraunces',serif;font-size:1.7rem;color:var(--plum);font-weight:400}
 
@@ -101,20 +101,17 @@ section{padding:80px 0}
 .pain-bridge{margin-top:36px;font-family:'Fraunces',serif;font-style:italic;font-size:1.35rem;color:var(--ink);max-width:680px;line-height:1.4}
 
 /* ===== BENEFITS ===== */
-.benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.benefit-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 22px;text-align:left;transition:transform .25s ease,box-shadow .25s ease}
+.benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.benefit-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;text-align:left;transition:transform .25s ease,box-shadow .25s ease}
 .benefit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
-.benefit-icon{width:46px;height:46px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:16px;color:var(--rosegold)}
-.benefit-card h4{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:500;margin-bottom:8px}
-.benefit-card p{font-size:.88rem;color:var(--mokka)}
-@media (max-width:880px){.benefit-grid{grid-template-columns:1fr 1fr}}
+.benefit-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--cream)}
+.benefit-img img{width:100%;height:100%;object-fit:cover;display:block}
+.benefit-icon{position:absolute;top:16px;left:16px;width:48px;height:48px;border-radius:50%;background:var(--rosegold);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 18px -6px rgba(58,14,28,.45);z-index:2}
+.benefit-icon svg{width:24px;height:24px}
+.benefit-card .body{padding:26px 26px 28px}
+.benefit-card h4{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500;margin-bottom:10px}
+.benefit-card p{font-size:.96rem;color:var(--mokka)}
 @media (max-width:560px){.benefit-grid{grid-template-columns:1fr}}
-
-/* ===== WHY ME ===== */
-.whyme-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.whyme-item{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.92rem}
-.whyme-item .check{flex:none;width:24px;height:24px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;margin-top:1px}
-@media (max-width:880px){.whyme-grid{grid-template-columns:1fr}}
 
 /* ===== RESULTS ===== */
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
@@ -170,30 +167,37 @@ section{padding:80px 0}
 
 /* ===== QUICK BOOKING WIDGET ===== */
 .booking{padding:40px 0 88px}
-.booking-frame{position:relative;max-width:760px;margin:40px auto 0;padding:16px}
+.booking-frame{position:relative;max-width:920px;margin:40px auto 0;padding:16px 60px}
 .review-chip{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;width:170px;box-shadow:0 16px 30px -18px rgba(58,14,28,.3);z-index:3;font-size:.72rem}
 .review-chip .stars{color:var(--rosegold);font-size:.72rem;letter-spacing:1px;margin-bottom:6px}
 .review-chip p{margin:0;color:var(--ink);font-size:.72rem;line-height:1.4}
 .review-chip .who{margin-top:8px;color:var(--mokka);font-size:.62rem;letter-spacing:.03em}
-.rc-1{top:-34px;left:-40px;transform:rotate(-7deg)}
-.rc-2{top:-20px;right:-48px;transform:rotate(6deg)}
-.rc-3{bottom:-38px;left:-28px;transform:rotate(5deg)}
-.rc-4{bottom:-26px;right:-36px;transform:rotate(-5deg)}
+.rc-1{top:-34px;left:-46px;transform:rotate(-7deg)}
+.rc-2{top:-20px;right:-54px;transform:rotate(6deg)}
+.rc-3{bottom:-38px;left:-36px;transform:rotate(5deg)}
+.rc-4{bottom:-26px;right:-44px;transform:rotate(-5deg)}
+@media (max-width:1180px){
+  .booking-frame{padding:16px}
+  .rc-1{left:-24px}
+  .rc-2{right:-30px}
+  .rc-3{left:-16px}
+  .rc-4{right:-22px}
+}
 @media (max-width:900px){.review-chip{position:static;width:auto;transform:none!important;margin-bottom:12px}.booking-frame{display:flex;flex-direction:column;gap:12px;padding:0 8px}.chat-wrap{order:5}}
 
 .chat-kicker{text-align:center;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
 .chat-kicker::before,.chat-kicker::after{content:'';width:20px;height:1px;background:rgba(224,62,99,.4)}
 .chat-warn{display:none;padding:1rem 1.5rem;font-size:.74rem;color:#a33;font-weight:700;text-align:center;background:#fff;border-radius:20px}
 .chat-card{background:rgba(255,255,255,.98);backdrop-filter:blur(6px);border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:2}
-.chat-head{background:var(--ink);color:#fff;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.7rem;font-size:.86rem;font-family:'Fraunces',serif}
+.chat-head{background:var(--ink);color:#fff;padding:1.3rem 1.6rem;display:flex;align-items:center;gap:.7rem;font-size:1rem;font-family:'Fraunces',serif}
 .chat-head .avatar{width:30px;height:30px;border-radius:50%;background:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
 .chat-head .status{font-size:.62rem;font-family:'Nunito Sans',sans-serif;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.35rem;margin-top:.15rem}
 .chat-head .status .dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
-.chat-body{padding:1.3rem 1.3rem 1rem;display:flex;flex-direction:column;gap:.7rem;min-height:260px;max-height:380px;overflow-y:auto;scroll-behavior:smooth}
+.chat-body{padding:1.6rem 1.6rem 1.2rem;display:flex;flex-direction:column;gap:.85rem;min-height:400px;max-height:540px;overflow-y:auto;scroll-behavior:smooth;font-size:1.02rem}
 .bubble-row{display:flex;gap:.6rem;align-items:flex-end;animation:msgIn .3s ease}
 .bubble-row.user{flex-direction:row-reverse}
 .bubble-row .mini-avatar{width:22px;height:22px;border-radius:50%;background:var(--cream);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.62rem;flex-shrink:0}
-.bubble{max-width:78%;padding:.7rem .95rem;border-radius:14px;font-size:.87rem;line-height:1.6;font-family:'Nunito Sans',sans-serif}
+.bubble{max-width:78%;padding:.85rem 1.1rem;border-radius:14px;font-size:.98rem;line-height:1.6;font-family:'Nunito Sans',sans-serif}
 .bubble.bot{background:var(--cream);color:var(--ink);border-bottom-left-radius:4px}
 .bubble.user{background:var(--rosegold);color:#fff;border-bottom-right-radius:4px}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -203,16 +207,16 @@ section{padding:80px 0}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
 .chip-row{display:flex;flex-wrap:wrap;gap:.5rem;padding-left:1.9rem;animation:msgIn .3s ease}
-.chip{background:#fff;border:1px solid rgba(224,62,99,.28);color:var(--ink);border-radius:20px;padding:.5rem 1.05rem;font-size:.82rem;cursor:pointer;transition:.2s;font-family:'Nunito Sans',sans-serif}
+.chip{background:#fff;border:1px solid rgba(224,62,99,.28);color:var(--ink);border-radius:20px;padding:.6rem 1.2rem;font-size:.92rem;cursor:pointer;transition:.2s;font-family:'Nunito Sans',sans-serif}
 .chip.chip-other{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
 .chip.chip-other:hover{background:var(--plum);border-color:var(--plum)}
 .chip:hover{border-color:var(--rosegold);background:var(--cream);transform:translateY(-1px)}
 .chip.taken{opacity:.35;text-decoration:line-through;pointer-events:none}
 .chat-input-row{border-top:1px solid var(--line);padding:1rem 1.2rem;display:none;gap:.6rem;background:#fff}
 .chat-input-row.show{display:flex}
-.chat-input-row input{flex:1;border:1px solid rgba(224,62,99,.24);border-radius:9px;padding:.7rem .9rem;font-size:.87rem;font-family:'Nunito Sans',sans-serif;transition:.2s}
+.chat-input-row input{flex:1;border:1px solid rgba(224,62,99,.24);border-radius:9px;padding:.85rem 1.05rem;font-size:.98rem;font-family:'Nunito Sans',sans-serif;transition:.2s}
 .chat-input-row input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.1)}
-.chat-send{background:var(--rosegold);color:#fff;border:none;border-radius:9px;padding:.7rem 1.2rem;font-size:.76rem;font-weight:700;letter-spacing:.06em;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif}
+.chat-send{background:var(--rosegold);color:#fff;border:none;border-radius:9px;padding:.85rem 1.4rem;font-size:.85rem;font-weight:700;letter-spacing:.06em;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif}
 .chat-send::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .35s ease}
 .chat-send:hover::after{transform:translateY(0)}
 .chat-send span{position:relative;z-index:1}
@@ -240,15 +244,17 @@ footer{padding:36px 0 100px;text-align:center;color:var(--mokka);font-size:.8rem
 footer a{color:var(--rosegold)}
 
 /* ===== STICKY MOBILE CTA ===== */
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line);padding:12px 18px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -10px 30px -18px rgba(0,0,0,.25)}
-.sticky-cta .info{font-size:.75rem}
-.sticky-cta .info b{display:block;font-family:'Fraunces',serif;font-size:.95rem}
-.sticky-cta .btn-primary{padding:.7rem 1.3rem;font-size:.82rem}
+.sticky-cta{position:fixed;bottom:20px;right:20px;z-index:60;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 40px -12px rgba(58,14,28,.35)}
+.sticky-cta .info{font-size:.72rem}
+.sticky-cta .info b{display:block;font-family:'Fraunces',serif;font-size:.88rem}
+.sticky-cta .btn-primary{padding:.65rem 1.2rem;font-size:.8rem;white-space:nowrap}
 
 @media (max-width:880px){
   .pain-grid{grid-template-columns:1fr}
-  .sticky-cta{display:flex}
-  body{padding-bottom:0}
+}
+@media (max-width:560px){
+  .sticky-cta{left:14px;right:14px;bottom:14px;justify-content:space-between}
+  .sticky-cta .info{display:none}
 }
 </style>
 </head>
@@ -298,6 +304,44 @@ footer a{color:var(--rosegold)}
   </div>
 </section>
 
+<!-- QUICK BOOKING -->
+<section class="booking" id="foglalas">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Foglalás</span>
+      <h2>Foglald le a <span class="italic-accent">helyed</span></h2>
+      <p>Válassz egy időpontot, és jövő héten már a kezelésen ülhetsz — nem a halogatásban.</p>
+    </div>
+    <div class="booking-frame reveal">
+      <div class="review-chip rc-1"><div class="stars">★★★★★</div><p>"Már az első alkalom után éreztem a különbséget a bőrömön."</p><div class="who">Zs. — Nyíregyháza</div></div>
+      <div class="review-chip rc-2"><div class="stars">★★★★★</div><p>"Végre nem sablon-kezelés, hanem tényleg rám figyeltek."</p><div class="who">M. — Google vendég</div></div>
+      <div class="review-chip rc-3"><div class="stars">★★★★★</div><p>"A hullámmasszázs önmagában is megérte volna."</p><div class="who">N. — visszatérő vendég</div></div>
+      <div class="review-chip rc-4"><div class="stars">★★★★★</div><p>"Kedves, nyugodt hely, azonnal otthon éreztem magam."</p><div class="who">F. — Nyíregyháza</div></div>
+
+      <div class="chat-wrap">
+        <div class="chat-kicker">Gyors időpontfoglalás</div>
+        <div class="chat-warn" id="configWarning">⚠ A foglalási rendszer betöltése sikertelen. Kérlek hívj minket telefonon.</div>
+        <div class="chat-card">
+          <div class="chat-head">
+            <div class="avatar">A</div>
+            <div>
+              <div>Ágota</div>
+              <div class="status"><span class="dot"></span>Online, azonnal válaszol</div>
+            </div>
+          </div>
+          <div class="chat-body" id="chatBody"></div>
+          <div class="chat-input-row" id="chatInputRow">
+            <input type="text" id="chatText" placeholder="Írd meg a neved…">
+            <button type="button" class="chat-send" id="chatSend"><span>Küldés</span></button>
+          </div>
+          <div class="chat-privacy">A folytatással elfogadod az <a href="adatvedelem.html">adatkezelési tájékoztatót</a>.</div>
+        </div>
+        <span class="booking-phone">vagy hívj közvetlenül: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- OFFER / BENEFITS -->
 <section id="ajanlat">
   <div class="wrap">
@@ -307,10 +351,22 @@ footer a{color:var(--rosegold)}
       <p>A célzott zsírbontás, a bőrfeszesítés és az alakformálás technológiáit egyetlen, személyre szabott kezelésben kombináljuk — hogy ne csak lásd, érezd is a különbséget.</p>
     </div>
     <div class="benefit-grid">
-      <div class="benefit-card reveal"><div class="benefit-icon">◐</div><h4>Célzott zsírbontás</h4><p>A problémás zónákra (has, csípő, comb) fókuszálva bontjuk meg a makacs zsírsejteket.</p></div>
-      <div class="benefit-card reveal"><div class="benefit-icon">✦</div><h4>Feszesebb bőr</h4><p>Serkentjük a bőr természetes kollagéntermelését, hogy ne csak fogyj, hanem feszesedj is.</p></div>
-      <div class="benefit-card reveal"><div class="benefit-icon">◒</div><h4>Formásabb alak</h4><p>Kontúrt adunk a testednek ott, ahol szeretnéd — nem csak "kevesebb", hanem szebb formák.</p></div>
-      <div class="benefit-card reveal"><div class="benefit-icon">♡</div><h4>Jobb közérzet</h4><p>A hullámmasszázs élénkíti a keringést, méregtelenít, és egyszerűen jólesik — magadnak szánt idő.</p></div>
+      <div class="benefit-card reveal">
+        <div class="benefit-img"><img src="images/elotte-derek.webp" alt="Célzott zsírbontás kezelés előtt" loading="lazy" decoding="async"><div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div></div>
+        <div class="body"><h4>Célzott zsírbontás</h4><p>A problémás zónákra (has, csípő, comb) fókuszálva bontjuk meg a makacs zsírsejteket.</p></div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-img"><img src="images/rolam.webp" alt="Feszesebb bőr — a Loft of Beauty kezelőszobája" loading="lazy" decoding="async"><div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"></path><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"></path></svg></div></div>
+        <div class="body"><h4>Feszesebb bőr</h4><p>Serkentjük a bőr természetes kollagéntermelését, hogy ne csak fogyj, hanem feszesedj is.</p></div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-img"><img src="images/hiemt-gep.webp" alt="HIEMT izomépítő gép alakformáláshoz" loading="lazy" decoding="async"><div class="benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8v8"></path><path d="M7 5v14"></path><path d="M17 5v14"></path><path d="M20 8v8"></path><path d="M7 12h10"></path></svg></div></div>
+        <div class="body"><h4>Formásabb alak</h4><p>Kontúrt adunk a testednek ott, ahol szeretnéd — nem csak "kevesebb", hanem szebb formák.</p></div>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-img"><img src="images/hullammasszazs-gep.webp" alt="Hullámmasszázs gép a jobb közérzetért" loading="lazy" decoding="async"><div class="benefit-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.4 2 5 5.4 5c2 0 3.4 1.1 4.1 2.4C10.2 6.1 11.6 5 13.6 5 17 5 18.6 8.4 17 11.8 14.5 16.4 12 21 12 21z"></path></svg></div></div>
+        <div class="body"><h4>Jobb közérzet</h4><p>A hullámmasszázs élénkíti a keringést, méregtelenít, és egyszerűen jólesik — magadnak szánt idő.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -330,26 +386,10 @@ footer a{color:var(--rosegold)}
         <li><span><span class="emph">Jobb közérzet</span> kívül-belül</span></li>
       </ul>
       <div class="ticket-price">
-        <div class="ticket-price-labels"><span class="was">15.000 Ft</span><span class="price-label">Belépő ajánlat</span></div>
+        <div class="ticket-price-labels"><span class="was">28.000 Ft</span></div>
         <span class="amount">12.000 Ft</span>
       </div>
       <div class="ticket-gift">🎁 <span><b>Ajándék hullámmasszázs</b> minden foglaláshoz</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY ME -->
-<section class="whyme">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Miért engem válassz?</span>
-      <h2>Nem egy gép — <span class="italic-accent">egy szakértő</span> figyel rád</h2>
-    </div>
-    <div class="whyme-grid">
-      <div class="whyme-item reveal"><span class="check">✓</span><span>Nem sablonkezelés — minden alkalom személyre szabott</span></div>
-      <div class="whyme-item reveal"><span class="check">✓</span><span>Több mint 200 elégedett vendég Nyíregyházán</span></div>
-      <div class="whyme-item reveal"><span class="check">✓</span><span>Nyugodt, privát környezet, csak neked szánt idő</span></div>
-      <div class="whyme-item reveal"><span class="check">✓</span><span>Őszinte ajánlás — csak azt javaslom, amire valóban szükséged van</span></div>
     </div>
   </div>
 </section>
@@ -365,8 +405,8 @@ footer a{color:var(--rosegold)}
     <div class="results-grid">
       <div class="result-card reveal">
         <div class="result-images">
-          <div class="result-img"><img src="images/elotte-has.webp" alt="Has, kezelés előtt" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
-          <div class="result-img"><img src="images/utana-has.webp" alt="Has, kezelés után" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
+          <div class="result-img"><img src="images/utana-has.webp" alt="Has, kezelés előtt" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
+          <div class="result-img"><img src="images/elotte-has.webp" alt="Has, kezelés után" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
         </div>
         <p class="result-caption">Has — rádiófrekvenciás kezelés</p>
       </div>
@@ -409,44 +449,6 @@ footer a{color:var(--rosegold)}
   </div>
 </section>
 
-<!-- QUICK BOOKING -->
-<section class="booking" id="foglalas">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Foglalás</span>
-      <h2>Foglald le a <span class="italic-accent">helyed</span></h2>
-      <p>Válassz egy időpontot, és jövő héten már a kezelésen ülhetsz — nem a halogatásban.</p>
-    </div>
-    <div class="booking-frame reveal">
-      <div class="review-chip rc-1"><div class="stars">★★★★★</div><p>"Már az első alkalom után éreztem a különbséget a bőrömön."</p><div class="who">Zs. — Nyíregyháza</div></div>
-      <div class="review-chip rc-2"><div class="stars">★★★★★</div><p>"Végre nem sablon-kezelés, hanem tényleg rám figyeltek."</p><div class="who">M. — Google vendég</div></div>
-      <div class="review-chip rc-3"><div class="stars">★★★★★</div><p>"A hullámmasszázs önmagában is megérte volna."</p><div class="who">N. — visszatérő vendég</div></div>
-      <div class="review-chip rc-4"><div class="stars">★★★★★</div><p>"Kedves, nyugodt hely, azonnal otthon éreztem magam."</p><div class="who">F. — Nyíregyháza</div></div>
-
-      <div class="chat-wrap">
-        <div class="chat-kicker">Gyors időpontfoglalás</div>
-        <div class="chat-warn" id="configWarning">⚠ A foglalási rendszer betöltése sikertelen. Kérlek hívj minket telefonon.</div>
-        <div class="chat-card">
-          <div class="chat-head">
-            <div class="avatar">A</div>
-            <div>
-              <div>Ágota</div>
-              <div class="status"><span class="dot"></span>Online, azonnal válaszol</div>
-            </div>
-          </div>
-          <div class="chat-body" id="chatBody"></div>
-          <div class="chat-input-row" id="chatInputRow">
-            <input type="text" id="chatText" placeholder="Írd meg a neved…">
-            <button type="button" class="chat-send" id="chatSend"><span>Küldés</span></button>
-          </div>
-          <div class="chat-privacy">A folytatással elfogadod az <a href="adatvedelem.html">adatkezelési tájékoztatót</a>.</div>
-        </div>
-        <span class="booking-phone">vagy hívj közvetlenül: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- SCARCITY -->
 <section>
   <div class="wrap">
@@ -469,7 +471,7 @@ footer a{color:var(--rosegold)}
     </div>
     <div class="proof-grid">
       <div class="proof-card reveal"><b>200+</b><span>elégedett vendég Nyíregyházán</span></div>
-      <div class="proof-card reveal"><div class="stars">★★★★★</div><b>5,0</b><span>Google-értékelés, 7 vélemény alapján</span></div>
+      <div class="proof-card reveal"><div class="stars">★★★★★</div><b>5,0</b><span>Google-értékelés, 15+ vélemény alapján</span></div>
       <div class="proof-card reveal"><b>100%</b><span>személyre szabott, sablon nélküli kezelés</span></div>
     </div>
   </div>
