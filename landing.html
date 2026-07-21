@@ -191,6 +191,14 @@ section{padding:80px 0}
 .cb .ic{width:42px;height:42px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
 .cb .ic svg{width:22px;height:22px}
 .cb b{font-size:.9rem;font-family:'Poppins',sans-serif;font-weight:600;line-height:1.2}
+.gear-lead{text-align:center;font-size:.86rem;font-weight:700;color:var(--mokka);margin-bottom:14px}
+.gear{max-width:720px;margin:0 auto 40px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gear-item{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 10px 26px -18px rgba(122,26,52,.5)}
+.gear-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.gear-item .g-b{padding:12px 14px}
+.gear-item b{display:block;font-family:'Poppins',sans-serif;font-size:.94rem}
+.gear-item span{font-size:.8rem;color:var(--mokka)}
+@media (max-width:560px){.gear{grid-template-columns:1fr}}
 @media (max-width:680px){.combo-benefits{grid-template-columns:1fr 1fr}}
 
 /* ===== RESULTS ===== */
@@ -248,6 +256,15 @@ section{padding:80px 0}
 /* ===== QUICK BOOKING WIDGET ===== */
 .booking{padding:36px 0 28px}
 #ajanlat{padding-top:40px}
+.urgency-note{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--cream);border:1px dashed rgba(224,62,99,.45);color:var(--plum);font-size:.84rem;font-weight:700;padding:.55rem 1.1rem;border-radius:999px;line-height:1.35;text-align:left}
+/* zaro CTA */
+.close-cta{padding:48px 0 64px}
+.cc{max-width:720px;margin:0 auto;text-align:center;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:38px 28px}
+.cc h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.4rem,3.4vw,2rem);line-height:1.2;letter-spacing:-.01em}
+.cc p{margin-top:12px;color:var(--mokka);font-size:.98rem}
+.cc-actions{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.cc-phone{font-size:.92rem;font-weight:700;color:var(--plum);border-bottom:1px solid rgba(224,62,99,.4);padding-bottom:2px}
+@media (max-width:560px){.cc{padding:30px 20px}.cc-actions .btn-primary{width:100%;text-align:center}}
 .booking-frame{position:relative;max-width:920px;margin:40px auto 0;padding:16px 60px}
 .review-chip{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;width:170px;box-shadow:0 16px 30px -18px rgba(58,14,28,.3);z-index:3;font-size:.72rem}
 .review-chip .stars{color:var(--rosegold);font-size:.72rem;letter-spacing:1px;margin-bottom:6px}
@@ -266,15 +283,11 @@ section{padding:80px 0}
 }
 @media (max-width:900px){.review-chip{position:static;width:auto;transform:none!important;margin-bottom:12px}.booking-frame{display:flex;flex-direction:column;gap:12px;padding:0 8px}.chat-wrap{order:5}}
 
-.booking-review{margin:0 auto 20px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 26px;box-shadow:0 18px 44px -28px rgba(58,14,28,.5)}
-.booking-review .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
-.booking-review .q{font-size:1.02rem;color:var(--ink);line-height:1.5;font-weight:600}
-.booking-review .who{margin-top:13px;font-size:.82rem;color:var(--mokka);display:flex;align-items:center;gap:10px}
-.booking-review .who .a{width:30px;height:30px;border-radius:50%;background:linear-gradient(150deg,var(--puder),var(--rosegold));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex:none}
-.booking-review .gtag{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;color:var(--mokka)}
-.booking-review .gtag .g{width:18px;height:18px;border-radius:50%;background:conic-gradient(#EA4335 0 25%,#FBBC05 0 50%,#34A853 0 75%,#4285F4 0);display:inline-flex;align-items:center;justify-content:center}
-.booking-review .gtag .g::after{content:"G";width:12px;height:12px;border-radius:50%;background:#fff;color:#4285F4;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center}
-.booking-review .brstars{color:#F5B301;letter-spacing:1px;font-size:.86rem;font-weight:700}
+.booking-rating{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 16px;font-size:.86rem;font-weight:700;color:var(--mokka)}
+.booking-rating .brstars{color:#F5B301;letter-spacing:1px}
+.booking-rating b{color:var(--ink);font-family:'Poppins',sans-serif;font-size:1rem}
+.reassure{max-width:640px;margin:14px auto 0;font-size:.86rem;color:var(--mokka);line-height:1.5}
+.reassure b{color:var(--plum)}
 .chat-kicker{text-align:center;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
 .chat-kicker::before,.chat-kicker::after{content:'';width:20px;height:1px;background:rgba(224,62,99,.4)}
 .chat-warn{display:none;padding:1rem 1.5rem;font-size:.74rem;color:#a33;font-weight:700;text-align:center;background:#fff;border-radius:20px}
@@ -367,7 +380,7 @@ footer a{color:var(--rosegold)}
       <div class="hero-grid">
         <div class="hero-txt">
           <h1 class="reveal">Segítek, hogy újra <span class="neon">jól érezd magad</span> a bőrödben.</h1>
-          <p class="sub reveal">Hajdó Ágota vagyok, alakformáló szakember Nyíregyházán. Már számos vendégemnek segítettem visszaszerezni a magabiztosságát — célzott zsírbontással, bőrfeszesítéssel és alakformálással, műtét és szenvedés nélkül.</p>
+          <p class="sub reveal">Hajdó Ágota vagyok. Célzott zsírbontással, bőrfeszesítéssel és alakformálással segítek — műtét és szenvedés nélkül, Nyíregyházán.</p>
           <div class="hero-ctas reveal">
             <a href="#foglalas" class="btn-primary">Lefoglalom az időpontom →</a>
           </div>
@@ -375,8 +388,8 @@ footer a{color:var(--rosegold)}
         </div>
         <div class="hero-pic reveal">
           <div class="ba">
-            <div class="cell b"><img src="images/elotte-csipo.webp" alt="Makacs zsír — kezelés előtt" loading="lazy" decoding="async"><span class="t">Előtte</span></div>
-            <div class="cell a"><img src="images/utana-csipo.webp" alt="Formásabb alak — kezelés után" loading="lazy" decoding="async"><span class="t">Utána</span></div>
+            <div class="cell b"><img src="images/elotte-csipo.webp" alt="Makacs zsír — kezelés előtt" loading="eager" fetchpriority="high" decoding="async"><span class="t">Előtte</span></div>
+            <div class="cell a"><img src="images/utana-csipo.webp" alt="Formásabb alak — kezelés után" loading="eager" fetchpriority="high" decoding="async"><span class="t">Utána</span></div>
           </div>
           <div class="hero-pic-cap">Valódi vendégeredmény — <span class="italic-accent">néhány kezelés</span> után</div>
         </div>
@@ -392,13 +405,10 @@ footer a{color:var(--rosegold)}
       <span class="eyebrow">Foglalás</span>
       <h2>Foglald le a <span class="italic-accent">helyed</span></h2>
       <p>Válassz egy időpontot, és jövő héten már a kezelésen ülhetsz — nem a halogatásban.</p>
+      <div class="urgency-note">⏳ A bevezető ár és az ajándék hullámmasszázs a most szabad időpontokra érvényes.</div>
     </div>
     <div class="booking-frame reveal">
-      <div class="booking-review reveal">
-        <div class="top"><span class="brstars">★★★★★ 5,0</span></div>
-        <div class="q">„Már az első alkalom után éreztem a különbséget. Kedves, nyugodt hely, azonnal otthon éreztem magam."</div>
-        <div class="who"><span class="a">Zs</span> Zsuzsa — Nyíregyháza</div>
-      </div>
+      <div class="booking-rating reveal"><span class="brstars">★★★★★</span> <b>5,0</b> · 15+ Google-értékelés</div>
 
       <div class="chat-wrap">
         <div class="chat-kicker">Gyors időpontfoglalás</div>
@@ -419,6 +429,7 @@ footer a{color:var(--rosegold)}
           <div class="chat-privacy">A folytatással elfogadod az <a href="adatvedelem.html">adatkezelési tájékoztatót</a>.</div>
         </div>
         <span class="booking-phone">vagy hívj közvetlenül: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></span>
+        <p class="reassure"><b>Kötelezettségmentes:</b> az első alkalom állapotfelméréssel és konzultációval kezdődik. Ha úgy látom, hogy ez a kezelés nem neked való, őszintén megmondom — és nem kell fizetned érte.</p>
       </div>
     </div>
   </div>
@@ -437,6 +448,11 @@ footer a{color:var(--rosegold)}
       <div class="cb"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"></path></svg></span><b>Feszesebb bőr</b></div>
       <div class="cb"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8v8"></path><path d="M7 5v14"></path><path d="M17 5v14"></path><path d="M20 8v8"></path><path d="M7 12h10"></path></svg></span><b>Formásabb alak</b></div>
       <div class="cb"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.4 2 5 5.4 5c2 0 3.4 1.1 4.1 2.4C10.2 6.1 11.6 5 13.6 5 17 5 18.6 8.4 17 11.8 14.5 16.4 12 21 12 21z"></path></svg></span><b>Jobb közérzet</b></div>
+    </div>
+    <div class="gear-lead reveal">Ezekkel a gépekkel dolgozom:</div>
+    <div class="gear reveal">
+      <div class="gear-item"><img src="images/hullammasszazs-gep.webp" alt="Hullámmasszázs (gépi nyirokmasszázs) készülék" loading="lazy" decoding="async"><div class="g-b"><b>Hullámmasszázs</b><span>Gépi nyirokmasszázs — keringés, méregtelenítés</span></div></div>
+      <div class="gear-item"><img src="images/hiemt-gep.webp" alt="HIEMT izomépítő készülék" loading="lazy" decoding="async"><div class="g-b"><b>HIEMT</b><span>Izomépítés és alakformálás</span></div></div>
     </div>
     <div class="results-grid">
       <div class="result-card reveal">
@@ -521,6 +537,20 @@ footer a{color:var(--rosegold)}
     <a href="impresszum.html">Impresszum</a> · <a href="adatvedelem.html">Adatvédelem</a>
   </div>
 </footer>
+
+<!-- ZARO CTA -->
+<section class="close-cta">
+  <div class="wrap">
+    <div class="cc reveal">
+      <h2>Kezdjük el — az első alkalom <span class="italic-accent">12.000 Ft</span></h2>
+      <p>4 az 1-ben alakformáló kezelés + ajándék 15 perc hullámmasszázs, Nyíregyházán. A konzultációval együtt 75 perc, ami csak rólad szól.</p>
+      <div class="cc-actions">
+        <a href="#foglalas" class="btn-primary">Időpontot foglalok →</a>
+        <a href="tel:+36305039156" class="cc-phone">vagy hívj: +36 30 503 9156</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="sticky-cta">
   <div class="info">Első alkalom <b>12.000 Ft</b> · ajándék hullámmasszázs</div>
