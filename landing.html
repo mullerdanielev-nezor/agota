@@ -393,6 +393,34 @@ footer a{color:var(--rosegold)}
   .sticky-cta .btn-primary{width:100%;text-align:center}
 }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1361354709500714');
+fbq('track', 'PageView');
+
+// Biztonsagos esemeny-kuldes: nem dob hibat, ha a Pixelt blokkoljak,
+// es ugyanazt az esemenyt nem kuldi el ketszer.
+window.__fbFired = {};
+window.fbTrack = function(name, params){
+  try{
+    if(window.__fbFired[name]) return;
+    window.__fbFired[name] = true;
+    if(typeof fbq === 'function') fbq('track', name, params || {});
+  }catch(e){}
+};
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -733,6 +761,7 @@ footer a{color:var(--rosegold)}
         return;
       }
       state.date = item.date; state.dateLabel = item.label;
+      fbTrack('InitiateCheckout', { content_name: state.svc });
       askTime();
     });
   }
@@ -850,6 +879,8 @@ footer a{color:var(--rosegold)}
       s.className = 'success-inline';
       s.innerHTML = '<div class="chk2">✓</div><p>Köszönjük, ' + state.name + '! Foglalásod: <b>' + state.svc + ' · ' + state.dateLabel + ' · ' + state.time + '</b><br>24 órán belül visszaigazoljuk telefonon.</p>';
       body.appendChild(s); scrollDown();
+      fbTrack('Lead', { content_name: state.svc, value: 12000, currency: 'HUF' });
+      fbTrack('Schedule', { content_name: state.svc });
     });
   }
 
