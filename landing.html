@@ -127,7 +127,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero-byline{margin-top:14px;font-size:.86rem;color:var(--mokka)}
 .hero-byline b{color:var(--plum);font-family:'Poppins',sans-serif;font-weight:500}
 @media (max-width:820px){.hero-grid{grid-template-columns:1fr;gap:24px}.hero-sp{padding:8px 13px;gap:8px}}
-@media (max-width:430px){.hero-sp{font-size:.58rem;gap:6px;padding:7px 11px}.hero-sp .sep{margin:0}}
+@media (max-width:430px){.hero-sp{font-size:.55rem;gap:5px;padding:6px 10px}.hero-sp .sep{margin:0;height:11px}}
 .hero-benefits{margin-top:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .hb{display:flex;align-items:center;gap:9px;background:var(--cream);border-radius:12px;padding:11px 13px}
 .hb svg{width:20px;height:20px;color:var(--rosegold);flex:none}
@@ -269,6 +269,21 @@ section{padding:80px 0}
 .booking{padding:36px 0 28px}
 #ajanlat{padding-top:40px}
 .urgency-note{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:var(--cream);border:1px dashed rgba(224,62,99,.45);color:var(--plum);font-size:.84rem;font-weight:700;padding:.55rem 1.1rem;border-radius:999px;line-height:1.35;text-align:left}
+/* helyszin + terkep */
+.place{padding:8px 0 40px}
+.place-card{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 18px 44px -30px rgba(122,26,52,.6)}
+.place-map{min-height:240px;background:var(--cream)}
+.place-map iframe{width:100%;height:100%;min-height:240px;border:0;display:block;filter:saturate(.9)}
+.place-info{padding:26px 28px}
+.place-info .eyebrow{display:block;margin-bottom:8px}
+.place-info h3{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.25rem;line-height:1.25;letter-spacing:-.01em}
+.place-list{list-style:none;margin-top:16px;display:grid;gap:12px}
+.place-list li{display:flex;gap:11px;align-items:flex-start;font-size:.92rem;color:var(--ink)}
+.place-list .ic{width:30px;height:30px;border-radius:50%;background:var(--cream);color:var(--rosegold);display:flex;align-items:center;justify-content:center;flex:none;font-size:.9rem}
+.place-list b{display:block;font-family:'Poppins',sans-serif;font-size:.95rem}
+.place-list span{font-size:.84rem;color:var(--mokka)}
+.place-link{display:inline-block;margin-top:18px;font-size:.86rem;font-weight:700;color:var(--plum);border-bottom:1px solid rgba(224,62,99,.45);padding-bottom:2px}
+@media (max-width:760px){.place-card{grid-template-columns:1fr}.place-info{padding:22px 20px}}
 /* zaro CTA */
 .close-cta{padding:48px 0 64px}
 .cc{max-width:720px;margin:0 auto;text-align:center;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:38px 28px}
@@ -368,6 +383,10 @@ footer a{color:var(--rosegold)}
 @media (max-width:880px){
   .pain-grid{grid-template-columns:1fr}
 }
+@media (max-width:820px){
+  /* a chat ne legyen kulon gorgetheto sav: nojon egyben, a lap gorduljon */
+  .chat-body{max-height:none;overflow-y:visible;min-height:0}
+}
 @media (max-width:560px){
   .sticky-cta{padding:10px 14px;gap:10px}
   .sticky-cta .info{display:none}
@@ -388,7 +407,7 @@ footer a{color:var(--rosegold)}
 <section class="hero">
   <div class="wrap">
     <div class="hero-top" style="max-width:none;text-align:center">
-      <div class="hero-sp reveal"><span class="g"><span class="stars">★★★★★</span> <b>5,0</b> Google</span><span class="sep"></span><span class="g"><b>100+</b> elégedett ügyfél</span><span class="sep"></span><span class="g">📍 Nyíregyháza</span></div>
+      <div class="hero-sp reveal"><span class="g"><span class="stars">★★★★★</span> <b>5,0</b> Google</span><span class="sep"></span><span class="g"><b>100+</b> ügyfél</span><span class="sep"></span><span class="g">📍 Nyíregyháza</span></div>
       <div class="hero-grid">
         <div class="hero-txt">
           <h1 class="reveal">Segítek, hogy újra <span class="neon">jól érezd magad</span> a bőrödben.</h1>
@@ -446,6 +465,30 @@ footer a{color:var(--rosegold)}
         </div>
         <span class="booking-phone">vagy hívj közvetlenül: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></span>
         <p class="reassure"><b>Kötelezettségmentes:</b> az első alkalom állapotfelméréssel és konzultációval kezdődik. Ha úgy látom, hogy ez a kezelés nem neked való, őszintén megmondom — és nem kell fizetned érte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HELYSZIN / TERKEP -->
+<section class="place">
+  <div class="wrap">
+    <div class="place-card reveal">
+      <div class="place-map">
+        <iframe
+          src="https://maps.google.com/maps?q=Ny%C3%ADregyh%C3%A1za%2C%20Meggyes%20utca%2011&amp;z=15&amp;output=embed"
+          title="Loft of Beauty — Nyíregyháza, Meggyes u. 11. térkép"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="place-info">
+        <span class="eyebrow">Hol találsz meg</span>
+        <h3>Nyíregyháza, Meggyes utca 11.</h3>
+        <ul class="place-list">
+          <li><span class="ic">⌖</span><span><b>4551 Nyíregyháza, Meggyes u. 11.</b><span>Könnyen megközelíthető, parkolás a ház előtt</span></span></li>
+          <li><span class="ic">☎</span><span><b>+36 30 503 9156</b><span>Hívj, ha bármi kérdésed van</span></span></li>
+          <li><span class="ic">◷</span><span><b>Előre egyeztetett időpontban</b><span>Egyszerre egy vendég — nyugodt, privát tér</span></span></li>
+        </ul>
+        <a class="place-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ny%C3%ADregyh%C3%A1za%2C+Meggyes+utca+11" target="_blank" rel="noopener">Útvonaltervezés a Google Térképen →</a>
       </div>
     </div>
   </div>
