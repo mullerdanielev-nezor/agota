@@ -137,6 +137,31 @@
     .slots{grid-template-columns:repeat(3,1fr)}
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1361354709500714');
+fbq('track', 'PageView');
+window.__fbFired = {};
+window.fbTrack = function(name, params){
+  try{
+    if(window.__fbFired[name]) return;
+    window.__fbFired[name] = true;
+    if(typeof fbq === 'function') fbq('track', name, params || {});
+  }catch(e){}
+};
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -298,6 +323,18 @@
   var selectedDate = null, selectedSlot = null, selectedSvc = null;
   var ALL_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
 
+  // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
+  var LEAD_MS = 2 * 60 * 60 * 1000;
+  function slotDateTime(d, t){
+    var p = t.split(':');
+    var x = new Date(d);
+    x.setHours(parseInt(p[0], 10), parseInt(p[1], 10), 0, 0);
+    return x;
+  }
+  function isTooSoon(d, t){
+    return slotDateTime(d, t).getTime() < Date.now() + LEAD_MS;
+  }
+
   var db = null;
   if (FIREBASE_CONFIGURED) {
     var app = initializeApp(FIREBASE_CONFIG);
@@ -384,6 +421,10 @@
   async function loadSlotsForDate(d){
     var slotEls = document.querySelectorAll('#slots .slot');
     slotEls.forEach(function(el){ el.classList.remove('taken'); });
+    // Mai napon a mostanihoz kepest 2 oran belüli idopontok nem valaszthatok
+    slotEls.forEach(function(el){
+      if(isTooSoon(d, el.textContent.trim())) el.classList.add('taken');
+    });
     if(!db) return;
     try{
       var checks = ALL_SLOTS.map(function(t){ return getDoc(doc(db, 'slots', slotId(d, t))); });
@@ -472,6 +513,10 @@
     document.getElementById('okDetails').textContent = selectedSvc + ' · ' + selectedDate.toLocaleDateString('hu-HU') + ' · ' + selectedSlot;
     document.getElementById('bookForm').style.display = 'none';
     document.getElementById('bookSuccess').classList.add('show');
+    if(window.fbTrack){
+      window.fbTrack('Lead', { content_name: selectedSvc || 'Idopontfoglalas', value: 12000, currency: 'HUF' });
+      window.fbTrack('Schedule', { content_name: selectedSvc || 'Idopontfoglalas' });
+    }
     return false;
   }
   window.submitBooking = submitBooking;

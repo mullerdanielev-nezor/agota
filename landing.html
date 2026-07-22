@@ -681,6 +681,21 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
   var today = new Date(); today.setHours(0,0,0,0);
   var ALL_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+
+  // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
+  var LEAD_MS = 2 * 60 * 60 * 1000;
+  function slotDateTime(d, t){
+    var p = t.split(':');
+    var x = new Date(d);
+    x.setHours(parseInt(p[0], 10), parseInt(p[1], 10), 0, 0);
+    return x;
+  }
+  function isTooSoon(d, t){
+    return slotDateTime(d, t).getTime() < Date.now() + LEAD_MS;
+  }
+  function isSameDay(a, b){
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
   var state = { svc:'4 az 1-ben alakformáló kezelés', date:null, dateLabel:null, time:null, name:null, phone:null };
 
   var db = null;
@@ -745,6 +760,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     var opts = [];
     for(var i=0; i<10 && opts.length<6; i++){
       var d = new Date(today); d.setDate(today.getDate()+i);
+      // A mai napot csak akkor ajanljuk, ha van meg legalabb 2 oraval kesobbi idopont
+      if(i === 0 && !ALL_SLOTS.some(function(t){ return !isTooSoon(d, t); })) continue;
       var label = i===0 ? 'Ma' : (i===1 ? 'Holnap' : (HU_DOW_NAMES[(d.getDay()+6)%7] + ' (' + d.getDate() + '.)'));
       opts.push({ label: label, date: d });
     }
@@ -767,7 +784,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   }
 
   async function askTime(){
-    botMsg('És melyik időpont lenne jó?', async function(){
+    var pickedToday = isSameDay(state.date, new Date());
+    botMsg(pickedToday ? 'És melyik időpont lenne jó? Mai napra legalább 2 órával előre tudsz foglalni.' : 'És melyik időpont lenne jó?', async function(){
       var taken = {};
       if(db){
         try{
@@ -776,7 +794,11 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
           results.forEach(function(snap, i){ if(snap.exists()) taken[ALL_SLOTS[i]] = true; });
         }catch(err){ console.error('Nem sikerült lekérdezni a foglalt időpontokat:', err); }
       }
-      var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!taken[t] }; });
+      var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!taken[t] || isTooSoon(state.date, t) }; });
+      if(opts.every(function(o){ return o.taken; })){
+        botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });
+        return;
+      }
       chips(opts, function(item){
         state.time = item.label;
         askName();
