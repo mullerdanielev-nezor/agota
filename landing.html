@@ -98,7 +98,19 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero-sp .sep{width:1px;height:15px;background:var(--line)}
 .hero-grid{display:flex;flex-direction:column;align-items:center;gap:34px;max-width:760px;margin:0 auto;text-align:center}
 .hero-txt{max-width:640px}
-.hero-pic{width:100%;max-width:460px}
+.hero-pic{width:100%;max-width:340px}
+/* huzhato elotte/utana csuszka */
+.cmp{position:relative;aspect-ratio:2/3;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:var(--cream);cursor:ew-resize;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;object-position:50% 50%}
+.cmp-before-wrap img{object-position:66% 50%}
+.cmp-before-wrap{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+.cmp-tag{position:absolute;top:12px;font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff;padding:5px 10px;border-radius:999px;z-index:3;pointer-events:none}
+.cmp-tag.b{left:12px;background:rgba(58,14,28,.68)}
+.cmp-tag.a{right:12px;background:var(--rosegold)}
+.cmp-handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:0;z-index:4;pointer-events:none}
+.cmp-handle::before{content:'';position:absolute;top:0;bottom:0;left:0;width:2px;background:#fff;transform:translateX(-1px);box-shadow:0 0 10px rgba(0,0,0,.3)}
+.cmp-handle::after{content:'⟺';position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 8px 20px rgba(58,14,28,.3)}
+.cmp-hint{margin-top:8px;text-align:center;font-size:.72rem;color:var(--mokka);font-weight:700}
 .hero-pic .ba{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
 .hero-pic .cell{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--cream)}
 .hero-pic .cell img{width:100%;height:100%;object-fit:cover}
@@ -387,11 +399,15 @@ footer a{color:var(--rosegold)}
           <div class="hero-offer-line reveal"><span>Bevezető ár <b>12.000 Ft</b> <s>28.000 Ft</s></span><span class="gift-badge"><span class="plus">+</span>Ajándék hullámmasszázs</span></div>
         </div>
         <div class="hero-pic reveal">
-          <div class="ba">
-            <div class="cell b"><img src="images/elotte-csipo.webp" alt="Makacs zsír — kezelés előtt" loading="eager" fetchpriority="high" decoding="async"><span class="t">Előtte</span></div>
-            <div class="cell a"><img src="images/utana-csipo.webp" alt="Formásabb alak — kezelés után" loading="eager" fetchpriority="high" decoding="async"><span class="t">Utána</span></div>
+          <div class="cmp" id="cmp">
+            <img src="images/IMG_5287.webp" alt="Has, kezelés után — laposabb" loading="eager" fetchpriority="high" decoding="async">
+            <div class="cmp-before-wrap"><img src="images/IMG_5539.webp" alt="Has, kezelés előtt — domborúbb" loading="eager" fetchpriority="high" decoding="async"></div>
+            <span class="cmp-tag b">Előtte</span>
+            <span class="cmp-tag a">Utána</span>
+            <div class="cmp-handle"></div>
           </div>
-          <div class="hero-pic-cap">Valódi vendégeredmény — <span class="italic-accent">néhány kezelés</span> után</div>
+          <div class="cmp-hint">⟺ Húzd el a csúszkát</div>
+          <div class="hero-pic-cap">Laposabb has — valódi vendégeredmény <span class="italic-accent">néhány kezelés</span> után</div>
         </div>
       </div>
     </div>
@@ -457,13 +473,6 @@ footer a{color:var(--rosegold)}
     <div class="results-grid">
       <div class="result-card reveal">
         <div class="result-images">
-          <div class="result-img"><img src="images/IMG_5539.webp" alt="Has, kezelés előtt — domborúbb" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
-          <div class="result-img"><img src="images/IMG_5287.webp" alt="Has, kezelés után — laposabb" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
-        </div>
-        <p class="result-caption">Laposabb has — célzott zsírbontás</p>
-      </div>
-      <div class="result-card reveal">
-        <div class="result-images">
           <div class="result-img"><img src="images/utana-has.webp" alt="Bőr, kezelés előtt" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
           <div class="result-img"><img src="images/elotte-has.webp" alt="Bőr, kezelés után" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
         </div>
@@ -471,10 +480,10 @@ footer a{color:var(--rosegold)}
       </div>
       <div class="result-card reveal">
         <div class="result-images">
-          <div class="result-img"><img src="images/elotte-csipo.webp" alt="Csípő, kezelés előtt" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
-          <div class="result-img"><img src="images/utana-csipo.webp" alt="Csípő, kezelés után" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
+          <div class="result-img"><img src="images/IMG_5539.webp" alt="Has, kezelés előtt — domborúbb" loading="lazy" decoding="async"><span class="tag">Előtte</span></div>
+          <div class="result-img"><img src="images/IMG_5287.webp" alt="Has, kezelés után — laposabb" loading="lazy" decoding="async"><span class="tag tag-after">Utána</span></div>
         </div>
-        <p class="result-caption">Formásabb csípő — célzott alakformálás</p>
+        <p class="result-caption">Laposabb has — célzott zsírbontás</p>
       </div>
     </div>
   </div>
@@ -558,6 +567,23 @@ footer a{color:var(--rosegold)}
 </div>
 
 <script>
+  // elotte/utana csuszka
+  (function(){
+    var c = document.getElementById('cmp');
+    if(!c) return;
+    var dragging = false;
+    function setPos(clientX){
+      var r = c.getBoundingClientRect();
+      var p = (clientX - r.left) / r.width;
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      c.style.setProperty('--pos', (p * 100).toFixed(2) + '%');
+    }
+    c.addEventListener('pointerdown', function(e){ dragging = true; try{ c.setPointerCapture(e.pointerId); }catch(_){} setPos(e.clientX); });
+    c.addEventListener('pointermove', function(e){ if(dragging) setPos(e.clientX); });
+    c.addEventListener('pointerup', function(){ dragging = false; });
+    c.addEventListener('pointercancel', function(){ dragging = false; });
+  })();
+
   (function(){
     var bar = document.querySelector('.sticky-cta');
     var hero = document.querySelector('.hero');
