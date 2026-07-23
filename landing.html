@@ -737,13 +737,31 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }
 
-  // Email-lead mentese a popupbol (best-effort; a firestore.rules-nak engednie kell a 'leads' irast)
+  // Email-lead a popupbol: (1) mentes Firestore-ba, (2) ertesito email.
   window.saveLead = async function(email){
+    // 1) Firestore (best-effort; a firestore.rules-nak engednie kell a 'leads' irast)
     try{
-      if(!db) return;
-      var key = String(email).toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 120);
-      await setDoc(doc(db, 'leads', key), { email: email, source: 'landing_popup', createdAt: serverTimestamp() });
-    }catch(e){ console.warn('saveLead:', e && e.message); }
+      if(db){
+        var key = String(email).toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 120);
+        await setDoc(doc(db, 'leads', key), { email: email, source: 'landing_popup', createdAt: serverTimestamp() });
+      }
+    }catch(e){ console.warn('saveLead firestore:', e && e.message); }
+    // 2) Ertesito email a meglevo (mukodo) EmailJS sablonnal
+    try{
+      if(EMAILJS_CONFIGURED && window.emailjs){
+        var now = new Date();
+        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          svc: 'Uj hirlevel-feliratkozo',
+          date: now.toLocaleDateString('hu-HU'),
+          time: now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' }),
+          name: 'Popup feliratkozo',
+          phone: '-',
+          note: 'Feliratkozo e-mail: ' + email,
+          to_email: 'mullerdanielev@gmail.com',
+          reply_to: email
+        });
+      }
+    }catch(e){ console.warn('saveLead email:', e && e.message); }
   };
 
   function pad2(n){ return n < 10 ? '0' + n : '' + n; }
@@ -972,27 +990,25 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   <div class="lb-pop" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
     <button class="lb-close" type="button" aria-label="Bezárás">×</button>
     <div class="lb-form-state">
-      <div class="lb-gift">🎁</div>
-      <span class="eyebrow">Mielőtt elmész</span>
-      <h3 id="lbTitle">Vidd magaddal a <span>kedvezményedet</span></h3>
-      <p class="lb-sub">Add meg az e-mail-címed, és elküldöm — plusz megkapod a legjobb tippjeimet a feszesebb, formásabb testért.</p>
+      <div class="lb-gift">✨</div>
+      <span class="eyebrow">Csak feliratkozóknak</span>
+      <h3 id="lbTitle">Legyél <span>bennfentes</span></h3>
+      <p class="lb-sub">Add meg az e-mail-címed, és elsőként értesülsz mindenről, ami nálunk történik.</p>
       <ul class="lb-list">
-        <li><b>Kedvezmény-kód</b> az első kezelésedre</li>
-        <li>3 személyre szabott <b>otthoni tipp</b> a bőrfeszesítéshez</li>
-        <li>Értesítés a <b>következő akciókról</b> — elsőként</li>
+        <li><b>Elsőként</b> a felszabaduló időpontokról</li>
+        <li>Bennfentes <b>tippek</b> a feszesebb, formásabb testért</li>
+        <li>Exkluzív hírek, amikről <b>mások lemaradnak</b></li>
       </ul>
       <form class="lb-form" novalidate>
         <input type="email" inputmode="email" autocomplete="email" placeholder="Az e-mail-címed…" required>
-        <button type="submit">Kérem a kedvezményt →</button>
+        <button type="submit">Feliratkozom →</button>
       </form>
       <div class="lb-fine">Bármikor leiratkozhatsz. Adataidat az <a href="adatvedelem.html" target="_blank" rel="noopener">adatkezelési tájékoztató</a> szerint kezelem.</div>
     </div>
     <div class="lb-success">
       <div class="chk">✓</div>
-      <h3>Megvan — köszönöm!</h3>
-      <p>Hamarosan küldöm e-mailben a tippeket. A kedvezmény-kódod, amit az első alkalomkor beválthatsz:</p>
-      <div class="lb-code">LOFT2000</div>
-      <p style="margin-top:14px;font-size:.84rem">= <b>2.000 Ft kedvezmény</b> az első kezelésre.</p>
+      <h3>Üdv a bennfentesek között! 💗</h3>
+      <p>Rajta vagy a listán — hamarosan jelentkezem a legjobb tippjeimmel és a bennfentes híreimmel.</p>
     </div>
   </div>
 </div>
