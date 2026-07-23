@@ -69,6 +69,9 @@
   td.name{font-family:'Fraunces',serif;font-size:1rem}
   .empty{padding:3rem 1rem;text-align:center;color:var(--mokka)}
   .count{font-size:.8rem;color:var(--mokka);margin-bottom:1rem}
+  .del-btn{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#a33;background:none;border:1px solid rgba(170,51,51,.35);border-radius:8px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
+  .del-btn:hover{background:#a33;color:#fff}
+  .del-btn:disabled{opacity:.5;cursor:not-allowed}
 
   #configWarning{display:none;color:#a33;font-weight:700;text-align:center;margin:3rem auto;max-width:560px}
 </style>
@@ -136,7 +139,7 @@
           <div class="tablewrap">
             <table id="bookTable">
               <thead>
-                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th></tr>
+                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th><th></th></tr>
               </thead>
               <tbody id="bookRows"></tbody>
             </table>
@@ -155,7 +158,7 @@
     getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   import {
-    getFirestore, collection, getDocs, query, orderBy
+    getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
@@ -286,9 +289,32 @@
           '<td>' + escapeHtml(b.svc || '') + '</td>' +
           '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
           '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
-          '<td>' + escapeHtml(b.note || '—') + '</td>';
+          '<td>' + escapeHtml(b.note || '—') + '</td>' +
+          '<td></td>';
+        var delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'del-btn';
+        delBtn.textContent = 'Törlés';
+        delBtn.addEventListener('click', function(){ deleteBooking(b.id, delBtn); });
+        tr.lastElementChild.appendChild(delBtn);
         tbody.appendChild(tr);
       });
+    }
+
+    async function deleteBooking(id, btn){
+      if(!confirm('Biztosan törlöd ezt a foglalást? A felszabaduló időpont újra foglalható lesz.')) return;
+      btn.disabled = true;
+      btn.textContent = 'Törlés...';
+      try{
+        await deleteDoc(doc(db, 'bookings', id));
+        await deleteDoc(doc(db, 'slots', id));
+        await loadBookings();
+      }catch(err){
+        console.error(err);
+        alert('Nem sikerült törölni a foglalást.');
+        btn.disabled = false;
+        btn.textContent = 'Törlés';
+      }
     }
 
     async function loadBookings(){
@@ -300,6 +326,7 @@
         bookingsByDate = {};
         snap.forEach(function(d){
           var b = d.data();
+          b.id = d.id;
           allBookings.push(b);
           if(!bookingsByDate[b.date]) bookingsByDate[b.date] = [];
           bookingsByDate[b.date].push(b);
