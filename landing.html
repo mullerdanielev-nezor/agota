@@ -392,33 +392,6 @@ footer a{color:var(--rosegold)}
   .sticky-cta .info{display:none}
   .sticky-cta .btn-primary{width:100%;text-align:center}
 }
-/* ===== email-gyujto popup ===== */
-.lb-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(58,14,28,.55);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease}
-.lb-overlay.open{opacity:1;pointer-events:auto}
-.lb-pop{position:relative;width:100%;max-width:420px;background:#fff;border-radius:22px;box-shadow:0 40px 90px -30px rgba(58,14,28,.7);padding:30px 26px 26px;transform:translateY(16px) scale(.98);transition:transform .35s cubic-bezier(.2,.8,.2,1);max-height:calc(100dvh - 40px);overflow-y:auto}
-.lb-overlay.open .lb-pop{transform:none}
-.lb-close{position:absolute;top:12px;right:14px;width:34px;height:34px;border:none;background:var(--cream);color:var(--plum);border-radius:50%;font-size:1.1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center}
-.lb-gift{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF2E88,var(--rosegold));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:14px;box-shadow:0 12px 26px -10px rgba(224,62,99,.6)}
-.lb-pop .eyebrow{display:block;margin-bottom:6px}
-.lb-pop h3{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.4rem;line-height:1.2;letter-spacing:-.01em}
-.lb-pop h3 span{color:var(--rosegold)}
-.lb-pop .lb-sub{margin-top:8px;color:var(--mokka);font-size:.92rem;line-height:1.5}
-.lb-list{list-style:none;margin:16px 0 4px;display:grid;gap:9px}
-.lb-list li{display:flex;gap:9px;align-items:flex-start;font-size:.9rem;font-weight:600}
-.lb-list li::before{content:"✓";color:var(--rosegold);font-weight:900;flex:none}
-.lb-form{margin-top:18px;display:grid;gap:10px}
-.lb-form input{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:.98rem;font-family:'Nunito Sans',sans-serif;color:var(--ink);background:#fff}
-.lb-form input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.12)}
-.lb-form input.err{border-color:#d33;box-shadow:0 0 0 3px rgba(211,51,51,.12)}
-.lb-form button{width:100%;background:var(--rosegold);color:#fff;border:none;border-radius:999px;padding:14px;font-size:.98rem;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;box-shadow:0 12px 26px -10px rgba(224,62,99,.6)}
-.lb-fine{margin-top:11px;font-size:.7rem;color:var(--mokka);text-align:center;line-height:1.5}
-.lb-fine a{color:var(--plum);text-decoration:underline}
-.lb-success{display:none;text-align:center;padding:6px 4px}
-.lb-success .chk{width:60px;height:60px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 14px}
-.lb-success h3{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.3rem}
-.lb-success p{margin-top:10px;color:var(--mokka);font-size:.92rem;line-height:1.55}
-.lb-code{display:inline-block;margin-top:14px;background:var(--cream);border:1px dashed rgba(224,62,99,.5);color:var(--plum);font-family:'Poppins',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:.08em;padding:10px 20px;border-radius:12px}
-@media (max-width:420px){.lb-pop{padding:26px 20px 22px}.lb-pop h3{font-size:1.25rem}}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -698,7 +671,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import {
-    getFirestore, doc, getDoc, setDoc, runTransaction, serverTimestamp
+    getFirestore, doc, getDoc, runTransaction, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import {
     FIREBASE_CONFIG, FIREBASE_CONFIGURED,
@@ -736,33 +709,6 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   if (EMAILJS_CONFIGURED && window.emailjs) {
     window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }
-
-  // Email-lead a popupbol: (1) mentes Firestore-ba, (2) ertesito email.
-  window.saveLead = async function(email){
-    // 1) Firestore (best-effort; a firestore.rules-nak engednie kell a 'leads' irast)
-    try{
-      if(db){
-        var key = String(email).toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 120);
-        await setDoc(doc(db, 'leads', key), { email: email, source: 'landing_popup', createdAt: serverTimestamp() });
-      }
-    }catch(e){ console.warn('saveLead firestore:', e && e.message); }
-    // 2) Ertesito email a meglevo (mukodo) EmailJS sablonnal
-    try{
-      if(EMAILJS_CONFIGURED && window.emailjs){
-        var now = new Date();
-        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          svc: 'Uj hirlevel-feliratkozo',
-          date: now.toLocaleDateString('hu-HU'),
-          time: now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit' }),
-          name: 'Popup feliratkozo',
-          phone: '-',
-          note: 'Feliratkozo e-mail: ' + email,
-          to_email: 'mullerdanielev@gmail.com',
-          reply_to: email
-        });
-      }
-    }catch(e){ console.warn('saveLead email:', e && e.message); }
-  };
 
   function pad2(n){ return n < 10 ? '0' + n : '' + n; }
   function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
@@ -979,106 +925,6 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       if(!isOpen) item.classList.add('open');
     });
   });
-</script>
-
-<!-- EMAIL-GYUJTO POPUP -->
-<div class="lb-overlay" id="lbPop" aria-hidden="true">
-  <div class="lb-pop" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
-    <button class="lb-close" type="button" aria-label="Bezárás">×</button>
-    <div class="lb-form-state">
-      <div class="lb-gift">✨</div>
-      <span class="eyebrow">Csak feliratkozóknak</span>
-      <h3 id="lbTitle">Állandó <span>ingyenes tippek</span> a jobb külsőhöz</h3>
-      <p class="lb-sub">Add meg az e-mail-címed, és rendszeresen küldöm a legjobb tippjeimet — plusz elsőként értesülsz mindenről.</p>
-      <ul class="lb-list">
-        <li><b>Elsőként</b> a felszabaduló időpontokról</li>
-        <li>Bennfentes <b>tippek</b> a feszesebb, formásabb testért</li>
-        <li>Exkluzív hírek, amikről <b>mások lemaradnak</b></li>
-      </ul>
-      <form class="lb-form" novalidate>
-        <input type="email" inputmode="email" autocomplete="email" placeholder="Az e-mail-címed…" required>
-        <button type="submit">Feliratkozom →</button>
-      </form>
-      <div class="lb-fine">Bármikor leiratkozhatsz. Adataidat az <a href="adatvedelem.html" target="_blank" rel="noopener">adatkezelési tájékoztató</a> szerint kezelem.</div>
-    </div>
-    <div class="lb-success">
-      <div class="chk">✓</div>
-      <h3>Üdv a bennfentesek között! 💗</h3>
-      <p>Rajta vagy a listán — hamarosan jelentkezem a legjobb tippjeimmel és a bennfentes híreimmel.</p>
-    </div>
-  </div>
-</div>
-
-<script>
-  (function(){
-    var KEY = 'lb_popup_v1';
-    var pop = document.getElementById('lbPop');
-    if(!pop) return;
-    var shown = false;
-    // Teszt/elonezet: ?popup=1 azonnal megmutatja, a "mar lattam" jelet megkerulve
-    var force = /[?&]popup=1/.test(location.search);
-
-    function seen(){ if(force) return false; try{ return localStorage.getItem(KEY) || localStorage.getItem('lb_booked'); }catch(e){ return false; } }
-    function markDone(){ try{ localStorage.setItem(KEY, '1'); }catch(e){} }
-
-    function open(){
-      if(shown || seen()) return;
-      shown = true;
-      pop.classList.add('open');
-      pop.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-    }
-    function close(){
-      pop.classList.remove('open');
-      pop.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-      markDone();
-    }
-
-    if(seen()) return; // egyszer eletunk
-
-    if(force){ setTimeout(open, 300); } // azonnali elonezet ?popup=1 eseten
-
-    pop.querySelector('.lb-close').addEventListener('click', close);
-    pop.addEventListener('click', function(e){ if(e.target === pop) close(); });
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && pop.classList.contains('open')) close(); });
-
-    // 1) ido: 50 mp
-    setTimeout(function(){ open(); }, 50000);
-
-    // 2) gorgetes: 65%
-    var scrollBound = function(){
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      if(h > 0 && (window.scrollY / h) >= 0.65){ open(); window.removeEventListener('scroll', scrollBound); }
-    };
-    window.addEventListener('scroll', scrollBound, { passive:true });
-
-    // 3) desktop exit-intent: eger a lap tetejen kilep
-    document.addEventListener('mouseout', function(e){
-      if(!e.relatedTarget && e.clientY <= 0) open();
-    });
-
-    // 4) mobil: vissza-gesztus elott (egyszer visszatartjuk)
-    try{ history.pushState({ lb:1 }, ''); }catch(e){}
-    window.addEventListener('popstate', function(){
-      if(!shown && !seen()){ open(); try{ history.pushState({ lb:1 }, ''); }catch(e){} }
-    });
-
-    // Bekuldes
-    var form = pop.querySelector('.lb-form');
-    var input = form.querySelector('input[type=email]');
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var email = input.value.trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ input.classList.add('err'); input.focus(); return; }
-      input.classList.remove('err');
-      try{ if(window.saveLead) window.saveLead(email); }catch(_){}
-      if(window.fbTrack) window.fbTrack('Subscribe', { content_name: 'email_popup', value: 12000, currency: 'HUF' });
-      pop.querySelector('.lb-form-state').style.display = 'none';
-      pop.querySelector('.lb-success').style.display = 'block';
-      markDone();
-    });
-  })();
 </script>
 
 </body>
