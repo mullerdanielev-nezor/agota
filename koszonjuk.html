@@ -59,9 +59,13 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   if(svc){
     document.getElementById('svcLine').textContent = 'Foglalt kezelés: ' + svc + '. Hamarosan visszaigazoljuk telefonon.';
   }
-  if(typeof fbq === 'function'){
+  var fireKey = 'kj_lead_fired_' + location.search;
+  var alreadyFired = false;
+  try{ alreadyFired = !!sessionStorage.getItem(fireKey); }catch(e){}
+  if(typeof fbq === 'function' && !alreadyFired){
     fbq('track', 'Lead', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' });
     fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas' });
+    try{ sessionStorage.setItem(fireKey, '1'); }catch(e){}
   }
 })();
 </script>
