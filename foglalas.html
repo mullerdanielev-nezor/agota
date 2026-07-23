@@ -516,6 +516,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     if(window.fbTrack){
       window.fbTrack('Lead', { content_name: selectedSvc || 'Idopontfoglalas', value: 12000, currency: 'HUF' });
       window.fbTrack('Schedule', { content_name: selectedSvc || 'Idopontfoglalas' });
+      try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
     }
     return false;
   }
