@@ -502,22 +502,16 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       try{
         await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           svc: selectedSvc, date: selectedDate.toLocaleDateString('hu-HU'), time: selectedSlot,
-          name: name, phone: phone, note: note || '—'
+          name: name, phone: phone, note: note || '—',
+          to_email: 'hajdoagota@gmail.com'
         });
       }catch(err){
         console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
       }
     }
 
-    document.getElementById('okName').textContent = name || 'Kedves Vendég';
-    document.getElementById('okDetails').textContent = selectedSvc + ' · ' + selectedDate.toLocaleDateString('hu-HU') + ' · ' + selectedSlot;
-    document.getElementById('bookForm').style.display = 'none';
-    document.getElementById('bookSuccess').classList.add('show');
-    if(window.fbTrack){
-      window.fbTrack('Lead', { content_name: selectedSvc || 'Idopontfoglalas', value: 12000, currency: 'HUF' });
-      window.fbTrack('Schedule', { content_name: selectedSvc || 'Idopontfoglalas' });
-      try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-    }
+    try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
+    location.href = 'koszonjuk.html?svc=' + encodeURIComponent(selectedSvc || 'Idopontfoglalas') + '&value=12000';
     return false;
   }
   window.submitBooking = submitBooking;

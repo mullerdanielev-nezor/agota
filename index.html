@@ -696,15 +696,14 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         try{
           await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
             svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
-            name: state.name, phone: state.phone, note: '—'
+            name: state.name, phone: state.phone, note: '—',
+            to_email: 'hajdoagota@gmail.com'
           });
         }catch(err){ console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err); }
       }
 
-      var s = document.createElement('div');
-      s.className = 'success-inline';
-      s.innerHTML = '<div class="chk2">✓</div><p>Köszönjük, ' + state.name + '! Foglalásod: <b>' + state.svc + ' · ' + state.dateLabel + ' · ' + state.time + '</b><br>24 órán belül visszaigazoljuk telefonon.</p>';
-      body.appendChild(s); scrollDown();
+      try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
+      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=12000';
     });
   }
 

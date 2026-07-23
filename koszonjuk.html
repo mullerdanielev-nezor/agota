@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<title>Köszönjük a foglalást! – Loft of Beauty</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3A0E1C; --plum:#7A1A34; --mokka:#A85C72; --rosegold:#E03E63; --puder:#FBD5DD; --ho:#FFFFFF; --cream:#FCE9ED;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:var(--ho);max-width:480px;width:100%;border-radius:20px;box-shadow:0 30px 70px rgba(122,26,52,.14);padding:44px 36px;text-align:center}
+.chk{width:64px;height:64px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 20px}
+h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:14px}
+p{color:var(--mokka);font-size:.98rem;margin-bottom:10px}
+.back{display:inline-block;margin-top:18px;background:var(--rosegold);color:#fff;padding:.8rem 1.8rem;border-radius:999px;font-weight:700;font-size:.9rem}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1361354709500714');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+<div class="card">
+  <div class="chk">✓</div>
+  <h1>Köszönjük a foglalást!</h1>
+  <p id="svcLine">Hamarosan visszaigazoljuk telefonon.</p>
+  <p>24 órán belül hívunk – ha kérdésed van, hívj minket: <a href="tel:+36305039156">+36 30 503 9156</a>.</p>
+  <a class="back" href="/">Vissza a főoldalra</a>
+</div>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var svc = params.get('svc');
+  var value = parseFloat(params.get('value')) || 12000;
+  if(svc){
+    document.getElementById('svcLine').textContent = 'Foglalt kezelés: ' + svc + '. Hamarosan visszaigazoljuk telefonon.';
+  }
+  if(typeof fbq === 'function'){
+    fbq('track', 'Lead', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' });
+    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas' });
+  }
+})();
+</script>
+</body>
+</html>
