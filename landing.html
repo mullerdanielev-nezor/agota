@@ -1019,8 +1019,10 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     var pop = document.getElementById('lbPop');
     if(!pop) return;
     var shown = false;
+    // Teszt/elonezet: ?popup=1 azonnal megmutatja, a "mar lattam" jelet megkerulve
+    var force = /[?&]popup=1/.test(location.search);
 
-    function seen(){ try{ return localStorage.getItem(KEY) || localStorage.getItem('lb_booked'); }catch(e){ return false; } }
+    function seen(){ if(force) return false; try{ return localStorage.getItem(KEY) || localStorage.getItem('lb_booked'); }catch(e){ return false; } }
     function markDone(){ try{ localStorage.setItem(KEY, '1'); }catch(e){} }
 
     function open(){
@@ -1038,6 +1040,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     }
 
     if(seen()) return; // egyszer eletunk
+
+    if(force){ setTimeout(open, 300); } // azonnali elonezet ?popup=1 eseten
 
     pop.querySelector('.lb-close').addEventListener('click', close);
     pop.addEventListener('click', function(e){ if(e.target === pop) close(); });
