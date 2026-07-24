@@ -2,7 +2,9 @@
   EZ NEM A WEBOLDAL RÉSZE — csak egy referencia-fájl.
   Az EmailJS sablon-szerkesztőjében (Email Templates → a sablonod → Code nézet)
   másold be ezt a teljes HTML-t a Content mezőbe.
-  A {{...}} részeket az EmailJS automatikusan kitölti a foglalás adataival.
+  A {{...}} részeket az EmailJS automatikusan kitölti — ugyanez az EGY sablon
+  megy Ágotának (foglalás-értesítő) ÉS a vendégnek (visszaigazolás) is,
+  csak a küldött változók (headline, cta_phone, cta_label, to_email) mások.
 -->
 <div style="margin:0;padding:0;background-color:#FCE9ED;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FCE9ED;padding:32px 16px;">
@@ -23,7 +25,7 @@
           <tr>
             <td style="padding:32px 32px 8px;text-align:center;">
               <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#E03E63;margin-bottom:10px;">
-                Új foglalás érkezett
+                {{headline}}
               </div>
               <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#3A0E1C;">
                 {{name}}
@@ -62,7 +64,7 @@
             <td style="padding:20px 32px 8px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;width:120px;">Vendég neve</td>
+                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;width:120px;">Név</td>
                   <td style="padding:8px 0;font-size:15px;color:#3A0E1C;">{{name}}</td>
                 </tr>
                 <tr>
@@ -82,8 +84,8 @@
           <!-- CTA -->
           <tr>
             <td style="padding:24px 32px 32px;text-align:center;">
-              <a href="tel:{{phone}}" style="display:inline-block;background-color:#E03E63;color:#FFFFFF;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:8px;">
-                Vendég felhívása
+              <a href="tel:{{cta_phone}}" style="display:inline-block;background-color:#E03E63;color:#FFFFFF;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:8px;">
+                {{cta_label}}
               </a>
             </td>
           </tr>

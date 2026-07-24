@@ -46,10 +46,6 @@ export const EMAILJS_PUBLIC_KEY = "_ZAJCvuP6L1YLNdMV";
 export const EMAILJS_SERVICE_ID = "service_biomtv8";
 export const EMAILJS_TEMPLATE_ID = "template_flsr84b";
 
-// Vendégnek szóló visszaigazoló email sablon (lásd emailjs-template-guest.html).
-// Ennek a sablonnak a "To Email" mezője is {{to_email}} kell legyen a dashboardon.
-export const EMAILJS_TEMPLATE_ID_GUEST = "IDE_JÖN_A_GUEST_TEMPLATE_ID";
-
 // Ha még nincs kitöltve a Firebase-konfiguráció, a foglalási oldal
 // figyelmeztetést ír ki a konzolra és a foglalás gomb nem fog működni,
 // de az oldal nem törik el.

@@ -497,7 +497,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import {
     FIREBASE_CONFIG, FIREBASE_CONFIGURED,
-    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_TEMPLATE_ID_GUEST, EMAILJS_CONFIGURED
+    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_CONFIGURED
   } from "./assets/firebase-config.js";
 
   var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
@@ -721,15 +721,20 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       if(EMAILJS_CONFIGURED && window.emailjs){
         try{
           await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            headline: 'Új foglalás érkezett',
             svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
             name: state.name, phone: state.phone, note: '—',
+            cta_phone: state.phone, cta_label: 'Vendég felhívása',
             to_email: 'hajdoagota@gmail.com'
           });
         }catch(err){ console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err); }
         try{
-          await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_GUEST, {
+          await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            headline: 'Foglalásod visszaigazolva',
             svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
-            name: state.name, to_email: state.email
+            name: state.name, phone: state.phone, note: '—',
+            cta_phone: '+36305039156', cta_label: 'Hívjon minket',
+            to_email: state.email
           });
         }catch(err){ console.error('A vendégnek szóló visszaigazoló email nem ment el:', err); }
       }
