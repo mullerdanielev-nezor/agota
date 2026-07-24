@@ -243,6 +243,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
             <div class="row" style="margin:0"><label for="f-name">Neved</label><input type="text" id="f-name" placeholder="Teljes név" required></div>
             <div class="row" style="margin:0"><label for="f-phone">Telefon</label><input type="tel" id="f-phone" placeholder="+36 30 …" required></div>
           </div>
+          <div class="row"><label for="f-email">Email cím</label><input type="email" id="f-email" placeholder="pl. nevem@email.hu" required></div>
           <div class="row"><label for="f-note">Megjegyzés (opcionális)</label><textarea id="f-note" placeholder="Bármi, amit jó, ha tudok…"></textarea></div>
 
           <button type="submit" class="btn" id="submitBtn" disabled><span>Foglalás elküldése</span></button>
@@ -314,7 +315,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import {
     FIREBASE_CONFIG, FIREBASE_CONFIGURED,
-    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_CONFIGURED
+    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_TEMPLATE_ID_GUEST, EMAILJS_CONFIGURED
   } from "./assets/firebase-config.js";
 
   var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
@@ -464,7 +465,23 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 
     var name = document.getElementById('f-name').value.trim();
     var phone = document.getElementById('f-phone').value.trim();
+    var email = document.getElementById('f-email').value.trim();
     var note = document.getElementById('f-note').value.trim();
+
+    var phoneDigits = phone.replace(/\D/g, '');
+    if(phoneDigits.length < 9 || phoneDigits.length > 11){
+      submitBtn.disabled = false;
+      alert('Kérlek egy érvényes telefonszámot adj meg (pl. +36 30 123 4567).');
+      document.getElementById('f-phone').focus();
+      return false;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      submitBtn.disabled = false;
+      alert('Kérlek egy érvényes email címet adj meg.');
+      document.getElementById('f-email').focus();
+      return false;
+    }
+
     var id = slotId(selectedDate, selectedSlot);
     var dKey = dateKey(selectedDate);
 
@@ -479,7 +496,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
         transaction.set(bookingRef, {
           svc: selectedSvc, date: dKey, time: selectedSlot,
-          name: name, phone: phone, note: note,
+          name: name, phone: phone, email: email, note: note,
           createdAt: serverTimestamp()
         });
       });
@@ -507,6 +524,14 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         });
       }catch(err){
         console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
+      }
+      try{
+        await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_GUEST, {
+          svc: selectedSvc, date: selectedDate.toLocaleDateString('hu-HU'), time: selectedSlot,
+          name: name, to_email: email
+        });
+      }catch(err){
+        console.error('A vendégnek szóló visszaigazoló email nem ment el:', err);
       }
     }
 

@@ -497,14 +497,14 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import {
     FIREBASE_CONFIG, FIREBASE_CONFIGURED,
-    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_CONFIGURED
+    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_TEMPLATE_ID_GUEST, EMAILJS_CONFIGURED
   } from "./assets/firebase-config.js";
 
   var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
   var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
   var today = new Date(); today.setHours(0,0,0,0);
   var ALL_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
-  var state = { svc:null, date:null, dateLabel:null, time:null, name:null, phone:null };
+  var state = { svc:null, date:null, dateLabel:null, time:null, name:null, phone:null, email:null };
 
   var db = null;
   if (FIREBASE_CONFIGURED) {
@@ -522,12 +522,16 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
   function slotId(d, time){ return dateKey(d) + '_' + time; }
 
-  // Egyszerű magyar telefonszám-felismerés: legalább 7 egymást követő számjegy (space/kötőjel/+ megengedett köztük)
+  function isValidPhone(str){
+    var digits = String(str).replace(/\D/g, '');
+    return digits.length >= 9 && digits.length <= 11;
+  }
+
+  // Egyszerű magyar telefonszám-felismerés: 9-11 számjegy (space/kötőjel/+ megengedett köztük)
   function extractPhone(text){
     var m = text.match(/(\+?\d[\d\s\-()]{6,}\d)/);
     if(!m) return null;
-    var digits = m[0].replace(/\D/g, '');
-    if(digits.length < 7) return null;
+    if(!isValidPhone(m[0])) return null;
     return { phone: m[0].trim(), rest: (text.slice(0, m.index) + text.slice(m.index + m[0].length)).replace(/\s+/g,' ').trim() };
   }
 
@@ -621,6 +625,12 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     });
   }
 
+  function askEmail(){
+    botMsg('Utolsó lépés: mi az email-címed? (Erre küldjük a visszaigazolást.)', function(){
+      showInput('nevem@email.hu', 'email');
+    });
+  }
+
   function showInput(placeholder, type){
     var input = document.getElementById('heroChatText');
     input.placeholder = placeholder; input.type = type; input.value = '';
@@ -648,14 +658,30 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         state.name = found.rest;
         state.phone = found.phone;
         hideInput();
-        submitBooking();
+        askEmail();
         return;
       }
       state.name = v;
       hideInput();
       askPhone();
     }else if(!state.phone){
+      if(!isValidPhone(v)){
+        botMsg('Hmm, ez nem tűnik érvényes telefonszámnak 🤔 Add meg még egyszer, kérlek (pl. +36 30 123 4567):', function(){
+          showInput('+36 30 …', 'tel');
+        });
+        return;
+      }
       state.phone = v;
+      hideInput();
+      askEmail();
+    }else if(!state.email){
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+        botMsg('Ez nem tűnik érvényes email címnek 🤔 Add meg még egyszer, kérlek:', function(){
+          showInput('nevem@email.hu', 'email');
+        });
+        return;
+      }
+      state.email = v;
       hideInput();
       submitBooking();
     }
@@ -678,7 +704,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
           transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
           transaction.set(bookingRef, {
             svc: state.svc, date: dKey, time: state.time,
-            name: state.name, phone: state.phone, note: '',
+            name: state.name, phone: state.phone, email: state.email, note: '',
             createdAt: serverTimestamp()
           });
         });
@@ -700,6 +726,12 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
             to_email: 'hajdoagota@gmail.com'
           });
         }catch(err){ console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err); }
+        try{
+          await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_GUEST, {
+            svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
+            name: state.name, to_email: state.email
+          });
+        }catch(err){ console.error('A vendégnek szóló visszaigazoló email nem ment el:', err); }
       }
 
       try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
