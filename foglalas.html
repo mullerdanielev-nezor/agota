@@ -79,7 +79,7 @@
   .day.sel{background:var(--rosegold);color:#fff;font-weight:700}
 
   /* ===== időpont chipek ===== */
-  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:1.8rem}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-bottom:1.8rem}
   .slot{text-align:center;padding:.6rem .3rem;border:1px solid rgba(224,62,99,.24);border-radius:9px;font-size:.82rem;cursor:pointer;transition:.18s;background:#fff;color:var(--ink)}
   .slot:hover{border-color:var(--rosegold)}
   .slot.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
@@ -229,9 +229,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <div class="col-right">
           <div class="step-label"><b>3</b> Időpont</div>
           <div class="slots" id="slots">
-            <div class="slot">09:00</div><div class="slot">10:00</div><div class="slot">11:00</div><div class="slot">12:00</div>
-            <div class="slot">13:00</div><div class="slot">14:00</div><div class="slot">15:00</div><div class="slot">16:00</div>
-            <div class="slot">17:00</div>
+            <div class="slot">09:00</div><div class="slot">11:00</div><div class="slot">13:00</div>
+            <div class="slot">15:00</div><div class="slot">17:00</div><div class="slot">19:00</div>
           </div>
 
           <div class="summary" id="summary">✦ <span id="summaryText"></span></div>
@@ -322,7 +321,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   var today = new Date(); today.setHours(0,0,0,0);
   var viewYear = today.getFullYear(), viewMonth = today.getMonth();
   var selectedDate = null, selectedSlot = null, selectedSvc = null;
-  var ALL_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+  var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
 
   // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
   var LEAD_MS = 2 * 60 * 60 * 1000;
