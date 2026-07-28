@@ -74,6 +74,31 @@
   .del-btn:disabled{opacity:.5;cursor:not-allowed}
 
   #configWarning{display:none;color:#a33;font-weight:700;text-align:center;margin:3rem auto;max-width:560px}
+
+  /* --- Összegzés / statisztikák --- */
+  .stats{display:none}
+  .stats section{margin-bottom:2.2rem}
+  .stats h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.15rem;color:var(--ink);margin-bottom:.9rem}
+  .stats h2 span{font-size:.68rem;font-family:'Nunito Sans',sans-serif;font-weight:400;color:var(--mokka);letter-spacing:0;text-transform:none;margin-left:.5rem}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
+  .kpi{background:#fff;border:1px solid rgba(224,62,99,.1);border-radius:14px;box-shadow:0 10px 30px rgba(224,62,99,.06);padding:1.2rem 1.3rem}
+  .kpi .v{font-family:'Fraunces',serif;font-size:2rem;font-weight:300;color:var(--rosegold);line-height:1}
+  .kpi .l{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mokka);margin-top:.5rem}
+  .panel{background:#fff;border:1px solid rgba(224,62,99,.1);border-radius:14px;box-shadow:0 10px 30px rgba(224,62,99,.06);padding:1.4rem 1.5rem}
+  .bars{display:grid;gap:.75rem}
+  .bar-row{display:grid;grid-template-columns:1fr auto;gap:.3rem .8rem;align-items:baseline}
+  .bar-row .bl{font-size:.85rem;color:var(--ink)}
+  .bar-row .bv{font-size:.75rem;color:var(--mokka);white-space:nowrap}
+  .bar-track{grid-column:1/-1;height:7px;border-radius:5px;background:var(--cream);overflow:hidden}
+  .bar-fill{height:100%;border-radius:5px;background:var(--rosegold)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+  @media(max-width:900px){ .two-col{grid-template-columns:1fr} }
+  .stats table{min-width:820px}
+  .stats .muted{color:var(--mokka);font-size:.85rem}
+  .export{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);background:none;border:1px solid rgba(224,62,99,.3);border-radius:8px;padding:.55rem 1rem;cursor:pointer;font-family:'Nunito Sans',sans-serif}
+  .export:hover{background:var(--cream)}
+  .sec-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
+  .sec-head h2{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -118,11 +143,68 @@
     <div id="dashView" style="display:none">
       <h1>Foglalások <em>áttekintése</em></h1>
       <div class="toolbar">
-        <button class="refresh" id="refreshBtn">↻ Frissítés</button>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+          <button class="refresh" id="refreshBtn">↻ Frissítés</button>
+          <button class="refresh" id="statsBtn">📊 Összegzés</button>
+        </div>
         <button class="logout" id="logoutBtn">Kijelentkezés</button>
       </div>
 
-      <div class="dash-grid">
+      <div class="stats" id="statsView">
+        <section>
+          <h2>Áttekintés</h2>
+          <div class="kpis" id="kpis"></div>
+        </section>
+
+        <section class="two-col">
+          <div>
+            <h2>Kezelések <span>foglalások száma szerint</span></h2>
+            <div class="panel"><div class="bars" id="barsSvc"></div></div>
+          </div>
+          <div>
+            <h2>Népszerű időpontok <span>a nap melyik órája</span></h2>
+            <div class="panel"><div class="bars" id="barsHour"></div></div>
+          </div>
+        </section>
+
+        <section class="two-col">
+          <div>
+            <h2>Mikor foglalnak <span>a hét melyik napján adják le</span></h2>
+            <div class="panel"><div class="bars" id="barsDow"></div></div>
+          </div>
+          <div>
+            <h2>Napszak <span>a leadás időpontja szerint</span></h2>
+            <div class="panel"><div class="bars" id="barsPart"></div></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Visszatérő vendégek <span>telefonszám szerint</span></h2>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Név</th><th>Telefon</th><th>Foglalások</th><th>Első</th><th>Utolsó</th><th>Kezelések</th></tr></thead>
+              <tbody id="guestRows"></tbody>
+            </table>
+            <div class="empty" id="guestEmpty" style="display:none">Nincs adat.</div>
+          </div>
+        </section>
+
+        <section>
+          <div class="sec-head">
+            <h2>Összes foglalás <span id="allCount"></span></h2>
+            <button type="button" class="export" id="csvBtn">⬇ CSV letöltés</button>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Leadva</th><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Email</th><th>Megjegyzés</th></tr></thead>
+              <tbody id="allRows"></tbody>
+            </table>
+            <div class="empty" id="allEmpty" style="display:none">Még nincs egyetlen foglalás sem.</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="dash-grid" id="listView">
         <div class="cal-card">
           <div class="cal-head">
             <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
@@ -333,12 +415,179 @@
         });
         renderCal();
         renderTable();
+        if(statsOpen) renderStats();
       }catch(err){
         console.error(err);
         empty.textContent = 'Hiba történt a foglalások betöltésekor.';
         empty.style.display = 'block';
       }
     }
+
+    /* ---------- Összegzés / statisztikák ---------- */
+
+    var HU_DOW = ['hétfő','kedd','szerda','csütörtök','péntek','szombat','vasárnap'];
+    var statsOpen = false;
+
+    document.getElementById('statsBtn').addEventListener('click', function(){
+      statsOpen = !statsOpen;
+      document.getElementById('statsView').style.display = statsOpen ? 'block' : 'none';
+      document.getElementById('listView').style.display = statsOpen ? 'none' : 'grid';
+      this.textContent = statsOpen ? '📅 Naptár nézet' : '📊 Összegzés';
+      if(statsOpen) renderStats();
+    });
+
+    function createdDate(b){
+      if(!b.createdAt) return null;
+      if(typeof b.createdAt.toDate === 'function') return b.createdAt.toDate();
+      return null;
+    }
+    function fmtDateTime(d){
+      if(!d) return '—';
+      return d.toLocaleDateString('hu-HU') + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+    }
+
+    function renderBars(elId, pairs){
+      var wrap = document.getElementById(elId);
+      wrap.innerHTML = '';
+      var total = pairs.reduce(function(s,p){ return s + p[1]; }, 0);
+      if(!total){ wrap.innerHTML = '<div class="muted">Nincs adat.</div>'; return; }
+      var max = pairs.reduce(function(m,p){ return Math.max(m, p[1]); }, 0);
+      pairs.forEach(function(p){
+        var pct = Math.round(p[1] / total * 100);
+        var row = document.createElement('div');
+        row.className = 'bar-row';
+        row.innerHTML =
+          '<div class="bl">' + escapeHtml(p[0]) + '</div>' +
+          '<div class="bv">' + p[1] + ' db · ' + pct + '%</div>' +
+          '<div class="bar-track"><div class="bar-fill" style="width:' +
+            (max ? Math.round(p[1] / max * 100) : 0) + '%"></div></div>';
+        wrap.appendChild(row);
+      });
+    }
+
+    function renderStats(){
+      var todayKey = dateKey(today);
+      var monthPrefix = today.getFullYear() + '-' + pad2(today.getMonth()+1);
+
+      var upcoming = 0, past = 0, thisMonth = 0;
+      var svcCount = {}, hourCount = {}, dowCount = {}, partCount = {'Reggel (6–12)':0,'Délután (12–18)':0,'Este (18–24)':0,'Éjszaka (0–6)':0};
+      var guests = {};
+
+      allBookings.forEach(function(b){
+        var d = b.date || '';
+        if(d >= todayKey) upcoming++; else past++;
+        if(d.indexOf(monthPrefix) === 0) thisMonth++;
+
+        var svc = b.svc || '—';
+        svcCount[svc] = (svcCount[svc] || 0) + 1;
+
+        var h = (b.time || '').slice(0,5);
+        if(h) hourCount[h] = (hourCount[h] || 0) + 1;
+
+        var c = createdDate(b);
+        if(c){
+          var dow = HU_DOW[(c.getDay() + 6) % 7];
+          dowCount[dow] = (dowCount[dow] || 0) + 1;
+          var hh = c.getHours();
+          var part = hh < 6 ? 'Éjszaka (0–6)' : hh < 12 ? 'Reggel (6–12)' : hh < 18 ? 'Délután (12–18)' : 'Este (18–24)';
+          partCount[part]++;
+        }
+
+        var key = (b.phone || b.email || b.name || '?').replace(/\s+/g,'');
+        if(!guests[key]) guests[key] = { name: b.name || '—', phone: b.phone || '—', n: 0, dates: [], svcs: {} };
+        var g = guests[key];
+        g.n++;
+        if(d) g.dates.push(d);
+        g.svcs[svc] = true;
+      });
+
+      var guestList = Object.keys(guests).map(function(k){ return guests[k]; });
+      var returning = guestList.filter(function(g){ return g.n > 1; }).length;
+
+      var kpis = [
+        [allBookings.length, 'Összes foglalás'],
+        [upcoming, 'Jövőbeli (mai naptól)'],
+        [past, 'Lezajlott'],
+        [thisMonth, 'Ebben a hónapban'],
+        [guestList.length, 'Egyedi vendég'],
+        [returning, 'Visszatérő vendég']
+      ];
+      document.getElementById('kpis').innerHTML = kpis.map(function(k){
+        return '<div class="kpi"><div class="v">' + k[0] + '</div><div class="l">' + k[1] + '</div></div>';
+      }).join('');
+
+      function toPairsByCount(obj){
+        return Object.keys(obj).map(function(k){ return [k, obj[k]]; })
+          .sort(function(a,b){ return b[1] - a[1]; });
+      }
+      renderBars('barsSvc', toPairsByCount(svcCount));
+      renderBars('barsHour', Object.keys(hourCount).sort().map(function(k){ return [k, hourCount[k]]; }));
+      renderBars('barsDow', HU_DOW.map(function(k){ return [k, dowCount[k] || 0]; }));
+      renderBars('barsPart', Object.keys(partCount).map(function(k){ return [k, partCount[k]]; }));
+
+      // Visszatérő vendégek
+      var gRows = document.getElementById('guestRows');
+      var gEmpty = document.getElementById('guestEmpty');
+      gRows.innerHTML = '';
+      guestList.sort(function(a,b){ return b.n - a.n; });
+      if(!guestList.length){
+        gEmpty.style.display = 'block';
+      }else{
+        gEmpty.style.display = 'none';
+        guestList.forEach(function(g){
+          g.dates.sort();
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td class="name">' + escapeHtml(g.name) + '</td>' +
+            '<td><a href="tel:' + escapeHtml(g.phone) + '">' + escapeHtml(g.phone) + '</a></td>' +
+            '<td>' + g.n + '</td>' +
+            '<td>' + escapeHtml(g.dates[0] || '—') + '</td>' +
+            '<td>' + escapeHtml(g.dates[g.dates.length-1] || '—') + '</td>' +
+            '<td class="muted">' + escapeHtml(Object.keys(g.svcs).join(', ')) + '</td>';
+          gRows.appendChild(tr);
+        });
+      }
+
+      // Összes foglalás – leadás ideje szerint, legfrissebb elöl
+      var aRows = document.getElementById('allRows');
+      var aEmpty = document.getElementById('allEmpty');
+      aRows.innerHTML = '';
+      document.getElementById('allCount').textContent = allBookings.length ? '(' + allBookings.length + ' db)' : '';
+      if(!allBookings.length){
+        aEmpty.style.display = 'block';
+      }else{
+        aEmpty.style.display = 'none';
+        allBookings.forEach(function(b){
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td class="muted">' + escapeHtml(fmtDateTime(createdDate(b))) + '</td>' +
+            '<td>' + escapeHtml(b.date || '') + '</td>' +
+            '<td>' + escapeHtml(b.time || '') + '</td>' +
+            '<td>' + escapeHtml(b.svc || '') + '</td>' +
+            '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
+            '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
+            '<td>' + escapeHtml(b.email || '—') + '</td>' +
+            '<td>' + escapeHtml(b.note || '—') + '</td>';
+          aRows.appendChild(tr);
+        });
+      }
+    }
+
+    document.getElementById('csvBtn').addEventListener('click', function(){
+      var head = ['Leadva','Datum','Ido','Kezeles','Nev','Telefon','Email','Megjegyzes'];
+      function cell(v){ return '"' + String(v == null ? '' : v).replace(/"/g,'""') + '"'; }
+      var lines = [head.map(cell).join(';')];
+      allBookings.forEach(function(b){
+        lines.push([fmtDateTime(createdDate(b)), b.date, b.time, b.svc, b.name, b.phone, b.email, b.note].map(cell).join(';'));
+      });
+      var blob = new Blob(['﻿' + lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'foglalasok-' + dateKey(new Date()) + '.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
 
     function escapeHtml(s){
       return String(s).replace(/[&<>"']/g, function(c){
