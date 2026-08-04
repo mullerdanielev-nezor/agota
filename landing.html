@@ -667,16 +667,12 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   })();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import {
     getFirestore, doc, getDoc, runTransaction, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-  import {
-    FIREBASE_CONFIG, FIREBASE_CONFIGURED,
-    EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_CONFIGURED
-  } from "./assets/firebase-config.js";
+  import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
   var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
   var today = new Date(); today.setHours(0,0,0,0);
@@ -705,9 +701,6 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   } else {
     document.getElementById('configWarning').style.display = 'block';
     console.warn('Firebase nincs konfigurálva – lásd assets/firebase-config.js');
-  }
-  if (EMAILJS_CONFIGURED && window.emailjs) {
-    window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   }
 
   function pad2(n){ return n < 10 ? '0' + n : '' + n; }
@@ -914,25 +907,24 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         return;
       }
 
-      if(EMAILJS_CONFIGURED && window.emailjs){
-        try{
-          await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            headline: 'Új foglalás érkezett',
-            svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
-            name: state.name, phone: state.phone, note: 'Landing: landing.html (4 az 1-ben)',
-            cta_phone: state.phone, cta_label: 'Vendég felhívása',
-            to_email: 'hajdoagota@gmail.com'
-          });
-        }catch(err){ console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err); }
-        try{
-          await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            headline: 'Foglalásod visszaigazolva',
-            svc: state.svc, date: state.date.toLocaleDateString('hu-HU'), time: state.time,
-            name: state.name, phone: state.phone, note: 'Landing: landing.html (4 az 1-ben)',
-            cta_phone: '+36305039156', cta_label: 'Hívjon minket',
-            to_email: state.email
-          });
-        }catch(err){ console.error('A vendégnek szóló visszaigazoló email nem ment el:', err); }
+      // Az emaileket a /api/send-booking szerveroldali függvény küldi ki (Brevo).
+      try{
+        var mailRes = await fetch('/api/send-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            svc: state.svc,
+            date: state.date.toLocaleDateString('hu-HU'),
+            time: state.time,
+            name: state.name, phone: state.phone, email: state.email,
+            note: 'Landing: landing.html (4 az 1-ben)'
+          })
+        });
+        if(!mailRes.ok){
+          console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', await mailRes.text());
+        }
+      }catch(err){
+        console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
       }
 
       try{ localStorage.setItem('lb_booked', '1'); }catch(e){}

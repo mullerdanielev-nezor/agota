@@ -17,15 +17,10 @@
 //      hozzáadása → onnan kimásolod a firebaseConfig objektumot, és
 //      berakod ide lent a FIREBASE_CONFIG helyére.
 //
-// 2) EMAILJS kitöltése (ha szeretnél emailt kapni minden foglaláskor):
-//    - Regisztrálj a https://www.emailjs.com oldalon (ingyenes csomag).
-//    - Kösd össze egy email-fiókkal (Email Services → Add New Service,
-//      pl. Gmail), ez lesz a küldő cím.
-//    - Hozz létre egy Email Template-et (Email Templates → Create New),
-//      amiben használhatod ezeket a változókat: {{svc}}, {{date}},
-//      {{time}}, {{name}}, {{phone}}, {{note}}
-//    - Account → General oldalon találod a "Public Key"-t.
-//    - Töltsd ki lent az EMAILJS_* mezőket.
+// 2) EMAIL-ÉRTESÍTÉS:
+//    Az emaileket NEM ez a fájl kezeli, hanem a szerveroldali
+//    api/send-booking.js függvény (Brevo API-val). A beállítás lépései
+//    annak a fájlnak a fejlécében vannak leírva. Ide email-kulcs nem kerül.
 //
 // 3) FIRESTORE SECURITY RULES beállítása:
 //    - Firebase konzol → Firestore Database → Rules fül.
@@ -42,15 +37,8 @@ export const FIREBASE_CONFIG = {
   appId: "1:939878579400:web:5470f35924f74386e479fd"
 };
 
-export const EMAILJS_PUBLIC_KEY = "_ZAJCvuP6L1YLNdMV";
-export const EMAILJS_SERVICE_ID = "service_biomtv8";
-export const EMAILJS_TEMPLATE_ID = "template_flsr84b";
-
 // Ha még nincs kitöltve a Firebase-konfiguráció, a foglalási oldal
 // figyelmeztetést ír ki a konzolra és a foglalás gomb nem fog működni,
 // de az oldal nem törik el.
 export const FIREBASE_CONFIGURED =
   FIREBASE_CONFIG.apiKey !== "IDE_JÖN_A_SAJÁT_API_KEY";
-
-export const EMAILJS_CONFIGURED =
-  EMAILJS_PUBLIC_KEY !== "IDE_JÖN_AZ_EMAILJS_PUBLIC_KEY";
