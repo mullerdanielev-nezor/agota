@@ -670,7 +670,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import {
-    getFirestore, doc, getDoc, runTransaction, serverTimestamp
+    getFirestore, doc, collection, query, where, documentId, onSnapshot, runTransaction, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
@@ -706,6 +706,54 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   function pad2(n){ return n < 10 ? '0' + n : '' + n; }
   function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
   function slotId(d, time){ return dateKey(d) + '_' + time; }
+  function rangeBoundaryKey(d){ return dateKey(d) + '_00:00'; }
+
+  // Elo (onSnapshot) figyeles a kovetkezo 30 nap "slots" bejegyzesein — igy amint
+  // valaki lefoglal egy idopontot (vagy telik az ido), a mar kirakott nap-/ora-chipek
+  // is maguktol frissulnek, ujratoltes nelkul.
+  var takenSlots = {};
+  var slotsReady = false;
+  var slotsReadyResolvers = [];
+  function waitSlotsReady(){
+    if(slotsReady) return Promise.resolve();
+    return new Promise(function(res){ slotsReadyResolvers.push(res); });
+  }
+  function markSlotsReady(){
+    if(slotsReady) return;
+    slotsReady = true;
+    slotsReadyResolvers.forEach(function(r){ r(); });
+    slotsReadyResolvers = [];
+  }
+  var currentStep = null; // 'date' | 'time' | null — melyik chip-sor van most kirakva
+  function onSlotsChanged(){
+    if(currentStep === 'date') renderDateChips();
+    else if(currentStep === 'time') renderTimeChips();
+  }
+  function subscribeSlots(){
+    if(!db){ markSlotsReady(); return; }
+    var from = today;
+    var to = new Date(today); to.setDate(to.getDate() + 30);
+    var q = query(
+      collection(db, 'slots'),
+      where(documentId(), '>=', rangeBoundaryKey(from)),
+      where(documentId(), '<', rangeBoundaryKey(to))
+    );
+    onSnapshot(q, function(snap){
+      takenSlots = {};
+      snap.forEach(function(docSnap){ takenSlots[docSnap.id] = true; });
+      markSlotsReady();
+      onSlotsChanged();
+    }, function(err){
+      console.error('Nem sikerult figyelni a foglalt idopontokat:', err);
+      markSlotsReady();
+    });
+  }
+  // Percenkent frissitjuk a "mai nap" hatart es a "tul koreli" idopontokat is,
+  // hogy tiszta idomulassal is maguktol frissuljenek a mar kirakott chipek.
+  setInterval(function(){
+    today = new Date(); today.setHours(0,0,0,0);
+    onSlotsChanged();
+  }, 60000);
 
   function isValidPhone(str){
     var digits = String(str).replace(/\D/g, '');
@@ -753,23 +801,49 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     return row;
   }
 
+  function showTyping(){
+    var row = document.createElement('div');
+    row.className = 'bubble-row';
+    row.innerHTML = '<div class="mini-avatar">A</div><div class="typing"><span></span><span></span><span></span></div>';
+    body.appendChild(row); scrollDown();
+    return row;
+  }
+
+  // Egy adott napon van-e legalabb egy szabad (nem foglalt, nem tul kozeli) idopont —
+  // a live "takenSlots" cache-bol, kulon lekerdezes nelkul.
+  function dayHasFreeSlot(d){
+    return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+  }
+
+  // Vegignezi a kovetkezo 30 napot, es csak azokat adja vissza (max 6-ot), amelyeken tenyleg van szabad idopont.
   function buildDayOptions(){
     var opts = [];
-    for(var i=0; i<10 && opts.length<6; i++){
+    for(var i=0; i<30 && opts.length<6; i++){
       var d = new Date(today); d.setDate(today.getDate()+i);
-      // A mai napot csak akkor ajanljuk, ha van meg legalabb 2 oraval kesobbi idopont
-      if(i === 0 && !ALL_SLOTS.some(function(t){ return !isTooSoon(d, t); })) continue;
+      if(!dayHasFreeSlot(d)) continue;
       var label = i===0 ? 'Ma' : (i===1 ? 'Holnap' : (HU_DOW_NAMES[(d.getDay()+6)%7] + ' (' + d.getDate() + '.)'));
       opts.push({ label: label, date: d });
     }
     return opts;
   }
 
-  async function askDate(){
+  var currentChipRow = null;
+
+  function renderDateChips(){
+    if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
+    currentStep = 'date';
     var opts = buildDayOptions();
+
+    if(opts.length === 0){
+      currentStep = null;
+      currentChipRow = chips([{ label:'Többi időpont', other:true }], function(){ window.location.href = 'foglalas.html'; });
+      return;
+    }
+
     var items = opts.map(function(o){ return { label:o.label, date:o.date }; });
     items.push({ label:'Többi időpont', other:true });
-    chips(items, function(item){
+    currentChipRow = chips(items, function(item){
+      currentStep = null; currentChipRow = null;
       if(item.other){
         window.location.href = 'foglalas.html';
         return;
@@ -780,26 +854,46 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     });
   }
 
-  async function askTime(){
-    var pickedToday = isSameDay(state.date, new Date());
-    botMsg(pickedToday ? 'És melyik időpont lenne jó? Mai napra legalább 2 órával előre tudsz foglalni.' : 'És melyik időpont lenne jó?', async function(){
-      var taken = {};
-      if(db){
-        try{
-          var checks = ALL_SLOTS.map(function(t){ return getDoc(doc(db, 'slots', slotId(state.date, t))); });
-          var results = await Promise.all(checks);
-          results.forEach(function(snap, i){ if(snap.exists()) taken[ALL_SLOTS[i]] = true; });
-        }catch(err){ console.error('Nem sikerült lekérdezni a foglalt időpontokat:', err); }
-      }
-      var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!taken[t] || isTooSoon(state.date, t) }; });
-      if(opts.every(function(o){ return o.taken; })){
-        botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });
+  async function askDate(){
+    if(!slotsReady){
+      var typingRow = showTyping();
+      await waitSlotsReady();
+      typingRow.remove();
+    }
+    if(buildDayOptions().length === 0){
+      botMsg('Sajnos a közeljövőben nincs szabad időpont a gyors foglalóban — nézd meg a további időpontokat!', function(){
+        renderDateChips();
+      });
+      return;
+    }
+    renderDateChips();
+  }
+
+  function renderTimeChips(){
+    if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
+    currentStep = 'time';
+    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!takenSlots[slotId(state.date, t)] || isTooSoon(state.date, t) }; });
+    if(opts.every(function(o){ return o.taken; })){
+      currentStep = null;
+      botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });
+      return;
+    }
+    opts.push({ label:'Másik', other:true });
+    currentChipRow = chips(opts, function(item){
+      currentStep = null; currentChipRow = null;
+      if(item.other){
+        window.location.href = 'foglalas.html';
         return;
       }
-      chips(opts, function(item){
-        state.time = item.label;
-        askName();
-      });
+      state.time = item.label;
+      askName();
+    });
+  }
+
+  function askTime(){
+    var pickedToday = isSameDay(state.date, new Date());
+    botMsg(pickedToday ? 'És melyik időpont lenne jó? Mai napra legalább 2 órával előre tudsz foglalni.' : 'És melyik időpont lenne jó?', function(){
+      renderTimeChips();
     });
   }
 
@@ -938,6 +1032,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     });
   }
 
+  subscribeSlots();
   start();
 
   // scroll reveal

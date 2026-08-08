@@ -74,6 +74,7 @@
   .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:.82rem;color:var(--ink);cursor:pointer;transition:.18s;border:1px solid transparent}
   .day.pad{visibility:hidden}
   .day.off{color:rgba(58,14,28,.22);cursor:default}
+  .day.avail{background:rgba(224,62,99,.1);color:var(--rosegold);font-weight:700;border-color:rgba(224,62,99,.28)}
   .day:not(.off):not(.pad):hover{background:var(--cream);border-color:rgba(224,62,99,.25)}
   .day.today{border-color:var(--rosegold);font-weight:700}
   .day.sel{background:var(--rosegold);color:#fff;font-weight:700}
@@ -84,6 +85,7 @@
   .slot:hover{border-color:var(--rosegold)}
   .slot.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
   .slot.taken{opacity:.32;text-decoration:line-through;cursor:default;pointer-events:none}
+  .slot.locked{opacity:.4;cursor:default;pointer-events:none}
 
   /* ===== adatok ===== */
   .row{display:grid;gap:.5rem;margin-bottom:1.1rem}
@@ -202,7 +204,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <div class="col-left">
           <div class="step-label"><b>1</b> Kezelés</div>
           <div class="svc-grid" id="svcGrid">
-            <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs" required><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="4 az 1-ben alakformáló kezelés" required><span class="chk">✓</span><span class="t">4 az 1-ben</span><span class="dur">alakformáló kezelés</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs"><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Rádiófrekvenciás kezelés"><span class="chk">✓</span><span class="t">Rádiófrekvencia</span><span class="dur">bőrfeszesítés</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="HIEMT – izomépítés"><span class="chk">✓</span><span class="t">HIEMT</span><span class="dur">izomépítés</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Kavitációs zsírbontás"><span class="chk">✓</span><span class="t">Kavitáció</span><span class="dur">zsírbontás</span></label>
@@ -229,8 +232,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <div class="col-right">
           <div class="step-label"><b>3</b> Időpont</div>
           <div class="slots" id="slots">
-            <div class="slot">09:00</div><div class="slot">11:00</div><div class="slot">13:00</div>
-            <div class="slot">15:00</div><div class="slot">17:00</div><div class="slot">19:00</div>
+            <div class="slot locked">09:00</div><div class="slot locked">11:00</div><div class="slot locked">13:00</div>
+            <div class="slot locked">15:00</div><div class="slot locked">17:00</div><div class="slot locked">19:00</div>
           </div>
 
           <div class="summary" id="summary">✦ <span id="summaryText"></span></div>
@@ -309,7 +312,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import {
-    getFirestore, doc, getDoc, runTransaction, serverTimestamp
+    getFirestore, doc, collection, query, where, documentId, onSnapshot, runTransaction, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
@@ -343,6 +346,52 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   function pad2(n){ return n < 10 ? '0' + n : '' + n; }
   function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
   function slotId(d, time){ return dateKey(d) + '_' + time; }
+  function rangeBoundaryKey(d){ return dateKey(d) + '_00:00'; }
+
+  // Elo (onSnapshot) figyeles a lathato honap "slots" bejegyzesein — igy amint
+  // valaki lefoglal (vagy az admin torol) egy idopontot, a naptar es a slot-lista
+  // magatol frissul, ujratoltes nelkul.
+  var takenSlots = {};
+  var unsubSlots = null;
+  var subscribedMonthKey = null;
+  function subscribeMonth(year, month){
+    var monthKey = year + '-' + month;
+    if(monthKey === subscribedMonthKey) return;
+    subscribedMonthKey = monthKey;
+    if(unsubSlots){ unsubSlots(); unsubSlots = null; }
+    if(!db){ renderCal(); return; }
+    var from = new Date(year, month, 1);
+    var to = new Date(year, month + 1, 1);
+    var q = query(
+      collection(db, 'slots'),
+      where(documentId(), '>=', rangeBoundaryKey(from)),
+      where(documentId(), '<', rangeBoundaryKey(to))
+    );
+    unsubSlots = onSnapshot(q, function(snap){
+      takenSlots = {};
+      snap.forEach(function(docSnap){ takenSlots[docSnap.id] = true; });
+      renderCal();
+      if(selectedDate) loadSlotsForDate(selectedDate);
+    }, function(err){
+      console.error('Nem sikerult figyelni a foglalt idopontokat:', err);
+      renderCal();
+    });
+  }
+
+  function dayHasFreeSlot(d){
+    return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+  }
+
+  function bindDayClick(dt, el){
+    el.addEventListener('click', function(){
+      document.querySelectorAll('.day.sel').forEach(function(x){x.classList.remove('sel')});
+      el.classList.add('sel');
+      selectedDate = dt;
+      selectedSlot = null;
+      updateSummary();
+      loadSlotsForDate(dt);
+    });
+  }
 
   function renderCal(){
     document.getElementById('calMonth').textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
@@ -359,18 +408,13 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       var thisDate = new Date(viewYear, viewMonth, d);
       cell.className = 'day';
       cell.textContent = d;
-      if(thisDate < today){ cell.classList.add('off'); }
-      else{
-        cell.addEventListener('click', (function(dt, el){
-          return function(){
-            document.querySelectorAll('.day.sel').forEach(function(x){x.classList.remove('sel')});
-            el.classList.add('sel');
-            selectedDate = dt;
-            selectedSlot = null;
-            updateSummary();
-            loadSlotsForDate(dt);
-          };
-        })(thisDate, cell));
+      if(thisDate < today){
+        cell.classList.add('off');
+      }else if(dayHasFreeSlot(thisDate)){
+        cell.classList.add('avail');
+        bindDayClick(thisDate, cell);
+      }else{
+        cell.classList.add('off');
       }
       if(thisDate.getTime() === today.getTime()) cell.classList.add('today');
       if(selectedDate && thisDate.getTime() === selectedDate.getTime()) cell.classList.add('sel');
@@ -381,12 +425,23 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 
   document.getElementById('calPrev').addEventListener('click', function(){
     viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+    subscribeMonth(viewYear, viewMonth);
     renderCal();
   });
   document.getElementById('calNext').addEventListener('click', function(){
     viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+    subscribeMonth(viewYear, viewMonth);
     renderCal();
   });
+
+  // Percenkent frissitjuk a "mai naphoz kepest tul koreli" hatart es a nap-atfordulast,
+  // hogy idomulassal is magatol frissuljon a naptar (uj Firestore-lekerdezes nelkul).
+  setInterval(function(){
+    var now = new Date(); now.setHours(0,0,0,0);
+    today = now;
+    renderCal();
+    if(selectedDate) loadSlotsForDate(selectedDate);
+  }, 60000);
 
   document.querySelectorAll('.svc-card').forEach(function(card){
     card.addEventListener('click', function(){
@@ -399,7 +454,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 
   function bindSlotClick(slotEl){
     slotEl.addEventListener('click', function(){
-      if(slotEl.classList.contains('taken')) return;
+      if(slotEl.classList.contains('taken') || slotEl.classList.contains('locked')) return;
       document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
       slotEl.classList.add('sel');
       selectedSlot = slotEl.textContent;
@@ -408,28 +463,20 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   }
   document.querySelectorAll('.slot').forEach(bindSlotClick);
 
-  // Az adott napon már foglalt időpontokat lekérdezi a "slots" gyűjteményből
-  // (ez nem tartalmaz személyes adatot, bárki lekérdezheti — lásd firestore.rules).
-  async function loadSlotsForDate(d){
+  // Az adott napon mar foglalt idopontokat a live "takenSlots" cache-bol jeloli —
+  // ez az onSnapshot figyeles miatt mindig friss, kulon lekerdezes nelkul.
+  function loadSlotsForDate(d){
     var slotEls = document.querySelectorAll('#slots .slot');
-    slotEls.forEach(function(el){ el.classList.remove('taken'); });
-    // Mai napon a mostanihoz kepest 2 oran belüli idopontok nem valaszthatok
     slotEls.forEach(function(el){
-      if(isTooSoon(d, el.textContent.trim())) el.classList.add('taken');
+      var t = el.textContent.trim();
+      el.classList.remove('locked');
+      el.classList.toggle('taken', isTooSoon(d, t) || !!takenSlots[slotId(d, t)]);
     });
-    if(!db) return;
-    try{
-      var checks = ALL_SLOTS.map(function(t){ return getDoc(doc(db, 'slots', slotId(d, t))); });
-      var results = await Promise.all(checks);
-      results.forEach(function(snap, i){
-        if(snap.exists()){
-          slotEls.forEach(function(el){
-            if(el.textContent === ALL_SLOTS[i]) el.classList.add('taken');
-          });
-        }
-      });
-    }catch(err){
-      console.error('Nem sikerült lekérdezni a foglalt időpontokat:', err);
+    // Ha a kijelolt idopont idokozben foglalt lett, ejtsuk a kivalasztast.
+    if(selectedSlot && (isTooSoon(d, selectedSlot) || takenSlots[slotId(d, selectedSlot)])){
+      selectedSlot = null;
+      document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+      updateSummary();
     }
   }
 
@@ -533,6 +580,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   }
   window.submitBooking = submitBooking;
 
+  subscribeMonth(viewYear, viewMonth);
   renderCal();
 </script>
 
