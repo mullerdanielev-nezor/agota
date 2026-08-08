@@ -500,6 +500,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 
   var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
   var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
+  var HU_MONTH_ABBR = ['jan.','febr.','márc.','ápr.','máj.','jún.','júl.','aug.','szept.','okt.','nov.','dec.'];
   var today = new Date(); today.setHours(0,0,0,0);
   var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
   var state = { svc:null, date:null, dateLabel:null, time:null, name:null, phone:null, email:null };
@@ -647,7 +648,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     for(var i=0; i<30 && opts.length<6; i++){
       var d = new Date(today); d.setDate(today.getDate()+i);
       if(!dayHasFreeSlot(d)) continue;
-      var label = i===0 ? 'Ma' : (i===1 ? 'Holnap' : (HU_DOW_NAMES[(d.getDay()+6)%7] + ' (' + d.getDate() + '.)'));
+      var label = i===0 ? 'Ma' : (i===1 ? 'Holnap' : (HU_DOW_NAMES[(d.getDay()+6)%7] + ' (' + HU_MONTH_ABBR[d.getMonth()] + ' ' + d.getDate() + '.)'));
       opts.push({ label: label, date: d });
     }
     return opts;
