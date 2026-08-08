@@ -53,6 +53,7 @@
   .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.8rem}
   .svc-card{position:relative;border:1px solid rgba(224,62,99,.22);border-radius:12px;padding:.85rem .95rem;cursor:pointer;transition:.25s;background:#fff}
   .svc-card:hover{border-color:var(--rosegold);transform:translateY(-2px)}
+  .svc-card.featured{border-color:rgba(224,62,99,.5);background:rgba(224,62,99,.06)}
   .svc-card.sel{border-color:var(--rosegold);background:linear-gradient(155deg,#fff,var(--cream));box-shadow:0 8px 20px rgba(224,62,99,.16)}
   .svc-card input{position:absolute;opacity:0;pointer-events:none}
   .svc-card .t{font-family:'Fraunces',serif;font-size:.98rem;color:var(--ink);line-height:1.25}
@@ -204,7 +205,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <div class="col-left">
           <div class="step-label"><b>1</b> Kezelés</div>
           <div class="svc-grid" id="svcGrid">
-            <label class="svc-card"><input type="radio" name="svc" value="4 az 1-ben alakformáló kezelés" required><span class="chk">✓</span><span class="t">4 az 1-ben</span><span class="dur">alakformáló kezelés</span></label>
+            <label class="svc-card featured"><input type="radio" name="svc" value="4 az 1-ben alakformáló kezelés" required><span class="chk">✓</span><span class="t">4 az 1-ben</span><span class="dur">alakformáló kezelés</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs"><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Rádiófrekvenciás kezelés"><span class="chk">✓</span><span class="t">Rádiófrekvencia</span><span class="dur">bőrfeszesítés</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="HIEMT – izomépítés"><span class="chk">✓</span><span class="t">HIEMT</span><span class="dur">izomépítés</span></label>

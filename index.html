@@ -87,6 +87,8 @@
   .chip{background:#fff;border:1px solid rgba(224,62,99,.28);color:var(--ink);border-radius:20px;padding:.5rem 1.05rem;font-size:.82rem;cursor:pointer;transition:.2s;font-family:'Nunito Sans',sans-serif}
   .chip.chip-other{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
   .chip.chip-other:hover{background:var(--plum);border-color:var(--plum)}
+  .chip.chip-featured{background:rgba(224,62,99,.1);border-color:var(--rosegold);color:var(--rosegold);font-weight:700}
+  .chip.chip-featured:hover{background:rgba(224,62,99,.18)}
   .chip:hover{border-color:var(--rosegold);background:var(--cream);transform:translateY(-1px)}
   .chip.taken{opacity:.35;text-decoration:line-through;pointer-events:none}
 
@@ -614,7 +616,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     var row = document.createElement('div'); row.className = 'chip-row';
     list.forEach(function(item){
       var c = document.createElement('div');
-      c.className = 'chip' + (item.taken ? ' taken' : '') + (item.other ? ' chip-other' : '');
+      c.className = 'chip' + (item.taken ? ' taken' : '') + (item.other ? ' chip-other' : '') + (item.featured ? ' chip-featured' : '');
       c.textContent = item.label;
       if(!item.taken){
         c.addEventListener('click', function(){ row.remove(); userMsg(item.label); cb(item); });
@@ -854,6 +856,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   function start(){
     botMsg('Szia! 👋 Milyen kezelésre gondoltál?', function(){
       chips([
+        { label:'4 az 1-ben alakformáló kezelés', featured:true },
         { label:'Hullámmasszázs' }, { label:'Rádiófrekvenciás kezelés' },
         { label:'HIEMT – izomépítés' }, { label:'Kavitációs zsírbontás' },
         { label:'Végleges szőrtelenítés' }
