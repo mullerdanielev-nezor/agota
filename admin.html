@@ -50,6 +50,10 @@
   .cday:not(.pad):hover{background:var(--cream);border-color:rgba(224,62,99,.25)}
   .cday.today{border-color:rgba(224,62,99,.4);font-weight:700}
   .cday.sel{background:var(--rosegold);color:#fff;font-weight:700}
+  .cday.blocked{background:repeating-linear-gradient(135deg,rgba(192,57,43,.1),rgba(192,57,43,.1) 4px,transparent 4px,transparent 8px);border-color:rgba(192,57,43,.35)}
+  .cday.blocked.sel{background:var(--rosegold)}
+  .cday.blocked .n{color:#C0392B}
+  .cday.blocked.sel .n{color:#fff}
   .cday .dot{width:5px;height:5px;border-radius:50%;background:var(--rosegold)}
   .cday.sel .dot{background:#fff}
   .cday .n{font-size:.7rem;font-weight:700;color:var(--rosegold)}
@@ -220,6 +224,7 @@
           <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
           <div class="cal-days" id="calDays"></div>
           <button type="button" class="cal-clear" id="calClear">Összes foglalás mutatása</button>
+          <button type="button" class="cal-clear" id="blockDayBtn" style="display:none;margin-top:.5rem"></button>
         </div>
 
         <div>
@@ -246,7 +251,7 @@
     getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   import {
-    getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc
+    getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc, setDoc, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
@@ -262,6 +267,7 @@
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('dashView').style.display = 'block';
         loadBookings();
+        loadBlockedDays();
       }else{
         document.getElementById('loginView').style.display = 'block';
         document.getElementById('dashView').style.display = 'none';
@@ -292,6 +298,7 @@
     var allBookings = [];
     var bookingsByDate = {};
     var selectedDayKey = null;
+    var blockedDays = {};
 
     function pad2(n){ return n < 10 ? '0' + n : '' + n; }
     function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
@@ -331,6 +338,7 @@
         cell.className = 'cday';
         if(thisDate.getTime() === today.getTime()) cell.classList.add('today');
         if(selectedDayKey === key) cell.classList.add('sel');
+        if(blockedDays[key]) cell.classList.add('blocked');
         var n = document.createElement('span'); n.className = 'n'; n.textContent = d;
         cell.appendChild(n);
         if(bookingsByDate[key] && bookingsByDate[key].length){
@@ -341,9 +349,72 @@
             selectedDayKey = (selectedDayKey === k) ? null : k;
             renderCal();
             renderTable();
+            renderBlockBtn();
           };
         })(key));
         wrap.appendChild(cell);
+      }
+    }
+
+    function renderBlockBtn(){
+      var btn = document.getElementById('blockDayBtn');
+      if(!selectedDayKey){
+        btn.style.display = 'none';
+        return;
+      }
+      btn.style.display = 'block';
+      if(blockedDays[selectedDayKey]){
+        btn.textContent = '✅ Foglalás engedélyezése újra (' + selectedDayKey + ')';
+      }else{
+        btn.textContent = '⛔ Ezen a napon ne lehessen foglalni (' + selectedDayKey + ')';
+      }
+    }
+
+    document.getElementById('blockDayBtn').addEventListener('click', async function(){
+      if(!selectedDayKey) return;
+      var btn = this;
+      var key = selectedDayKey;
+      if(blockedDays[key]){
+        btn.disabled = true;
+        try{
+          await deleteDoc(doc(db, 'blockedDays', key));
+          delete blockedDays[key];
+          renderCal();
+          renderBlockBtn();
+        }catch(err){
+          console.error(err);
+          alert('Nem sikerült feloldani a nap letiltását.');
+        }
+        btn.disabled = false;
+        return;
+      }
+      var count = (bookingsByDate[key] || []).length;
+      if(count > 0){
+        var ok = confirm('Ezen a napon már van ' + count + ' foglalás — ezek megmaradnak, csak új nem jöhet létre. Folytatod?');
+        if(!ok) return;
+      }
+      btn.disabled = true;
+      try{
+        await setDoc(doc(db, 'blockedDays', key), { blocked: true, createdAt: serverTimestamp() });
+        blockedDays[key] = true;
+        renderCal();
+        renderBlockBtn();
+      }catch(err){
+        console.error(err);
+        alert('Nem sikerült letiltani a napot.');
+      }
+      btn.disabled = false;
+    });
+
+    async function loadBlockedDays(){
+      try{
+        var snap = await getDocs(collection(db, 'blockedDays'));
+        blockedDays = {};
+        snap.forEach(function(d){ blockedDays[d.id] = true; });
+        renderCal();
+        renderBlockBtn();
+      }catch(err){
+        console.error('Nem sikerült betölteni a letiltott napokat:', err);
       }
     }
 
@@ -359,6 +430,7 @@
       selectedDayKey = null;
       renderCal();
       renderTable();
+      renderBlockBtn();
     });
 
     function renderTable(){

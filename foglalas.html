@@ -353,13 +353,16 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   // valaki lefoglal (vagy az admin torol) egy idopontot, a naptar es a slot-lista
   // magatol frissul, ujratoltes nelkul.
   var takenSlots = {};
+  var blockedDays = {};
   var unsubSlots = null;
+  var unsubBlocked = null;
   var subscribedMonthKey = null;
   function subscribeMonth(year, month){
     var monthKey = year + '-' + month;
     if(monthKey === subscribedMonthKey) return;
     subscribedMonthKey = monthKey;
     if(unsubSlots){ unsubSlots(); unsubSlots = null; }
+    if(unsubBlocked){ unsubBlocked(); unsubBlocked = null; }
     if(!db){ renderCal(); return; }
     var from = new Date(year, month, 1);
     var to = new Date(year, month + 1, 1);
@@ -377,9 +380,25 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       console.error('Nem sikerult figyelni a foglalt idopontokat:', err);
       renderCal();
     });
+    var fromKey = dateKey(from), toKey = dateKey(to);
+    var qBlocked = query(
+      collection(db, 'blockedDays'),
+      where(documentId(), '>=', fromKey),
+      where(documentId(), '<', toKey)
+    );
+    unsubBlocked = onSnapshot(qBlocked, function(snap){
+      blockedDays = {};
+      snap.forEach(function(docSnap){ blockedDays[docSnap.id] = true; });
+      renderCal();
+      if(selectedDate) loadSlotsForDate(selectedDate);
+    }, function(err){
+      console.error('Nem sikerult figyelni a letiltott napokat:', err);
+      renderCal();
+    });
   }
 
   function dayHasFreeSlot(d){
+    if(blockedDays[dateKey(d)]) return false;
     return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
   }
 
