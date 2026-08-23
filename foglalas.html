@@ -523,6 +523,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 
     var id = slotId(selectedDate, selectedSlot);
     var dKey = dateKey(selectedDate);
+    var confirmToken = crypto.randomUUID();
 
     try{
       await runTransaction(db, async function(transaction){
@@ -536,7 +537,10 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         transaction.set(bookingRef, {
           svc: selectedSvc, date: dKey, time: selectedSlot,
           name: name, phone: phone, email: email, note: note,
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
+          status: 'pending',
+          confirmToken: confirmToken,
+          remindersSent: { r48: false, r24: false, r3: false, r1: false }
         });
       });
     }catch(err){
