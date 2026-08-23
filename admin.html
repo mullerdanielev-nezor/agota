@@ -99,6 +99,11 @@
   .export:hover{background:var(--cream)}
   .sec-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
   .sec-head h2{margin-bottom:0}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;}
+  .badge-ok{background:#E6F4EA;color:#1E7E34;}
+  .badge-warn{background:#FDECEA;color:#C0392B;}
+  .badge-pending{background:#FCE9ED;color:#A85C72;}
+  .badge-muted{background:#F1F1F1;color:#999;}
 </style>
 </head>
 <body>
@@ -196,7 +201,7 @@
           </div>
           <div class="tablewrap">
             <table>
-              <thead><tr><th>Leadva</th><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Email</th><th>Megjegyzés</th></tr></thead>
+              <thead><tr><th>Leadva</th><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Email</th><th>Megjegyzés</th><th>Visszaigazolás</th></tr></thead>
               <tbody id="allRows"></tbody>
             </table>
             <div class="empty" id="allEmpty" style="display:none">Még nincs egyetlen foglalás sem.</div>
@@ -221,7 +226,7 @@
           <div class="tablewrap">
             <table id="bookTable">
               <thead>
-                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th><th></th></tr>
+                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th><th>Visszaigazolás</th><th></th></tr>
               </thead>
               <tbody id="bookRows"></tbody>
             </table>
@@ -289,6 +294,24 @@
 
     function pad2(n){ return n < 10 ? '0' + n : '' + n; }
     function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+
+    function confirmBadge(b){
+      var dt = null;
+      if(b.date && b.time){
+        var dp = b.date.split('-'), tp = b.time.split(':');
+        if(dp.length === 3) dt = new Date(+dp[0], +dp[1]-1, +dp[2], +(tp[0]||0), +(tp[1]||0));
+      }
+      if(!b.confirmToken){
+        return '<span class="badge badge-muted" title="Ez a foglalás a visszaigazolás bevezetése előtt jött létre">—</span>';
+      }
+      if(b.status === 'confirmed'){
+        return '<span class="badge badge-ok">✅ megerősítve</span>';
+      }
+      if(dt && (dt.getTime() - Date.now()) <= 24*60*60*1000){
+        return '<span class="badge badge-warn">⚠️ nincs visszaigazolva</span>';
+      }
+      return '<span class="badge badge-pending">⏳ vár visszaigazolásra</span>';
+    }
 
     function renderCal(){
       document.getElementById('calMonth').textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
@@ -372,6 +395,7 @@
           '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
           '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
           '<td>' + escapeHtml(b.note || '—') + '</td>' +
+          '<td>' + confirmBadge(b) + '</td>' +
           '<td></td>';
         var delBtn = document.createElement('button');
         delBtn.type = 'button';
@@ -567,7 +591,8 @@
             '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
             '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
             '<td>' + escapeHtml(b.email || '—') + '</td>' +
-            '<td>' + escapeHtml(b.note || '—') + '</td>';
+            '<td>' + escapeHtml(b.note || '—') + '</td>' +
+            '<td>' + confirmBadge(b) + '</td>';
           aRows.appendChild(tr);
         });
       }
