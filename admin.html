@@ -474,19 +474,30 @@
         delBtn.type = 'button';
         delBtn.className = 'del-btn';
         delBtn.textContent = 'Törlés';
-        delBtn.addEventListener('click', function(){ deleteBooking(b.id, delBtn); });
+        delBtn.addEventListener('click', function(){ deleteBooking(b, delBtn); });
         tr.lastElementChild.appendChild(delBtn);
         tbody.appendChild(tr);
       });
     }
 
-    async function deleteBooking(id, btn){
+    async function deleteBooking(b, btn){
       if(!confirm('Biztosan törlöd ezt a foglalást? A felszabaduló időpont újra foglalható lesz.')) return;
       btn.disabled = true;
       btn.textContent = 'Törlés...';
       try{
-        await deleteDoc(doc(db, 'bookings', id));
-        await deleteDoc(doc(db, 'slots', id));
+        if(b.email){
+          try{
+            await fetch('/api/cancel-notify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: b.name, email: b.email, svc: b.svc, date: b.date, time: b.time })
+            });
+          }catch(mailErr){
+            console.error('A lemondó email nem ment el, a törlés folytatódik:', mailErr);
+          }
+        }
+        await deleteDoc(doc(db, 'bookings', b.id));
+        await deleteDoc(doc(db, 'slots', b.id));
         await loadBookings();
       }catch(err){
         console.error(err);
