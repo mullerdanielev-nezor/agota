@@ -84,12 +84,16 @@ module.exports = async function handler(req, res) {
       var confirmUrl = win.needsConfirm
         ? SITE_URL + '/api/confirm-booking?id=' + encodeURIComponent(docSnap.id) + '&token=' + encodeURIComponent(booking.confirmToken)
         : null;
+      var cancelUrl = (win.needsConfirm && booking.confirmToken)
+        ? SITE_URL + '/api/guest-cancel?id=' + encodeURIComponent(docSnap.id) + '&token=' + encodeURIComponent(booking.confirmToken)
+        : null;
 
       try {
         await sendReminderEmail(booking, {
           headline: win.headline,
           subject: win.subject(booking),
-          confirmUrl: confirmUrl
+          confirmUrl: confirmUrl,
+          cancelUrl: cancelUrl
         });
         var update = {};
         update['remindersSent.' + win.key] = true;

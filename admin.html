@@ -77,6 +77,21 @@
   .del-btn{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#a33;background:none;border:1px solid rgba(170,51,51,.35);border-radius:8px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
   .del-btn:hover{background:#a33;color:#fff}
   .del-btn:disabled{opacity:.5;cursor:not-allowed}
+  .resched-btn{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rosegold);background:none;border:1px solid rgba(224,62,99,.35);border-radius:8px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap;margin-right:.4rem}
+  .resched-btn:hover{background:var(--rosegold);color:#fff}
+  .resched-btn:disabled{opacity:.5;cursor:not-allowed}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(58,14,28,.45);z-index:100;align-items:center;justify-content:center;padding:1rem}
+  .modal-overlay.open{display:flex}
+  .modal-card{background:#fff;border-radius:16px;padding:1.8rem;max-width:360px;width:100%;box-shadow:0 30px 70px rgba(122,26,52,.2)}
+  .modal-card h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.15rem;margin-bottom:.3rem}
+  .modal-card .sub{font-size:.82rem;color:var(--mokka);margin-bottom:1.2rem}
+  .modal-card .row{display:grid;gap:.4rem;margin-bottom:1rem}
+  .modal-card select{font-family:'Nunito Sans',sans-serif;font-size:.94rem;background:#fff;border:1px solid rgba(224,62,99,.24);color:var(--ink);padding:.75rem .9rem;border-radius:8px;width:100%}
+  .modal-actions{display:flex;gap:.6rem;margin-top:.4rem}
+  .modal-actions .btn{background:var(--rosegold)}
+  .modal-actions .btn-cancel{background:none;color:var(--mokka);border:1px solid rgba(224,62,99,.3)}
+  .modal-err{color:#a33;font-size:.8rem;margin-top:.7rem;display:none}
 
   #configWarning{display:none;color:#a33;font-weight:700;text-align:center;margin:3rem auto;max-width:560px}
 
@@ -244,6 +259,29 @@
   </div>
 </main>
 
+<div class="modal-overlay" id="reschedOverlay">
+  <div class="modal-card">
+    <h3>Áthelyezés</h3>
+    <div class="sub" id="reschedSub"></div>
+    <div class="row"><label for="r-date">Új dátum</label><input type="date" id="r-date"></div>
+    <div class="row"><label for="r-time">Új időpont</label>
+      <select id="r-time">
+        <option value="09:00">09:00</option>
+        <option value="11:00">11:00</option>
+        <option value="13:00">13:00</option>
+        <option value="15:00">15:00</option>
+        <option value="17:00">17:00</option>
+        <option value="19:00">19:00</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-cancel" id="reschedCancel">Mégse</button>
+      <button type="button" class="btn" id="reschedConfirm">Áthelyezés mentése</button>
+    </div>
+    <div class="modal-err" id="reschedErr"></div>
+  </div>
+</div>
+
 <script src="assets/site.js"></script>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
@@ -251,7 +289,7 @@
     getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   import {
-    getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc, setDoc, serverTimestamp
+    getFirestore, collection, getDocs, query, orderBy, doc, deleteDoc, setDoc, serverTimestamp, runTransaction
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
@@ -470,6 +508,13 @@
           '<td>' + escapeHtml(b.note || '—') + '</td>' +
           '<td>' + confirmBadge(b) + '</td>' +
           '<td></td>';
+        var reschedBtn = document.createElement('button');
+        reschedBtn.type = 'button';
+        reschedBtn.className = 'resched-btn';
+        reschedBtn.textContent = 'Áthelyezés';
+        reschedBtn.addEventListener('click', function(){ openReschedModal(b); });
+        tr.lastElementChild.appendChild(reschedBtn);
+
         var delBtn = document.createElement('button');
         delBtn.type = 'button';
         delBtn.className = 'del-btn';
@@ -506,6 +551,110 @@
         btn.textContent = 'Törlés';
       }
     }
+
+    var reschedBooking = null;
+
+    function slotId(dKey, time){ return dKey + '_' + time; }
+
+    function openReschedModal(b){
+      reschedBooking = b;
+      document.getElementById('reschedSub').textContent =
+        b.name + ' — jelenleg: ' + (b.date || '') + ' ' + (b.time || '');
+      document.getElementById('r-date').value = b.date || '';
+      document.getElementById('r-time').value = b.time || '09:00';
+      document.getElementById('reschedErr').style.display = 'none';
+      document.getElementById('reschedConfirm').disabled = false;
+      document.getElementById('reschedConfirm').textContent = 'Áthelyezés mentése';
+      document.getElementById('reschedOverlay').classList.add('open');
+    }
+
+    function closeReschedModal(){
+      reschedBooking = null;
+      document.getElementById('reschedOverlay').classList.remove('open');
+    }
+
+    document.getElementById('reschedCancel').addEventListener('click', closeReschedModal);
+    document.getElementById('reschedOverlay').addEventListener('click', function(e){
+      if(e.target === this) closeReschedModal();
+    });
+
+    document.getElementById('reschedConfirm').addEventListener('click', async function(){
+      var b = reschedBooking;
+      if(!b) return;
+      var newDate = document.getElementById('r-date').value;
+      var newTime = document.getElementById('r-time').value;
+      var errEl = document.getElementById('reschedErr');
+      errEl.style.display = 'none';
+
+      if(!newDate || !newTime){
+        errEl.textContent = 'Válassz dátumot és időpontot.';
+        errEl.style.display = 'block';
+        return;
+      }
+      var newId = slotId(newDate, newTime);
+      if(newId === b.id){
+        errEl.textContent = 'Ez ugyanaz az időpont, mint jelenleg.';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      var btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Mentés...';
+
+      try{
+        await runTransaction(db, async function(transaction){
+          var newSlotRef = doc(db, 'slots', newId);
+          var newSlotSnap = await transaction.get(newSlotRef);
+          if(newSlotSnap.exists()){
+            throw new Error('TAKEN');
+          }
+          var oldSlotRef = doc(db, 'slots', b.id);
+          var oldBookingRef = doc(db, 'bookings', b.id);
+          var newBookingRef = doc(db, 'bookings', newId);
+
+          transaction.set(newSlotRef, { taken: true, createdAt: serverTimestamp() });
+          transaction.set(newBookingRef, {
+            svc: b.svc, name: b.name, phone: b.phone, email: b.email, note: b.note,
+            date: newDate, time: newTime,
+            createdAt: b.createdAt || serverTimestamp(),
+            status: b.status || 'pending',
+            confirmToken: b.confirmToken || null,
+            remindersSent: { r48: false, r24: false, r3: false, r1: false }
+          });
+          transaction.delete(oldSlotRef);
+          transaction.delete(oldBookingRef);
+        });
+      }catch(err){
+        console.error(err);
+        errEl.textContent = (err.message === 'TAKEN')
+          ? 'Ez az időpont már foglalt — válassz másikat.'
+          : 'Nem sikerült áthelyezni a foglalást.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Áthelyezés mentése';
+        return;
+      }
+
+      if(b.email){
+        try{
+          await fetch('/api/reschedule-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: b.name, email: b.email, svc: b.svc,
+              oldDate: b.date, oldTime: b.time,
+              newDate: newDate, newTime: newTime
+            })
+          });
+        }catch(mailErr){
+          console.error('Az áthelyezésről szóló email nem ment el:', mailErr);
+        }
+      }
+
+      closeReschedModal();
+      await loadBookings();
+    });
 
     async function loadBookings(){
       var empty = document.getElementById('emptyMsg');

@@ -1,18 +1,9 @@
 // ============================================================================
-// FOGLALÁSI EMAIL KÜLDÉS — Vercel serverless függvény, Brevo API-val
+// FOGLALÁS-ÁTHELYEZÉS ÉRTESÍTŐ — Vercel serverless függvény, Brevo API-val
 // ============================================================================
-// A foglalas.html ide POST-olja a foglalás adatait, ez a függvény pedig
-// kiküld két levelet: egyet a stúdiónak (értesítő), egyet a vendégnek
-// (visszaigazolás).
-//
-// BEÁLLÍTÁS:
-//   1) Brevo fiók (https://www.brevo.com) — ingyenes csomag: 300 email/nap.
-//   2) Domains → Authenticate a domain → loftofbeauty.hu, és a kapott DNS
-//      rekordokat (DKIM, brevo-code) fel kell venni a domain DNS-ébe.
-//   3) SMTP & API → API Keys → új v3 kulcs.
-//   4) Vercel → Project → Settings → Environment Variables:
-//         BREVO_API_KEY = <a kulcs>
-//      majd újradeploy. A kulcs SOHA nem kerül a kódba.
+// Az admin.html ide POST-olja az áthelyezett foglalás régi és új adatait,
+// miután a Firestore-ban átírta az időpontot, ez a függvény pedig kiküld egy
+// emailt a vendégnek, hogy az időpontja módosult.
 // ============================================================================
 
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
@@ -20,7 +11,6 @@ const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
 const SENDER = { name: 'Loft of Beauty', email: 'foglalas@loftofbeauty.hu' };
 const STUDIO_EMAIL = 'hajdoagota@gmail.com';
 const STUDIO_PHONE = '+36305039156';
-const SITE_URL = 'https://loftofbeauty.hu';
 
 function esc(s) {
   return String(s == null ? '' : s)
@@ -30,7 +20,6 @@ function esc(s) {
     .replace(/"/g, '&quot;');
 }
 
-// A levél sablonja — a korábbi EmailJS-template dizájnja, változatlanul.
 function renderEmail(d) {
   return `<div style="margin:0;padding:0;background-color:#FCE9ED;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FCE9ED;padding:32px 16px;">
@@ -49,7 +38,7 @@ function renderEmail(d) {
           <tr>
             <td style="padding:32px 32px 8px;text-align:center;">
               <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#E03E63;margin-bottom:10px;">
-                ${esc(d.headline)}
+                Időpontod módosult
               </div>
               <div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;color:#3A0E1C;">
                 ${esc(d.name)}
@@ -68,12 +57,12 @@ function renderEmail(d) {
                         <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">${esc(d.svc)}</td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Dátum</td>
-                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">${esc(d.date)}</td>
+                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Korábbi időpont</td>
+                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;text-decoration:line-through;">${esc(d.oldDate)} ${esc(d.oldTime)}</td>
                       </tr>
                       <tr>
-                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Időpont</td>
-                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">${esc(d.time)}</td>
+                        <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Új időpont</td>
+                        <td style="padding:8px 0;font-size:15px;color:#3A0E1C;font-weight:600;">${esc(d.newDate)} ${esc(d.newTime)}</td>
                       </tr>
                     </table>
                   </td>
@@ -83,34 +72,12 @@ function renderEmail(d) {
           </tr>
 
           <tr>
-            <td style="padding:20px 32px 8px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;width:120px;">Név</td>
-                  <td style="padding:8px 0;font-size:15px;color:#3A0E1C;">${esc(d.name)}</td>
-                </tr>
-                <tr>
-                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;">Telefon</td>
-                  <td style="padding:8px 0;font-size:15px;">
-                    <a href="tel:${esc(d.phone)}" style="color:#E03E63;text-decoration:none;font-weight:600;">${esc(d.phone)}</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:8px 0;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A85C72;vertical-align:top;">Megjegyzés</td>
-                  <td style="padding:8px 0;font-size:15px;color:#3A0E1C;">${esc(d.note)}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <tr>
             <td style="padding:24px 32px 32px;text-align:center;">
               <a href="tel:${esc(d.ctaPhone)}" style="display:inline-block;background-color:#E03E63;color:#FFFFFF;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:8px;">
-                ${esc(d.ctaLabel)}
+                Hívjon minket
               </a>
             </td>
           </tr>
-          ${d.cancelUrl ? '<tr><td style="padding:0 32px 24px;text-align:center;"><a href="' + esc(d.cancelUrl) + '" style="font-size:12px;color:#A85C72;text-decoration:underline;">Nem tudok jönni, lemondom az időpontot</a></td></tr>' : ''}
 
           <tr>
             <td style="background-color:#FCE9ED;padding:20px 32px;text-align:center;">
@@ -143,9 +110,6 @@ async function sendViaBrevo(payload) {
   }
 }
 
-// Egyszerű mezővalidáció — a foglalás maga már rögzült a Firestore-ban,
-// itt csak azt akadályozzuk meg, hogy szemetet vagy túl hosszú tartalmat
-// lehessen a levélbe injektálni.
 function clean(v, max) {
   return String(v == null ? '' : v).trim().slice(0, max);
 }
@@ -163,64 +127,35 @@ module.exports = async function handler(req, res) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
 
   const svc = clean(body.svc, 100);
-  const date = clean(body.date, 40);
-  const time = clean(body.time, 10);
   const name = clean(body.name, 100);
-  const phone = clean(body.phone, 30);
   const email = clean(body.email, 150);
-  const note = clean(body.note, 1000) || '—';
-  const id = clean(body.id, 60);
-  const confirmToken = clean(body.confirmToken, 100);
+  const oldDate = clean(body.oldDate, 40);
+  const oldTime = clean(body.oldTime, 10);
+  const newDate = clean(body.newDate, 40);
+  const newTime = clean(body.newTime, 10);
 
-  if (!name || !phone || !email || !date || !time) {
+  if (!name || !email || !newDate || !newTime) {
     return res.status(400).json({ error: 'Hiányzó adatok' });
   }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return res.status(400).json({ error: 'Érvénytelen email cím' });
   }
 
-  const cancelUrl = (id && confirmToken)
-    ? SITE_URL + '/api/guest-cancel?id=' + encodeURIComponent(id) + '&token=' + encodeURIComponent(confirmToken)
-    : null;
-  const base = { svc: svc || 'Időpontfoglalás', date, time, name, phone, note };
-  const results = { studio: false, guest: false };
-
-  // 1) Értesítő a stúdiónak — a válasz gomb egyből a vendégnek megy.
-  try {
-    await sendViaBrevo({
-      sender: SENDER,
-      to: [{ email: STUDIO_EMAIL, name: 'Loft of Beauty' }],
-      replyTo: { email: email, name: name },
-      subject: 'Új foglalás: ' + name + ' — ' + date + ' ' + time,
-      htmlContent: renderEmail(Object.assign({}, base, {
-        headline: 'Új foglalás érkezett',
-        ctaPhone: phone,
-        ctaLabel: 'Vendég felhívása'
-      }))
-    });
-    results.studio = true;
-  } catch (err) {
-    console.error('A stúdiónak szóló értesítő nem ment el:', err);
-  }
-
-  // 2) Visszaigazolás a vendégnek.
   try {
     await sendViaBrevo({
       sender: SENDER,
       to: [{ email: email, name: name }],
       replyTo: { email: STUDIO_EMAIL, name: 'Loft of Beauty' },
-      subject: 'Foglalásod visszaigazolva — ' + date + ' ' + time,
-      htmlContent: renderEmail(Object.assign({}, base, {
-        headline: 'Foglalásod visszaigazolva',
-        ctaPhone: STUDIO_PHONE,
-        ctaLabel: 'Hívjon minket',
-        cancelUrl: cancelUrl
-      }))
+      subject: 'Időpontod módosult — ' + newDate + ' ' + newTime,
+      htmlContent: renderEmail({
+        svc: svc || 'Időpontfoglalás',
+        name, oldDate, oldTime, newDate, newTime,
+        ctaPhone: STUDIO_PHONE
+      })
     });
-    results.guest = true;
+    return res.status(200).json({ ok: true });
   } catch (err) {
-    console.error('A vendégnek szóló visszaigazolás nem ment el:', err);
+    console.error('Az áthelyezésről szóló email nem ment el:', err);
+    return res.status(200).json({ ok: false });
   }
-
-  return res.status(200).json({ ok: results.studio || results.guest, sent: results });
 };

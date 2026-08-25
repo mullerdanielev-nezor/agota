@@ -588,7 +588,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
           svc: selectedSvc,
           date: selectedDate.toLocaleDateString('hu-HU'),
           time: selectedSlot,
-          name: name, phone: phone, email: email, note: note
+          name: name, phone: phone, email: email, note: note,
+          id: id, confirmToken: confirmToken
         })
       });
       if(!mailRes.ok){

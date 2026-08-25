@@ -18,6 +18,12 @@ function renderReminderEmail(d) {
       '</td></tr>'
     : '';
 
+  var cancelLink = d.cancelUrl
+    ? '<tr><td style="padding:0 32px 24px;text-align:center;">' +
+      '<a href="' + esc(d.cancelUrl) + '" style="font-size:12px;color:#A85C72;text-decoration:underline;">Nem tudok jönni, lemondom az időpontot</a>' +
+      '</td></tr>'
+    : '';
+
   return `<div style="margin:0;padding:0;background-color:#FCE9ED;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FCE9ED;padding:32px 16px;">
     <tr>
@@ -61,6 +67,7 @@ function renderReminderEmail(d) {
             </td>
           </tr>
           ${confirmButton}
+          ${cancelLink}
           <tr>
             <td style="background-color:#FCE9ED;padding:20px 32px;text-align:center;">
               <div style="font-size:11px;color:#A85C72;line-height:1.6;">
@@ -87,7 +94,8 @@ async function sendReminderEmail(booking, opts) {
       date: booking.date,
       time: booking.time,
       name: booking.name,
-      confirmUrl: opts.confirmUrl || null
+      confirmUrl: opts.confirmUrl || null,
+      cancelUrl: opts.cancelUrl || null
     })
   };
   var res = await fetch(BREVO_ENDPOINT, {
