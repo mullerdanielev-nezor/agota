@@ -25,92 +25,135 @@
 <meta name="twitter:image" content="https://loftofbeauty.hu/images/rolam.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  body{background:radial-gradient(120% 100% at 50% -10%,var(--puder) 0%,var(--ho) 55%)}
+:root{
+  --ink:#3A0E1C; --plum:#7A1A34; --mokka:#A85C72; --rosegold:#E03E63; --puder:#FBD5DD; --ho:#FFFFFF; --cream:#FCE9ED;
+  --line:rgba(224,62,99,.16);
+  --shadow:0 30px 70px rgba(122,26,52,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;background:var(--ho);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.italic-accent{color:#FF2E88;text-shadow:0 0 12px rgba(255,46,136,.35)}
+.neon{color:#fff;background:linear-gradient(120deg,#FF2E88,#E03E63);padding:.03em .22em;border-radius:.16em;box-shadow:0 0 16px rgba(255,46,136,.45),0 4px 12px rgba(224,62,99,.32);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(620px 460px at 92% -6%, rgba(224,62,99,.10), transparent 60%),
+    radial-gradient(520px 420px at -12% 26%, rgba(251,213,221,.45), transparent 62%),
+    radial-gradient(640px 520px at 108% 82%, rgba(224,62,99,.07), transparent 60%)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);font-weight:700}
 
-  /* ===== minimál fejléc (nincs nav — egyetlen cél: a feliratkozás) ===== */
-  header.lead-header{justify-content:center;background:rgba(255,255,255,.9)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
 
-  /* ===== HERO ===== */
-  .leadhero{padding:3.4rem 3rem 5rem}
-  .leadhero-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:3.6rem;align-items:center}
-  .leadhero .eyebrow-row{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
-  .leadhero .eyebrow-row::before{content:'';width:26px;height:1px;background:var(--rosegold)}
-  .lead-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--rosegold)}
-  .leadhero h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.2rem,4.6vw,3.3rem);line-height:1.15;margin-bottom:1.2rem}
-  .leadhero h1 em{font-style:normal;font-weight:500;color:var(--rosegold)}
-  .leadhero .sub{color:var(--mokka);font-size:1.02rem;line-height:1.75;max-width:520px;margin-bottom:2rem}
-  .leadhero .ph-wrap{border-radius:26px;overflow:hidden;box-shadow:0 34px 74px rgba(58,14,28,.22);border:1px solid rgba(224,62,99,.14)}
-  .leadhero .ph-wrap img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/5}
+/* ===== TOP BAR ===== */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.brand{font-family:'Poppins',sans-serif;font-weight:400;font-size:1.2rem;letter-spacing:.14em}
+.brand span{color:var(--rosegold)}
+.topbar-cta{background:var(--rosegold);color:#fff;padding:.6rem 1.3rem;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(224,62,99,.55)}
+@media (max-width:400px){.topbar-cta{padding:.5rem .9rem;font-size:.72rem}.brand{font-size:1rem}}
 
-  /* ===== feliratkozó form (ugyanaz a hero-ban és a záró CTA-ban) ===== */
-  .lead-form{display:flex;gap:.7rem;max-width:460px;margin-bottom:.9rem}
-  .lead-form input{flex:1;min-width:0;border:1px solid rgba(224,62,99,.28);border-radius:11px;padding:1rem 1.15rem;font-size:.95rem;font-family:'Nunito Sans',sans-serif;background:#fff;color:var(--ink);transition:.2s}
-  .lead-form input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 4px rgba(224,62,99,.1)}
-  .lead-form.err input{border-color:#c0334f}
-  .lead-form button{background:var(--rosegold);color:#fff;border:none;border-radius:11px;padding:1rem 1.6rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:.25s;font-family:'Nunito Sans',sans-serif}
-  .lead-form button:hover{background:var(--plum)}
-  .lead-error{color:#c0334f;font-size:.8rem;margin:-.35rem 0 1rem;display:none}
-  .lead-error.show{display:block}
-  .lead-success{display:none;background:#fff;border:1px solid rgba(224,62,99,.22);border-radius:16px;padding:1.5rem 1.7rem;max-width:460px;box-shadow:0 16px 36px rgba(224,62,99,.1)}
-  .lead-success.show{display:block}
-  .lead-success h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.18rem;margin-bottom:.4rem;color:var(--plum)}
-  .lead-success p{font-size:.88rem;color:var(--mokka);line-height:1.65}
-  .lead-trust{font-size:.85rem;color:var(--mokka);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-  .lead-trust b{color:var(--ink)}
-  .lead-trust .stars{color:var(--rosegold);letter-spacing:.08em}
-  .cta2-wrap .lead-form,.cta2-wrap .lead-success,.cta2-wrap .lead-error{margin-left:auto;margin-right:auto}
-  .cta2-wrap{max-width:460px;margin:0 auto;text-align:center}
-  .cta2-wrap .lead-form{justify-content:center}
+/* ===== HERO ===== */
+.hero{position:relative;padding:28px 0 0}
+.hero-top{max-width:980px;margin:0 auto}
+.hero-sp{display:inline-flex;align-items:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;font-size:clamp(.62rem,2.5vw,.85rem);color:var(--mokka);font-weight:600;margin-bottom:24px;background:var(--cream);border:1px solid var(--line);padding:9px 16px;border-radius:999px;max-width:100%}
+.hero-sp .g{display:inline-flex;align-items:center;gap:6px}
+.hero-sp .stars{color:#F5B301;letter-spacing:1px}
+.hero-sp b{color:var(--ink);font-weight:800}
+.hero-sp .sep{width:1px;height:15px;background:var(--line)}
+.hero-grid{display:flex;flex-direction:column;align-items:center;gap:34px;max-width:760px;margin:0 auto;text-align:center}
+.hero h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.95rem,4.8vw,3.1rem);line-height:1.28;letter-spacing:-.02em}
+.hero p.sub{margin:14px auto 0;font-size:clamp(.95rem,1.6vw,1.08rem);color:var(--mokka);max-width:560px}
+.hero-pic{width:100%;max-width:340px}
+.hero-pic img{border-radius:20px;box-shadow:var(--shadow);aspect-ratio:4/5;object-fit:cover;width:100%}
+.hero-pic-cap{margin-top:12px;text-align:center;font-size:.82rem;color:var(--mokka)}
+@media (max-width:820px){.hero-sp{padding:8px 13px;gap:8px}}
+@media (max-width:430px){.hero-sp{font-size:.55rem;gap:5px;padding:6px 10px}.hero-sp .sep{margin:0;height:11px}}
 
-  /* ===== probléma-kártyák ===== */
-  #problem{background:var(--ho)}
-  .problem-grid{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
-  .problem-card{background:#fff;border:1px solid rgba(224,62,99,.12);border-radius:14px;padding:1.5rem 1.6rem;display:flex;gap:1.1rem;align-items:flex-start;box-shadow:0 10px 26px rgba(224,62,99,.05);transition:transform .3s ease,box-shadow .3s ease}
-  .problem-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(224,62,99,.1)}
-  .problem-card .num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--rosegold);font-family:'Fraunces',serif;font-size:1.02rem;display:flex;align-items:center;justify-content:center}
-  .problem-card p{color:var(--ink);font-size:.94rem;line-height:1.6;font-weight:400}
-  .problem-card.full{grid-column:1/-1;max-width:600px;margin:0 auto;width:100%}
+/* ===== EMAIL FORM (feliratkozás — hero és záró CTA is ezt használja) ===== */
+.lead-form-wrap{width:100%;max-width:440px;margin:0 auto}
+.lead-form{display:flex;gap:10px}
+.lead-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:1rem 1.3rem;font-size:.95rem;font-family:'Nunito Sans',sans-serif;background:#fff;color:var(--ink);transition:.2s}
+.lead-form input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 4px rgba(224,62,99,.12)}
+.lead-form.err input{border-color:#c0334f}
+.lead-form button{background:var(--rosegold);color:#fff;border:none;border-radius:999px;padding:1rem 1.7rem;font-size:.92rem;font-weight:700;white-space:nowrap;cursor:pointer;box-shadow:0 14px 30px -10px rgba(224,62,99,.5);transition:transform .2s ease,box-shadow .2s ease,background .2s ease;font-family:'Nunito Sans',sans-serif}
+.lead-form button:hover{transform:translateY(-2px);background:var(--plum)}
+.lead-error{color:#c0334f;font-size:.8rem;margin-top:.6rem;display:none;text-align:center}
+.lead-error.show{display:block}
+.lead-success{display:none;align-items:center;gap:.8rem;padding:1.1rem 1.3rem;background:var(--cream);border-radius:16px;text-align:left}
+.lead-success.show{display:flex}
+.lead-success .chk2{width:38px;height:38px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
+.lead-success p{margin:0;font-size:.88rem;color:var(--ink);line-height:1.5}
+.lead-success b{color:var(--plum)}
+@media (max-width:480px){.lead-form{flex-direction:column}.lead-form button{width:100%}}
 
-  /* ===== tippek ===== */
-  #solution{background:var(--cream)}
-  .tip-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1.1rem}
-  .tip{background:#fff;border:1px solid rgba(224,62,99,.14);border-radius:16px;padding:1.6rem 1.8rem;display:flex;gap:1.4rem;align-items:flex-start;box-shadow:0 12px 30px rgba(224,62,99,.06)}
-  .tip.tip-main{border-color:rgba(224,62,99,.45);background:linear-gradient(155deg,#fff,var(--puder))}
-  .tip .tnum{font-family:'Fraunces',serif;font-style:italic;font-size:1.7rem;color:var(--rosegold);flex-shrink:0;width:2.1ch;line-height:1.3}
-  .tip h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.12rem;color:var(--ink);margin-bottom:.35rem;line-height:1.35}
-  .tip p{font-size:.86rem;color:var(--mokka);line-height:1.65}
-  .tip .tag{display:inline-block;margin-top:.6rem;font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
-  .solution-note{max-width:640px;margin:2.2rem auto 0;text-align:center;font-size:.88rem;color:var(--mokka)}
+/* ===== SECTION GENERIC ===== */
+section{padding:80px 0}
+.section-head{max-width:640px;margin-bottom:48px}
+.section-head h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:10px;line-height:1.15;letter-spacing:-.01em}
+.section-head p{margin-top:14px;color:var(--mokka);font-size:1rem}
+.center{text-align:center;margin-left:auto;margin-right:auto}
 
-  /* ===== bizalmi zárás ===== */
-  #trust{background:var(--ho)}
-  .trust-close{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:.62fr 1.38fr;gap:3.2rem;align-items:center;margin-bottom:3.4rem}
-  .trust-close .ph-wrap{border-radius:20px;overflow:hidden;box-shadow:0 22px 52px rgba(122,26,52,.16)}
-  .trust-close .ph-wrap img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
-  .trust-close blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:1.22rem;color:var(--plum);line-height:1.5;margin-bottom:.9rem}
-  .trust-close .sign{font-family:'Fraunces',serif;font-style:italic;color:var(--plum);font-size:1.05rem}
-  #trust .rev-grid{grid-template-columns:repeat(3,1fr);max-width:760px}
+/* ===== PAIN ===== */
+.pain{background:var(--cream)}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.pain-card{background:#fff;border-radius:16px;padding:24px 22px;border:1px solid var(--line);font-size:.98rem;display:flex;gap:14px;align-items:flex-start}
+.pain-card .mark{font-family:'Poppins',sans-serif;font-weight:800;color:var(--rosegold);font-size:1.15rem;flex:none}
+.pain-card:last-child{grid-column:1/-1;max-width:520px;margin:0 auto;width:100%}
+@media (max-width:880px){.pain-grid{grid-template-columns:1fr}.pain-card:last-child{grid-column:auto;max-width:none}}
 
-  @media(max-width:900px){
-    .leadhero{padding:2.4rem 1.4rem 3.4rem}
-    .leadhero-grid{grid-template-columns:1fr;gap:2.2rem}
-    .leadhero .ph-wrap{max-width:340px;margin:0 auto;order:-1}
-    .problem-grid{grid-template-columns:1fr}
-    .problem-card.full{max-width:none}
-    .tip{flex-direction:column;gap:.6rem}
-    .tip .tnum{width:auto}
-    .trust-close{grid-template-columns:1fr;text-align:center}
-    .trust-close .ph-wrap{max-width:220px;margin:0 auto}
-    .lead-form{flex-direction:column}
-    .lead-form button{width:100%}
-    #trust .rev-grid{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:480px){
-    #trust .rev-grid{grid-template-columns:1fr}
-  }
+/* ===== TIPPEK ===== */
+.tip-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.tip-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;display:flex;gap:18px;align-items:flex-start;text-align:left}
+.tip-card .tnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
+.tip-card h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
+.tip-card p{font-size:.92rem;color:var(--mokka)}
+.tip-card.tip-main{border-color:rgba(224,62,99,.4);background:linear-gradient(155deg,#fff,var(--cream))}
+.urgency-note{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--cream);border:1px dashed rgba(224,62,99,.45);color:var(--plum);font-size:.82rem;font-weight:700;padding:.5rem 1rem;border-radius:999px;line-height:1.35;text-align:left}
+.tip-card.tip-main .urgency-note{background:#fff}
+.solution-note{max-width:600px;margin:32px auto 0;text-align:center;font-size:.94rem;color:var(--mokka)}
+
+/* ===== ZÁRÓ CTA (form) ===== */
+.close-cta{padding:48px 0 64px}
+.cc{max-width:640px;margin:0 auto;text-align:center;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:44px 32px}
+.cc h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.4rem,3.4vw,2rem);line-height:1.25;letter-spacing:-.01em}
+.cc p{margin-top:12px;color:var(--mokka);font-size:.98rem}
+.cc .lead-form-wrap{margin-top:26px}
+@media (max-width:560px){.cc{padding:32px 20px}}
+
+/* ===== BIZALMI ZÁRÁS ===== */
+.trust{max-width:720px;margin:0 auto;text-align:center}
+.trust blockquote{font-family:'Poppins',sans-serif;font-weight:500;font-style:normal;font-size:1.2rem;color:var(--plum);line-height:1.55}
+.trust .sign{margin-top:10px;color:var(--mokka);font-size:.9rem;font-weight:700}
+.review-row{max-width:820px;margin:40px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review-mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center}
+.review-mini .stars{color:var(--rosegold);font-size:.9rem;letter-spacing:1px;display:block;margin-bottom:6px}
+.review-mini b{font-family:'Poppins',sans-serif;font-weight:600;font-size:.9rem;display:block}
+.review-mini span{font-size:.72rem;color:var(--mokka)}
+@media (max-width:820px){.review-row{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.review-row{grid-template-columns:1fr}}
+
+/* ===== FOOTER ===== */
+footer{padding:36px 0 100px;text-align:center;color:var(--mokka);font-size:.8rem}
+footer a{color:var(--rosegold)}
+
+/* ===== STICKY MOBILE CTA ===== */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -10px 30px -12px rgba(122,26,52,.3);padding:11px 20px;display:flex;align-items:center;justify-content:center;gap:20px;transform:translateY(120%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.sticky-cta.show{transform:translateY(0)}
+.sticky-cta .info{font-size:.85rem;color:var(--mokka)}
+.sticky-cta .info b{font-family:'Poppins',sans-serif;color:var(--rosegold);font-size:1.02rem}
+.sticky-cta .btn-primary{background:var(--rosegold);color:#fff;padding:.82rem 1.7rem;border-radius:999px;font-size:.92rem;font-weight:700;white-space:nowrap;border:none;cursor:pointer}
+@media (max-width:560px){
+  .sticky-cta{padding:10px 14px;gap:10px}
+  .sticky-cta .info{display:none}
+  .sticky-cta .btn-primary{width:100%;text-align:center}
+}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -132,134 +175,170 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 </head>
 <body>
 
-<header class="lead-header">
-  <a href="index.html" class="logo">LOFT<span>·</span>OF BEAUTY</a>
-</header>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">LOFT <span>·</span> OF BEAUTY</div>
+    <a href="#tippek" class="topbar-cta">3 tippet kérek</a>
+  </div>
+</div>
 
-<!-- ===== HERO — 1. e-mail begyűjtés ===== -->
-<section class="leadhero">
-  <div class="leadhero-grid">
-    <div>
-      <div class="eyebrow-row"><span class="lead-eyebrow">Ingyenes útmutató</span></div>
-      <h1>Alakítsd át a tested a következő <em>30 napban</em> — 3 egyszerű lépéssel, amit ma elkezdhetsz</h1>
-      <p class="sub">Rövid, ingyenes tippgyűjtemény e-mailben — pontosan azokkal a lépésekkel, amikkel a stúdióban is elindítunk egy alakformálást. Nincs kötelezettség, csak 3 dolog, amit ma megtehetsz.</p>
+<!-- HERO — 1. e-mail begyűjtés -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="hero-sp reveal"><span class="g"><span class="stars">★★★★★</span> <b>5,0</b> Google</span><span class="sep"></span><span class="g"><b>200+</b> vendég</span><span class="sep"></span><span class="g">📍 Nyíregyháza</span></div>
+      <div class="hero-grid">
+        <div>
+          <h1 class="reveal">Alakítsd át a tested a következő <span class="neon">30 napban</span> — 3 lépéssel, amit ma elkezdhetsz</h1>
+          <p class="sub reveal">Rövid, ingyenes tippgyűjtemény e-mailben — pontosan azokkal a lépésekkel, amikkel a stúdióban is elindítunk egy alakformálást. Nincs kötelezettség, csak 3 dolog, amit ma megtehetsz.</p>
+        </div>
+        <div class="lead-form-wrap reveal" id="heroFormWrap">
+          <form class="lead-form" id="leadForm1" action="#" novalidate>
+            <!--
+              A form action egyelőre placeholder ("#"), hogy könnyen bekötheto legyen
+              egy valódi levelezőrendszerbe/CRM-be (pl. Mailchimp/Brevo automatizáció,
+              vagy egy saját szerveroldali endpoint), ami automatikusan kiküldi a
+              "3 tipp" anyagot a feliratkozónak. A tényleges küldés helye a lenti
+              handleLeadSubmit() függvényben van megjelölve.
+            -->
+            <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
+            <button type="submit">Kérem a 3 tippet</button>
+          </form>
+          <p class="lead-error">Adj meg egy érvényes e-mail címet, kérlek.</p>
+          <div class="lead-success">
+            <div class="chk2">✓</div>
+            <p>Köszönjük! Nézd meg a postaládád — pár percen belül megérkezik a <b>3 tipp</b>.</p>
+          </div>
+        </div>
+        <div class="hero-pic reveal">
+          <img src="images/rolam.webp" alt="Loft of Beauty kezelőszoba, Nyíregyháza" loading="eager" fetchpriority="high" decoding="async">
+          <div class="hero-pic-cap">A Loft of Beauty stúdiója — Nyíregyháza</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="lead-form-wrap">
-        <form class="lead-form" id="leadForm1" action="#" novalidate>
-          <!--
-            A form action egyelőre placeholder ("#"), hogy könnyen bekötheto legyen
-            egy valódi levelezőrendszerbe/CRM-be (pl. Mailchimp/Brevo automatizáció,
-            vagy egy saját szerveroldali endpoint), ami automatikusan kiküldi a
-            "3 tipp" anyagot a feliratkozónak. A tényleges küldés helye a lenti
-            handleLeadSubmit() függvényben van megjelölve.
-          -->
+<!-- PROBLÉMA -->
+<section class="pain" id="problem">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Ismerős valamelyik?</span>
+      <h2>Ha ezek közül <span class="italic-accent">bármelyik</span> ismerős, jó helyen jársz</h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card reveal"><span class="mark">01</span><span>Estére bedagad, elnehezül a lábad — hiába pihensz.</span></div>
+      <div class="pain-card reveal"><span class="mark">02</span><span>Leadtad a kilókat, de a bőr petyhüdt, megereszkedett maradt.</span></div>
+      <div class="pain-card reveal"><span class="mark">03</span><span>Edzel, de a has és a popsi csak nem akar formálódni.</span></div>
+      <div class="pain-card reveal"><span class="mark">04</span><span>Vannak zsírpárnák, amik diétára és mozgásra sem engednek.</span></div>
+      <div class="pain-card reveal"><span class="mark">05</span><span>Eleged van a folyamatos borotválásból, a benőtt szőrből.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEGOLDÁS -->
+<section id="solution">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Mit kapsz?</span>
+      <h2>3 tipp, amivel 30 nap alatt <span class="italic-accent">látható változást</span> indíthatsz el</h2>
+      <p>Az anyag teljesen ingyenes, és azonnal, e-mailben érkezik — nincs elköteleződés, nincs apró betűs rész.</p>
+    </div>
+    <div class="tip-list">
+      <div class="tip-card reveal">
+        <span class="tnum">1.</span>
+        <div><h3>Az esti 10 perces szokás a dagadt, nehéz lábért</h3><p>Egy egyszerű mozdulatsor, amit lefekvés előtt végezhetsz — nem kell hozzá semmi eszköz.</p></div>
+      </div>
+      <div class="tip-card reveal">
+        <span class="tnum">2.</span>
+        <div><h3>Amit fogyás közben együnk, hogy a bőr ne maradjon petyhüdt</h3><p>Egy apró változtatás az étkezésben, ami sokat számít, ha feszesebb bőrt szeretnél.</p></div>
+      </div>
+      <div class="tip-card tip-main reveal">
+        <span class="tnum">3.</span>
+        <div>
+          <h3>A leggyorsabb út, amit a legtöbben kihagynak</h3>
+          <p>Ez az a lépés, ami a legtöbb vendégünknél a legláthatóbb változást hozza 30 nap alatt — mégis a legtöbben elsőre kihagyják.</p>
+          <div class="urgency-note">✦ Ez vezet a stúdiós 4 az 1-ben kezeléshez</div>
+        </div>
+      </div>
+    </div>
+    <p class="solution-note">Kíváncsi vagy, mi ez a 3. lépés? Add meg az e-mailed, és ma megtudod. ↓</p>
+  </div>
+</section>
+
+<!-- ZÁRÓ CTA — 2. e-mail begyűjtés -->
+<section class="close-cta" id="tippek">
+  <div class="wrap">
+    <div class="cc reveal">
+      <h2>Add meg az e-mailed, és <span class="italic-accent">pár percen belül</span> a postaládádban van</h2>
+      <p>Nincs spam, nincs elköteleződés — csak a 3 tipp, amit ma elkezdhetsz.</p>
+      <div class="lead-form-wrap" id="cta2FormWrap">
+        <form class="lead-form" id="leadForm2" action="#" novalidate>
+          <!-- Ugyanaz a placeholder form, mint fent — lásd a komment a leadForm1-nél. -->
           <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
-          <button type="submit"><span>Kérem a 3 tippet</span></button>
+          <button type="submit">Kérem a 3 tippet</button>
         </form>
         <p class="lead-error">Adj meg egy érvényes e-mail címet, kérlek.</p>
         <div class="lead-success">
-          <h3>Köszönjük! 🎉</h3>
-          <p>Nézd meg a postaládád — pár percen belül megérkezik a 3 tipp. Ha nem találod, nézd meg a spam/promóciók mappát is.</p>
+          <div class="chk2">✓</div>
+          <p>Köszönjük! Nézd meg a postaládád — pár percen belül megérkezik a <b>3 tipp</b>.</p>
         </div>
-        <div class="lead-trust"><span class="stars">★★★★★</span> <span><b>200+</b> elégedett vendég · <b>5,0</b> Google-értékelés · Nyíregyháza</span></div>
-      </div>
-    </div>
-
-    <div class="ph-wrap reveal">
-      <img src="images/rolam.webp" alt="Loft of Beauty kezelőszoba, Nyíregyháza" loading="eager" fetchpriority="high" decoding="async">
-    </div>
-  </div>
-</section>
-
-<!-- ===== PROBLÉMA ===== -->
-<section class="section" id="problem">
-  <div class="sec-head">
-    <div class="sec-eyebrow">Ismerős valamelyik?</div>
-    <h2>Ha ezek közül <em>bármelyik</em> ismerős, jó helyen jársz</h2>
-  </div>
-  <div class="problem-grid">
-    <div class="problem-card reveal"><span class="num">1</span><p>Estére bedagad, elnehezül a lábad — hiába pihensz.</p></div>
-    <div class="problem-card reveal"><span class="num">2</span><p>Leadtad a kilókat, de a bőr petyhüdt, megereszkedett maradt.</p></div>
-    <div class="problem-card reveal"><span class="num">3</span><p>Edzel, de a has és a popsi csak nem akar formálódni.</p></div>
-    <div class="problem-card reveal"><span class="num">4</span><p>Vannak zsírpárnák, amik diétára és mozgásra sem engednek.</p></div>
-    <div class="problem-card reveal full"><span class="num">5</span><p>Eleged van a folyamatos borotválásból, a benőtt szőrből.</p></div>
-  </div>
-</section>
-
-<!-- ===== MEGOLDÁS ===== -->
-<section class="section" id="solution">
-  <div class="sec-head">
-    <div class="sec-eyebrow">Mit kapsz?</div>
-    <h2>3 tipp, amivel 30 nap alatt <em>látható változást</em> indíthatsz el</h2>
-    <p>Az anyag teljesen ingyenes, és azonnal, e-mailben érkezik — nincs elköteleződés, nincs apró betűs rész.</p>
-  </div>
-  <div class="tip-list">
-    <div class="tip reveal">
-      <div class="tnum">1.</div>
-      <div><h3>Az esti 10 perces szokás a dagadt, nehéz lábért</h3><p>Egy egyszerű mozdulatsor, amit lefekvés előtt végezhetsz — nem kell hozzá semmi eszköz.</p></div>
-    </div>
-    <div class="tip reveal">
-      <div class="tnum">2.</div>
-      <div><h3>Amit fogyás közben együnk, hogy a bőr ne maradjon petyhüdt</h3><p>Egy apró változtatás az étkezésben, ami sokat számít, ha feszesebb bőrt szeretnél.</p></div>
-    </div>
-    <div class="tip tip-main reveal">
-      <div class="tnum">3.</div>
-      <div>
-        <h3>A leggyorsabb út, amit a legtöbben kihagynak</h3>
-        <p>Ez az a lépés, ami a legtöbb vendégünknél a legláthatóbb változást hozza 30 nap alatt — mégis a legtöbben elsőre kihagyják.</p>
-        <span class="tag">Ez vezet a stúdiós 4 az 1-ben kezeléshez</span>
       </div>
     </div>
   </div>
-  <p class="solution-note">Kíváncsi vagy, mi ez a 3. lépés? Add meg az e-mailed, és ma megtudod.</p>
 </section>
 
-<!-- ===== ZÁRÓ CTA — 2. e-mail begyűjtés ===== -->
-<section class="section" id="cta2">
-  <div class="sec-head">
-    <h2>Add meg az e-mailed, és <em>pár percen belül</em> a postaládádban van</h2>
-  </div>
-  <div class="cta2-wrap lead-form-wrap">
-    <form class="lead-form" id="leadForm2" action="#" novalidate>
-      <!-- Ugyanaz a placeholder form, mint fent — lásd a komment a leadForm1-nél. -->
-      <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
-      <button type="submit"><span>Kérem a 3 tippet</span></button>
-    </form>
-    <p class="lead-error">Adj meg egy érvényes e-mail címet, kérlek.</p>
-    <div class="lead-success">
-      <h3>Köszönjük! 🎉</h3>
-      <p>Nézd meg a postaládád — pár percen belül megérkezik a 3 tipp. Ha nem találod, nézd meg a spam/promóciók mappát is.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== BIZALMI ZÁRÁS ===== -->
-<section class="section" id="trust">
-  <div class="trust-close">
-    <div class="ph-wrap reveal">
-      <img src="images/rolam.webp" alt="Hajdó Ágota, a Loft of Beauty tulajdonosa" loading="lazy" decoding="async">
-    </div>
-    <div class="reveal">
+<!-- BIZALMI ZÁRÁS -->
+<section>
+  <div class="wrap">
+    <div class="trust reveal">
       <blockquote>„Egy éve foglalkozom testkezelésekkel Nyíregyházán. Hiszek abban, hogy minden test más — ezért nálam nincs sablon, csak rád szabott, türelmes odafigyelés és őszinte tanácsadás.”</blockquote>
-      <div class="sign">Ágota</div>
+      <div class="sign">— Hajdó Ágota, a Loft of Beauty tulajdonosa</div>
     </div>
-  </div>
-  <div class="rev-grid">
-    <div class="rev-chip reveal"><div class="rev-avatar">Zs</div><div><b>Zsófia Nagy</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google</div></div></div>
-    <div class="rev-chip reveal"><div class="rev-avatar">M</div><div><b>Mária Szenes</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google</div></div></div>
-    <div class="rev-chip reveal"><div class="rev-avatar">N</div><div><b>Noémi Márta - Kállai</b><div class="rev-stars">★★★★★</div><div class="rev-src">Google</div></div></div>
+    <div class="review-row">
+      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Zsófia Nagy</b><span>Google</span></div>
+      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Mária Szenes</b><span>Google</span></div>
+      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Noémi Márta - Kállai</b><span>Google</span></div>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap" style="max-width:1120px;margin:0 auto;padding:2.4rem 3rem;text-align:center;font-size:.78rem;color:var(--mokka)">
+  <div class="wrap">
     LOFT · OF BEAUTY — Nyíregyháza prémium testkezelés-stúdiója · 4551 Nyíregyháza, Meggyes u. 11. · +36 30 503 9156<br>
-    <a href="impresszum.html" style="color:var(--mokka)">Impresszum</a> · <a href="adatvedelem.html" style="color:var(--mokka)">Adatvédelem</a>
+    <a href="impresszum.html">Impresszum</a> · <a href="adatvedelem.html">Adatvédelem</a>
   </div>
 </footer>
 
-<script src="assets/site.js"></script>
+<div class="sticky-cta" id="stickyCta">
+  <div class="info">Ingyenes útmutató · <b>3 tipp</b> e-mailben</div>
+  <a href="#tippek" class="btn-primary">Kérem a 3 tippet →</a>
+</div>
+
 <script>
+  // lágy megjelenés görgetésre
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+
+  // sticky mobil CTA — a hero utan jelenik meg, a zaro CTA-nal eltunik
+  (function(){
+    var bar = document.getElementById('stickyCta');
+    var hero = document.querySelector('.hero');
+    var tippek = document.getElementById('tippek');
+    if(!bar || !hero) return;
+    var pastHero = false, ctaVisible = false;
+    function upd(){ bar.classList.toggle('show', pastHero && !ctaVisible); }
+    new IntersectionObserver(function(e){ pastHero = !e[0].isIntersecting; upd(); }, {threshold:0}).observe(hero);
+    if(tippek){ new IntersectionObserver(function(e){ ctaVisible = e[0].isIntersecting; upd(); }, {threshold:0.25}).observe(tippek); }
+  })();
+
+  // feliratkozó form — validáció + inline köszönő állapot
   function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
   function handleLeadSubmit(e){
@@ -298,10 +377,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     console.log('[oktatoanyag] Feliratkozás (backend még nincs bekötve):', email);
 
     // ============================================================
-    // META PIXEL — LEAD ESEMÉNY
+    // META PIXEL — LEAD ESEMÉNY (élesben tüzel)
     // ============================================================
-    // Ez már élesben tüzel (a Pixel a <head>-ben be van kötve),
-    // a sikeres feliratkozáskor.
     if(typeof fbq === 'function'){
       fbq('track', 'Lead', { content_name: '3 tipp a kovetkezo 30 napra' });
     }
