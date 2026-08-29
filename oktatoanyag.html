@@ -118,27 +118,16 @@ section{padding:80px 0}
 .pain-card:last-child .img-wrap{aspect-ratio:16/7}
 @media (max-width:880px){.pain-grid{grid-template-columns:1fr}.pain-card:last-child{grid-column:auto;max-width:none}.pain-card:last-child .img-wrap{aspect-ratio:4/3}}
 
-/* ===== TIPPEK ===== */
-.tip-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-.tip-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;display:flex;gap:18px;align-items:flex-start;text-align:left}
-.tip-card .tnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
-.tip-card h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
-.tip-card p{font-size:.92rem;color:var(--mokka)}
-.tip-card.tip-main{border-color:rgba(224,62,99,.4);background:linear-gradient(155deg,#fff,var(--cream))}
-.urgency-note{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--cream);border:1px dashed rgba(224,62,99,.45);color:var(--plum);font-size:.82rem;font-weight:700;padding:.5rem 1rem;border-radius:999px;line-height:1.35;text-align:left}
-.tip-card.tip-main .urgency-note{background:#fff}
-.solution-note{max-width:600px;margin:32px auto 0;text-align:center;font-size:.94rem;color:var(--mokka)}
-
 /* ===== ZÁRÓ CTA (form) ===== */
 .close-cta{padding:48px 0 64px}
 .cc{max-width:640px;margin:0 auto;text-align:center;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:44px 32px}
 .cc h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.4rem,3.4vw,2rem);line-height:1.25;letter-spacing:-.01em}
-.cc p{margin-top:12px;color:var(--mokka);font-size:.98rem}
 .cc .lead-form-wrap{margin-top:26px}
 @media (max-width:560px){.cc{padding:32px 20px}}
 
 /* ===== BIZALMI ZÁRÁS ===== */
 .trust{max-width:720px;margin:0 auto;text-align:center}
+.trust .eyebrow{display:block;margin-bottom:18px}
 .trust blockquote{font-family:'Poppins',sans-serif;font-weight:500;font-style:normal;font-size:1.2rem;color:var(--plum);line-height:1.55}
 .trust .sign{margin-top:10px;color:var(--mokka);font-size:.9rem;font-weight:700}
 .review-row{max-width:760px;margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -200,6 +189,12 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
           <p class="hero-lede reveal">3 lépéssel, amit ma elkezdhetsz</p>
           <p class="sub reveal">Rövid, ingyenes tippgyűjtemény e-mailben.</p>
         </div>
+        <div class="hero-reviews reveal">
+          <div class="review-row">
+            <div class="review-mini"><img src="images/velemeny-krakomperger-varga-timi.jpeg" alt="Krakompergerné Varga Timi Facebook-véleménye: „Szuper kezelés csak ajánlani tudom!!!”" loading="eager" decoding="async"></div>
+            <div class="review-mini"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="eager" decoding="async"></div>
+          </div>
+        </div>
         <div class="lead-form-wrap reveal" id="heroFormWrap">
           <form class="lead-form" id="leadForm1" action="#" novalidate>
             <!--
@@ -216,12 +211,6 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
           <div class="lead-success">
             <div class="chk2">✓</div>
             <p>Köszönjük! Nézd meg a postaládád — pár percen belül megérkezik a <b>3 tipp</b>.</p>
-          </div>
-        </div>
-        <div class="hero-reviews reveal">
-          <div class="review-row">
-            <div class="review-mini"><img src="images/velemeny-krakomperger-varga-timi.jpeg" alt="Krakompergerné Varga Timi Facebook-véleménye: „Szuper kezelés csak ajánlani tudom!!!”" loading="eager" decoding="async"></div>
-            <div class="review-mini"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="eager" decoding="async"></div>
           </div>
         </div>
       </div>
@@ -261,42 +250,11 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- MEGOLDÁS -->
-<section id="solution">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Mit kapsz?</span>
-      <h2>3 tipp, amivel 30 nap alatt <span class="italic-accent">látható változást</span> indíthatsz el</h2>
-      <p>Az anyag teljesen ingyenes, és azonnal, e-mailben érkezik.<span class="sub-line">Nincs elköteleződés, nincs apró betűs rész.</span></p>
-    </div>
-    <div class="tip-list">
-      <div class="tip-card reveal">
-        <span class="tnum">1.</span>
-        <div><h3>Az esti 10 perces szokás a dagadt, nehéz lábért</h3><p>Egy egyszerű mozdulatsor, amit lefekvés előtt végezhetsz.<span class="sub-line">Nem kell hozzá semmi eszköz.</span></p></div>
-      </div>
-      <div class="tip-card reveal">
-        <span class="tnum">2.</span>
-        <div><h3>Amit fogyás közben együnk, hogy a bőr ne maradjon petyhüdt</h3><p>Egy apró változtatás az étkezésben, ami sokat számít, ha feszesebb bőrt szeretnél.</p></div>
-      </div>
-      <div class="tip-card tip-main reveal">
-        <span class="tnum">3.</span>
-        <div>
-          <h3>A leggyorsabb út, amit a legtöbben kihagynak</h3>
-          <p>Ez az a lépés, ami a legtöbb vendégünknél a legláthatóbb változást hozza 30 nap alatt.<span class="sub-line">Mégis a legtöbben elsőre kihagyják.</span></p>
-          <div class="urgency-note">✦ Ez vezet a stúdiós 4 az 1-ben kezeléshez</div>
-        </div>
-      </div>
-    </div>
-    <p class="solution-note">Kíváncsi vagy, mi ez a 3. lépés? Add meg az e-mailed, és ma megtudod. ↓</p>
-  </div>
-</section>
-
 <!-- ZÁRÓ CTA — 2. e-mail begyűjtés -->
 <section class="close-cta" id="tippek">
   <div class="wrap">
     <div class="cc reveal">
       <h2>Add meg az e-mailed, és <span class="italic-accent">pár percen belül</span> a postaládádban van</h2>
-      <p>Nincs spam, nincs elköteleződés.<span class="sub-line">Csak a 3 tipp, amit ma elkezdhetsz.</span></p>
       <div class="lead-form-wrap" id="cta2FormWrap">
         <form class="lead-form" id="leadForm2" action="#" novalidate>
           <!-- Ugyanaz a placeholder form, mint fent — lásd a komment a leadForm1-nél. -->
@@ -317,6 +275,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 <section>
   <div class="wrap">
     <div class="trust reveal">
+      <span class="eyebrow">Rólam és nyíregyházi szalonomról</span>
       <blockquote>„Egy éve foglalkozom testkezelésekkel Nyíregyházán. Hiszek abban, hogy minden test más — ezért nálam nincs sablon, csak rád szabott, türelmes odafigyelés és őszinte tanácsadás.”</blockquote>
       <div class="sign">— Hajdó Ágota, a Loft of Beauty tulajdonosa</div>
     </div>
