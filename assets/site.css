@@ -88,6 +88,12 @@ nav ul{list-style:none;display:flex;gap:2.4rem;align-items:center}
   .rev-grid{grid-template-columns:1fr}
 }
 
+/* ===================== valódi vélemény-screenshot (Facebook komment kép, minden oldalon azonos) ===================== */
+.rev-quote-grid{max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.rev-quote{background:#fff;border-radius:14px;overflow:hidden;border:1px solid rgba(224,62,99,.1);box-shadow:0 10px 26px rgba(224,62,99,.06);display:flex;align-items:center}
+.rev-quote img{width:100%;display:block}
+@media(max-width:640px){.rev-quote-grid{grid-template-columns:1fr}}
+
 /* ===================== LÁBLÉC (minden oldalon azonos) ===================== */
 footer.site{background:var(--plum);color:rgba(255,255,255,.62);padding:4.5rem 3rem 2rem}
 .foot-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:2.4rem}

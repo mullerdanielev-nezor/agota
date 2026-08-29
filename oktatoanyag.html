@@ -134,13 +134,10 @@ section{padding:80px 0}
 .trust{max-width:720px;margin:0 auto;text-align:center}
 .trust blockquote{font-family:'Poppins',sans-serif;font-weight:500;font-style:normal;font-size:1.2rem;color:var(--plum);line-height:1.55}
 .trust .sign{margin-top:10px;color:var(--mokka);font-size:.9rem;font-weight:700}
-.review-row{max-width:820px;margin:40px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.review-mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center}
-.review-mini .stars{color:var(--rosegold);font-size:.9rem;letter-spacing:1px;display:block;margin-bottom:6px}
-.review-mini b{font-family:'Poppins',sans-serif;font-weight:600;font-size:.9rem;display:block}
-.review-mini span{font-size:.72rem;color:var(--mokka)}
-@media (max-width:820px){.review-row{grid-template-columns:1fr 1fr}}
-@media (max-width:480px){.review-row{grid-template-columns:1fr}}
+.review-row{max-width:760px;margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.review-mini{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;align-items:center;box-shadow:0 10px 26px rgba(224,62,99,.06)}
+.review-mini img{width:100%;display:block}
+@media (max-width:640px){.review-row{grid-template-columns:1fr}}
 
 /* ===== FOOTER ===== */
 footer{padding:36px 0 100px;text-align:center;color:var(--mokka);font-size:.8rem}
@@ -300,9 +297,8 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       <div class="sign">— Hajdó Ágota, a Loft of Beauty tulajdonosa</div>
     </div>
     <div class="review-row">
-      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Zsófia Nagy</b><span>Google</span></div>
-      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Mária Szenes</b><span>Google</span></div>
-      <div class="review-mini reveal"><span class="stars">★★★★★</span><b>Noémi Márta - Kállai</b><span>Google</span></div>
+      <div class="review-mini reveal"><img src="images/velemeny-krakomperger-varga-timi.jpeg" alt="Krakompergerné Varga Timi Facebook-véleménye: „Szuper kezelés csak ajánlani tudom!!!”" loading="lazy" decoding="async"></div>
+      <div class="review-mini reveal"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="lazy" decoding="async"></div>
     </div>
   </div>
 </section>
