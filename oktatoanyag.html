@@ -112,13 +112,6 @@ section{padding:80px 0}
 .pain-card:last-child{grid-column:1/-1;max-width:520px;margin:0 auto;width:100%}
 @media (max-width:880px){.pain-grid{grid-template-columns:1fr}.pain-card:last-child{grid-column:auto;max-width:none}}
 
-/* ===== KIS, GÖRGETHETŐ REFERENCIA-SÁV ===== */
-.ref-strip{margin-top:36px}
-.ref-strip .lead{text-align:center;font-size:.82rem;font-weight:700;color:var(--mokka);margin-bottom:14px}
-.ref-scroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 2px 10px}
-.ref-scroll .ref-card{flex:0 0 150px;scroll-snap-align:start;border-radius:14px;overflow:hidden;box-shadow:0 10px 22px rgba(224,62,99,.08);background:#fff}
-.ref-scroll img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
-
 /* ===== ZÁRÓ CTA (form) ===== */
 .close-cta{padding:48px 0 64px}
 .cc{max-width:640px;margin:0 auto;text-align:center;background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:44px 32px}
@@ -128,7 +121,7 @@ section{padding:80px 0}
 
 /* ===== BIZALMI ZÁRÁS ===== */
 .trust{max-width:720px;margin:0 auto;text-align:center}
-.trust .eyebrow{display:block;margin-bottom:18px}
+.trust-title{display:block;margin-bottom:18px;font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.4vw,1.4rem);color:var(--rosegold)}
 .trust blockquote{font-family:'Poppins',sans-serif;font-weight:500;font-style:normal;font-size:1.2rem;color:var(--plum);line-height:1.55}
 .trust .sign{margin-top:10px;color:var(--mokka);font-size:.9rem;font-weight:700}
 .review-row{max-width:760px;margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -232,16 +225,6 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       <div class="pain-card reveal"><span class="mark">04</span><span>Vannak zsírpárnák, amik diétára és mozgásra sem engednek.</span></div>
       <div class="pain-card reveal"><span class="mark">05</span><span>Eleged van a folyamatos borotválásból, a benőtt szőrből.</span></div>
     </div>
-    <div class="ref-strip reveal">
-      <div class="lead">Néhány valódi eredmény a stúdióból →</div>
-      <div class="ref-scroll">
-        <div class="ref-card"><img src="images/hullammasszazs-gep.webp" alt="Hullámmasszázs kezelés" loading="lazy" decoding="async"></div>
-        <div class="ref-card"><img src="images/utana-has.webp" alt="Feszesebb bőr kezelés után" loading="lazy" decoding="async"></div>
-        <div class="ref-card"><img src="images/utana-csipo.webp" alt="Formásabb has és csípő kezelés után" loading="lazy" decoding="async"></div>
-        <div class="ref-card"><img src="images/utana-derek.webp" alt="Célzott zsírbontás eredménye a derékon" loading="lazy" decoding="async"></div>
-        <div class="ref-card"><img src="images/szortelenites-gep.webp" alt="Végleges szőrtelenítés készülék" loading="lazy" decoding="async"></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -270,7 +253,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
 <section>
   <div class="wrap">
     <div class="trust reveal">
-      <span class="eyebrow">Rólam és nyíregyházi szalonomról</span>
+      <span class="trust-title">Rólam és nyíregyházi szalonomról</span>
       <blockquote>„Egy éve foglalkozom testkezelésekkel Nyíregyházán. Hiszek abban, hogy minden test más — ezért nálam nincs sablon, csak rád szabott, türelmes odafigyelés és őszinte tanácsadás.”</blockquote>
       <div class="sign">— Hajdó Ágota, a Loft of Beauty tulajdonosa</div>
     </div>
