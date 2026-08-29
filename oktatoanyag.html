@@ -88,6 +88,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .lead-form button{background:var(--rosegold);color:#fff;border:none;border-radius:999px;padding:1.25rem 2.1rem;font-size:1.02rem;font-weight:700;white-space:nowrap;cursor:pointer;box-shadow:0 14px 30px -10px rgba(224,62,99,.5);transition:transform .2s ease,box-shadow .2s ease,background .2s ease;font-family:'Nunito Sans',sans-serif}
 .lead-form button:hover{transform:translateY(-2px);background:var(--plum)}
 .lead-error{color:#c0334f;font-size:.8rem;margin-top:.6rem;display:none;text-align:center}
+.consent-row{display:flex;align-items:flex-start;gap:.6rem;text-align:left;font-size:.76rem;color:var(--mokka);line-height:1.5;cursor:pointer}
+.consent-row input{width:auto;flex:none;margin-top:.2rem;accent-color:var(--rosegold);cursor:pointer}
+.consent-row a{color:var(--rosegold)}
+.consent-row.err{color:#c0334f}
 .lead-error.show{display:block}
 .lead-success{display:none;align-items:center;gap:.8rem;padding:1.1rem 1.3rem;background:var(--cream);border-radius:16px;text-align:left}
 .lead-success.show{display:flex}
@@ -192,6 +196,10 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
               handleLeadSubmit() függvényben van megjelölve.
             -->
             <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
+            <label class="consent-row">
+              <input type="checkbox" class="consent-check" required>
+              <span>Hozzájárulok, hogy e-mail címemet marketing célra (pl. hírlevél, Facebook/Instagram hirdetési célközönség) felhasználjátok. <a href="adatvedelem.html" target="_blank" rel="noopener">Adatkezelési tájékoztató</a></span>
+            </label>
             <button type="submit">Kérem a 3 tippet</button>
           </form>
           <p class="lead-error">Adj meg egy érvényes e-mail címet, kérlek.</p>
@@ -231,6 +239,10 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <form class="lead-form" id="leadForm2" action="#" novalidate>
           <!-- Ugyanaz a placeholder form, mint fent — lásd a komment a leadForm1-nél. -->
           <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
+          <label class="consent-row">
+            <input type="checkbox" class="consent-check" required>
+            <span>Hozzájárulok, hogy e-mail címemet marketing célra (pl. hírlevél, Facebook/Instagram hirdetési célközönség) felhasználjátok. <a href="adatvedelem.html" target="_blank" rel="noopener">Adatkezelési tájékoztató</a></span>
+          </label>
           <button type="submit">Kérem a 3 tippet</button>
         </form>
         <p class="lead-error">Adj meg egy érvényes e-mail címet, kérlek.</p>
@@ -286,16 +298,31 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     var form = e.target;
     var wrap = form.closest('.lead-form-wrap');
     var input = form.querySelector('input[type="email"]');
+    var consent = form.querySelector('.consent-check');
+    var consentRow = form.querySelector('.consent-row');
     var errEl = wrap.querySelector('.lead-error');
     var email = input.value.trim();
 
     if(!isValidEmail(email)){
       form.classList.add('err');
+      errEl.textContent = 'Adj meg egy érvényes e-mail címet, kérlek.';
       errEl.classList.add('show');
       input.focus();
       return false;
     }
     form.classList.remove('err');
+
+    // GDPR: a marketingcélú felhasználáshoz (pl. Facebook/Instagram
+    // hirdetési célközönség feltöltéséhez) kifejezett, előzetes
+    // hozzájárulás kell — enélkül a feliratkozás nem küldhető el.
+    if(consent && !consent.checked){
+      consentRow.classList.add('err');
+      errEl.textContent = 'A feliratkozáshoz el kell fogadnod az adatkezelési tájékoztatót.';
+      errEl.classList.add('show');
+      consent.focus();
+      return false;
+    }
+    if(consentRow) consentRow.classList.remove('err');
     errEl.classList.remove('show');
 
     // ============================================================
