@@ -70,7 +70,8 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero-grid{display:flex;flex-direction:column;align-items:center;gap:52px;max-width:1140px;margin:0 auto;text-align:center}
 .hero-kicker{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.1rem,2.4vw,1.4rem);color:var(--rosegold);margin-top:16px}
 .hero h1{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(2.6rem,9vw,4.8rem);line-height:1.18;letter-spacing:-.02em}
-.hero-lede{margin-top:16px;font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.6vw,1.55rem);color:var(--rosegold)}
+.hero-lede{margin-top:16px;font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.6vw,1.55rem);color:var(--ink)}
+.hero-lede .lede-accent{display:inline-block;color:var(--rosegold);transform:rotate(-4deg)}
 /* a fő szöveg alá kerülő, kötőjel helyett használt kiegészítő sor */
 .sub-line{display:block;margin-top:.4em;font-size:.92em;color:var(--mokka)}
 .hero-reviews{width:100%}
@@ -142,23 +143,7 @@ footer a{color:var(--rosegold)}
   .sticky-cta .btn-primary{width:100%;text-align:center}
 }
 </style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,"script",
-"https://connect.facebook.net/en_US/fbevents.js");
-fbq("init", "1361354709500714");
-fbq("track", "PageView");
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<script src="assets/consent.js"></script>
 </head>
 <body>
 
@@ -178,7 +163,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         <div>
           <h1 class="reveal">Alakítsd át a tested a következő<br><span class="neon">30 napban</span></h1>
           <div class="hero-kicker reveal">Hölgyek figyelmébe ajánlva</div>
-          <p class="hero-lede reveal">3 lépéssel, amit ma elkezdhetsz</p>
+          <p class="hero-lede reveal"><span class="lede-accent">3 lépéssel</span>, amit ma elkezdhetsz</p>
         </div>
         <div class="hero-reviews reveal">
           <div class="review-row">
@@ -188,13 +173,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
         </div>
         <div class="lead-form-wrap reveal" id="heroFormWrap">
           <form class="lead-form" id="leadForm1" action="#" novalidate>
-            <!--
-              A form action egyelőre placeholder ("#"), hogy könnyen bekötheto legyen
-              egy valódi levelezőrendszerbe/CRM-be (pl. Mailchimp/Brevo automatizáció,
-              vagy egy saját szerveroldali endpoint), ami automatikusan kiküldi a
-              "3 tipp" anyagot a feliratkozónak. A tényleges küldés helye a lenti
-              handleLeadSubmit() függvényben van megjelölve.
-            -->
+            <!-- action="#": a tényleges beküldést a JS intézi, lásd handleLeadSubmit() lent — az /api/subscribe-guide végpontra POST-ol. -->
             <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
             <label class="consent-row">
               <input type="checkbox" class="consent-check" required>
@@ -237,7 +216,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
       <h2>Add meg az e-mailed, és nyerj <span class="italic-accent">azonnali hozzáférést</span> a 3 tipphez</h2>
       <div class="lead-form-wrap" id="cta2FormWrap">
         <form class="lead-form" id="leadForm2" action="#" novalidate>
-          <!-- Ugyanaz a placeholder form, mint fent — lásd a komment a leadForm1-nél. -->
+          <!-- Ugyanaz a form, mint fent — lásd a komment a leadForm1-nél. -->
           <input type="email" required placeholder="pl. nevem@email.hu" aria-label="E-mail cím">
           <label class="consent-row">
             <input type="checkbox" class="consent-check" required>
@@ -293,7 +272,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
   // feliratkozó form — validáció + inline köszönő állapot
   function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  function handleLeadSubmit(e){
+  async function handleLeadSubmit(e){
     e.preventDefault();
     var form = e.target;
     var wrap = form.closest('.lead-form-wrap');
@@ -301,6 +280,7 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     var consent = form.querySelector('.consent-check');
     var consentRow = form.querySelector('.consent-row');
     var errEl = wrap.querySelector('.lead-error');
+    var btn = form.querySelector('button[type="submit"]');
     var email = input.value.trim();
 
     if(!isValidEmail(email)){
@@ -325,33 +305,34 @@ src="https://www.facebook.com/tr?id=1361354709500714&ev=PageView&noscript=1"
     if(consentRow) consentRow.classList.remove('err');
     errEl.classList.remove('show');
 
-    // ============================================================
-    // IDE JÖN A LEVELEZŐRENDSZER / CRM VÉGPONTJA
-    // ============================================================
-    // Jelenleg a form nincs bekötve semmilyen tényleges küldő
-    // szolgáltatáshoz — csak a UI-t mutatja be (validáció + köszönő
-    // állapot). Amikor kész a végleges "3 tipp" automatizáció
-    // (pl. Mailchimp/Brevo/ConvertKit webhook, vagy egy saját
-    // szerveroldali /api/subscribe-guide végpont), ide kell betenni
-    // a tényleges hívást, pl.:
-    //
-    //   fetch('/api/subscribe-guide', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email: email, source: 'oktatoanyag' })
-    //   });
-    //
-    console.log('[oktatoanyag] Feliratkozás (backend még nincs bekötve):', email);
+    var originalBtnText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Küldés…';
 
-    // ============================================================
-    // META PIXEL — LEAD ESEMÉNY (élesben tüzel)
-    // ============================================================
-    if(typeof fbq === 'function'){
-      fbq('track', 'Lead', { content_name: '3 tipp a kovetkezo 30 napra' });
+    try{
+      var res = await fetch('/api/subscribe-guide', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, consent: true, source: 'oktatoanyag' })
+      });
+      if(!res.ok) throw new Error('subscribe-guide ' + res.status);
+
+      // ============================================================
+      // META PIXEL — LEAD ESEMÉNY (élesben tüzel, ha van hozzájárulás)
+      // ============================================================
+      if(typeof fbq === 'function'){
+        fbq('track', 'Lead', { content_name: '3 tipp a kovetkezo 30 napra' });
+      }
+
+      form.style.display = 'none';
+      wrap.querySelector('.lead-success').classList.add('show');
+    }catch(err){
+      console.error('[oktatoanyag] Feliratkozás nem sikerült:', err);
+      errEl.textContent = 'Hiba történt a feliratkozás közben. Kérlek próbáld újra, vagy hívj minket telefonon: +36 30 503 9156.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = originalBtnText;
     }
-
-    form.style.display = 'none';
-    wrap.querySelector('.lead-success').classList.add('show');
     return false;
   }
 
