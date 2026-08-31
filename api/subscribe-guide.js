@@ -23,7 +23,7 @@ const admin = require('firebase-admin');
 
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
 const SENDER = { name: 'Loft of Beauty', email: 'foglalas@loftofbeauty.hu' };
-const STUDIO_EMAIL = 'hajdoagota@gmail.com';
+const STUDIO_EMAIL = 'mullerdanielev@gmail.com';
 
 // Ide kerül majd a végleges "3 tipp" e-mail HTML-je, amikor elkészül.
 const SUBSCRIBER_TIPS_HTML = null;
