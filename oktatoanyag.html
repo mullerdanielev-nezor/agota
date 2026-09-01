@@ -105,61 +105,80 @@ section{padding:80px 0}
 .result-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;display:flex;gap:18px;align-items:flex-start;text-align:left;box-shadow:0 10px 26px rgba(224,62,99,.05)}
 .result-card .rnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
 .result-card h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
-.result-card p{font-size:.92rem;color:var(--mokka);line-height:1.65}
+.result-card p{font-size:.92rem;color:var(--mokka);line-height:1.65;margin-bottom:.5rem}
+.result-card ul{margin:.3rem 0 0 1.15rem;padding:0;color:var(--mokka);font-size:.92rem;line-height:1.6}
+.result-card li{margin-bottom:.32rem}
 .result-card.result-main{border-color:rgba(224,62,99,.4);background:linear-gradient(155deg,#fff,var(--cream))}
 .result-main .btn-primary{display:inline-block;margin-top:16px;background:var(--rosegold);color:#fff;border:none;border-radius:999px;padding:.95rem 1.8rem;font-size:.92rem;font-weight:700;white-space:nowrap;cursor:pointer;box-shadow:0 12px 26px -10px rgba(224,62,99,.5);transition:transform .2s ease,background .2s ease}
 .result-main .btn-primary:hover{transform:translateY(-2px);background:var(--plum)}
 .result-note{max-width:600px;margin:32px auto 0;text-align:center;font-size:.94rem;color:var(--mokka)}
 @media (max-width:600px){.result-card{flex-direction:column;gap:8px}.result-card .rnum{width:auto}}
 
-/* ===== BEÁGYAZOTT FOGLALÁSI CHAT (a 3. pontban — nem navigál el sehova) ===== */
+/* ===== BEÁGYAZOTT FOGLALÁSI RENDSZER (ugyanaz, mint a foglalas.html — nem navigál el sehova) ===== */
 .result-main.result-booking{padding:0;overflow:hidden;flex-direction:column}
 .booking-head{padding:26px 28px 4px;display:flex;gap:18px;align-items:flex-start}
 .booking-head .rnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
 .booking-head h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
 .booking-head p{font-size:.92rem;color:var(--mokka);line-height:1.65}
-.chat-kicker{text-align:center;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--rosegold);margin:22px 0 .8rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
-.chat-kicker::before,.chat-kicker::after{content:'';width:20px;height:1px;background:rgba(224,62,99,.4)}
-.chat-warn{display:none;margin:0 20px 1rem;padding:1rem 1.5rem;font-size:.74rem;color:#a33;font-weight:700;text-align:center;background:#fff;border-radius:20px}
-.chat-card{background:#fff;border-top:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;position:relative}
-.chat-head{background:var(--ink);color:#fff;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.7rem;font-size:.96rem;font-family:'Poppins',sans-serif}
-.chat-head .avatar{width:30px;height:30px;border-radius:50%;background:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
-.chat-head .status{font-size:.62rem;font-family:'Nunito Sans',sans-serif;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.35rem;margin-top:.15rem}
-.chat-head .status .dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
-.chat-body{padding:1.4rem 1.4rem 1.1rem;display:flex;flex-direction:column;gap:.85rem;min-height:260px;max-height:440px;overflow-y:auto;scroll-behavior:smooth;font-size:.98rem}
-.bubble-row{display:flex;gap:.6rem;align-items:flex-end;animation:msgIn .3s ease}
-.bubble-row.user{flex-direction:row-reverse}
-.bubble-row .mini-avatar{width:22px;height:22px;border-radius:50%;background:var(--cream);color:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.62rem;flex-shrink:0}
-.bubble{max-width:80%;padding:.85rem 1.1rem;border-radius:14px;font-size:.94rem;line-height:1.6;font-family:'Nunito Sans',sans-serif}
-.bubble.bot{background:var(--cream);color:var(--ink);border-bottom-left-radius:4px}
-.bubble.user{background:var(--rosegold);color:#fff;border-bottom-right-radius:4px}
-@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.typing{display:flex;gap:.25rem;padding:.85rem 1rem;background:var(--cream);border-radius:14px;border-bottom-left-radius:4px;width:fit-content}
-.typing span{width:6px;height:6px;border-radius:50%;background:var(--mokka);animation:blink 1.2s infinite}
-.typing span:nth-child(2){animation-delay:.2s}
-.typing span:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
-.chip-row{display:flex;flex-wrap:wrap;gap:.5rem;padding-left:1.9rem;animation:msgIn .3s ease}
-.chip{background:#fff;border:1px solid rgba(224,62,99,.28);color:var(--ink);border-radius:20px;padding:.55rem 1.1rem;font-size:.88rem;cursor:pointer;transition:.2s;font-family:'Nunito Sans',sans-serif}
-.chip.chip-other{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
-.chip.chip-other:hover{background:var(--plum);border-color:var(--plum)}
-.chip:hover{border-color:var(--rosegold);background:var(--cream);transform:translateY(-1px)}
-.chip.taken{opacity:.35;text-decoration:line-through;pointer-events:none}
-.chat-input-row{border-top:1px solid var(--line);padding:1rem 1.2rem;display:none;gap:.6rem;background:#fff}
-.chat-input-row.show{display:flex}
-.chat-input-row input{flex:1;border:1px solid rgba(224,62,99,.24);border-radius:9px;padding:.8rem 1.05rem;font-size:.94rem;font-family:'Nunito Sans',sans-serif;transition:.2s}
-.chat-input-row input:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.1)}
-.chat-send{background:var(--rosegold);color:#fff;border:none;border-radius:9px;padding:.8rem 1.3rem;font-size:.82rem;font-weight:700;letter-spacing:.06em;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif}
-.chat-send::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .35s ease}
-.chat-send:hover::after{transform:translateY(0)}
-.chat-send span{position:relative;z-index:1}
-.chat-send:disabled{opacity:.4;cursor:not-allowed}
-.success-inline{display:flex;align-items:center;gap:.7rem;padding:1rem 1.3rem;background:var(--cream);animation:msgIn .35s ease;border-radius:14px}
-.success-inline .chk2{width:36px;height:36px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.success-inline p{font-size:.84rem;color:var(--ink);line-height:1.5;margin:0}
-.success-inline b{color:var(--plum)}
-.chat-privacy{font-size:.64rem;color:var(--mokka);text-align:center;padding:.6rem 1.2rem;background:#fff;border-top:1px solid var(--line)}
-.chat-privacy a{color:var(--rosegold)}
+.book-card{background:#fff;border-top:1px solid var(--line);padding:1.6rem 1.8rem 2rem}
+.step-label{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.step-label b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.62rem}
+.book-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(224,62,99,.55) 15%,rgba(224,62,99,.55) 85%,transparent);margin:1.4rem 0}
+.book-divider.vert{display:none}
+.book-form-grid{display:block}
+.cal{margin-bottom:1.6rem}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem}
+.cal-head .month{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.02rem;color:var(--ink);text-transform:capitalize}
+.cal-nav{display:flex;gap:.4rem}
+.cal-nav button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(224,62,99,.28);background:#fff;color:var(--rosegold);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.cal-nav button:hover{background:var(--rosegold);color:#fff}
+.cal-nav button:disabled{opacity:.3;cursor:default;pointer-events:none}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.dow span{text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mokka)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:.82rem;color:var(--ink);cursor:pointer;transition:.18s;border:1px solid transparent}
+.day.pad{visibility:hidden}
+.day.off{color:rgba(58,14,28,.22);cursor:default}
+.day.avail{background:rgba(224,62,99,.1);color:var(--rosegold);font-weight:700;border-color:rgba(224,62,99,.28)}
+.day:not(.off):not(.pad):hover{background:var(--cream);border-color:rgba(224,62,99,.25)}
+.day.today{border-color:var(--rosegold);font-weight:700}
+.day.sel{background:var(--rosegold);color:#fff;font-weight:700}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-bottom:1.6rem}
+.slot{text-align:center;padding:.6rem .3rem;border:1px solid rgba(224,62,99,.24);border-radius:9px;font-size:.82rem;cursor:pointer;transition:.18s;background:#fff;color:var(--ink)}
+.slot:hover{border-color:var(--rosegold)}
+.slot.sel{background:var(--rosegold);border-color:var(--rosegold);color:#fff;font-weight:700}
+.slot.taken{opacity:.32;text-decoration:line-through;cursor:default;pointer-events:none}
+.slot.locked{opacity:.4;cursor:default;pointer-events:none}
+.book-row{display:grid;gap:.5rem;margin-bottom:1.1rem}
+.book-row.two{grid-template-columns:1fr 1fr;gap:1rem}
+.book-row label{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosegold)}
+.book-card input,.book-card textarea{font-family:'Nunito Sans',sans-serif;font-size:.94rem;background:#fff;border:1px solid rgba(224,62,99,.24);color:var(--ink);padding:.8rem .95rem;border-radius:8px;width:100%;transition:border-color .25s,box-shadow .25s}
+.book-card input:focus,.book-card textarea:focus{outline:none;border-color:var(--rosegold);box-shadow:0 0 0 4px rgba(224,62,99,.1)}
+.book-card textarea{resize:vertical;min-height:70px}
+.book-summary{display:none;background:var(--cream);border-radius:10px;padding:.85rem 1rem;margin-bottom:1.4rem;font-size:.84rem;color:var(--plum);align-items:center;gap:.6rem}
+.book-summary.show{display:flex}
+.book-summary b{color:var(--ink)}
+.book-btn{width:100%;background:var(--rosegold);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:1.05rem;border:none;border-radius:9px;cursor:pointer;position:relative;overflow:hidden;font-family:'Nunito Sans',sans-serif;transition:opacity .25s}
+.book-btn::after{content:'';position:absolute;inset:0;background:var(--plum);transform:translateY(101%);transition:transform .4s ease}
+.book-btn:hover::after{transform:translateY(0)}
+.book-btn span{position:relative;z-index:1}
+.book-btn:disabled{opacity:.45;cursor:not-allowed}
+.book-btn:disabled:hover::after{transform:translateY(101%)}
+.book-note{font-size:.7rem;color:var(--mokka);margin-top:1rem;text-align:center;line-height:1.6}
+.book-success{display:none;text-align:center;padding:1rem .5rem}
+.book-success.show{display:block}
+.book-success .chk2{width:56px;height:56px;border-radius:50%;background:var(--rosegold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.2rem}
+.book-success h3{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:.6rem}
+.book-success p{color:var(--mokka);line-height:1.8}
+.book-success b{color:var(--plum)}
+.chat-warn{display:none;padding:1rem 1.5rem;font-size:.74rem;color:#a33;font-weight:700;text-align:center;background:#fff;border-radius:20px;margin-bottom:1rem}
+@media(min-width:760px){
+  .book-card{padding:1.8rem 2.2rem 2.2rem}
+  .book-form-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:2rem;align-items:start}
+  .book-divider.vert{display:block;height:auto;align-self:stretch;width:2px;margin:0;background:linear-gradient(180deg,transparent,rgba(224,62,99,.55) 15%,rgba(224,62,99,.55) 85%,transparent)}
+  .book-divider:not(.vert){display:none}
+}
+@media(max-width:480px){.book-row.two{grid-template-columns:1fr}}
 
 /* ===== FOOTER ===== */
 footer{padding:36px 0 100px;text-align:center;color:var(--mokka);font-size:.8rem}
@@ -240,36 +259,70 @@ footer a{color:var(--rosegold)}
     <div class="result-list">
       <div class="result-card reveal">
         <span class="rnum">1.</span>
-        <div><h3 id="tip1Title"></h3><p id="tip1Text"></p></div>
+        <div><h3 id="tip1Title"></h3><div id="tip1Text"></div></div>
       </div>
       <div class="result-card reveal">
         <span class="rnum">2.</span>
-        <div><h3 id="tip2Title"></h3><p id="tip2Text"></p></div>
+        <div><h3 id="tip2Title"></h3><div id="tip2Text"></div></div>
       </div>
+
+      <div class="review-mini reveal" style="max-width:400px;margin:0 auto"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="lazy" decoding="async"></div>
+
       <div class="result-card result-main result-booking reveal">
         <div class="booking-head">
           <span class="rnum">3.</span>
           <div>
-            <h3>A leggyorsabb és legláthatóbb út</h3>
-            <p>Ha tényleg tartós, látható eredményt szeretnél, a leggyorsabb út egy személyre szabott <b>4 az 1-ben alakformáló kezelés</b> — célzott zsírbontás, bőrfeszesítés és izomépítés egyben, ajándék hullámmasszázzsal.</p>
+            <h3>A leggyorsabb út: 4 az 1-ben kezelés</h3>
+            <p>Nyíregyházán, ajándék hullámmasszázzsal.</p>
           </div>
         </div>
-        <div class="chat-kicker">Foglalj le egyből itt</div>
-        <div class="chat-warn" id="configWarning">⚠ A foglalási rendszer betöltése sikertelen. Kérlek hívj minket telefonon.</div>
-        <div class="chat-card">
-          <div class="chat-head">
-            <div class="avatar">A</div>
+        <div class="book-card">
+          <div class="chat-warn" id="configWarning">⚠ A foglalási rendszer betöltése sikertelen. Kérlek hívj minket telefonon.</div>
+          <form id="bookForm" class="book-form-grid" onsubmit="return submitBooking(event)">
             <div>
-              <div>Ágota</div>
-              <div class="status"><span class="dot"></span>Online, azonnal válaszol</div>
+              <div class="step-label"><b>1</b> Dátum</div>
+              <div class="cal">
+                <div class="cal-head">
+                  <div class="cal-nav"><button type="button" id="calPrev">‹</button></div>
+                  <div class="month" id="calMonth"></div>
+                  <div class="cal-nav"><button type="button" id="calNext">›</button></div>
+                </div>
+                <div class="dow"><span>H</span><span>K</span><span>Sz</span><span>Cs</span><span>P</span><span>Sz</span><span>V</span></div>
+                <div class="days" id="calDays"></div>
+              </div>
             </div>
+
+            <div class="book-divider vert"></div>
+
+            <div>
+              <div class="step-label"><b>2</b> Időpont</div>
+              <div class="slots" id="slots">
+                <div class="slot locked">09:00</div><div class="slot locked">11:00</div><div class="slot locked">13:00</div>
+                <div class="slot locked">15:00</div><div class="slot locked">17:00</div><div class="slot locked">19:00</div>
+              </div>
+
+              <div class="book-summary" id="summary">✦ <span id="summaryText"></span></div>
+
+              <div class="book-divider"></div>
+
+              <div class="step-label"><b>3</b> Elérhetőség</div>
+              <div class="book-row two">
+                <div class="book-row" style="margin:0"><label for="f-name">Neved</label><input type="text" id="f-name" placeholder="Teljes név" required></div>
+                <div class="book-row" style="margin:0"><label for="f-phone">Telefon</label><input type="tel" id="f-phone" placeholder="+36 30 …" required></div>
+              </div>
+              <div class="book-row"><label for="f-email">Email cím</label><input type="email" id="f-email" placeholder="pl. nevem@email.hu" required></div>
+              <div class="book-row"><label for="f-note">Megjegyzés (opcionális)</label><textarea id="f-note" placeholder="Bármi, amit jó, ha tudok…"></textarea></div>
+
+              <button type="submit" class="book-btn" id="submitBtn" disabled><span>Foglalás elküldése</span></button>
+              <div class="book-note">A gomb megnyomásával elfogadod az <a href="adatvedelem.html" target="_blank" rel="noopener" style="color:var(--rosegold)">adatkezelési tájékoztatót</a>.</div>
+            </div>
+          </form>
+
+          <div class="book-success" id="bookSuccess">
+            <div class="chk2">✓</div>
+            <h3>Köszönöm, <span id="okName">Kedves Vendég</span>!</h3>
+            <p>A foglalásod rögzítettük:<br><b id="okDetails">—</b><br><br>24 órán belül visszaigazoljuk telefonon. Hamarosan találkozunk!</p>
           </div>
-          <div class="chat-body" id="chatBody"></div>
-          <div class="chat-input-row" id="chatInputRow">
-            <input type="text" id="chatText" placeholder="Írd meg a neved…">
-            <button type="button" class="chat-send" id="chatSend"><span>Küldés</span></button>
-          </div>
-          <div class="chat-privacy">A folytatással elfogadod az <a href="adatvedelem.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>.</div>
         </div>
       </div>
     </div>
@@ -301,22 +354,22 @@ footer a{color:var(--rosegold)}
   }
   observeReveals();
 
-  // sticky mobil CTA — a hero utan jelenik meg, a beagyazott foglalasi chatnel eltunik
+  // sticky mobil CTA — a hero utan jelenik meg, a beagyazott foglalasi rendszernel eltunik
   (function(){
     var bar = document.getElementById('stickyCta');
     var hero = document.querySelector('.hero');
     if(!bar || !hero) return;
-    var pastHero = false, chatVisible = false;
-    function upd(){ bar.classList.toggle('show', pastHero && !chatVisible); }
+    var pastHero = false, bookVisible = false;
+    function upd(){ bar.classList.toggle('show', pastHero && !bookVisible); }
     new IntersectionObserver(function(e){ pastHero = !e[0].isIntersecting; upd(); }, {threshold:0}).observe(hero);
-    function watchChat(){
-      var chatCard = document.querySelector('.chat-card');
-      if(!chatCard) return;
-      new IntersectionObserver(function(e){ chatVisible = e[0].isIntersecting; upd(); }, {threshold:0.15}).observe(chatCard);
+    function watchBook(){
+      var bookCard = document.querySelector('.book-card');
+      if(!bookCard) return;
+      new IntersectionObserver(function(e){ bookVisible = e[0].isIntersecting; upd(); }, {threshold:0.15}).observe(bookCard);
     }
-    watchChat();
+    watchBook();
     document.getElementById('stickyCtaBtn').addEventListener('click', function(){
-      var target = document.querySelector('.pain-card.sel') ? document.querySelector('.chat-card') : document.getElementById('problem');
+      var target = document.querySelector('.pain-card.sel') ? document.querySelector('.book-card') : document.getElementById('problem');
       if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   })();
@@ -333,41 +386,81 @@ footer a{color:var(--rosegold)}
     {
       tip1: {
         title: 'Az esti 10 perces lábtorna',
-        text: 'A nehéz, bedagadt láb leggyakoribb oka az esti vénás pangás — napközben a vér és a nyirok "leül" a lábadban, és ülőmunka vagy sok állás mellett ez felerősödik. Lefekvés előtt fekve emeld fel a lábad a fal mellett kb. 5 percre, közben pörgesd a bokád mindkét irányba és pumpáld meg a vádlidat (mintha lábujjhegyre állnál, csak fekve) 15-20-szor. Ez mechanikusan segíti a vénás visszaáramlást, és sokaknál már néhány nap alatt érezhetően csökkenti az esti nehézségérzetet.'
+        lead: 'A nehéz, bedagadt lábra ez segít a leggyorsabban:',
+        bullets: [
+          'Feküdj le, és emeld fel a lábad a fal mellett kb. 5 percre',
+          'Közben pörgesd a bokád mindkét irányba',
+          'Pumpáld meg a vádlidat 15-20-szor, mintha lábujjhegyre állnál'
+        ]
       },
       tip2: {
         title: 'Váltott zuhany a lábszáron',
-        text: 'A hideg-meleg váltás összehúzza, majd tágítja az ereket, ami pumpaszerűen élénkíti a keringést — ez az egyik leggyorsabb, azonnal érezhető módszer duzzadás ellen. Zuhanyzás végén, alulról felfelé haladva válts 20-30 másodpercenként hideg és langyos vízre a lábszáradon, 3-4 kört csinálva, mindig hideggel zárva. Ha rendszeresen (heti 3-4x) csinálod, a hatás nem csak azonnali, hanem kumulatív is: idővel javul az erek rugalmassága.'
+        lead: 'Zuhanyzás végén próbáld ki ezt:',
+        bullets: [
+          'Válts 20-30 másodpercenként hideg és langyos vízre a lábszáradon',
+          'Csinálj 3-4 kört, mindig hideggel zárva',
+          'Heti 3-4x ismételve a keringésed is javul hosszabb távon'
+        ]
       }
     },
     {
       tip1: {
         title: 'Elég fehérjét eszel?',
-        text: 'A bőr rugalmasságát adó kollagén és elasztin termeléséhez aminosavakra (vagyis fehérjére) van szükség — fogyás közben, kalóriahiányban a szervezet könnyen ezekből is "spórol", ha nincs elég fehérje bevitel, és ez az egyik fő oka a petyhüdtségnek. Célozz kb. testsúly-kilogrammonként 1,2-1,6 g fehérjét naponta (egy 65 kg-os embernél kb. 80-100 g), elosztva a nap étkezései között — sovány hús, hal, tojás, túró, hüvelyesek mind jó forrás.'
+        lead: 'A bőr rugalmasságához fehérje kell:',
+        bullets: [
+          'Célozz testsúly-kilogrammonként kb. 1,2-1,6 g fehérjét naponta',
+          'Oszd el a nap étkezései között',
+          'Jó forrás: hús, hal, tojás, túró, hüvelyesek'
+        ]
       },
       tip2: {
         title: 'Ne fogyj túl gyorsan',
-        text: 'A bőr egy rugalmas, de nem végtelenül gyors szövet — ha túl gyorsan tűnik el alóla a zsírréteg, egyszerűen nem tud vele lépést tartani, és petyhüdten marad. A heti kb. 0,5-1 kg-os fogyás az a tempó, amit a bőr nagy eséllyel még követni tud. Ha ennél gyorsabban fogysz (pl. drasztikus diétával), érdemes tudatosan lassítanod, és a bőrfeszesítést külön, célzottan kezelned — pl. rádiófrekvenciás kezeléssel.'
+        lead: 'A bőrödnek is idő kell:',
+        bullets: [
+          'Cél a heti 0,5-1 kg-os fogyás',
+          'Ez az a tempó, amit a bőr még könnyen követ',
+          'Gyorsabb fogyásnál egy célzott bőrfeszesítő kezelés is sokat segít'
+        ]
       }
     },
     {
       tip1: {
         title: 'A puszta kardió nem elég',
-        text: 'A kardió (futás, kerékpár) elsősorban kalóriát éget, de önmagában nem ad kifejezett formát a hasnak vagy a popsinak — ahhoz célzott, ellenállással végzett erősítés kell, ami ténylegesen épít és tónusban tart izmot. Iktass be hetente 2-3x rövid, célzott gyakorlatokat: csípőemelés (hip thrust), plank és annak variációi, kitörés — akár otthon, eszköz nélkül is. A forma az izomtól jön, nem (csak) a zsírégetéstől.'
+        lead: 'A formához célzott erősítés kell:',
+        bullets: [
+          'Iktass be hetente 2-3x csípőemelést (hip thrust)',
+          'Egészítsd ki plankkel és kitöréssel',
+          'Mindez otthon, eszköz nélkül is elvégezhető'
+        ]
       },
       tip2: {
         title: 'Az alvás is edzés',
-        text: 'Az izom nem az edzőteremben épül, hanem utána, pihenés közben — alvás alatt választódik ki a növekedési hormon nagy része, ami a regenerációhoz és izomépítéshez kell. Ha rendszeresen 6 óránál kevesebbet alszol, hiába a legjobb edzésterv, a fejlődés lelassul. Célozz 7-8 óra alvásra, és próbálj meg lefekvés előtt legalább 1 órával képernyőmentes időt tartani — ez érdemben javítja az alvásminőséget is.'
+        lead: 'A fejlődés nagy része pihenés közben történik:',
+        bullets: [
+          'Célozz napi 7-8 óra alvásra',
+          'Kerüld a képernyőt lefekvés előtt legalább 1 órával',
+          'Ez javítja a regenerációt és az izomépítést is'
+        ]
       }
     },
     {
       tip1: {
         title: 'Nem minden zsír egyforma',
-        text: 'Vannak ún. makacs, hormonálisan fenntartott zsírraktárak — jellemzően a csípőn, a has alján, a combon belül —, amik genetikai és hormonális okokból sokkal ellenállóbbak a diétával és mozgással szemben, mint a test más részein lévő zsír. Ha hónapok óta minden rendben csinálsz, mégsem tűnik el egy adott terület, az nem azt jelenti, hogy rosszul csinálod — egyszerűen ez egy olyan terület, ahol a szervezeted "tartalékol". Ezt fontos tudatosítani, mielőtt túl szigorúan ítélnéd meg magad.'
+        lead: 'Van, ami nem rajtad múlik:',
+        bullets: [
+          'Egyes zsírraktárak (csípő, has alja) hormonálisan fenntartottak',
+          'Ezek diétával és mozgással is nehezen csökkennek',
+          'Ez nem azt jelenti, hogy rosszul csinálod'
+        ]
       },
       tip2: {
         title: 'A száraz kefézés segíthet',
-        text: 'A száraz testkefézés (dry brushing) mechanikusan serkenti a felszíni vérkeringést és a nyirokáramlást a bőr alatt, ami hosszabb távon javíthatja a bőr textúráját és a "narancsbőr" hatást az érintett területeken. Zuhany előtt, száraz bőrön, szív felé haladó, hosszú mozdulatokkal kefélj naponta 1-2 percet — ez önmagában nem oldja meg a makacs zsírt, de kiegészítő szokásként reálisan javíthatja a bőr összképét, amíg a célzott kezelésre készülsz.'
+        lead: 'Egy egyszerű kiegészítő szokás:',
+        bullets: [
+          'Zuhany előtt kefélj száraz bőrön 1-2 percet',
+          'Mindig szív felé haladó mozdulatokkal',
+          'Javítja a keringést és a bőr textúráját'
+        ]
       }
     }
   ];
@@ -385,25 +478,32 @@ footer a{color:var(--rosegold)}
     pickerGrid.querySelectorAll('.pain-card').forEach(function(c){ c.classList.remove('sel'); });
     card.classList.add('sel');
 
+    function renderTip(tip){
+      var html = '<p>' + tip.lead + '</p><ul>';
+      tip.bullets.forEach(function(b){ html += '<li>' + b + '</li>'; });
+      html += '</ul>';
+      return html;
+    }
     document.getElementById('tip1Title').textContent = data.tip1.title;
-    document.getElementById('tip1Text').textContent = data.tip1.text;
+    document.getElementById('tip1Text').innerHTML = renderTip(data.tip1);
     document.getElementById('tip2Title').textContent = data.tip2.title;
-    document.getElementById('tip2Text').textContent = data.tip2.text;
+    document.getElementById('tip2Text').innerHTML = renderTip(data.tip2);
 
     result.classList.add('show');
     observeReveals();
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    if(window.__startBookingChat) window.__startBookingChat();
+    if(window.__startBooking) window.__startBooking();
   });
 </script>
 
 <!-- ============================================================
-     BEÁGYAZOTT FOGLALÁSI CHAT — ugyanaz a logika, mint a landing.html-en,
-     csak itt a 3. pontban jelenik meg, és csak az elso problema-
-     valasztaskor indul el (lasd window.__startBookingChat fent).
-     A foglalas mindvegig ezen az oldalon marad, sehova nem navigal —
-     csak sikeres foglalas utan visz at a koszono oldalra.
+     BEÁGYAZOTT FOGLALÁSI RENDSZER — ugyanaz a logika, mint a
+     foglalas.html-en (naptár + időpontok + adatok), csak itt a
+     3. pontban jelenik meg, és csak az első problémaválasztáskor
+     kezd figyelni a Firestore-ra (lásd window.__startBooking fent).
+     A foglalás mindvégig ezen az oldalon marad, sehova nem navigál —
+     csak sikeres foglalás után frissül a köszönő üzenetre.
      ============================================================ -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
@@ -412,9 +512,11 @@ footer a{color:var(--rosegold)}
   } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
   import { FIREBASE_CONFIG, FIREBASE_CONFIGURED } from "./assets/firebase-config.js";
 
-  var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
-  var HU_MONTH_ABBR = ['jan.','febr.','márc.','ápr.','máj.','jún.','júl.','aug.','szept.','okt.','nov.','dec.'];
+  var HU_MONTHS = ['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
   var today = new Date(); today.setHours(0,0,0,0);
+  var viewYear = today.getFullYear(), viewMonth = today.getMonth();
+  var selectedDate = null, selectedSlot = null;
+  var selectedSvc = '4 az 1-ben alakformáló kezelés'; // fix — ez az egész oldal erről szól
   var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
 
   // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
@@ -428,10 +530,6 @@ footer a{color:var(--rosegold)}
   function isTooSoon(d, t){
     return slotDateTime(d, t).getTime() < Date.now() + LEAD_MS;
   }
-  function isSameDay(a, b){
-    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-  }
-  var state = { svc:'4 az 1-ben alakformáló kezelés', date:null, dateLabel:null, time:null, name:null, phone:null, email:null };
 
   var db = null;
   if (FIREBASE_CONFIGURED) {
@@ -447,322 +545,263 @@ footer a{color:var(--rosegold)}
   function slotId(d, time){ return dateKey(d) + '_' + time; }
   function rangeBoundaryKey(d){ return dateKey(d) + '_00:00'; }
 
-  // Elo (onSnapshot) figyeles a kovetkezo 30 nap "slots" bejegyzesein — igy amint
-  // valaki lefoglal egy idopontot (vagy telik az ido), a mar kirakott nap-/ora-chipek
-  // is maguktol frissulnek, ujratoltes nelkul.
+  // Elo (onSnapshot) figyeles a lathato honap "slots" bejegyzesein — igy amint
+  // valaki lefoglal (vagy az admin torol) egy idopontot, a naptar es a slot-lista
+  // magatol frissul, ujratoltes nelkul.
   var takenSlots = {};
-  var slotsReady = false;
-  var slotsReadyResolvers = [];
-  function waitSlotsReady(){
-    if(slotsReady) return Promise.resolve();
-    return new Promise(function(res){ slotsReadyResolvers.push(res); });
-  }
-  function markSlotsReady(){
-    if(slotsReady) return;
-    slotsReady = true;
-    slotsReadyResolvers.forEach(function(r){ r(); });
-    slotsReadyResolvers = [];
-  }
-  var currentStep = null; // 'date' | 'time' | null — melyik chip-sor van most kirakva
-  function onSlotsChanged(){
-    if(currentStep === 'date') renderDateChips();
-    else if(currentStep === 'time') renderTimeChips();
-  }
-  function subscribeSlots(){
-    if(!db){ markSlotsReady(); return; }
-    var from = today;
-    var to = new Date(today); to.setDate(to.getDate() + 30);
+  var blockedDays = {};
+  var unsubSlots = null;
+  var unsubBlocked = null;
+  var subscribedMonthKey = null;
+  function subscribeMonth(year, month){
+    var monthKey = year + '-' + month;
+    if(monthKey === subscribedMonthKey) return;
+    subscribedMonthKey = monthKey;
+    if(unsubSlots){ unsubSlots(); unsubSlots = null; }
+    if(unsubBlocked){ unsubBlocked(); unsubBlocked = null; }
+    if(!db){ renderCal(); return; }
+    var from = new Date(year, month, 1);
+    var to = new Date(year, month + 1, 1);
     var q = query(
       collection(db, 'slots'),
       where(documentId(), '>=', rangeBoundaryKey(from)),
       where(documentId(), '<', rangeBoundaryKey(to))
     );
-    onSnapshot(q, function(snap){
+    unsubSlots = onSnapshot(q, function(snap){
       takenSlots = {};
       snap.forEach(function(docSnap){ takenSlots[docSnap.id] = true; });
-      markSlotsReady();
-      onSlotsChanged();
+      renderCal();
+      if(selectedDate) loadSlotsForDate(selectedDate);
     }, function(err){
       console.error('Nem sikerult figyelni a foglalt idopontokat:', err);
-      markSlotsReady();
+      renderCal();
+    });
+    var fromKey = dateKey(from), toKey = dateKey(to);
+    var qBlocked = query(
+      collection(db, 'blockedDays'),
+      where(documentId(), '>=', fromKey),
+      where(documentId(), '<', toKey)
+    );
+    unsubBlocked = onSnapshot(qBlocked, function(snap){
+      blockedDays = {};
+      snap.forEach(function(docSnap){ blockedDays[docSnap.id] = true; });
+      renderCal();
+      if(selectedDate) loadSlotsForDate(selectedDate);
+    }, function(err){
+      console.error('Nem sikerult figyelni a letiltott napokat:', err);
+      renderCal();
     });
   }
-  // Percenkent frissitjuk a "mai nap" hatart es a "tul koreli" idopontokat is,
-  // hogy tiszta idomulassal is maguktol frissuljenek a mar kirakott chipek.
-  setInterval(function(){
-    today = new Date(); today.setHours(0,0,0,0);
-    onSlotsChanged();
-  }, 60000);
 
-  function isValidPhone(str){
-    var digits = String(str).replace(/\D/g, '');
-    return digits.length >= 9 && digits.length <= 11;
-  }
-
-  function extractPhone(text){
-    var m = text.match(/(\+?\d[\d\s\-()]{6,}\d)/);
-    if(!m) return null;
-    if(!isValidPhone(m[0])) return null;
-    return { phone: m[0].trim(), rest: (text.slice(0, m.index) + text.slice(m.index + m[0].length)).replace(/\s+/g,' ').trim() };
-  }
-
-  var body = document.getElementById('chatBody');
-  function scrollDown(){ body.scrollTop = body.scrollHeight; }
-  function botMsg(msg, cb){
-    var row = document.createElement('div');
-    row.className = 'bubble-row';
-    row.innerHTML = '<div class="mini-avatar">A</div><div class="typing"><span></span><span></span><span></span></div>';
-    body.appendChild(row); scrollDown();
-    setTimeout(function(){
-      row.querySelector('.typing').outerHTML = '<div class="bubble bot">' + msg + '</div>';
-      scrollDown();
-      if(cb) cb();
-    }, 550);
-  }
-  function userMsg(msg){
-    var row = document.createElement('div');
-    row.className = 'bubble-row user';
-    row.innerHTML = '<div class="bubble user">' + msg + '</div>';
-    body.appendChild(row); scrollDown();
-  }
-  function chips(list, cb){
-    var row = document.createElement('div'); row.className = 'chip-row';
-    list.forEach(function(item){
-      var c = document.createElement('div');
-      c.className = 'chip' + (item.taken ? ' taken' : '') + (item.other ? ' chip-other' : '');
-      c.textContent = item.label;
-      if(!item.taken){
-        c.addEventListener('click', function(){ row.remove(); userMsg(item.label); cb(item); });
-      }
-      row.appendChild(c);
-    });
-    body.appendChild(row); scrollDown();
-    return row;
-  }
-
-  function showTyping(){
-    var row = document.createElement('div');
-    row.className = 'bubble-row';
-    row.innerHTML = '<div class="mini-avatar">A</div><div class="typing"><span></span><span></span><span></span></div>';
-    body.appendChild(row); scrollDown();
-    return row;
-  }
-
-  // Egy adott napon van-e legalabb egy szabad (nem foglalt, nem tul kozeli) idopont —
-  // a live "takenSlots" cache-bol, kulon lekerdezes nelkul.
   function dayHasFreeSlot(d){
+    if(blockedDays[dateKey(d)]) return false;
     return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
   }
 
-  // Vegignezi a kovetkezo 30 napot, es csak azokat adja vissza (max 6-ot), amelyeken tenyleg van szabad idopont.
-  function buildDayOptions(){
-    var opts = [];
-    for(var i=0; i<30 && opts.length<6; i++){
-      var d = new Date(today); d.setDate(today.getDate()+i);
-      if(!dayHasFreeSlot(d)) continue;
-      var label = i===0 ? 'Ma' : (i===1 ? 'Holnap' : (HU_DOW_NAMES[(d.getDay()+6)%7] + ' (' + HU_MONTH_ABBR[d.getMonth()] + ' ' + d.getDate() + '.)'));
-      opts.push({ label: label, date: d });
+  function bindDayClick(dt, el){
+    el.addEventListener('click', function(){
+      document.querySelectorAll('.day.sel').forEach(function(x){x.classList.remove('sel')});
+      el.classList.add('sel');
+      selectedDate = dt;
+      selectedSlot = null;
+      updateSummary();
+      loadSlotsForDate(dt);
+    });
+  }
+
+  function renderCal(){
+    var calMonthEl = document.getElementById('calMonth');
+    if(!calMonthEl) return;
+    calMonthEl.textContent = HU_MONTHS[viewMonth] + ' ' + viewYear;
+    var first = new Date(viewYear, viewMonth, 1);
+    var startCol = (first.getDay() + 6) % 7; // hétfő=0
+    var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    var wrap = document.getElementById('calDays');
+    wrap.innerHTML = '';
+    for(var i=0;i<startCol;i++){
+      var pad = document.createElement('div'); pad.className = 'day pad'; wrap.appendChild(pad);
     }
-    return opts;
-  }
-
-  var currentChipRow = null;
-
-  function renderDateChips(){
-    if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
-    currentStep = 'date';
-    var opts = buildDayOptions();
-
-    if(opts.length === 0){
-      currentStep = null;
-      currentChipRow = chips([{ label:'Hívj minket telefonon', other:true }], function(){ window.location.href = 'tel:+36305039156'; });
-      return;
-    }
-
-    var items = opts.map(function(o){ return { label:o.label, date:o.date }; });
-    currentChipRow = chips(items, function(item){
-      currentStep = null; currentChipRow = null;
-      state.date = item.date; state.dateLabel = item.label;
-      if(window.fbTrack) fbTrack('InitiateCheckout', { content_name: state.svc });
-      askTime();
-    });
-  }
-
-  async function askDate(){
-    if(!slotsReady){
-      var typingRow = showTyping();
-      await waitSlotsReady();
-      typingRow.remove();
-    }
-    if(buildDayOptions().length === 0){
-      botMsg('Sajnos a közeljövőben nincs szabad időpont a gyors foglalóban — hívj minket telefonon!', function(){
-        renderDateChips();
-      });
-      return;
-    }
-    renderDateChips();
-  }
-
-  function renderTimeChips(){
-    if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
-    currentStep = 'time';
-    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!takenSlots[slotId(state.date, t)] || isTooSoon(state.date, t) }; });
-    if(opts.every(function(o){ return o.taken; })){
-      currentStep = null;
-      botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });
-      return;
-    }
-    currentChipRow = chips(opts, function(item){
-      currentStep = null; currentChipRow = null;
-      state.time = item.label;
-      askName();
-    });
-  }
-
-  function askTime(){
-    var pickedToday = isSameDay(state.date, new Date());
-    botMsg(pickedToday ? 'És melyik időpont lenne jó? Mai napra legalább 2 órával előre tudsz foglalni.' : 'És melyik időpont lenne jó?', function(){
-      renderTimeChips();
-    });
-  }
-
-  function askName(){
-    botMsg('Már csak pár adat kell — mi a neved?', function(){
-      showInput('Teljes neved…', 'text');
-    });
-  }
-
-  function askPhone(){
-    botMsg('Köszi, ' + state.name + '! És a telefonszámod?', function(){
-      showInput('+36 30 …', 'tel');
-    });
-  }
-
-  function askEmail(){
-    botMsg('Utolsó lépés: mi az email-címed? (Erre küldjük a visszaigazolást.)', function(){
-      showInput('nevem@email.hu', 'email');
-    });
-  }
-
-  function showInput(placeholder, type){
-    var input = document.getElementById('chatText');
-    input.placeholder = placeholder; input.type = type; input.value = '';
-    document.getElementById('chatInputRow').classList.add('show');
-    input.focus();
-  }
-  function hideInput(){
-    document.getElementById('chatInputRow').classList.remove('show');
-  }
-
-  document.getElementById('chatSend').addEventListener('click', sendText);
-  document.getElementById('chatText').addEventListener('keydown', function(e){ if(e.key === 'Enter') sendText(); });
-
-  function sendText(){
-    var input = document.getElementById('chatText');
-    var v = input.value.trim();
-    if(!v) return;
-    userMsg(v);
-    input.value = '';
-
-    if(!state.name){
-      var found = extractPhone(v);
-      if(found && found.rest){
-        state.name = found.rest;
-        state.phone = found.phone;
-        hideInput();
-        askEmail();
-        return;
+    for(var d=1; d<=daysInMonth; d++){
+      var cell = document.createElement('div');
+      var thisDate = new Date(viewYear, viewMonth, d);
+      cell.className = 'day';
+      cell.textContent = d;
+      if(thisDate < today){
+        cell.classList.add('off');
+      }else if(dayHasFreeSlot(thisDate)){
+        cell.classList.add('avail');
+        bindDayClick(thisDate, cell);
+      }else{
+        cell.classList.add('off');
       }
-      state.name = v;
-      hideInput();
-      askPhone();
-    }else if(!state.phone){
-      if(!isValidPhone(v)){
-        botMsg('Hmm, ez nem tűnik érvényes telefonszámnak 🤔 Add meg még egyszer, kérlek (pl. +36 30 123 4567):', function(){
-          showInput('+36 30 …', 'tel');
-        });
-        return;
-      }
-      state.phone = v;
-      hideInput();
-      askEmail();
-    }else if(!state.email){
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
-        botMsg('Ez nem tűnik érvényes email címnek 🤔 Add meg még egyszer, kérlek:', function(){
-          showInput('nevem@email.hu', 'email');
-        });
-        return;
-      }
-      state.email = v;
-      hideInput();
-      submitBooking();
+      if(thisDate.getTime() === today.getTime()) cell.classList.add('today');
+      if(selectedDate && thisDate.getTime() === selectedDate.getTime()) cell.classList.add('sel');
+      wrap.appendChild(cell);
+    }
+    document.getElementById('calPrev').disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
+  }
+
+  document.getElementById('calPrev').addEventListener('click', function(){
+    viewMonth--; if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+    subscribeMonth(viewYear, viewMonth);
+    renderCal();
+  });
+  document.getElementById('calNext').addEventListener('click', function(){
+    viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+    subscribeMonth(viewYear, viewMonth);
+    renderCal();
+  });
+
+  // Percenkent frissitjuk a "mai naphoz kepest tul koreli" hatart es a nap-atfordulast,
+  // hogy idomulassal is magatol frissuljon a naptar (uj Firestore-lekerdezes nelkul).
+  setInterval(function(){
+    var now = new Date(); now.setHours(0,0,0,0);
+    today = now;
+    renderCal();
+    if(selectedDate) loadSlotsForDate(selectedDate);
+  }, 60000);
+
+  function bindSlotClick(slotEl){
+    slotEl.addEventListener('click', function(){
+      if(slotEl.classList.contains('taken') || slotEl.classList.contains('locked')) return;
+      document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+      slotEl.classList.add('sel');
+      selectedSlot = slotEl.textContent;
+      updateSummary();
+    });
+  }
+  document.querySelectorAll('.slot').forEach(bindSlotClick);
+
+  // Az adott napon mar foglalt idopontokat a live "takenSlots" cache-bol jeloli —
+  // ez az onSnapshot figyeles miatt mindig friss, kulon lekerdezes nelkul.
+  function loadSlotsForDate(d){
+    var slotEls = document.querySelectorAll('#slots .slot');
+    slotEls.forEach(function(el){
+      var t = el.textContent.trim();
+      el.classList.remove('locked');
+      el.classList.toggle('taken', isTooSoon(d, t) || !!takenSlots[slotId(d, t)]);
+    });
+    if(selectedSlot && (isTooSoon(d, selectedSlot) || takenSlots[slotId(d, selectedSlot)])){
+      selectedSlot = null;
+      document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+      updateSummary();
     }
   }
 
-  async function submitBooking(){
+  function updateSummary(){
+    var box = document.getElementById('summary');
+    var txt = document.getElementById('summaryText');
+    var parts = [];
+    if(selectedDate) parts.push(selectedDate.toLocaleDateString('hu-HU'));
+    if(selectedSlot) parts.push(selectedSlot);
+    if(parts.length){ box.classList.add('show'); txt.textContent = parts.join(' · '); }
+    else{ box.classList.remove('show'); }
+    document.getElementById('submitBtn').disabled = !(selectedDate && selectedSlot && db);
+  }
+
+  async function submitBooking(e){
+    e.preventDefault();
     if(!db){
-      botMsg('A foglalási rendszer most nem elérhető — kérlek hívj minket telefonon: +36 30 503 9156.');
-      return;
+      alert('A foglalási rendszer még nincs bekötve. Kérlek hívj minket telefonon!');
+      return false;
     }
-    botMsg('Egy pillanat, rögzítem a foglalást…', async function(){
-      var id = slotId(state.date, state.time);
-      var dKey = dateKey(state.date);
-      try{
-        await runTransaction(db, async function(transaction){
-          var slotRef = doc(db, 'slots', id);
-          var slotSnap = await transaction.get(slotRef);
-          if(slotSnap.exists()) throw new Error('TAKEN');
-          var bookingRef = doc(db, 'bookings', id);
-          transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
-          transaction.set(bookingRef, {
-            svc: state.svc, date: dKey, time: state.time,
-            name: state.name, phone: state.phone, email: state.email, note: 'Oktatóanyag: oktatoanyag.html (4 az 1-ben)',
-            createdAt: serverTimestamp()
-          });
-        });
-      }catch(err){
-        if(err.message === 'TAKEN'){
-          botMsg('Sajnos ezt az időpontot közben valaki más lefoglalta 😔 Válasszunk másikat?', function(){ askTime(); });
-        }else{
-          console.error(err);
-          botMsg('Hiba történt a foglalás közben. Kérlek hívj minket telefonon: +36 30 503 9156.');
-        }
-        return;
-      }
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
 
-      // Az emaileket a /api/send-booking szerveroldali függvény küldi ki (Brevo).
-      try{
-        var mailRes = await fetch('/api/send-booking', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            svc: state.svc,
-            date: state.date.toLocaleDateString('hu-HU'),
-            time: state.time,
-            name: state.name, phone: state.phone, email: state.email,
-            note: 'Oktatóanyag: oktatoanyag.html (4 az 1-ben)'
-          })
-        });
-        if(!mailRes.ok){
-          console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', await mailRes.text());
-        }
-      }catch(err){
-        console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
-      }
+    var name = document.getElementById('f-name').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var note = document.getElementById('f-note').value.trim();
 
-      try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=12000';
-    });
+    var phoneDigits = phone.replace(/\D/g, '');
+    if(phoneDigits.length < 9 || phoneDigits.length > 11){
+      submitBtn.disabled = false;
+      alert('Kérlek egy érvényes telefonszámot adj meg (pl. +36 30 123 4567).');
+      document.getElementById('f-phone').focus();
+      return false;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      submitBtn.disabled = false;
+      alert('Kérlek egy érvényes email címet adj meg.');
+      document.getElementById('f-email').focus();
+      return false;
+    }
+
+    var id = slotId(selectedDate, selectedSlot);
+    var dKey = dateKey(selectedDate);
+    var confirmToken = crypto.randomUUID();
+
+    try{
+      await runTransaction(db, async function(transaction){
+        var slotRef = doc(db, 'slots', id);
+        var slotSnap = await transaction.get(slotRef);
+        if(slotSnap.exists()){
+          throw new Error('TAKEN');
+        }
+        var bookingRef = doc(db, 'bookings', id);
+        transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
+        transaction.set(bookingRef, {
+          svc: selectedSvc, date: dKey, time: selectedSlot,
+          name: name, phone: phone, email: email, note: note || 'Oktatóanyag: oktatoanyag.html (4 az 1-ben)',
+          createdAt: serverTimestamp(),
+          status: 'pending',
+          confirmToken: confirmToken,
+          remindersSent: { r48: false, r24: false, r3: false, r1: false }
+        });
+      });
+    }catch(err){
+      submitBtn.disabled = false;
+      if(err.message === 'TAKEN'){
+        alert('Sajnos ezt az időpontot közben valaki más lefoglalta. Válassz egy másikat!');
+        loadSlotsForDate(selectedDate);
+        selectedSlot = null;
+        document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+        updateSummary();
+      }else{
+        console.error(err);
+        alert('Hiba történt a foglalás közben. Kérlek próbáld újra, vagy hívj minket telefonon.');
+      }
+      return false;
+    }
+
+    // Az emaileket a /api/send-booking szerveroldali függvény küldi ki (Brevo).
+    try{
+      var mailRes = await fetch('/api/send-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          svc: selectedSvc,
+          date: selectedDate.toLocaleDateString('hu-HU'),
+          time: selectedSlot,
+          name: name, phone: phone, email: email, note: note,
+          id: id, confirmToken: confirmToken
+        })
+      });
+      if(!mailRes.ok){
+        console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', await mailRes.text());
+      }
+    }catch(err){
+      console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
+    }
+
+    if(window.fbTrack) fbTrack('Schedule', { content_name: selectedSvc });
+    try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
+
+    // Nem navigalunk el sehova — a visszaigazolas itt, helyben jelenik meg.
+    document.getElementById('okName').textContent = name;
+    document.getElementById('okDetails').textContent = selectedSvc + ' · ' + selectedDate.toLocaleDateString('hu-HU') + ' · ' + selectedSlot;
+    document.getElementById('bookForm').style.display = 'none';
+    document.getElementById('bookSuccess').classList.add('show');
+    return false;
   }
+  window.submitBooking = submitBooking;
 
-  var chatStarted = false;
-  window.__startBookingChat = function(){
-    if(chatStarted) return;
-    chatStarted = true;
-    subscribeSlots();
-    botMsg('Szia! 👋 Ez a 4 az 1-ben alakformáló kezelés gyors foglalása — első alkalom 12.000 Ft, ajándék hullámmasszázzsal. Melyik nap jönnél?', function(){
-      askDate();
-    });
+  var bookingStarted = false;
+  window.__startBooking = function(){
+    if(bookingStarted) return;
+    bookingStarted = true;
+    subscribeMonth(viewYear, viewMonth);
+    renderCal();
   };
 </script>
 
