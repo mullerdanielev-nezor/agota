@@ -104,6 +104,7 @@ section{padding:80px 0}
 .result-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .result-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;display:flex;gap:18px;align-items:flex-start;text-align:left;box-shadow:0 10px 26px rgba(224,62,99,.05)}
 .result-card .rnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
+.result-card .tag{display:block;font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.4rem}
 .result-card h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
 .result-card p{font-size:.92rem;color:var(--mokka);line-height:1.65;margin-bottom:.5rem}
 .result-card ul{margin:.3rem 0 0 1.15rem;padding:0;color:var(--mokka);font-size:.92rem;line-height:1.6}
@@ -116,10 +117,20 @@ section{padding:80px 0}
 
 /* ===== BEÁGYAZOTT FOGLALÁSI RENDSZER (ugyanaz, mint a foglalas.html — nem navigál el sehova) ===== */
 .result-main.result-booking{padding:0;overflow:hidden;flex-direction:column}
-.booking-head{padding:26px 28px 4px;display:flex;gap:18px;align-items:flex-start}
-.booking-head .rnum{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold);flex:none;width:1.4em}
-.booking-head h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.08rem;margin-bottom:6px;line-height:1.35}
-.booking-head p{font-size:.92rem;color:var(--mokka);line-height:1.65}
+.booking-head{padding:34px 28px 10px}
+.pitch-eyebrow{display:block;margin-bottom:.6rem}
+.pitch-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.15;margin-bottom:.8rem;letter-spacing:-.01em}
+.pitch-lead{font-size:1rem;color:var(--mokka);line-height:1.7;margin-bottom:1.2rem;max-width:640px}
+.pitch-benefits{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.2rem;margin-bottom:1.3rem;max-width:520px}
+.pitch-benefits div{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:.94rem;color:var(--ink)}
+.pitch-benefits b{width:22px;height:22px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.68rem;display:flex;align-items:center;justify-content:center;flex:none}
+.pitch-who{font-family:'Poppins',sans-serif;font-weight:700;font-size:.98rem;color:var(--ink);margin-bottom:.5rem}
+.pitch-who-list{margin:0 0 1.3rem 1.15rem;padding:0;color:var(--mokka);font-size:.92rem;line-height:1.65}
+.pitch-who-list li{margin-bottom:.3rem}
+.pitch-offer{display:flex;align-items:center;flex-wrap:wrap;gap:.9rem}
+.pitch-offer .was{color:var(--mokka);text-decoration:line-through;font-size:.95rem}
+.pitch-offer .now{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--rosegold)}
+.pitch-offer .gift{background:var(--cream);color:var(--plum);font-size:.8rem;font-weight:700;padding:.45rem .9rem;border-radius:999px}
 .book-card{background:#fff;border-top:1px solid var(--line);padding:1.6rem 1.8rem 2rem}
 .step-label{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
 .step-label b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.62rem}
@@ -259,21 +270,36 @@ footer a{color:var(--rosegold)}
     <div class="result-list">
       <div class="result-card reveal">
         <span class="rnum">1.</span>
-        <div><h3 id="tip1Title"></h3><div id="tip1Text"></div></div>
+        <div><span class="tag">Megoldás</span><h3 id="tip1Title"></h3><div id="tip1Text"></div></div>
       </div>
       <div class="result-card reveal">
         <span class="rnum">2.</span>
-        <div><h3 id="tip2Title"></h3><div id="tip2Text"></div></div>
+        <div><span class="tag">Megoldás</span><h3 id="tip2Title"></h3><div id="tip2Text"></div></div>
       </div>
 
       <div class="review-mini reveal" style="max-width:400px;margin:0 auto"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="lazy" decoding="async"></div>
 
       <div class="result-card result-main result-booking reveal">
         <div class="booking-head">
-          <span class="rnum">3.</span>
-          <div>
-            <h3>A leggyorsabb út: 4 az 1-ben kezelés</h3>
-            <p>Nyíregyházán, ajándék hullámmasszázzsal.</p>
+          <span class="eyebrow pitch-eyebrow">Ajánlott kezelés</span>
+          <h3 class="pitch-title">4 az 1-ben alakformáló kezelés</h3>
+          <p class="pitch-lead">Egyetlen kezelésben kapod meg mind a négyet: célzott zsírbontást, bőrfeszesítést és izomépítést — plusz egy ajándék hullámmasszázst. Nyíregyházán, nyugodt, privát térben, teljesen rád szabva.</p>
+          <div class="pitch-benefits">
+            <div><b>✓</b> Célzott zsírbontás</div>
+            <div><b>✓</b> Feszesebb bőr</div>
+            <div><b>✓</b> Formásabb alak</div>
+            <div><b>✓</b> Jobb közérzet</div>
+          </div>
+          <p class="pitch-who">Neked ajánljuk, ha</p>
+          <ul class="pitch-who-list">
+            <li>szeretnél látható eredményt már néhány alkalom után</li>
+            <li>nincs időd vagy kedved bonyolult diétákhoz és edzéstervekhez</li>
+            <li>egy nyugodt, teljesen rád szabott kezelésre vágysz</li>
+          </ul>
+          <div class="pitch-offer">
+            <span class="was">28.000 Ft</span>
+            <span class="now">12.000 Ft</span>
+            <span class="gift">🎁 Ajándék hullámmasszázs</span>
           </div>
         </div>
         <div class="book-card">
