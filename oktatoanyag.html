@@ -92,7 +92,7 @@ section{padding:80px 0}
 /* ===== PROBLÉMA-VÁLASZTÓ ===== */
 .pain{background:var(--cream)}
 .pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.pain-card{background:#fff;border-radius:16px;padding:24px 22px;border:2px solid transparent;font-size:.98rem;display:flex;gap:14px;align-items:flex-start;cursor:pointer;text-align:left;font-family:'Nunito Sans',sans-serif;color:var(--ink);width:100%;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.pain-card{background:#fff;border-radius:16px;padding:26px 22px;border:2px solid transparent;font-size:1.22rem;font-weight:700;display:flex;gap:14px;align-items:center;cursor:pointer;text-align:left;font-family:'Poppins',sans-serif;color:var(--ink);width:100%;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
 .pain-card:hover{border-color:rgba(224,62,99,.35);transform:translateY(-3px)}
 .pain-card.sel{border-color:var(--rosegold);background:linear-gradient(155deg,#fff,var(--cream));box-shadow:0 12px 28px rgba(224,62,99,.14)}
 .pain-card .mark{font-family:'Poppins',sans-serif;font-weight:800;color:var(--rosegold);font-size:1.15rem;flex:none}
@@ -120,6 +120,7 @@ section{padding:80px 0}
 .booking-head{padding:34px 28px 10px}
 .pitch-eyebrow{display:block;margin-bottom:.6rem}
 .pitch-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.15;margin-bottom:.8rem;letter-spacing:-.01em}
+.pitch-location{font-size:.86rem;font-weight:700;color:var(--rosegold);margin-bottom:.6rem}
 .pitch-lead{font-size:1rem;color:var(--mokka);line-height:1.7;margin-bottom:1.2rem;max-width:640px}
 .pitch-benefits{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.2rem;margin-bottom:1.3rem;max-width:520px}
 .pitch-benefits div{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:.94rem;color:var(--ink)}
@@ -252,10 +253,10 @@ footer a{color:var(--rosegold)}
       <p>Kattints arra, ami rád leginkább igaz — rögtön mutatjuk, mit tehetsz ellene.</p>
     </div>
     <div class="pain-grid" id="pickerGrid">
-      <button type="button" class="pain-card reveal" data-i="0"><span class="mark">01</span><span>Estére bedagad, elnehezül a lábad.<span class="sub-line">Hiába pihensz.</span></span></button>
-      <button type="button" class="pain-card reveal" data-i="1"><span class="mark">02</span><span>Leadtad a kilókat, de a bőr petyhüdt, megereszkedett maradt.</span></button>
-      <button type="button" class="pain-card reveal" data-i="2"><span class="mark">03</span><span>Edzel, de a has és a popsi csak nem akar formálódni.</span></button>
-      <button type="button" class="pain-card reveal" data-i="3"><span class="mark">04</span><span>Vannak zsírpárnák, amik diétára és mozgásra sem engednek.</span></button>
+      <button type="button" class="pain-card reveal" data-i="0"><span class="mark">01</span><span>Estére bedagadt láb?</span></button>
+      <button type="button" class="pain-card reveal" data-i="1"><span class="mark">02</span><span>Petyhüdt bőr fogyás után?</span></button>
+      <button type="button" class="pain-card reveal" data-i="2"><span class="mark">03</span><span>Nem formálódó has, popsi?</span></button>
+      <button type="button" class="pain-card reveal" data-i="3"><span class="mark">04</span><span>Makacs zsírpárnák?</span></button>
     </div>
   </div>
 </section>
@@ -283,7 +284,8 @@ footer a{color:var(--rosegold)}
         <div class="booking-head">
           <span class="eyebrow pitch-eyebrow">Ajánlott kezelés</span>
           <h3 class="pitch-title">4 az 1-ben alakformáló kezelés</h3>
-          <p class="pitch-lead">Egyetlen kezelésben kapod meg mind a négyet: célzott zsírbontást, bőrfeszesítést és izomépítést — plusz egy ajándék hullámmasszázst. Nyíregyházán, nyugodt, privát térben, teljesen rád szabva.</p>
+          <p class="pitch-location">📍 Nyíregyháza, Meggyes u. 11.</p>
+          <p class="pitch-lead">Zsírbontás, bőrfeszesítés és izomépítés egyben, ajándék hullámmasszázzsal.</p>
           <div class="pitch-benefits">
             <div><b>✓</b> Célzott zsírbontás</div>
             <div><b>✓</b> Feszesebb bőr</div>
@@ -292,9 +294,9 @@ footer a{color:var(--rosegold)}
           </div>
           <p class="pitch-who">Neked ajánljuk, ha</p>
           <ul class="pitch-who-list">
-            <li>szeretnél látható eredményt már néhány alkalom után</li>
-            <li>nincs időd vagy kedved bonyolult diétákhoz és edzéstervekhez</li>
-            <li>egy nyugodt, teljesen rád szabott kezelésre vágysz</li>
+            <li>gyors, látható eredményt szeretnél</li>
+            <li>nincs időd bonyolult diétákhoz, edzéstervekhez</li>
+            <li>egy nyugodt, rád szabott kezelésre vágysz</li>
           </ul>
           <div class="pitch-offer">
             <span class="was">28.000 Ft</span>
@@ -471,12 +473,12 @@ footer a{color:var(--rosegold)}
     },
     {
       tip1: {
-        title: 'Nem minden zsír egyforma',
-        lead: 'Van, ami nem rajtad múlik:',
+        title: 'Célzott mozgás a makacs részekre',
+        lead: 'Ezekkel besegíthetsz neki:',
         bullets: [
-          'Egyes zsírraktárak (csípő, has alja) hormonálisan fenntartottak',
-          'Ezek diétával és mozgással is nehezen csökkennek',
-          'Ez nem azt jelenti, hogy rosszul csinálod'
+          'Célzott gyakorlatok az adott területre, pl. csípőnél oldalsó lépegetés, hasnál core-gyakorlatok',
+          'Rendszeres kardió mellé, heti 3-4x legalább 20 percet',
+          'Adj neki időt: ez hetek alatt indul be, ne várj azonnali eredményt'
         ]
       },
       tip2: {
