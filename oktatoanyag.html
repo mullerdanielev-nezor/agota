@@ -100,10 +100,7 @@ section{padding:80px 0}
 @media (max-width:420px){.pitch-benefits{grid-template-columns:1fr}}
 .glow-frame{position:relative;border-radius:20px;padding:4px;isolation:isolate}
 .glow-frame::after{content:'';position:absolute;inset:0;border-radius:20px;padding:4px;background:var(--rosegold);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;z-index:1}
-.glow-frame::before{content:'';position:absolute;inset:0;border-radius:20px;padding:4px;background:conic-gradient(from 0deg,transparent 0%,rgba(255,255,255,.95) 8%,transparent 20%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:glowSpin 3.5s linear infinite;z-index:2;filter:blur(1px)}
 .glow-frame img{position:relative;border-radius:17px;z-index:0}
-@keyframes glowSpin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion: reduce){.glow-frame::before{animation:none}}
 
 /* ===== EREDMÉNY (2 személyre szabott tipp + mindig a foglalási CTA) ===== */
 #result{background:var(--ho);display:none}
