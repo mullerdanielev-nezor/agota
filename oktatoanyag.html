@@ -101,6 +101,13 @@ section{padding:80px 0}
 .glow-frame{position:relative;border-radius:20px;padding:4px;isolation:isolate}
 .glow-frame::after{content:'';position:absolute;inset:0;border-radius:20px;padding:4px;background:var(--rosegold);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;z-index:1}
 .glow-frame img{position:relative;border-radius:17px;z-index:0}
+.map-sec{padding:0 0 80px}
+.map-sec .wrap{max-width:900px}
+.map-card{border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(122,26,52,.1);border:1px solid rgba(224,62,99,.14)}
+.map-card iframe{width:100%;height:340px;border:0;display:block;filter:grayscale(.1) contrast(1)}
+.map-info{text-align:center;margin-top:18px}
+.map-info b{display:block;font-family:'Poppins',sans-serif;font-size:1.15rem;color:var(--ink);margin-bottom:6px}
+.map-info a{color:var(--rosegold);font-weight:700;font-size:.94rem}
 
 /* ===== EREDMÉNY (2 személyre szabott tipp + mindig a foglalási CTA) ===== */
 #result{background:var(--ho);display:none}
@@ -124,7 +131,7 @@ section{padding:80px 0}
 .booking-head{padding:42px 32px 20px}
 .pitch-eyebrow{display:block;margin-bottom:1rem;font-size:.8rem;text-align:center}
 h3.pitch-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.9rem,5.2vw,2.9rem);line-height:1.18;margin-bottom:1.2rem;letter-spacing:-.01em;text-align:center}
-p.pitch-location{font-size:clamp(1.1rem,2.4vw,1.4rem);font-weight:700;color:var(--rosegold);margin-bottom:1.6rem;text-align:center}
+p.pitch-location{font-size:clamp(1.4rem,3.4vw,1.9rem);font-weight:800;color:var(--rosegold);margin-bottom:1.6rem;text-align:center}
 .pitch-benefits{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.6rem;margin-bottom:2rem;max-width:560px}
 .pitch-benefits div{display:flex;align-items:center;gap:.7rem;font-weight:700;font-size:1.08rem;color:var(--ink);white-space:nowrap}
 .pitch-benefits b{width:27px;height:27px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex:none}
@@ -360,6 +367,18 @@ footer a{color:var(--rosegold)}
       </div>
     </div>
     <p class="result-note">Kérdésed van? Hívj minket: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></p>
+  </div>
+</section>
+
+<section class="map-sec">
+  <div class="wrap">
+    <div class="map-card">
+      <iframe src="https://www.google.com/maps?q=Ny%C3%ADregyh%C3%A1za%2C%20Meggyes%20utca%2011&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Loft of Beauty térkép – Nyíregyháza, Meggyes u. 11."></iframe>
+    </div>
+    <div class="map-info">
+      <b>📍 Nyíregyháza, Meggyes u. 11.</b>
+      <a href="https://maps.google.com/maps?q=Ny%C3%ADregyh%C3%A1za%2C%20Meggyes%20utca%2011" target="_blank" rel="noopener">Útvonalterv a Google Térképen →</a>
+    </div>
   </div>
 </section>
 
