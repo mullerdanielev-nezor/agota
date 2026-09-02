@@ -98,6 +98,11 @@ section{padding:80px 0}
 .pain-card .mark{font-family:'Poppins',sans-serif;font-weight:800;color:var(--rosegold);font-size:1.15rem;flex:none}
 @media (max-width:880px){.pain-grid{grid-template-columns:1fr}}
 @media (max-width:420px){.pitch-benefits{grid-template-columns:1fr}}
+.glow-frame{position:relative;border-radius:20px;padding:4px;isolation:isolate}
+.glow-frame::before{content:'';position:absolute;inset:0;border-radius:20px;padding:4px;background:conic-gradient(from 0deg,transparent 0%,var(--rosegold) 12%,transparent 28%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:glowSpin 3.5s linear infinite;z-index:1}
+.glow-frame img{position:relative;border-radius:17px;z-index:0}
+@keyframes glowSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.glow-frame::before{animation:none}}
 
 /* ===== EREDMÉNY (2 személyre szabott tipp + mindig a foglalási CTA) ===== */
 #result{background:var(--ho);display:none}
@@ -279,7 +284,7 @@ footer a{color:var(--rosegold)}
         <div><span class="tag">Megoldás</span><h3 id="tip2Title"></h3><div id="tip2Text"></div></div>
       </div>
 
-      <div class="review-mini reveal" style="max-width:400px;margin:0 auto"><img src="images/velemeny-krakomperger-varga-timi-2.jpeg" alt="Krakompergerné Varga Timi Facebook-véleménye: „Na ez az a kezelés ami tényleg eredményt hozott két császármetszés és egy hasi műtét után igen csak meggyötört logó pocakrészemnek! Köszönöm.”" loading="lazy" decoding="async"></div>
+      <div class="review-mini glow-frame reveal" style="max-width:400px;margin:0 auto"><img src="images/velemeny-krakomperger-varga-timi-2.jpeg" alt="Krakompergerné Varga Timi Facebook-véleménye: „Na ez az a kezelés ami tényleg eredményt hozott két császármetszés és egy hasi műtét után igen csak meggyötört logó pocakrészemnek! Köszönöm.”" loading="lazy" decoding="async"></div>
 
       <div class="result-card result-main result-booking reveal">
         <div class="booking-head">
