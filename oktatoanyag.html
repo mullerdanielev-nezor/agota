@@ -132,10 +132,12 @@ p.pitch-who{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.2rem;co
 ul.pitch-who-list{margin:0 0 2rem 1.25rem;padding:0;color:var(--mokka);font-size:1.06rem;line-height:1.85}
 .pitch-who-list li{margin-bottom:.55rem}
 .pitch-who-list b{color:var(--rosegold);font-weight:800}
-.pitch-offer{display:flex;align-items:center;flex-wrap:wrap;gap:1.2rem}
-.pitch-offer .was{color:var(--mokka);text-decoration:line-through;font-size:1.05rem}
-.pitch-offer .now{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.9rem;color:var(--rosegold)}
-.pitch-offer .gift{background:var(--cream);color:var(--plum);font-size:.92rem;font-weight:700;padding:.6rem 1.1rem;border-radius:999px}
+.pitch-offer{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.7rem;margin:0 auto}
+.pitch-offer .price-row{display:flex;align-items:baseline;justify-content:center;gap:.9rem}
+.pitch-offer .was{color:var(--mokka);text-decoration:line-through;font-size:1.3rem}
+.pitch-offer .now{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,3.2rem);color:var(--rosegold)}
+.pitch-offer .offer-tag{font-weight:800;font-size:1.05rem;color:var(--plum)}
+.pitch-offer .gift{background:var(--cream);color:var(--plum);font-size:.92rem;font-weight:700;padding:.6rem 1.1rem;border-radius:999px;margin-top:.3rem}
 .book-card{background:#fff;border-top:1px solid var(--line);padding:1.6rem 1.8rem 2rem}
 .step-label{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rosegold);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
 .step-label b{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:var(--rosegold);color:#fff;font-size:.62rem}
@@ -302,8 +304,8 @@ footer a{color:var(--rosegold)}
             <li>egy <b>nyugodt, rád szabott</b> kezelésre vágysz</li>
           </ul>
           <div class="pitch-offer">
-            <span class="was">28.000 Ft</span>
-            <span class="now">12.000 Ft</span>
+            <div class="price-row"><span class="was">28.000 Ft</span><span class="now">12.000 Ft</span></div>
+            <span class="offer-tag">Őszi kedvezmény</span>
             <span class="gift">🎁 Ajándék hullámmasszázs</span>
           </div>
         </div>
