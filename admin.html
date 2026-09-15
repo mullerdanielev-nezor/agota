@@ -204,6 +204,11 @@
         </section>
 
         <section>
+          <h2>Honnan jöttek <span>hirdetési forrás és kampány szerint</span></h2>
+          <div class="panel"><div class="bars" id="barsSrc"></div></div>
+        </section>
+
+        <section>
           <h2>Visszatérő vendégek <span>telefonszám szerint</span></h2>
           <div class="tablewrap">
             <table>
@@ -221,7 +226,7 @@
           </div>
           <div class="tablewrap">
             <table>
-              <thead><tr><th>Leadva</th><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Email</th><th>Megjegyzés</th><th>Visszaigazolás</th></tr></thead>
+              <thead><tr><th>Leadva</th><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Email</th><th>Megjegyzés</th><th>Forrás</th><th>Visszaigazolás</th></tr></thead>
               <tbody id="allRows"></tbody>
             </table>
             <div class="empty" id="allEmpty" style="display:none">Még nincs egyetlen foglalás sem.</div>
@@ -247,7 +252,7 @@
           <div class="tablewrap">
             <table id="bookTable">
               <thead>
-                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th><th>Visszaigazolás</th><th></th></tr>
+                <tr><th>Dátum</th><th>Idő</th><th>Kezelés</th><th>Név</th><th>Telefon</th><th>Megjegyzés</th><th>Forrás</th><th>Visszaigazolás</th><th></th></tr>
               </thead>
               <tbody id="bookRows"></tbody>
             </table>
@@ -357,6 +362,29 @@
         return '<span class="badge badge-warn">⚠️ nincs visszaigazolva</span>';
       }
       return '<span class="badge badge-pending">⏳ vár visszaigazolásra</span>';
+    }
+
+    // Hirdetési forrás (assets/attribution.js tölti a foglaláskor).
+    // A forrás-mező bevezetése előtti foglalásoknál nincs "source" mező.
+    function sourceLabel(b){
+      var s = b.source;
+      if(!s) return 'Korábbi (nincs adat)';
+      if(s.utm_source) return s.utm_source + (s.utm_campaign ? ' · ' + s.utm_campaign : '');
+      if(s.fbclid) return 'Facebook (kampány nélkül)';
+      return 'Közvetlen / egyéb';
+    }
+    function sourceDetails(b){
+      var s = b.source;
+      if(!s) return '';
+      var parts = [];
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){
+        if(s[k]) parts.push(k + ': ' + s[k]);
+      });
+      if(s.fbclid) parts.push('Facebook-kattintás (fbclid)');
+      return parts.join(' | ');
+    }
+    function sourceCell(b){
+      return '<td class="muted" title="' + escapeHtml(sourceDetails(b)) + '">' + escapeHtml(sourceLabel(b)) + '</td>';
     }
 
     function renderCal(){
@@ -506,6 +534,7 @@
           '<td class="name">' + escapeHtml(b.name || '') + '</td>' +
           '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
           '<td>' + escapeHtml(b.note || '—') + '</td>' +
+          sourceCell(b) +
           '<td>' + confirmBadge(b) + '</td>' +
           '<td></td>';
         var reschedBtn = document.createElement('button');
@@ -620,7 +649,8 @@
             createdAt: b.createdAt || serverTimestamp(),
             status: b.status || 'pending',
             confirmToken: b.confirmToken || null,
-            remindersSent: { r48: false, r24: false, r3: false, r1: false }
+            remindersSent: { r48: false, r24: false, r3: false, r1: false },
+            source: b.source || null
           });
           transaction.delete(oldSlotRef);
           transaction.delete(oldBookingRef);
@@ -729,8 +759,12 @@
       var upcoming = 0, past = 0, thisMonth = 0;
       var svcCount = {}, hourCount = {}, dowCount = {}, partCount = {'Reggel (6–12)':0,'Délután (12–18)':0,'Este (18–24)':0,'Éjszaka (0–6)':0};
       var guests = {};
+      var srcCount = {};
 
       allBookings.forEach(function(b){
+        var src = sourceLabel(b);
+        srcCount[src] = (srcCount[src] || 0) + 1;
+
         var d = b.date || '';
         if(d >= todayKey) upcoming++; else past++;
         if(d.indexOf(monthPrefix) === 0) thisMonth++;
@@ -781,6 +815,7 @@
       renderBars('barsHour', Object.keys(hourCount).sort().map(function(k){ return [k, hourCount[k]]; }));
       renderBars('barsDow', HU_DOW.map(function(k){ return [k, dowCount[k] || 0]; }));
       renderBars('barsPart', Object.keys(partCount).map(function(k){ return [k, partCount[k]]; }));
+      renderBars('barsSrc', toPairsByCount(srcCount));
 
       // Visszatérő vendégek
       var gRows = document.getElementById('guestRows');
@@ -825,6 +860,7 @@
             '<td><a href="tel:' + escapeHtml(b.phone || '') + '">' + escapeHtml(b.phone || '') + '</a></td>' +
             '<td>' + escapeHtml(b.email || '—') + '</td>' +
             '<td>' + escapeHtml(b.note || '—') + '</td>' +
+            sourceCell(b) +
             '<td>' + confirmBadge(b) + '</td>';
           aRows.appendChild(tr);
         });
@@ -832,11 +868,11 @@
     }
 
     document.getElementById('csvBtn').addEventListener('click', function(){
-      var head = ['Leadva','Datum','Ido','Kezeles','Nev','Telefon','Email','Megjegyzes'];
+      var head = ['Leadva','Datum','Ido','Kezeles','Nev','Telefon','Email','Megjegyzes','Forras','Forras reszletek'];
       function cell(v){ return '"' + String(v == null ? '' : v).replace(/"/g,'""') + '"'; }
       var lines = [head.map(cell).join(';')];
       allBookings.forEach(function(b){
-        lines.push([fmtDateTime(createdDate(b)), b.date, b.time, b.svc, b.name, b.phone, b.email, b.note].map(cell).join(';'));
+        lines.push([fmtDateTime(createdDate(b)), b.date, b.time, b.svc, b.name, b.phone, b.email, b.note, sourceLabel(b), sourceDetails(b)].map(cell).join(';'));
       });
       var blob = new Blob(['﻿' + lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
       var url = URL.createObjectURL(blob);

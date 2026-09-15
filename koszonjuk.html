@@ -26,6 +26,7 @@ p{color:var(--mokka);font-size:.98rem;margin-bottom:10px}
 .back{display:inline-block;margin-top:18px;background:var(--rosegold);color:#fff;padding:.8rem 1.8rem;border-radius:999px;font-weight:700;font-size:.9rem}
 </style>
 <script src="assets/consent.js"></script>
+<script src="assets/attribution.js"></script>
 </head>
 <body>
 <div class="card">
@@ -43,13 +44,27 @@ p{color:var(--mokka);font-size:.98rem;margin-bottom:10px}
   if(svc){
     document.getElementById('svcLine').textContent = 'Foglalt kezelés: ' + svc + '. Hamarosan visszaigazoljuk telefonon.';
   }
+  // A "b" paraméter a foglalás azonosítója — ettől foglalásonként egyedi a
+  // védelem (frissítés / vissza gomb ne küldje újra), és ez az eventID is.
+  var bookingId = params.get('b') || '';
   var fireKey = 'kj_lead_fired_' + location.search;
-  var alreadyFired = false;
-  try{ alreadyFired = !!sessionStorage.getItem(fireKey); }catch(e){}
-  if(typeof fbq === 'function' && !alreadyFired){
-    fbq('track', 'Lead', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' });
-    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas' });
+
+  function fireLead(){
+    if(typeof fbq !== 'function') return;
+    try{ if(sessionStorage.getItem(fireKey)) return; }catch(e){}
+    var opts = bookingId ? { eventID: 'lead_' + bookingId } : undefined;
+    fbq('track', 'Lead', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' }, opts);
+    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas' }, bookingId ? { eventID: 'schedule_' + bookingId } : undefined);
     try{ sessionStorage.setItem(fireKey, '1'); }catch(e){}
+  }
+
+  // Már elfogadott sütik esetén a Pixel (consent.js) itt már él → azonnal megy.
+  // Ha a látogató csak most, ezen az oldalon fogadja el, a consent.js jelzésére megy.
+  // Elutasításkor semmi nem megy ki.
+  if(typeof fbq === 'function'){
+    fireLead();
+  }else{
+    document.addEventListener('lb:pixel-ready', fireLead, { once: true });
   }
 })();
 </script>

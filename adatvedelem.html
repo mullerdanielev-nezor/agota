@@ -30,6 +30,7 @@
   .legal th{color:var(--ink);font-weight:700;background:var(--cream)}
 </style>
 <script src="assets/consent.js"></script>
+<script src="assets/attribution.js"></script>
 </head>
 <body>
 
@@ -59,7 +60,7 @@
 <div class="page-head">
   <div class="crumb"><a href="index.html">Főoldal</a> / Adatvédelem</div>
   <h1>Adatkezelési tájékoztató</h1>
-  <p>Utolsó frissítés: 2026. július</p>
+  <p>Utolsó frissítés: 2026. szeptember</p>
 </div>
 
 <section class="section">
@@ -83,10 +84,13 @@
     <ul>
       <li>teljes név</li>
       <li>telefonszám</li>
+      <li>e-mail cím (ide küldjük a foglalás visszaigazolását, az időpont előtti emlékeztetőket és a lemondási lehetőséget)</li>
       <li>a választott kezelés típusa, dátuma és időpontja</li>
       <li>opcionális megjegyzés, amit magad adsz meg</li>
+      <li>ha hirdetésre vagy más hivatkozásra kattintva érkeztél: a hivatkozásban szereplő forrás- és kampányjelölés (pl. „facebook”, a kampány neve), illetve annak ténye, hogy Facebook-hirdetésre kattintottál</li>
     </ul>
-    <p><strong>Az adatkezelés célja:</strong> az időpontfoglalás rögzítése, visszaigazolása telefonon, és a kezelés lebonyolítása.<br>
+    <p>A forrás- és kampányjelölést kizárólag arra használjuk, hogy lássuk, melyik hirdetésünkből érkeznek foglalások. Ehhez nem helyezünk el sütit a böngésződben, és ezt az adatot senkinek nem adjuk tovább. <strong>Jogalapja:</strong> jogos érdekünk a saját hirdetéseink eredményességének mérésére (GDPR 6. cikk (1) f) pont).</p>
+    <p><strong>Az adatkezelés célja:</strong> az időpontfoglalás rögzítése és visszaigazolása (telefonon, illetve e-mailben), az időpont előtti emlékeztető e-mailek küldése, és a kezelés lebonyolítása.<br>
     <strong>Jogalap:</strong> a szerződés (szolgáltatás igénybevétele) teljesítéséhez szükséges adatkezelés (GDPR 6. cikk (1) b) pont), illetve a foglalás gombra kattintással adott hozzájárulásod (GDPR 6. cikk (1) a) pont).<br>
     <strong>Megőrzési idő:</strong> a foglalás időpontjától számított 5 évig (számviteli és esetleges jogvitával kapcsolatos okokból), ezt követően töröljük. Korábbi törlést bármikor kérhetsz az alábbi 6. pontban leírt módon.</p>
 
@@ -114,8 +118,9 @@
     <p>A foglalási adataidat az alábbi, az Adatkezelő megbízásából eljáró adatfeldolgozók (harmadik fél szolgáltatók) infrastruktúráján tároljuk és kezeljük:</p>
     <table>
       <tr><th>Szolgáltató</th><th>Szerepe</th><th>Adat típusa</th></tr>
-      <tr><td>Google Firebase (Google Ireland Ltd.)</td><td>a foglalási adatok adatbázisa (Firestore) és a foglalási rendszer bejelentkezése (Authentication)</td><td>név, telefonszám, kezelés adatai</td></tr>
-      <tr><td>EmailJS</td><td>a foglaláskor automatikusan kiküldött e-mail értesítés</td><td>név, telefonszám, kezelés adatai</td></tr>
+      <tr><td>Google Firebase (Google Ireland Ltd.)</td><td>a foglalási adatok adatbázisa (Firestore) és a foglalási rendszer bejelentkezése (Authentication)</td><td>név, telefonszám, e-mail cím, kezelés adatai, hirdetési forrásjelölés</td></tr>
+      <tr><td>Brevo (Sendinblue SAS)</td><td>a foglaláskor, áthelyezéskor és lemondáskor automatikusan kiküldött e-mailek, valamint az időpont előtti emlékeztetők</td><td>név, telefonszám, e-mail cím, kezelés adatai</td></tr>
+      <tr><td>Vercel Inc.</td><td>a weboldal tárhelye és az e-maileket kiküldő szerveroldali funkciók futtatása</td><td>a foglalás adatai a küldés idejére, látogató IP-címe (technikai adat)</td></tr>
       <tr><td>Google Fonts, Google Térkép</td><td>betűtípusok betöltése és a stúdió helyének megjelenítése térképen</td><td>látogató IP-címe (technikai adat, a Google kezeli saját szabályzata szerint)</td></tr>
       <tr><td>Meta Platforms Ireland Ltd. (Facebook/Instagram)</td><td>hirdetési teljesítménymérés (Meta Pixel), és — kizárólag a 2.3 pontban leírt, külön hozzájárulással feliratkozott e-mail címek esetén — hirdetési célközönség (Custom Audience) kialakítása</td><td>látogatói viselkedés és technikai azonosítók (Pixel), illetve hash-elt e-mail cím (célközönség)</td></tr>
     </table>
@@ -128,8 +133,9 @@
     <h2>5. Sütik (cookie-k) és a Meta Pixel</h2>
     <p>A weboldalon nincs saját (első féltől származó) látogatottságmérő eszköz, nincs rajta Google Analytics, és nincs rajta beágyazott Google Térkép sem — a térkép helyén egy statikus link található, ami csak kattintásra, egy új böngészőfülön nyitja meg a Google Térképet. Emiatt a weboldal böngészése önmagában nem helyez el sütiket a Google részéről.</p>
     <p>A <strong>Google Fonts</strong> (betűtípusok) betöltése a látogató IP-címét továbbítja a Google szerverei felé — ez technikailag szükséges a betűtípusok megjelenítéséhez, és a Google saját adatvédelmi szabályzata vonatkozik rá.</p>
-    <p><strong>Meta Pixel (Facebook/Instagram hirdetéskövetés):</strong> a weboldal minden oldalán fut a Meta (Facebook) hirdetési mérőkódja, a Meta Pixel. Ez a látogatás tényét (oldalmegtekintés), illetve bizonyos esetekben konkrét eseményeket (pl. időpontfoglalás megkezdése/sikeres foglalás, hírlevél-feliratkozás) küld a Meta felé, és ehhez sütit (elsősorban <code>_fbp</code>) helyez el a böngésződben. Ennek célja a hirdetéseink teljesítményének mérése és a hirdetések relevánsabbá tétele (pl. remarketing: korábbi látogatóknak való hirdetés-megjelenítés).</p>
-    <p>A Meta Pixel <strong>nem elengedhetetlenül szükséges (nem "essential") süti/technológia</strong>, ezért a használatához az alkalmazandó szabályozás (GDPR és az e-hírközlési/"cookie" szabályok) szerint elvben előzetes hozzájárulás szükséges. <span class="todo" style="display:inline-block;margin:0">⚠ Amíg a weboldalon nincs sütibeállító/hozzájárulás-kezelő ablak (cookie consent banner), amely a Pixelt csak elfogadás után indítja el, addig ez a pont jogilag rendezetlen — ezt mindenképp pótolni kell (lásd a session végi technikai megjegyzést), és érdemes jogásszal is átnézetni.</span></p>
+    <p><strong>Meta Pixel (Facebook/Instagram hirdetéskövetés):</strong> a weboldal minden oldalán, de csak a hozzájárulásod után töltődik be a Meta (Facebook) hirdetési mérőkódja, a Meta Pixel. Ez a látogatás tényét (oldalmegtekintés), illetve bizonyos esetekben konkrét eseményeket (pl. időpontfoglalás megkezdése/sikeres foglalás, hírlevél-feliratkozás) küld a Meta felé, és ehhez sütit (elsősorban <code>_fbp</code>) helyez el a böngésződben. Ennek célja a hirdetéseink teljesítményének mérése és a hirdetések relevánsabbá tétele (pl. remarketing: korábbi látogatóknak való hirdetés-megjelenítés).</p>
+    <p>A Meta Pixel <strong>nem elengedhetetlenül szükséges (nem "essential") süti/technológia</strong>, ezért a használatához az alkalmazandó szabályozás (GDPR és az e-hírközlési/"cookie" szabályok) szerint előzetes hozzájárulás szükséges. Ezért a Meta Pixel csak akkor töltődik be, ha a weboldal alján megjelenő sávban az „Elfogadom” gombra kattintasz. Ha az „Elutasítom” gombot választod, a Pixel nem töltődik be, és a Meta felé semmilyen adat nem megy. A foglalás a hozzájárulásodtól függetlenül működik. A döntésedet a böngésződ helyi tárhelye (localStorage) jegyzi meg, hogy ne kérdezzünk rá minden oldalon.</p>
+    <p><strong>A döntésed módosítása, a hozzájárulás visszavonása:</strong> bármikor megteheted itt: <button type="button" onclick="window.lbCookieSettings && window.lbCookieSettings()" style="font:inherit;font-size:.9em;font-weight:700;color:var(--rosegold);background:none;border:1px solid currentColor;border-radius:999px;padding:.25rem .9rem;cursor:pointer">Süti-beállítások módosítása</button>. A visszavonás a következő oldalbetöltéstől érvényes; a korábban már elhelyezett <code>_fbp</code> sütit a böngésződ beállításaiban törölheted. A visszavonás nem érinti a korábbi adatkezelés jogszerűségét.</p>
     <p>A Meta adatkezeléséről és a hirdetés-beállítások (pl. személyre szabott hirdetések) kikapcsolásáról itt tájékozódhatsz: <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">facebook.com/privacy/policy</a> és <a href="https://www.facebook.com/adpreferences/" target="_blank" rel="noopener">facebook.com/adpreferences</a>.</p>
 
     <h2>6. A te jogaid</h2>

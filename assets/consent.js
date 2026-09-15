@@ -43,6 +43,10 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', PIXEL_ID);
     fbq('track', 'PageView');
+    // Jelzés az oldalnak, hogy a Pixel kész — pl. a koszonjuk.html erre küldi
+    // a Lead eseményt, ha a látogató ott helyben fogadja el a sütiket.
+    window.__lbPixelReady = true;
+    try{ document.dispatchEvent(new Event('lb:pixel-ready')); }catch(e){}
   }
 
   function getConsent(){
@@ -108,19 +112,35 @@
     });
   }
 
-  function init(){
+  // "Süti-beállítások módosítása" (adatvedelem.html): a korábbi döntés
+  // törlése és a sáv újbóli megjelenítése. Visszavonás a következő
+  // oldalbetöltéstől érvényes (a már betöltött Pixel az oldalon marad).
+  window.lbCookieSettings = function(){
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    var old = document.getElementById('cookieConsent');
+    if(old) old.remove();
+    showBanner();
+  };
+
+  // Ha már korábban elfogadta, a Pixel AZONNAL betöltődik (nem várunk a
+  // DOMContentLoaded-re), így az oldal saját inline szkriptjei — pl. a
+  // koszonjuk.html Lead eseménye — már élő fbq-t találnak.
+  if(getConsent() === 'accepted'){
+    loadMetaPixel();
+  }
+
+  // A banner viszont csak kész DOM-mal rakható ki.
+  function initBanner(){
     var consent = getConsent();
-    if(consent === 'accepted'){
-      loadMetaPixel();
-    }else if(consent !== 'rejected'){
+    if(consent !== 'accepted' && consent !== 'rejected'){
       showBanner();
     }
     // 'rejected' esetén szándékosan nem történik semmi — a Pixel nem töltődik be.
   }
 
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', initBanner);
   }else{
-    init();
+    initBanner();
   }
 })();

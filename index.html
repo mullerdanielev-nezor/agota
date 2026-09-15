@@ -210,6 +210,7 @@
   }
 </style>
 <script src="assets/consent.js"></script>
+<script src="assets/attribution.js"></script>
 </head>
 <body>
 
@@ -645,7 +646,7 @@
 
     if(opts.length === 0){
       currentStep = null;
-      currentChipRow = chips([{ label:'Többi időpont', other:true }], function(){ window.location.href = 'foglalas.html'; });
+      currentChipRow = chips([{ label:'Többi időpont', other:true }], function(){ window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html'); });
       return;
     }
 
@@ -654,7 +655,7 @@
     currentChipRow = chips(items, function(item){
       currentStep = null; currentChipRow = null;
       if(item.other){
-        window.location.href = 'foglalas.html';
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
         return;
       }
       state.date = item.date; state.dateLabel = item.label;
@@ -692,7 +693,7 @@
     currentChipRow = chips(opts, function(item){
       currentStep = null; currentChipRow = null;
       if(item.other){
-        window.location.href = 'foglalas.html';
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
         return;
       }
       state.time = item.label;
@@ -789,6 +790,7 @@
     botMsg('Egy pillanat, rögzítem a foglalást…', async function(){
       var id = slotId(state.date, state.time);
       var dKey = dateKey(state.date);
+      var confirmToken = crypto.randomUUID();
       try{
         await runTransaction(db, async function(transaction){
           var slotRef = doc(db, 'slots', id);
@@ -799,7 +801,11 @@
           transaction.set(bookingRef, {
             svc: state.svc, date: dKey, time: state.time,
             name: state.name, phone: state.phone, email: state.email, note: '',
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            status: 'pending',
+            confirmToken: confirmToken,
+            remindersSent: { r48: false, r24: false, r3: false, r1: false },
+            source: window.lbAttribution ? window.lbAttribution.get() : null
           });
         });
       }catch(err){
@@ -821,7 +827,8 @@
             svc: state.svc,
             date: state.date.toLocaleDateString('hu-HU'),
             time: state.time,
-            name: state.name, phone: state.phone, email: state.email, note: ''
+            name: state.name, phone: state.phone, email: state.email, note: '',
+            id: id, confirmToken: confirmToken
           })
         });
         if(!mailRes.ok){
@@ -832,7 +839,7 @@
       }
 
       try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=12000';
+      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=12000&b=' + encodeURIComponent(id);
     });
   }
 

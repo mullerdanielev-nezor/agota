@@ -219,6 +219,7 @@ footer a{color:var(--rosegold)}
 }
 </style>
 <script src="assets/consent.js"></script>
+<script src="assets/attribution.js"></script>
 </head>
 <body>
 
@@ -793,7 +794,8 @@ footer a{color:var(--rosegold)}
           createdAt: serverTimestamp(),
           status: 'pending',
           confirmToken: confirmToken,
-          remindersSent: { r48: false, r24: false, r3: false, r1: false }
+          remindersSent: { r48: false, r24: false, r3: false, r1: false },
+          source: window.lbAttribution ? window.lbAttribution.get() : null
         });
       });
     }catch(err){
@@ -831,7 +833,21 @@ footer a{color:var(--rosegold)}
       console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
     }
 
-    if(window.fbTrack) fbTrack('Schedule', { content_name: selectedSvc });
+    // Meta Lead + Schedule — itt nincs köszönőoldal, ezért helyben küldjük.
+    // Elfogadott sütiknél azonnal; ha a látogató csak most fogadja el, a
+    // consent.js jelzésére. Elutasításkor semmi nem megy ki.
+    var leadSent = false;
+    function sendLead(){
+      if(leadSent || typeof fbq !== 'function') return;
+      leadSent = true;
+      fbq('track', 'Lead', { content_name: selectedSvc, value: 12000, currency: 'HUF' }, { eventID: 'lead_' + id });
+      fbq('track', 'Schedule', { content_name: selectedSvc }, { eventID: 'schedule_' + id });
+    }
+    if(typeof fbq === 'function'){
+      sendLead();
+    }else{
+      document.addEventListener('lb:pixel-ready', sendLead, { once: true });
+    }
     try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
 
     // Nem navigalunk el sehova — a visszaigazolas itt, helyben jelenik meg.

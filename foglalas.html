@@ -141,6 +141,7 @@
   }
 </style>
 <script src="assets/consent.js"></script>
+<script src="assets/attribution.js"></script>
 </head>
 <body>
 
@@ -535,7 +536,8 @@
           createdAt: serverTimestamp(),
           status: 'pending',
           confirmToken: confirmToken,
-          remindersSent: { r48: false, r24: false, r3: false, r1: false }
+          remindersSent: { r48: false, r24: false, r3: false, r1: false },
+          source: window.lbAttribution ? window.lbAttribution.get() : null
         });
       });
     }catch(err){
@@ -576,7 +578,7 @@
     }
 
     try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-    location.href = 'koszonjuk.html?svc=' + encodeURIComponent(selectedSvc || 'Idopontfoglalas') + '&value=12000';
+    location.href = 'koszonjuk.html?svc=' + encodeURIComponent(selectedSvc || 'Idopontfoglalas') + '&value=12000&b=' + encodeURIComponent(id);
     return false;
   }
   window.submitBooking = submitBooking;
