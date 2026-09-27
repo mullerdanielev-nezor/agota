@@ -664,6 +664,26 @@ footer a{color:var(--rosegold)}
   var HU_MONTH_ABBR = ['jan.','febr.','márc.','ápr.','máj.','jún.','júl.','aug.','szept.','okt.','nov.','dec.'];
   var today = new Date(); today.setHours(0,0,0,0);
   var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
+  var SLOT_MIN = 30;
+  // Kezelesenkenti idotartam (perc) — ami nincs felsorolva, az 30 perces.
+  // Ugyanaz a lista, mint a foglalas.html-en, hogy a ket foglalorendszer
+  // ne fogialhassa le kettesevel ugyanazt az idot.
+  var SERVICE_DURATION_MIN = {
+    '4 az 1-ben alakformáló kezelés': 120,
+    'Konzultáció / egyéb': 120
+  };
+  function durationForSvc(svc){ return SERVICE_DURATION_MIN[svc] || SLOT_MIN; }
+  function slotsNeeded(svc){ return Math.max(1, Math.round(durationForSvc(svc) / SLOT_MIN)); }
+  function timeToMin(t){ var p = t.split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+  function addMinutes(t, min){
+    var total = timeToMin(t) + min;
+    return pad2(Math.floor(total / 60)) + ':' + pad2(total % 60);
+  }
+  function spanTimes(startTime, count){
+    var out = [];
+    for(var i = 0; i < count; i++) out.push(addMinutes(startTime, i * SLOT_MIN));
+    return out;
+  }
 
   // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
   var LEAD_MS = 2 * 60 * 60 * 1000;
@@ -796,10 +816,17 @@ footer a{color:var(--rosegold)}
     return row;
   }
 
+  // A kivalasztott kezeleshez szukseges osszes egymast koveto 30 perces blokk szabad-e.
+  function canBookSpan(d, startTime, svc){
+    var n = slotsNeeded(svc);
+    return spanTimes(startTime, n).every(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+  }
+
   // Egy adott napon van-e legalabb egy szabad (nem foglalt, nem tul kozeli) idopont —
-  // a live "takenSlots" cache-bol, kulon lekerdezes nelkul.
+  // a live "takenSlots" cache-bol, kulon lekerdezes nelkul — a valasztott kezeles
+  // idotartamat figyelembe veve.
   function dayHasFreeSlot(d){
-    return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+    return ALL_SLOTS.some(function(t){ return canBookSpan(d, t, state.svc); });
   }
 
   // Vegignezi a kovetkezo 30 napot, es csak azokat adja vissza (max 6-ot), amelyeken tenyleg van szabad idopont.
@@ -823,14 +850,20 @@ footer a{color:var(--rosegold)}
 
     if(opts.length === 0){
       currentStep = null;
-      currentChipRow = chips([{ label:'Többi időpont', other:true }], function(){ window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html'); });
+      currentChipRow = chips([{ label:'← Másik kezelés', back:true }, { label:'Többi időpont', other:true }], function(item){
+        currentChipRow = null;
+        if(item.back){ askService(); return; }
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
+      });
       return;
     }
 
     var items = opts.map(function(o){ return { label:o.label, date:o.date }; });
+    items.push({ label:'← Másik kezelés', back:true });
     items.push({ label:'Többi időpont', other:true });
     currentChipRow = chips(items, function(item){
       currentStep = null; currentChipRow = null;
+      if(item.back){ askService(); return; }
       if(item.other){
         window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
         return;
@@ -859,7 +892,7 @@ footer a{color:var(--rosegold)}
   function renderTimeChips(){
     if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
     currentStep = 'time';
-    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!takenSlots[slotId(state.date, t)] || isTooSoon(state.date, t) }; });
+    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !canBookSpan(state.date, t, state.svc) }; });
     if(opts.every(function(o){ return o.taken; })){
       currentStep = null;
       botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });
@@ -963,18 +996,27 @@ footer a{color:var(--rosegold)}
       return;
     }
     botMsg('Egy pillanat, rögzítem a foglalást…', async function(){
-      var id = slotId(state.date, state.time);
+      var duration = durationForSvc(state.svc);
+      var spanCount = slotsNeeded(state.svc);
+      var span = spanTimes(state.time, spanCount);
       var dKey = dateKey(state.date);
+      var slotIds = span.map(function(t){ return slotId(state.date, t); });
+      var id = slotIds[0];
       var confirmToken = crypto.randomUUID();
       try{
         await runTransaction(db, async function(transaction){
-          var slotRef = doc(db, 'slots', id);
-          var slotSnap = await transaction.get(slotRef);
-          if(slotSnap.exists()) throw new Error('TAKEN');
+          var slotRefs = slotIds.map(function(sid){ return doc(db, 'slots', sid); });
+          var slotSnaps = [];
+          for(var i = 0; i < slotRefs.length; i++){
+            slotSnaps.push(await transaction.get(slotRefs[i]));
+          }
+          if(slotSnaps.some(function(s){ return s.exists(); })) throw new Error('TAKEN');
           var bookingRef = doc(db, 'bookings', id);
-          transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
+          slotRefs.forEach(function(ref){
+            transaction.set(ref, { taken: true, createdAt: serverTimestamp() });
+          });
           transaction.set(bookingRef, {
-            svc: state.svc, date: dKey, time: state.time,
+            svc: state.svc, date: dKey, time: state.time, durationMin: duration,
             name: state.name, phone: state.phone, email: state.email, note: 'Landing: landing.html (' + state.svc + ')',
             createdAt: serverTimestamp(),
             status: 'pending',
@@ -1021,15 +1063,16 @@ footer a{color:var(--rosegold)}
 
   function askGreeting(){
     var isCombo = state.svc.indexOf('4 az 1-ben') === 0;
-    botMsg('Szia! 👋 Ez a ' + state.svc + ' gyors foglalása' + (isCombo ? ' — első alkalom 12.000 Ft, ajándék hullámmasszázzsal.' : '.') + ' Melyik nap jönnél?', function(){
+    botMsg('Ez a ' + state.svc + ' gyors foglalása' + (isCombo ? ' — első alkalom 12.000 Ft, ajándék hullámmasszázzsal.' : '.') + ' Melyik nap jönnél?', function(){
       askDate();
     });
   }
 
   function askService(){
+    if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
     botMsg('Szia! 👋 Melyik kezelés érdekel?', function(){
       currentChipRow = chips([
-        { label:'HIEMT kezelés', svc:'HIEMT kezelés' },
+        { label:'HIEMT kezelés', svc:'HIEMT – izomépítés' },
         { label:'Hullámmasszázs', svc:'Hullámmasszázs' },
         { label:'4 az 1-ben kezelés', svc:'4 az 1-ben alakformáló kezelés' }
       ], function(item){
