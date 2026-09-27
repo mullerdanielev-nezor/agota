@@ -852,7 +852,7 @@ footer a{color:var(--rosegold)}
       currentStep = null;
       currentChipRow = chips([{ label:'← Másik kezelés', back:true }, { label:'Többi időpont', other:true }], function(item){
         currentChipRow = null;
-        if(item.back){ askService(); return; }
+        if(item.back){ askService(true); return; }
         window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
       });
       return;
@@ -863,7 +863,7 @@ footer a{color:var(--rosegold)}
     items.push({ label:'Többi időpont', other:true });
     currentChipRow = chips(items, function(item){
       currentStep = null; currentChipRow = null;
-      if(item.back){ askService(); return; }
+      if(item.back){ askService(true); return; }
       if(item.other){
         window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
         return;
@@ -1068,9 +1068,9 @@ footer a{color:var(--rosegold)}
     });
   }
 
-  function askService(){
+  function askService(isBack){
     if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
-    botMsg('Szia! 👋 Melyik kezelés érdekel?', function(){
+    botMsg(isBack ? 'Válasszunk másik kezelést!' : 'Szia! 👋 Melyik kezelés érdekel?', function(){
       currentChipRow = chips([
         { label:'HIEMT kezelés', svc:'HIEMT – izomépítés' },
         { label:'Hullámmasszázs', svc:'Hullámmasszázs' },
@@ -1084,7 +1084,7 @@ footer a{color:var(--rosegold)}
   }
 
   function start(){
-    askService();
+    askService(false);
   }
 
   subscribeSlots();
