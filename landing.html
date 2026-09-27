@@ -975,7 +975,7 @@ footer a{color:var(--rosegold)}
           transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
           transaction.set(bookingRef, {
             svc: state.svc, date: dKey, time: state.time,
-            name: state.name, phone: state.phone, email: state.email, note: 'Landing: landing.html (4 az 1-ben)',
+            name: state.name, phone: state.phone, email: state.email, note: 'Landing: landing.html (' + state.svc + ')',
             createdAt: serverTimestamp(),
             status: 'pending',
             confirmToken: confirmToken,
@@ -1003,7 +1003,7 @@ footer a{color:var(--rosegold)}
             date: state.date.toLocaleDateString('hu-HU'),
             time: state.time,
             name: state.name, phone: state.phone, email: state.email,
-            note: 'Landing: landing.html (4 az 1-ben)',
+            note: 'Landing: landing.html (' + state.svc + ')',
             id: id, confirmToken: confirmToken
           })
         });
@@ -1019,10 +1019,29 @@ footer a{color:var(--rosegold)}
     });
   }
 
-  function start(){
-    botMsg('Szia! 👋 Ez a 4 az 1-ben alakformáló kezelés gyors foglalása — első alkalom 12.000 Ft, ajándék hullámmasszázzsal. Melyik nap jönnél?', function(){
+  function askGreeting(){
+    var isCombo = state.svc.indexOf('4 az 1-ben') === 0;
+    botMsg('Szia! 👋 Ez a ' + state.svc + ' gyors foglalása' + (isCombo ? ' — első alkalom 12.000 Ft, ajándék hullámmasszázzsal.' : '.') + ' Melyik nap jönnél?', function(){
       askDate();
     });
+  }
+
+  function askService(){
+    botMsg('Szia! 👋 Melyik kezelés érdekel?', function(){
+      currentChipRow = chips([
+        { label:'HIEMT kezelés', svc:'HIEMT kezelés' },
+        { label:'Hullámmasszázs', svc:'Hullámmasszázs' },
+        { label:'4 az 1-ben kezelés', svc:'4 az 1-ben alakformáló kezelés' }
+      ], function(item){
+        currentChipRow = null;
+        state.svc = item.svc;
+        askGreeting();
+      });
+    });
+  }
+
+  function start(){
+    askService();
   }
 
   subscribeSlots();
