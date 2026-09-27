@@ -209,10 +209,7 @@
 
         <div class="col-right">
           <div class="step-label"><b>3</b> Időpont</div>
-          <div class="slots" id="slots">
-            <div class="slot locked">09:00</div><div class="slot locked">11:00</div><div class="slot locked">13:00</div>
-            <div class="slot locked">15:00</div><div class="slot locked">17:00</div><div class="slot locked">19:00</div>
-          </div>
+          <div class="slots" id="slots"></div>
 
           <div class="summary" id="summary">✦ <span id="summaryText"></span></div>
 
@@ -298,8 +295,40 @@
   var today = new Date(); today.setHours(0,0,0,0);
   var viewYear = today.getFullYear(), viewMonth = today.getMonth();
   var selectedDate = null, selectedSlot = null, selectedSvc = null;
-  var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
 
+  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+
+  // Nyitvatartas: 30 perces racs, utolso indulo idopont 19:00 — ez minden
+  // kezelesre (edg a 2 oras "4 az 1-ben"-re is) ervenyes, a kezeles ekkor
+  // mar tul is nyulhat a 19:00-an, nincs kulon "zarasig be kell ferjen" szabaly.
+  var OPEN_MIN = 9 * 60, LAST_START_MIN = 19 * 60, SLOT_MIN = 30;
+  var ALL_SLOTS = (function(){
+    var out = [];
+    for(var m = OPEN_MIN; m <= LAST_START_MIN; m += SLOT_MIN){
+      out.push(pad2(Math.floor(m / 60)) + ':' + pad2(m % 60));
+    }
+    return out;
+  })();
+
+  // Kezelesenkenti idotartam (perc) — ami nincs felsorolva, az 30 perces.
+  var SERVICE_DURATION_MIN = {
+    '4 az 1-ben alakformáló kezelés': 120,
+    'Konzultáció / egyéb': 120
+  };
+  function durationForSvc(svc){ return SERVICE_DURATION_MIN[svc] || SLOT_MIN; }
+  function slotsNeeded(svc){ return Math.max(1, Math.round(durationForSvc(svc) / SLOT_MIN)); }
+
+  function timeToMin(t){ var p = t.split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+  function addMinutes(t, min){
+    var total = timeToMin(t) + min;
+    return pad2(Math.floor(total / 60)) + ':' + pad2(total % 60);
+  }
+  // A kezeleshez szukseges osszes egymast koveto 30 perces blokk kezdopontja.
+  function spanTimes(startTime, count){
+    var out = [];
+    for(var i = 0; i < count; i++) out.push(addMinutes(startTime, i * SLOT_MIN));
+    return out;
+  }
   // Mai napra csak a mostanihoz kepest legalabb 2 oraval kesobbi idopont foglalhato.
   var LEAD_MS = 2 * 60 * 60 * 1000;
   function slotDateTime(d, t){
@@ -321,7 +350,6 @@
     console.warn('Firebase nincs konfigurálva – lásd assets/firebase-config.js');
   }
 
-  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
   function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
   function slotId(d, time){ return dateKey(d) + '_' + time; }
   function rangeBoundaryKey(d){ return dateKey(d) + '_00:00'; }
@@ -374,9 +402,14 @@
     });
   }
 
+  function canBookSpan(d, startTime, svc){
+    var n = slotsNeeded(svc);
+    return spanTimes(startTime, n).every(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+  }
+
   function dayHasFreeSlot(d){
     if(blockedDays[dateKey(d)]) return false;
-    return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
+    return ALL_SLOTS.some(function(t){ return canBookSpan(d, t, selectedSvc); });
   }
 
   function bindDayClick(dt, el){
@@ -445,6 +478,11 @@
       document.querySelectorAll('.svc-card').forEach(function(c){c.classList.remove('sel')});
       card.classList.add('sel');
       selectedSvc = card.querySelector('input').value;
+      // Az idotartam kezelesenkent mas, ezert a nap- es idopont-elerhetoseget ujra kell szamolni.
+      selectedSlot = null;
+      document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
+      renderCal();
+      if(selectedDate) loadSlotsForDate(selectedDate);
       updateSummary();
     });
   });
@@ -458,19 +496,34 @@
       updateSummary();
     });
   }
-  document.querySelectorAll('.slot').forEach(bindSlotClick);
 
-  // Az adott napon mar foglalt idopontokat a live "takenSlots" cache-bol jeloli —
-  // ez az onSnapshot figyeles miatt mindig friss, kulon lekerdezes nelkul.
+  // A 30 perces racs kezelesenkent (kivalasztott szolgaltatas idotartamatol fuggoen)
+  // mas-mas idopontokat enged foglalni, ezert a chipeket JS-bol epitjuk fel.
+  function renderSlotGrid(){
+    var wrap = document.getElementById('slots');
+    wrap.innerHTML = '';
+    ALL_SLOTS.forEach(function(t){
+      var el = document.createElement('div');
+      el.className = 'slot locked';
+      el.textContent = t;
+      bindSlotClick(el);
+      wrap.appendChild(el);
+    });
+  }
+  renderSlotGrid();
+
+  // Az adott napon, a kivalasztott kezeles idotartamahoz kepest mar foglalt vagy
+  // be nem fero idopontokat a live "takenSlots" cache-bol jeloli — ez az onSnapshot
+  // figyeles miatt mindig friss, kulon lekerdezes nelkul.
   function loadSlotsForDate(d){
     var slotEls = document.querySelectorAll('#slots .slot');
     slotEls.forEach(function(el){
       var t = el.textContent.trim();
       el.classList.remove('locked');
-      el.classList.toggle('taken', isTooSoon(d, t) || !!takenSlots[slotId(d, t)]);
+      el.classList.toggle('taken', !canBookSpan(d, t, selectedSvc));
     });
-    // Ha a kijelolt idopont idokozben foglalt lett, ejtsuk a kivalasztast.
-    if(selectedSlot && (isTooSoon(d, selectedSlot) || takenSlots[slotId(d, selectedSlot)])){
+    // Ha a kijelolt idopont idokozben foglalt/be nem fero lett, ejtsuk a kivalasztast.
+    if(selectedSlot && !canBookSpan(d, selectedSlot, selectedSvc)){
       selectedSlot = null;
       document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
       updateSummary();
@@ -517,21 +570,30 @@
       return false;
     }
 
-    var id = slotId(selectedDate, selectedSlot);
+    var duration = durationForSvc(selectedSvc);
+    var spanCount = slotsNeeded(selectedSvc);
+    var span = spanTimes(selectedSlot, spanCount);
     var dKey = dateKey(selectedDate);
+    var slotIds = span.map(function(t){ return slotId(selectedDate, t); });
+    var id = slotIds[0];
     var confirmToken = crypto.randomUUID();
 
     try{
       await runTransaction(db, async function(transaction){
-        var slotRef = doc(db, 'slots', id);
-        var slotSnap = await transaction.get(slotRef);
-        if(slotSnap.exists()){
+        var slotRefs = slotIds.map(function(sid){ return doc(db, 'slots', sid); });
+        var slotSnaps = [];
+        for(var i = 0; i < slotRefs.length; i++){
+          slotSnaps.push(await transaction.get(slotRefs[i]));
+        }
+        if(slotSnaps.some(function(s){ return s.exists(); })){
           throw new Error('TAKEN');
         }
         var bookingRef = doc(db, 'bookings', id);
-        transaction.set(slotRef, { taken: true, createdAt: serverTimestamp() });
+        slotRefs.forEach(function(ref){
+          transaction.set(ref, { taken: true, createdAt: serverTimestamp() });
+        });
         transaction.set(bookingRef, {
-          svc: selectedSvc, date: dKey, time: selectedSlot,
+          svc: selectedSvc, date: dKey, time: selectedSlot, durationMin: duration,
           name: name, phone: phone, email: email, note: note,
           createdAt: serverTimestamp(),
           status: 'pending',

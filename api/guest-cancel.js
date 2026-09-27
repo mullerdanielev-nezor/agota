@@ -28,6 +28,32 @@ function htmlPage(title, message) {
 <body><div class="card"><h1>${title}</h1><p>${message}</p></div></body></html>`;
 }
 
+// Kezelesenkenti idotartam (perc) — ugyanaz a lista, mint a foglalas.html-ben.
+// Regi (durationMin nelkuli) foglalasok mindig csak 1 db 30 perces "slots"
+// bejegyzest hasznaltak, ezert ezekre a fallback 30 perc helyes.
+var SERVICE_DURATION_MIN = {
+  '4 az 1-ben alakformáló kezelés': 120,
+  'Konzultáció / egyéb': 120
+};
+var SLOT_MIN = 30;
+function durationForBooking(booking) {
+  return booking.durationMin || SERVICE_DURATION_MIN[booking.svc] || SLOT_MIN;
+}
+function timeToMin(t) {
+  var p = String(t || '00:00').split(':');
+  return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+}
+function addMinutes(t, min) {
+  var total = timeToMin(t) + min;
+  var hh = Math.floor(total / 60), mm = total % 60;
+  return (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm;
+}
+function bookingSpanTimes(startTime, count) {
+  var out = [];
+  for (var i = 0; i < count; i++) out.push(addMinutes(startTime, i * SLOT_MIN));
+  return out;
+}
+
 function bookingDateTime(booking) {
   var parts = String(booking.date || '').split('-');
   var t = String(booking.time || '00:00').split(':');
@@ -109,8 +135,12 @@ module.exports = async function handler(req, res) {
     ));
   }
 
+  var spanCount = Math.max(1, Math.round(durationForBooking(booking) / SLOT_MIN));
+  var spanTimes = bookingSpanTimes(booking.time || '00:00', spanCount);
   await bookingRef.delete();
-  await db.collection('slots').doc(id).delete();
+  for (var i = 0; i < spanTimes.length; i++) {
+    await db.collection('slots').doc(booking.date + '_' + spanTimes[i]).delete();
+  }
   await notifyStudio(booking);
 
   return res.status(200).send(htmlPage(

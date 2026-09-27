@@ -305,6 +305,32 @@
     var auth = getAuth(app);
     var db = getFirestore(app);
 
+    // Kezelesenkenti idotartam (perc) — ugyanaz a lista, mint a foglalas.html-ben.
+    // A regi (2026-09 elotti) foglalasoknak nincs "durationMin" mezoje — ezek meg
+    // a 2 oras racson jottek letre, es csak 1 db "slots" bejegyzest hasznaltak,
+    // ezert az o eseten a durationForBooking 30 percet ad vissza (1 blokk).
+    var SERVICE_DURATION_MIN = {
+      '4 az 1-ben alakformáló kezelés': 120,
+      'Konzultáció / egyéb': 120
+    };
+    var SLOT_MIN = 30;
+    function durationForBooking(b){
+      return b.durationMin || SERVICE_DURATION_MIN[b.svc] || SLOT_MIN;
+    }
+    function timeToMin(t){ var p = String(t || '00:00').split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+    function addMinutes(t, min){
+      var total = timeToMin(t) + min;
+      var hh = Math.floor(total / 60), mm = total % 60;
+      return (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm;
+    }
+    // A foglalashoz tartozo osszes 30 perces blokk kezdopontja (pl. egy 2 oras
+    // "4 az 1-ben" foglalasnal 4 db, a tobbi kezelesnel mindig csak 1 db).
+    function bookingSpanTimes(dateOrTime, count){
+      var out = [];
+      for(var i = 0; i < count; i++) out.push(addMinutes(dateOrTime, i * SLOT_MIN));
+      return out;
+    }
+
     onAuthStateChanged(auth, function(user){
       if(user){
         document.getElementById('loginView').style.display = 'none';
@@ -570,8 +596,12 @@
             console.error('A lemondó email nem ment el, a törlés folytatódik:', mailErr);
           }
         }
+        var spanCount = Math.max(1, Math.round(durationForBooking(b) / SLOT_MIN));
+        var spanTimes = bookingSpanTimes(b.time || '00:00', spanCount);
         await deleteDoc(doc(db, 'bookings', b.id));
-        await deleteDoc(doc(db, 'slots', b.id));
+        for(var i = 0; i < spanTimes.length; i++){
+          await deleteDoc(doc(db, 'slots', slotId(b.date, spanTimes[i])));
+        }
         await loadBookings();
       }catch(err){
         console.error(err);
@@ -631,28 +661,38 @@
       btn.disabled = true;
       btn.textContent = 'Mentés...';
 
+      var duration = durationForBooking(b);
+      var spanCount = Math.max(1, Math.round(duration / SLOT_MIN));
+      var newSpanTimes = bookingSpanTimes(newTime, spanCount);
+      var oldSpanTimes = bookingSpanTimes(b.time || '00:00', spanCount);
+
       try{
         await runTransaction(db, async function(transaction){
-          var newSlotRef = doc(db, 'slots', newId);
-          var newSlotSnap = await transaction.get(newSlotRef);
-          if(newSlotSnap.exists()){
+          var newSlotRefs = newSpanTimes.map(function(t){ return doc(db, 'slots', slotId(newDate, t)); });
+          var newSlotSnaps = [];
+          for(var i = 0; i < newSlotRefs.length; i++){
+            newSlotSnaps.push(await transaction.get(newSlotRefs[i]));
+          }
+          if(newSlotSnaps.some(function(s){ return s.exists(); })){
             throw new Error('TAKEN');
           }
-          var oldSlotRef = doc(db, 'slots', b.id);
+          var oldSlotRefs = oldSpanTimes.map(function(t){ return doc(db, 'slots', slotId(b.date, t)); });
           var oldBookingRef = doc(db, 'bookings', b.id);
           var newBookingRef = doc(db, 'bookings', newId);
 
-          transaction.set(newSlotRef, { taken: true, createdAt: serverTimestamp() });
+          newSlotRefs.forEach(function(ref){
+            transaction.set(ref, { taken: true, createdAt: serverTimestamp() });
+          });
           transaction.set(newBookingRef, {
             svc: b.svc, name: b.name, phone: b.phone, email: b.email, note: b.note,
-            date: newDate, time: newTime,
+            date: newDate, time: newTime, durationMin: duration,
             createdAt: b.createdAt || serverTimestamp(),
             status: b.status || 'pending',
             confirmToken: b.confirmToken || null,
             remindersSent: { r48: false, r24: false, r3: false, r1: false },
             source: b.source || null
           });
-          transaction.delete(oldSlotRef);
+          oldSlotRefs.forEach(function(ref){ transaction.delete(ref); });
           transaction.delete(oldBookingRef);
         });
       }catch(err){
