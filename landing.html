@@ -125,10 +125,19 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero-offer-line{margin-top:20px;font-size:.96rem;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
 .hero-review{margin:20px auto 0;max-width:400px}
 .hero-review img{width:100%;display:block;border-radius:16px;border:1px solid var(--line);box-shadow:0 12px 30px rgba(224,62,99,.08)}
-.hero-photo-cta{position:relative;max-width:340px;margin:22px auto -22px;text-align:center}
+.hero-photo-row{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:22px}
+.hero-personal-note{max-width:340px;text-align:center}
+.hero-personal-note p{font-family:'Poppins',sans-serif;font-style:italic;font-weight:600;font-size:1.15rem;color:var(--plum);line-height:1.4;margin:0}
+.hero-personal-note .hpn-sign{display:block;margin-top:8px;font-size:.86rem;font-weight:700;color:var(--rosegold)}
+.hero-photo-cta{position:relative;max-width:340px;margin-bottom:-22px;text-align:center}
 .hero-photo-cta img{width:100%;display:block;filter:drop-shadow(0 18px 34px rgba(122,26,52,.22))}
 .hero-photo-btn{position:relative;z-index:2;margin-top:-30px}
 @media (max-width:480px){.hero-photo-cta{max-width:270px;margin-bottom:-16px}.hero-photo-btn{margin-top:-22px;padding:.85rem 1.5rem;font-size:.9rem}}
+@media (min-width:820px){
+  .hero-photo-row{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:36px;width:100%}
+  .hero-personal-note{flex:1;text-align:left}
+  .hero-photo-cta{margin-bottom:-22px;flex:none;margin-left:auto}
+}
 .hero-offer-line b{color:var(--rosegold);font-family:'Poppins',sans-serif;font-weight:800;font-size:1.2rem}
 .hero-offer-line s{color:var(--mokka);opacity:.7;margin:0 4px}
 .gift-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--plum);font-weight:700;font-size:.85rem;padding:.42em .95em .42em .5em;border-radius:999px;border:1px dashed rgba(224,62,99,.5)}
@@ -424,9 +433,15 @@ footer a{color:var(--rosegold)}
           <h1 class="reveal">A kezelés, amitől újra <span class="neon">jól érzed magad</span> a bőrödben.</h1>
           <div class="hero-kicker reveal">Hölgyek figyelmébe ajánlva</div>
           <p class="sub reveal">Hajdó Ágota vagyok. Célzott zsírbontással, bőrfeszesítéssel és alakformálással segítek — műtét és szenvedés nélkül, Nyíregyházán.</p>
-          <div class="hero-photo-cta reveal">
-            <img src="images/hero-agota-velemenyek.png" alt="Hajdó Ágota vendégértékelésekkel: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.” — Erika Soós, „Szuper kezelés csak ajánlani tudom!!!” — Krakampergerné Varga Timi" loading="eager" decoding="async">
-            <a href="#foglalas" class="btn-primary hero-photo-btn">Lefoglalom az időpontom →</a>
+          <div class="hero-photo-row reveal">
+            <div class="hero-personal-note">
+              <p>„Várlak szalonomban,<br>töltődj fel Nálam!”</p>
+              <span class="hpn-sign">— Ágota</span>
+            </div>
+            <div class="hero-photo-cta">
+              <img src="images/hero-agota-velemenyek.png" alt="Hajdó Ágota vendégértékelésekkel: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.” — Erika Soós, „Szuper kezelés csak ajánlani tudom!!!” — Krakampergerné Varga Timi" loading="eager" decoding="async">
+              <a href="#foglalas" class="btn-primary hero-photo-btn">Lefoglalom az időpontom →</a>
+            </div>
           </div>
         </div>
         <div class="hero-pic reveal">
