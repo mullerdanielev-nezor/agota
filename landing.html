@@ -125,6 +125,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 .hero-offer-line{margin-top:20px;font-size:.96rem;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px}
 .hero-review{margin:20px auto 0;max-width:400px}
 .hero-review img{width:100%;display:block;border-radius:16px;border:1px solid var(--line);box-shadow:0 12px 30px rgba(224,62,99,.08)}
+.hero-photo-cta{position:relative;max-width:340px;margin:22px auto -22px;text-align:center}
+.hero-photo-cta img{width:100%;display:block;filter:drop-shadow(0 18px 34px rgba(122,26,52,.22))}
+.hero-photo-btn{position:relative;z-index:2;margin-top:-30px}
+@media (max-width:480px){.hero-photo-cta{max-width:270px;margin-bottom:-16px}.hero-photo-btn{margin-top:-22px;padding:.85rem 1.5rem;font-size:.9rem}}
 .hero-offer-line b{color:var(--rosegold);font-family:'Poppins',sans-serif;font-weight:800;font-size:1.2rem}
 .hero-offer-line s{color:var(--mokka);opacity:.7;margin:0 4px}
 .gift-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--plum);font-weight:700;font-size:.85rem;padding:.42em .95em .42em .5em;border-radius:999px;border:1px dashed rgba(224,62,99,.5)}
@@ -420,10 +424,10 @@ footer a{color:var(--rosegold)}
           <h1 class="reveal"><span class="h1-line">4 az 1-ben kezelés</span><span class="neon h1-sub">feszesebb bőrért, formásabb alakért.</span></h1>
           <div class="hero-kicker reveal">Hölgyek figyelmébe ajánlva</div>
           <p class="sub reveal">Hajdó Ágota vagyok. Célzott zsírbontással, bőrfeszesítéssel és alakformálással segítek — műtét és szenvedés nélkül, Nyíregyházán.</p>
-          <div class="hero-ctas reveal">
-            <a href="#foglalas" class="btn-primary">Lefoglalom az időpontom →</a>
+          <div class="hero-photo-cta reveal">
+            <img src="images/hero-agota-velemenyek.png" alt="Hajdó Ágota vendégértékelésekkel: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.” — Erika Soós, „Szuper kezelés csak ajánlani tudom!!!” — Krakampergerné Varga Timi" loading="eager" decoding="async">
+            <a href="#foglalas" class="btn-primary hero-photo-btn">Lefoglalom az időpontom →</a>
           </div>
-          <div class="hero-review reveal"><img src="images/velemeny-erika-soos.jpeg" alt="Erika Soós Facebook-véleménye: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.”" loading="lazy" decoding="async"></div>
         </div>
         <div class="hero-pic reveal">
           <div class="cmp" id="cmp">
