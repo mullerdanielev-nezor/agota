@@ -1080,12 +1080,16 @@ footer a{color:var(--rosegold)}
   };
   function priceForSvc(svc){ return SERVICE_PRICE[svc] || 0; }
 
+  // Ezres-tagolas ponttal, ahogy az oldal tobbi araanal is (pl. "12.000 Ft") —
+  // a beepitett toLocaleString('hu-HU') szokozt hasznalna, ami itt nem illene a tobbihez.
+  function formatFt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
   function askGreeting(){
     var isCombo = state.svc.indexOf('4 az 1-ben') === 0;
     var price = priceForSvc(state.svc);
     var priceTxt = isCombo
-      ? ' — első alkalom ' + price.toLocaleString('hu-HU') + ' Ft, ajándék hullámmasszázzsal.'
-      : (price ? ' — ' + price.toLocaleString('hu-HU') + ' Ft.' : '.');
+      ? ' — első alkalom ' + formatFt(price) + ' Ft, ajándék hullámmasszázzsal.'
+      : (price ? ' — ' + formatFt(price) + ' Ft.' : '.');
     botMsg('Ez a ' + state.svc + ' gyors foglalása' + priceTxt + ' Melyik nap jönnél?', function(){
       askDate();
     });
