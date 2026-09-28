@@ -1057,13 +1057,26 @@ footer a{color:var(--rosegold)}
       }
 
       try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=12000&b=' + encodeURIComponent(id);
+      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=' + priceForSvc(state.svc) + '&b=' + encodeURIComponent(id);
     });
   }
 
+  // Kezelesenkenti ar (Ft) — a koszonjuk oldal Meta-ertekehez es az udvozlo
+  // uzenethez is ez a forras.
+  var SERVICE_PRICE = {
+    '4 az 1-ben alakformáló kezelés': 12000,
+    'HIEMT – izomépítés': 5000,
+    'Hullámmasszázs': 3000
+  };
+  function priceForSvc(svc){ return SERVICE_PRICE[svc] || 0; }
+
   function askGreeting(){
     var isCombo = state.svc.indexOf('4 az 1-ben') === 0;
-    botMsg('Ez a ' + state.svc + ' gyors foglalása' + (isCombo ? ' — első alkalom 12.000 Ft, ajándék hullámmasszázzsal.' : '.') + ' Melyik nap jönnél?', function(){
+    var price = priceForSvc(state.svc);
+    var priceTxt = isCombo
+      ? ' — első alkalom ' + price.toLocaleString('hu-HU') + ' Ft, ajándék hullámmasszázzsal.'
+      : (price ? ' — ' + price.toLocaleString('hu-HU') + ' Ft.' : '.');
+    botMsg('Ez a ' + state.svc + ' gyors foglalása' + priceTxt + ' Melyik nap jönnél?', function(){
       askDate();
     });
   }
