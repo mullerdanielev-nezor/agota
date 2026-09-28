@@ -52,7 +52,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 /* ===== TOP BAR ===== */
 .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
-.brand{font-family:'Poppins',sans-serif;font-weight:400;font-size:1.2rem;letter-spacing:.14em}
+.brand{font-family:'Poppins',sans-serif;font-weight:400;font-size:clamp(.82rem,3.6vw,1.2rem);letter-spacing:clamp(.03em,1.2vw,.14em);white-space:nowrap}
 .brand span{color:var(--rosegold)}
 .topbar-cta{background:var(--rosegold);color:#fff;padding:.6rem 1.3rem;border-radius:999px;font-size:.82rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;box-shadow:0 8px 18px -8px rgba(224,62,99,.55)}
 
