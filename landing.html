@@ -664,8 +664,17 @@ footer a{color:var(--rosegold)}
   var HU_DOW_NAMES = ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'];
   var HU_MONTH_ABBR = ['jan.','febr.','márc.','ápr.','máj.','jún.','júl.','aug.','szept.','okt.','nov.','dec.'];
   var today = new Date(); today.setHours(0,0,0,0);
-  var ALL_SLOTS = ['09:00','11:00','13:00','15:00','17:00','19:00'];
-  var SLOT_MIN = 30;
+  // Nyitvatartas: 30 perces racs, utolso indulo idopont 19:00 — ugyanaz a
+  // racs, mint a foglalas.html-en, hogy a ket foglalorendszer ne
+  // fogialhassa le ketszer ugyanazt az idot.
+  var OPEN_MIN = 9 * 60, LAST_START_MIN = 19 * 60, SLOT_MIN = 30;
+  var ALL_SLOTS = (function(){
+    var out = [];
+    for(var m = OPEN_MIN; m <= LAST_START_MIN; m += SLOT_MIN){
+      out.push(pad2(Math.floor(m / 60)) + ':' + pad2(m % 60));
+    }
+    return out;
+  })();
   // Kezelesenkenti idotartam (perc) — ami nincs felsorolva, az 30 perces.
   // Ugyanaz a lista, mint a foglalas.html-en, hogy a ket foglalorendszer
   // ne fogialhassa le kettesevel ugyanazt az idot.
