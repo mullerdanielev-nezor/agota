@@ -270,14 +270,7 @@
     <div class="sub" id="reschedSub"></div>
     <div class="row"><label for="r-date">Új dátum</label><input type="date" id="r-date"></div>
     <div class="row"><label for="r-time">Új időpont</label>
-      <select id="r-time">
-        <option value="09:00">09:00</option>
-        <option value="11:00">11:00</option>
-        <option value="13:00">13:00</option>
-        <option value="15:00">15:00</option>
-        <option value="17:00">17:00</option>
-        <option value="19:00">19:00</option>
-      </select>
+      <select id="r-time"></select>
     </div>
     <div class="modal-actions">
       <button type="button" class="btn btn-cancel" id="reschedCancel">Mégse</button>
@@ -330,6 +323,19 @@
       for(var i = 0; i < count; i++) out.push(addMinutes(dateOrTime, i * SLOT_MIN));
       return out;
     }
+
+    // Az áthelyezés időválasztója: ugyanaz a 30 perces rács, mint a foglalas.html-ben
+    // (09:00-tól az utolsó 19:00-s indulásig).
+    (function(){
+      var sel = document.getElementById('r-time');
+      for(var m = 9 * 60; m <= 19 * 60; m += SLOT_MIN){
+        var t = addMinutes('00:00', m);
+        var opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        sel.appendChild(opt);
+      }
+    })();
 
     onAuthStateChanged(auth, function(user){
       if(user){
@@ -666,9 +672,17 @@
       var newSpanTimes = bookingSpanTimes(newTime, spanCount);
       var oldSpanTimes = bookingSpanTimes(b.time || '00:00', spanCount);
 
+      // Ha az új időpont átfed a foglalás saját régi blokkjaival (ugyanazon a napon,
+      // pl. 10:00 -> 10:30 egy 2 órás kezelésnél), azokhoz nem nyúlunk: nem számítanak
+      // foglaltnak, és a slots szabály (update: false) miatt nem is írhatók újra.
+      var oldIds = oldSpanTimes.map(function(t){ return slotId(b.date, t); });
+      var newIds = newSpanTimes.map(function(t){ return slotId(newDate, t); });
+      var slotsToCreate = newIds.filter(function(id){ return oldIds.indexOf(id) === -1; });
+      var slotsToDelete = oldIds.filter(function(id){ return newIds.indexOf(id) === -1; });
+
       try{
         await runTransaction(db, async function(transaction){
-          var newSlotRefs = newSpanTimes.map(function(t){ return doc(db, 'slots', slotId(newDate, t)); });
+          var newSlotRefs = slotsToCreate.map(function(id){ return doc(db, 'slots', id); });
           var newSlotSnaps = [];
           for(var i = 0; i < newSlotRefs.length; i++){
             newSlotSnaps.push(await transaction.get(newSlotRefs[i]));
@@ -676,7 +690,7 @@
           if(newSlotSnaps.some(function(s){ return s.exists(); })){
             throw new Error('TAKEN');
           }
-          var oldSlotRefs = oldSpanTimes.map(function(t){ return doc(db, 'slots', slotId(b.date, t)); });
+          var oldSlotRefs = slotsToDelete.map(function(id){ return doc(db, 'slots', id); });
           var oldBookingRef = doc(db, 'bookings', b.id);
           var newBookingRef = doc(db, 'bookings', newId);
 
