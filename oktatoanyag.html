@@ -727,9 +727,9 @@ footer a{color:var(--rosegold)}
     slotEls.forEach(function(el){
       var t = el.textContent.trim();
       el.classList.remove('locked');
-      el.classList.toggle('taken', isTooSoon(d, t) || !!takenSlots[slotId(d, t)]);
+      el.classList.toggle('taken', !!blockedDays[dateKey(d)] || isTooSoon(d, t) || !!takenSlots[slotId(d, t)]);
     });
-    if(selectedSlot && (isTooSoon(d, selectedSlot) || takenSlots[slotId(d, selectedSlot)])){
+    if(selectedSlot && (blockedDays[dateKey(d)] || isTooSoon(d, selectedSlot) || takenSlots[slotId(d, selectedSlot)])){
       selectedSlot = null;
       document.querySelectorAll('.slot.sel').forEach(function(s){s.classList.remove('sel')});
       updateSummary();

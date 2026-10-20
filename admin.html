@@ -74,6 +74,10 @@
   td.name{font-family:'Fraunces',serif;font-size:1rem}
   .empty{padding:3rem 1rem;text-align:center;color:var(--mokka)}
   .count{font-size:.8rem;color:var(--mokka);margin-bottom:1rem}
+  .pager{display:none;align-items:center;justify-content:center;gap:1rem;margin-top:1rem}
+  .pager button{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rosegold);background:none;border:1px solid rgba(224,62,99,.3);border-radius:8px;padding:.55rem 1rem;cursor:pointer;font-family:'Nunito Sans',sans-serif}
+  .pager button:disabled{opacity:.35;cursor:default}
+  .pager .pg{font-size:.8rem;color:var(--mokka);min-width:4.5rem;text-align:center}
   .del-btn{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#a33;background:none;border:1px solid rgba(170,51,51,.35);border-radius:8px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
   .del-btn:hover{background:#a33;color:#fff}
   .del-btn:disabled{opacity:.5;cursor:not-allowed}
@@ -231,6 +235,7 @@
             </table>
             <div class="empty" id="allEmpty" style="display:none">Még nincs egyetlen foglalás sem.</div>
           </div>
+          <div class="pager" id="allPager"></div>
         </section>
       </div>
 
@@ -258,6 +263,7 @@
             </table>
             <div class="empty" id="emptyMsg" style="display:none">Még nincs egyetlen foglalás sem.</div>
           </div>
+          <div class="pager" id="bookPager"></div>
         </div>
       </div>
     </div>
@@ -374,6 +380,24 @@
     var bookingsByDate = {};
     var selectedDayKey = null;
     var blockedDays = {};
+    var PAGE_SIZE = 10;
+    var bookPage = null;   // null = nyitó oldal: a mai naphoz legközelebbi jövőbeli foglalás
+    var allPage = 0;
+
+    function renderPager(el, page, pages, go){
+      el.innerHTML = '';
+      if(pages <= 1){ el.style.display = 'none'; return; }
+      el.style.display = 'flex';
+      var prev = document.createElement('button');
+      prev.type = 'button'; prev.textContent = '‹ Előző'; prev.disabled = page <= 0;
+      prev.addEventListener('click', function(){ go(page - 1); });
+      var info = document.createElement('span');
+      info.className = 'pg'; info.textContent = (page + 1) + ' / ' + pages;
+      var next = document.createElement('button');
+      next.type = 'button'; next.textContent = 'Következő ›'; next.disabled = page >= pages - 1;
+      next.addEventListener('click', function(){ go(page + 1); });
+      el.appendChild(prev); el.appendChild(info); el.appendChild(next);
+    }
 
     function pad2(n){ return n < 10 ? '0' + n : '' + n; }
     function dateKey(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
@@ -445,6 +469,7 @@
         cell.addEventListener('click', (function(k){
           return function(){
             selectedDayKey = (selectedDayKey === k) ? null : k;
+            bookPage = null;
             renderCal();
             renderTable();
             renderBlockBtn();
@@ -526,6 +551,7 @@
     });
     document.getElementById('calClear').addEventListener('click', function(){
       selectedDayKey = null;
+      bookPage = null;
       renderCal();
       renderTable();
       renderBlockBtn();
@@ -535,6 +561,7 @@
       var tbody = document.getElementById('bookRows');
       var empty = document.getElementById('emptyMsg');
       var count = document.getElementById('countText');
+      var pager = document.getElementById('bookPager');
       tbody.innerHTML = '';
 
       var rows = selectedDayKey
@@ -550,14 +577,30 @@
         empty.textContent = selectedDayKey ? 'Ezen a napon nincs foglalás.' : 'Még nincs egyetlen foglalás sem.';
         empty.style.display = 'block';
         count.textContent = '';
+        pager.style.display = 'none';
         return;
       }
       empty.style.display = 'none';
+      var pages = Math.ceil(rows.length / PAGE_SIZE);
+      var page = bookPage;
+      if(page === null){
+        // Nyitó oldal: az első olyan foglalás oldala, ami ma vagy később van; ha nincs, az utolsó oldal.
+        var idx = 0, tk = dateKey(today);
+        if(!selectedDayKey){
+          idx = -1;
+          for(var i = 0; i < rows.length; i++){ if((rows[i].date || '') >= tk){ idx = i; break; } }
+          if(idx < 0) idx = rows.length - 1;
+        }
+        page = Math.floor(idx / PAGE_SIZE);
+      }
+      page = Math.max(0, Math.min(page, pages - 1));
+      bookPage = page;
+      renderPager(pager, page, pages, function(n){ bookPage = n; renderTable(); });
       count.textContent = selectedDayKey
         ? (rows.length + ' foglalás ezen a napon (' + selectedDayKey + ')')
         : (rows.length + ' foglalás összesen');
 
-      rows.forEach(function(b){
+      rows.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).forEach(function(b){
         var tr = document.createElement('tr');
         tr.innerHTML =
           '<td>' + escapeHtml(b.date || '') + '</td>' +
@@ -898,12 +941,17 @@
       var aRows = document.getElementById('allRows');
       var aEmpty = document.getElementById('allEmpty');
       aRows.innerHTML = '';
+      var aPager = document.getElementById('allPager');
       document.getElementById('allCount').textContent = allBookings.length ? '(' + allBookings.length + ' db)' : '';
       if(!allBookings.length){
         aEmpty.style.display = 'block';
+        aPager.style.display = 'none';
       }else{
         aEmpty.style.display = 'none';
-        allBookings.forEach(function(b){
+        var aPages = Math.ceil(allBookings.length / PAGE_SIZE);
+        allPage = Math.max(0, Math.min(allPage, aPages - 1));
+        renderPager(aPager, allPage, aPages, function(n){ allPage = n; renderStats(); });
+        allBookings.slice(allPage * PAGE_SIZE, (allPage + 1) * PAGE_SIZE).forEach(function(b){
           var tr = document.createElement('tr');
           tr.innerHTML =
             '<td class="muted">' + escapeHtml(fmtDateTime(createdDate(b))) + '</td>' +

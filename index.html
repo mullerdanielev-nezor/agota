@@ -527,6 +527,8 @@
     if(slotsReady) return Promise.resolve();
     return new Promise(function(res){ slotsReadyResolvers.push(res); });
   }
+  var slotsLoaded = false, blockedLoaded = false;
+  function checkSlotsReady(){ if(slotsLoaded && blockedLoaded) markSlotsReady(); }
   function markSlotsReady(){
     if(slotsReady) return;
     slotsReady = true;
@@ -538,6 +540,7 @@
     if(currentStep === 'date') renderDateChips();
     else if(currentStep === 'time') renderTimeChips();
   }
+  var blockedDays = {};
   function subscribeSlots(){
     if(!db){ markSlotsReady(); return; }
     var from = today;
@@ -550,11 +553,30 @@
     onSnapshot(q, function(snap){
       takenSlots = {};
       snap.forEach(function(docSnap){ takenSlots[docSnap.id] = true; });
-      markSlotsReady();
+      slotsLoaded = true;
+      checkSlotsReady();
       onSlotsChanged();
     }, function(err){
       console.error('Nem sikerult figyelni a foglalt idopontokat:', err);
-      markSlotsReady();
+      slotsLoaded = true;
+      checkSlotsReady();
+    });
+    // Az admin altal letiltott napok — ezekre a chatben sem lehet idopontot foglalni.
+    var qBlocked = query(
+      collection(db, 'blockedDays'),
+      where(documentId(), '>=', dateKey(from)),
+      where(documentId(), '<', dateKey(to))
+    );
+    onSnapshot(qBlocked, function(snap){
+      blockedDays = {};
+      snap.forEach(function(docSnap){ blockedDays[docSnap.id] = true; });
+      blockedLoaded = true;
+      checkSlotsReady();
+      onSlotsChanged();
+    }, function(err){
+      console.error('Nem sikerult figyelni a letiltott napokat:', err);
+      blockedLoaded = true;
+      checkSlotsReady();
     });
   }
   // Percenkent frissitjuk a "mai nap" hatart es a "tul koreli" idopontokat is,
@@ -622,6 +644,7 @@
   // Egy adott napon van-e legalabb egy szabad (nem foglalt, nem tul kozeli) idopont —
   // a live "takenSlots" cache-bol, kulon lekerdezes nelkul.
   function dayHasFreeSlot(d){
+    if(blockedDays[dateKey(d)]) return false;
     return ALL_SLOTS.some(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
   }
 
@@ -683,7 +706,7 @@
   function renderTimeChips(){
     if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
     currentStep = 'time';
-    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!takenSlots[slotId(state.date, t)] || isTooSoon(state.date, t) }; });
+    var opts = ALL_SLOTS.map(function(t){ return { label: t, taken: !!blockedDays[dateKey(state.date)] || !!takenSlots[slotId(state.date, t)] || isTooSoon(state.date, t) }; });
     if(opts.every(function(o){ return o.taken; })){
       currentStep = null;
       botMsg('Erre a napra sajnos már nincs szabad időpont — válassz másik napot!', function(){ askDate(); });

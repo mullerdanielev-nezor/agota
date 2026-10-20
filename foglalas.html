@@ -403,6 +403,7 @@
   }
 
   function canBookSpan(d, startTime, svc){
+    if(blockedDays[dateKey(d)]) return false;
     var n = slotsNeeded(svc);
     return spanTimes(startTime, n).every(function(t){ return !isTooSoon(d, t) && !takenSlots[slotId(d, t)]; });
   }
