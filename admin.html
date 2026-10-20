@@ -221,6 +221,7 @@
             </table>
             <div class="empty" id="guestEmpty" style="display:none">Nincs adat.</div>
           </div>
+          <div class="pager" id="guestPager"></div>
         </section>
 
         <section>
@@ -383,6 +384,8 @@
     var PAGE_SIZE = 10;
     var bookPage = null;   // null = nyitó oldal: a mai naphoz legközelebbi jövőbeli foglalás
     var allPage = 0;
+    var GUEST_PAGE_SIZE = 5;
+    var guestPage = 0;
 
     function renderPager(el, page, pages, go){
       el.innerHTML = '';
@@ -919,11 +922,16 @@
       var gEmpty = document.getElementById('guestEmpty');
       gRows.innerHTML = '';
       guestList.sort(function(a,b){ return b.n - a.n; });
+      var gPager = document.getElementById('guestPager');
       if(!guestList.length){
         gEmpty.style.display = 'block';
+        gPager.style.display = 'none';
       }else{
         gEmpty.style.display = 'none';
-        guestList.forEach(function(g){
+        var gPages = Math.ceil(guestList.length / GUEST_PAGE_SIZE);
+        guestPage = Math.max(0, Math.min(guestPage, gPages - 1));
+        renderPager(gPager, guestPage, gPages, function(n){ guestPage = n; renderStats(); });
+        guestList.slice(guestPage * GUEST_PAGE_SIZE, (guestPage + 1) * GUEST_PAGE_SIZE).forEach(function(g){
           g.dates.sort();
           var tr = document.createElement('tr');
           tr.innerHTML =
