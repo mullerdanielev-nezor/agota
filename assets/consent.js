@@ -68,7 +68,8 @@
       'align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}'+
       '#cookieConsent p{margin:0;font-size:.84rem;line-height:1.6;color:#3A0E1C;flex:1;min-width:240px}'+
       '#cookieConsent a{color:#E03E63;text-decoration:underline}'+
-      '#cookieConsent .cc-actions{display:flex;flex-wrap:nowrap;gap:.5rem}'+
+      /* explicit row: landing.html has its own .cc-actions (column) for the closing CTA */
+      '#cookieConsent .cc-actions{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:stretch;gap:.5rem;margin:0}'+
       '#cookieConsent button{font-family:\'Nunito Sans\',sans-serif;font-size:clamp(.66rem,2.6vw,.78rem);'+
       'font-weight:700;letter-spacing:.02em;padding:clamp(.5rem,2.2vw,.7rem) clamp(.7rem,3.4vw,1.3rem);'+
       'border-radius:999px;cursor:pointer;white-space:nowrap;transition:.2s}'+
@@ -76,8 +77,9 @@
       '#cookieConsent .cc-accept:hover{background:#7A1A34}'+
       '#cookieConsent .cc-reject{background:none;color:#A85C72;border:1px solid rgba(224,62,99,.35)}'+
       '#cookieConsent .cc-reject:hover{border-color:#E03E63;color:#E03E63}'+
-      '@media(max-width:600px){#cookieConsent .cc-actions{width:100%}'+
-      '#cookieConsent .cc-actions button{flex:1 1 0;min-width:0;text-align:center}}';
+      '@media(max-width:600px){#cookieConsent .cc-actions{width:100%;gap:.7rem}'+
+      '#cookieConsent .cc-actions button{flex:1 1 0;min-width:0;text-align:center;'+
+      'font-size:1rem;padding:.95rem 1rem;min-height:52px}}';
     var style = document.createElement('style');
     style.id = 'ccStyles';
     style.textContent = css;
