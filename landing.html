@@ -331,6 +331,9 @@ section{padding:80px 0}
 .chat-head .avatar{width:30px;height:30px;border-radius:50%;background:var(--rosegold);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
 .chat-head .status{font-size:.62rem;font-family:'Nunito Sans',sans-serif;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.35rem;margin-top:.15rem}
 .chat-head .status .dot{width:6px;height:6px;border-radius:50%;background:#4ade80}
+.chat-head .head-name{font-size:1.25rem;font-weight:700;line-height:1.3}
+.chat-head .head-name span{white-space:nowrap}
+.chat-head .head-photo{width:78px;height:78px;margin-block:-6px;border-radius:50%;object-fit:cover;border:2px solid var(--rosegold);box-shadow:0 0 0 3px rgba(224,62,99,.18);flex-shrink:0}
 .chat-body{padding:1.6rem 1.6rem 1.2rem;display:flex;flex-direction:column;gap:.85rem;min-height:400px;max-height:540px;overflow-y:auto;scroll-behavior:smooth;font-size:1.02rem}
 .bubble-row{display:flex;gap:.6rem;align-items:flex-end;animation:msgIn .3s ease}
 .bubble-row.user{flex-direction:row-reverse}
@@ -426,7 +429,7 @@ footer a{color:var(--rosegold)}
           <div class="hero-kicker reveal">Hölgyek figyelmébe ajánlva</div>
           <p class="sub reveal">Hajdó Ágota vagyok. Célzott zsírbontással, bőrfeszesítéssel és alakformálással segítek — műtét és szenvedés nélkül, Nyíregyházán.</p>
           <div class="hero-photo-cta reveal">
-            <img src="images/hero-agota-velemenyek.png" alt="Hajdó Ágota vendégértékelésekkel: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.” — Erika Soós, „Szuper kezelés csak ajánlani tudom!!!” — Krakampergerné Varga Timi" loading="eager" decoding="async">
+            <img src="images/hero-agota-velemenyek.webp" alt="Hajdó Ágota vendégértékelésekkel: „Köszönöm szépen a kezelést, látványos, pedig az első alkalom volt.” — Erika Soós, „Szuper kezelés csak ajánlani tudom!!!” — Krakampergerné Varga Timi" loading="eager" decoding="async">
             <a href="#foglalas" class="btn-primary hero-photo-btn">Lefoglalom az időpontom →</a>
           </div>
         </div>
@@ -462,11 +465,8 @@ footer a{color:var(--rosegold)}
         <div class="chat-warn" id="configWarning">⚠ A foglalási rendszer betöltése sikertelen. Kérlek hívj minket telefonon.</div>
         <div class="chat-card">
           <div class="chat-head">
-            <div class="avatar">A</div>
-            <div>
-              <div>Ágota</div>
-              <div class="status"><span class="dot"></span>Online, azonnal válaszol</div>
-            </div>
+            <img class="head-photo" src="images/agota-avatar.webp" alt="Hajdó Ágota" width="78" height="78" loading="lazy" decoding="async">
+            <div class="head-name"><span>Hajdó Ágota –</span> <span>Loft Of Beauty</span></div>
           </div>
           <div class="chat-body" id="chatBody"></div>
           <div class="chat-input-row" id="chatInputRow">
