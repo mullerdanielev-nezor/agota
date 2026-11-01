@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://loftofbeauty.hu/index.html</loc>
+    <loc>https://loftofbeauty.hu/</loc>
     <video:video>
       <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-kezeles.webp</video:thumbnail_loc>
       <video:title>A kezelések mozgásban – Loft of Beauty</video:title>
@@ -13,7 +13,7 @@
     </video:video>
   </url>
   <url>
-    <loc>https://loftofbeauty.hu/szolgaltatasok.html</loc>
+    <loc>https://loftofbeauty.hu/szolgaltatasok</loc>
     <video:video>
       <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-kezeles.webp</video:thumbnail_loc>
       <video:title>A kezelések mozgásban – Loft of Beauty</video:title>
@@ -34,7 +34,7 @@
     </video:video>
   </url>
   <url>
-    <loc>https://loftofbeauty.hu/vegleges-szortelenites.html</loc>
+    <loc>https://loftofbeauty.hu/vegleges-szortelenites</loc>
     <video:video>
       <video:thumbnail_loc>https://loftofbeauty.hu/images/video-thumb-szortelenites.webp</video:thumbnail_loc>
       <video:title>Végleges szőrtelenítés – Loft of Beauty</video:title>

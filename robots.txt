@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /admin.html
+Disallow: /admin
 
 Sitemap: https://loftofbeauty.hu/sitemap.xml
 Sitemap: https://loftofbeauty.hu/video-sitemap.xml

@@ -147,7 +147,7 @@ module.exports = async function handler(req, res) {
   try {
     var subscriberBody = SUBSCRIBER_TIPS_HTML || (
       '<p style="margin:0 0 14px">Köszönjük a feliratkozást! Hamarosan (pár napon belül) megkapod tőlünk a 3 tippet — most állítjuk össze a legfrissebb tartalommal.</p>' +
-      '<p style="margin:0">Addig is, ha szeretnéd, foglalj időpontot: <a href="https://loftofbeauty.hu/foglalas.html" style="color:#E03E63;font-weight:700;">loftofbeauty.hu/foglalas.html</a></p>'
+      '<p style="margin:0">Addig is, ha szeretnéd, foglalj időpontot: <a href="https://loftofbeauty.hu/foglalas" style="color:#E03E63;font-weight:700;">loftofbeauty.hu/foglalas</a></p>'
     );
     await sendViaBrevo({
       sender: SENDER,

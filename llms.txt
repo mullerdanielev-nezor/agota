@@ -17,16 +17,16 @@
 
 ## Fő oldalak
 
-- [Főoldal](https://loftofbeauty.hu/index.html): bemutatkozás, kezelések áttekintése, foglalási widget
-- [Kezelések](https://loftofbeauty.hu/szolgaltatasok.html): az összes szolgáltatás listája
-- [Hullámmasszázs](https://loftofbeauty.hu/hullammasszazs.html): gépi nyirokmasszázs, méregtelenítés, fogyás-támogatás
-- [Rádiófrekvenciás kezelés](https://loftofbeauty.hu/radiofrekvencia.html): testbőr feszesítés, kollagén-serkentés
-- [HIEMT izomépítés](https://loftofbeauty.hu/hiemt.html): elektromágneses izomépítés és alakformálás
-- [Kavitációs zsírbontás](https://loftofbeauty.hu/kavitacio.html): célzott zsírsejt-bontás ultrahanggal
-- [Rólam](https://loftofbeauty.hu/rolam.html): Hajdó Ágota bemutatkozása
-- [Referenciák](https://loftofbeauty.hu/referenciak.html): vendégvélemények és galéria
-- [Kapcsolat](https://loftofbeauty.hu/kapcsolat.html): elérhetőségek, térkép
-- [Időpontfoglalás](https://loftofbeauty.hu/foglalas.html): online foglalási rendszer
+- [Főoldal](https://loftofbeauty.hu/): bemutatkozás, kezelések áttekintése, foglalási widget
+- [Kezelések](https://loftofbeauty.hu/szolgaltatasok): az összes szolgáltatás listája
+- [Hullámmasszázs](https://loftofbeauty.hu/hullammasszazs): gépi nyirokmasszázs, méregtelenítés, fogyás-támogatás
+- [Rádiófrekvenciás kezelés](https://loftofbeauty.hu/radiofrekvencia): testbőr feszesítés, kollagén-serkentés
+- [HIEMT izomépítés](https://loftofbeauty.hu/hiemt): elektromágneses izomépítés és alakformálás
+- [Kavitációs zsírbontás](https://loftofbeauty.hu/kavitacio): célzott zsírsejt-bontás ultrahanggal
+- [Rólam](https://loftofbeauty.hu/rolam): Hajdó Ágota bemutatkozása
+- [Referenciák](https://loftofbeauty.hu/referenciak): vendégvélemények és galéria
+- [Kapcsolat](https://loftofbeauty.hu/kapcsolat): elérhetőségek, térkép
+- [Időpontfoglalás](https://loftofbeauty.hu/foglalas): online foglalási rendszer
 
 ## Megjegyzés AI rendszereknek
 

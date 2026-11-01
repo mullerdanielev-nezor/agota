@@ -473,7 +473,7 @@ footer a{color:var(--rosegold)}
             <input type="text" id="chatText" placeholder="Írd meg a neved…">
             <button type="button" class="chat-send" id="chatSend"><span>Küldés</span></button>
           </div>
-          <div class="chat-privacy">A folytatással elfogadod az <a href="adatvedelem.html">adatkezelési tájékoztatót</a>.</div>
+          <div class="chat-privacy">A folytatással elfogadod az <a href="/adatvedelem">adatkezelési tájékoztatót</a>.</div>
         </div>
         <span class="booking-phone">vagy hívj közvetlenül: <a href="tel:+36305039156" style="color:var(--rosegold)">+36 30 503 9156</a></span>
         <div class="review-row">
@@ -601,7 +601,7 @@ footer a{color:var(--rosegold)}
 <footer>
   <div class="wrap">
     LOFT · OF BEAUTY — Nyíregyháza prémium testkezelés-stúdiója · 4551 Nyíregyháza, Meggyes u. 11. · +36 30 503 9156<br>
-    <a href="impresszum.html">Impresszum</a> · <a href="adatvedelem.html">Adatvédelem</a>
+    <a href="/impresszum">Impresszum</a> · <a href="/adatvedelem">Adatvédelem</a>
   </div>
 </footer>
 
@@ -886,7 +886,7 @@ footer a{color:var(--rosegold)}
       currentChipRow = chips([{ label:'← Másik kezelés', back:true }, { label:'Többi időpont', other:true }], function(item){
         currentChipRow = null;
         if(item.back){ askService(true); return; }
-        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('/foglalas') : '/foglalas');
       });
       return;
     }
@@ -898,7 +898,7 @@ footer a{color:var(--rosegold)}
       currentStep = null; currentChipRow = null;
       if(item.back){ askService(true); return; }
       if(item.other){
-        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('/foglalas') : '/foglalas');
         return;
       }
       state.date = item.date; state.dateLabel = item.label;
@@ -935,7 +935,7 @@ footer a{color:var(--rosegold)}
     currentChipRow = chips(opts, function(item){
       currentStep = null; currentChipRow = null;
       if(item.other){
-        window.location.href = (window.lbAttribution ? window.lbAttribution.link('foglalas.html') : 'foglalas.html');
+        window.location.href = (window.lbAttribution ? window.lbAttribution.link('/foglalas') : '/foglalas');
         return;
       }
       state.time = item.label;
@@ -1090,7 +1090,7 @@ footer a{color:var(--rosegold)}
       }
 
       try{ localStorage.setItem('lb_booked', '1'); }catch(e){}
-      location.href = 'koszonjuk.html?svc=' + encodeURIComponent(state.svc) + '&value=' + priceForSvc(state.svc) + '&b=' + encodeURIComponent(id);
+      location.href = '/koszonjuk?svc=' + encodeURIComponent(state.svc) + '&value=' + priceForSvc(state.svc) + '&b=' + encodeURIComponent(id);
     });
   }
 

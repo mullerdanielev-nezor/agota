@@ -95,7 +95,7 @@
     bar.innerHTML =
       '<div class="cc-inner">' +
         '<p>A weboldal a Meta (Facebook/Instagram) hirdetéskövető kódját (Meta Pixel) csak a hozzájárulásoddal használja, a hirdetéseink teljesítményének méréséhez. ' +
-        '<a href="adatvedelem.html">Adatkezelési tájékoztató</a></p>' +
+        '<a href="/adatvedelem">Adatkezelési tájékoztató</a></p>' +
         '<div class="cc-actions">' +
           '<button type="button" class="cc-reject">Elutasítom</button>' +
           '<button type="button" class="cc-accept">Elfogadom</button>' +
