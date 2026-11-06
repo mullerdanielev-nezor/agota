@@ -58,6 +58,7 @@
   .svc-card input{position:absolute;opacity:0;pointer-events:none}
   .svc-card .t{font-family:'Fraunces',serif;font-size:.98rem;color:var(--ink);line-height:1.25}
   .svc-card .dur{font-size:.66rem;color:var(--mokka);margin-top:.25rem;display:block}
+  .svc-card .price{font-size:.78rem;font-weight:700;color:var(--rosegold);margin-top:.3rem;display:block}
   .svc-card .chk{position:absolute;top:.7rem;right:.7rem;width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(224,62,99,.35);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;transition:.2s}
   .svc-card.sel .chk{background:var(--rosegold);border-color:var(--rosegold)}
 
@@ -182,10 +183,10 @@
         <div class="col-left">
           <div class="step-label"><b>1</b> Kezelés</div>
           <div class="svc-grid" id="svcGrid">
-            <label class="svc-card featured"><input type="radio" name="svc" value="4 az 1-ben alakformáló kezelés" required><span class="chk">✓</span><span class="t">4 az 1-ben</span><span class="dur">alakformáló kezelés</span></label>
-            <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs"><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span></label>
+            <label class="svc-card featured"><input type="radio" name="svc" value="4 az 1-ben alakformáló kezelés" required><span class="chk">✓</span><span class="t">4 az 1-ben</span><span class="dur">alakformáló kezelés</span><span class="price">12.000 Ft</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="Hullámmasszázs"><span class="chk">✓</span><span class="t">Hullámmasszázs</span><span class="dur">gépi nyirokmasszázs</span><span class="price">3.000 Ft</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Rádiófrekvenciás kezelés"><span class="chk">✓</span><span class="t">Rádiófrekvencia</span><span class="dur">bőrfeszesítés</span></label>
-            <label class="svc-card"><input type="radio" name="svc" value="HIEMT – izomépítés"><span class="chk">✓</span><span class="t">HIEMT</span><span class="dur">izomépítés</span></label>
+            <label class="svc-card"><input type="radio" name="svc" value="HIEMT – izomépítés"><span class="chk">✓</span><span class="t">HIEMT</span><span class="dur">izomépítés</span><span class="price">5.000 Ft</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Kavitációs zsírbontás"><span class="chk">✓</span><span class="t">Kavitáció</span><span class="dur">zsírbontás</span></label>
             <label class="svc-card"><input type="radio" name="svc" value="Végleges szőrtelenítés"><span class="chk">✓</span><span class="t">Szőrtelenítés</span><span class="dur">diódalézeres, végleges</span></label>
             <label class="svc-card" style="grid-column:1/-1"><input type="radio" name="svc" value="Konzultáció / egyéb"><span class="chk">✓</span><span class="t">Konzultáció / egyéb</span></label>
@@ -531,11 +532,19 @@
     }
   }
 
+  // Kezelesenkenti ar (Ft); ahol nincs rogzitett ar, nem jelenik meg.
+  var SERVICE_PRICE = {
+    '4 az 1-ben alakformáló kezelés': 12000,
+    'HIEMT – izomépítés': 5000,
+    'Hullámmasszázs': 3000
+  };
+  function formatFt(n){ return String(n).replace(/B(?=(d{3})+(?!d))/g, '.'); }
+
   function updateSummary(){
     var box = document.getElementById('summary');
     var txt = document.getElementById('summaryText');
     var parts = [];
-    if(selectedSvc) parts.push(selectedSvc);
+    if(selectedSvc) parts.push(selectedSvc + (SERVICE_PRICE[selectedSvc] ? ' (' + formatFt(SERVICE_PRICE[selectedSvc]) + ' Ft)' : ''));
     if(selectedDate) parts.push(selectedDate.toLocaleDateString('hu-HU'));
     if(selectedSlot) parts.push(selectedSlot);
     if(parts.length){ box.classList.add('show'); txt.textContent = parts.join(' · '); }

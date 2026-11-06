@@ -623,7 +623,7 @@
     list.forEach(function(item){
       var c = document.createElement('div');
       c.className = 'chip' + (item.taken ? ' taken' : '') + (item.other ? ' chip-other' : '') + (item.featured ? ' chip-featured' : '');
-      c.textContent = item.label;
+      c.textContent = item.label + (item.price ? ' · ' + item.price : '');
       if(!item.taken){
         c.addEventListener('click', function(){ row.remove(); userMsg(item.label); cb(item); });
       }
@@ -869,9 +869,9 @@
   function start(){
     botMsg('Szia! 👋 Milyen kezelésre gondoltál?', function(){
       chips([
-        { label:'4 az 1-ben alakformáló kezelés', featured:true },
-        { label:'Hullámmasszázs' }, { label:'Rádiófrekvenciás kezelés' },
-        { label:'HIEMT – izomépítés' }, { label:'Kavitációs zsírbontás' },
+        { label:'4 az 1-ben alakformáló kezelés', price:'12.000 Ft', featured:true },
+        { label:'Hullámmasszázs', price:'3.000 Ft' }, { label:'Rádiófrekvenciás kezelés' },
+        { label:'HIEMT – izomépítés', price:'5.000 Ft' }, { label:'Kavitációs zsírbontás' },
         { label:'Végleges szőrtelenítés' }
       ], function(item){
         state.svc = item.label;

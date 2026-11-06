@@ -740,6 +740,7 @@ footer a{color:var(--rosegold)}
     var box = document.getElementById('summary');
     var txt = document.getElementById('summaryText');
     var parts = [];
+    if(selectedDate) parts.push('4 az 1-ben · 12.000 Ft');
     if(selectedDate) parts.push(selectedDate.toLocaleDateString('hu-HU'));
     if(selectedSlot) parts.push(selectedSlot);
     if(parts.length){ box.classList.add('show'); txt.textContent = parts.join(' · '); }

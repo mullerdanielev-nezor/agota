@@ -830,7 +830,7 @@ footer a{color:var(--rosegold)}
     list.forEach(function(item){
       var c = document.createElement('div');
       c.className = 'chip' + (item.taken ? ' taken' : '') + (item.other ? ' chip-other' : '');
-      c.textContent = item.label;
+      c.textContent = item.label + (item.price ? ' · ' + item.price : '');
       if(!item.taken){
         c.addEventListener('click', function(){ row.remove(); userMsg(item.label); cb(item); });
       }
@@ -1122,9 +1122,9 @@ footer a{color:var(--rosegold)}
     if(currentChipRow){ currentChipRow.remove(); currentChipRow = null; }
     botMsg(isBack ? 'Válasszunk másik kezelést!' : 'Szia! 👋 Melyik kezelés érdekel?', function(){
       currentChipRow = chips([
-        { label:'HIEMT kezelés', svc:'HIEMT – izomépítés' },
-        { label:'Hullámmasszázs', svc:'Hullámmasszázs' },
-        { label:'4 az 1-ben kezelés', svc:'4 az 1-ben alakformáló kezelés' }
+        { label:'HIEMT kezelés', svc:'HIEMT – izomépítés', price:'5.000 Ft' },
+        { label:'Hullámmasszázs', svc:'Hullámmasszázs', price:'3.000 Ft' },
+        { label:'4 az 1-ben kezelés', svc:'4 az 1-ben alakformáló kezelés', price:'12.000 Ft' }
       ], function(item){
         currentChipRow = null;
         state.svc = item.svc;
