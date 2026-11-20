@@ -52,9 +52,7 @@ p{color:var(--mokka);font-size:.98rem;margin-bottom:10px}
   function fireLead(){
     if(typeof fbq !== 'function') return;
     try{ if(sessionStorage.getItem(fireKey)) return; }catch(e){}
-    var opts = bookingId ? { eventID: 'lead_' + bookingId } : undefined;
-    fbq('track', 'Lead', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' }, opts);
-    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas' }, bookingId ? { eventID: 'schedule_' + bookingId } : undefined);
+    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' }, bookingId ? { eventID: 'schedule_' + bookingId } : undefined);
     try{ sessionStorage.setItem(fireKey, '1'); }catch(e){}
   }
 

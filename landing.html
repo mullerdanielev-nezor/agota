@@ -1126,7 +1126,7 @@ footer a{color:var(--rosegold)}
         { label:'4 az 1-ben kezelés', svc:'4 az 1-ben alakformáló kezelés', price:'12.000 Ft' }
       ], function(item){
         currentChipRow = null;
-        state.svc = item.svc; fbTrack('InitiateCheckout', { content_name: item.svc });
+        state.svc = item.svc; fbTrack('Lead', { content_name: item.svc });
         askGreeting();
       });
     });
