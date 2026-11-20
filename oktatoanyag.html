@@ -834,14 +834,14 @@ footer a{color:var(--rosegold)}
       console.error('Az email-értesítés nem ment el, de a foglalás rögzítve lett:', err);
     }
 
-    // Meta Schedule (a Lead a naptár első kattintásánál megy) — itt nincs köszönőoldal, ezért helyben küldjük.
+    // Meta InitiateCheckout (a Lead a naptár első kattintásánál megy) — itt nincs köszönőoldal, ezért helyben küldjük.
     // Elfogadott sütiknél azonnal; ha a látogató csak most fogadja el, a
     // consent.js jelzésére. Elutasításkor semmi nem megy ki.
     var leadSent = false;
     function sendLead(){
       if(leadSent || typeof fbq !== 'function') return;
       leadSent = true;
-      fbq('track', 'Schedule', { content_name: selectedSvc, value: 12000, currency: 'HUF' }, { eventID: 'schedule_' + id });
+      fbq('track', 'InitiateCheckout', { content_name: selectedSvc, value: 12000, currency: 'HUF' }, { eventID: 'initiate_' + id });
     }
     if(typeof fbq === 'function'){
       sendLead();

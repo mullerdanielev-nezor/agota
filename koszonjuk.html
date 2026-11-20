@@ -52,7 +52,7 @@ p{color:var(--mokka);font-size:.98rem;margin-bottom:10px}
   function fireLead(){
     if(typeof fbq !== 'function') return;
     try{ if(sessionStorage.getItem(fireKey)) return; }catch(e){}
-    fbq('track', 'Schedule', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' }, bookingId ? { eventID: 'schedule_' + bookingId } : undefined);
+    fbq('track', 'InitiateCheckout', { content_name: svc || 'Idopontfoglalas', value: value, currency: 'HUF' }, bookingId ? { eventID: 'initiate_' + bookingId } : undefined);
     try{ sessionStorage.setItem(fireKey, '1'); }catch(e){}
   }
 
